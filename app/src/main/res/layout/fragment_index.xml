@@ -1,181 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#A4F1F1F1">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="#A4F1F1F1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingBottom="5dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="20dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginBottom="5dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp">
 
-                <TextView
-                    android:id="@+id/title_time"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:gravity="center"
-                    android:text="时间" />
-
-                <RelativeLayout
-                    android:id="@+id/time_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/index_spinner"
-                    android:gravity="center"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/time"
+                        android:id="@+id/title_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="时间" />
+
+                    <RelativeLayout
+                        android:id="@+id/time_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2020年12月"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:layout_gravity="center"
+                        android:background="@drawable/index_spinner"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp">
 
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/time"
-                        android:src="@drawable/index_arrow_down" />
-                </RelativeLayout>
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2020年12月"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/time"
+                            android:src="@drawable/index_arrow_down" />
+                    </RelativeLayout>
+                </LinearLayout>
 
-                <TextView
-
-                    android:id="@+id/title_budget"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:gravity="center"
-                    android:text="收支" />
-
-                <RelativeLayout
-
-                    android:id="@+id/category_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/index_spinner"
-                    android:gravity="center"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/category"
+
+                        android:id="@+id/title_budget"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="收支" />
+
+                    <RelativeLayout
+
+                        android:id="@+id/category_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="全部"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:layout_gravity="center"
+                        android:background="@drawable/index_spinner"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp">
 
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/category"
-                        android:src="@drawable/index_arrow_down" />
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="全部"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/category"
+                            android:src="@drawable/index_arrow_down" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:id="@+id/title_income_in_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="收入" />
+
+                    <TextView
+                        android:id="@+id/income_in_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:gravity="center"
+                        android:text="+0.00"
+                        android:textColor="#8BC34A" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_outcome_in_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="支出" />
+
+                    <TextView
+                        android:id="@+id/outcome_in_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:gravity="center"
+                        android:text="-0.00"
+                        android:textColor="#E91E63" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-
-                    android:id="@+id/title_income_in_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:gravity="center"
-                    android:text="收入" />
-
-                <TextView
-                    android:id="@+id/income_in_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="2dp"
-                    android:gravity="center"
-                    android:text="+315.00"
-                    android:textColor="#8BC34A" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/title_outcome_in_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:gravity="center"
-                    android:text="支出" />
-
-                <TextView
-                    android:id="@+id/outcome_in_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="2dp"
-                    android:gravity="center"
-                    android:text="-545.00"
-                    android:textColor="#E91E63" />
-            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_budget"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                tools:listitem="@layout/item_budget" />
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_budget"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_budget" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_new_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="15dp"
+            app:borderWidth="0dp"
+            android:backgroundTint="#29B6F6"
+            android:src="@drawable/index_float_botton_bg"
+            app:fabSize="mini" />
 
-    </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="15dp"
-        android:backgroundTint="#29B6F6"
-        android:src="@drawable/index_float_botton_bg"
-        app:fabSize="mini" />
-
-</FrameLayout>
+    </FrameLayout>
+</layout>

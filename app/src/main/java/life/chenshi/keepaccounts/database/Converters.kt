@@ -1,0 +1,33 @@
+package life.chenshi.keepaccounts.database
+
+import androidx.room.TypeConverter
+import java.math.BigDecimal
+import java.util.*
+
+/**
+ * 数据类型转换
+ */
+class Converters {
+
+    // 时间戳转日期
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
+    }
+
+    // 日期转时间戳
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time
+    }
+
+    @TypeConverter
+    fun fromInt(value: Int?): BigDecimal? {
+        return value?.let { BigDecimal(it) }
+    }
+
+    @TypeConverter
+    fun bigDecimalToInt(bigDecimal: BigDecimal?): Int? {
+        return bigDecimal?.toInt()
+    }
+}

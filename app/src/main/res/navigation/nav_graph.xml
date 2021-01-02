@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/indexFragment">
+
+    <fragment
+        android:id="@+id/indexFragment"
+        android:name="life.chenshi.keepaccounts.ui.index.IndexFragment"
+        android:label="IndexFragment"
+        tools:layout="@layout/fragment_index">
+        <action
+            android:id="@+id/action_indexFragment_to_newRecordActivity"
+            app:destination="@id/newRecordActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="life.chenshi.keepaccounts.ui.setting.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting"/>
+    <fragment
+        android:id="@+id/analyzeFragment"
+        android:name="life.chenshi.keepaccounts.ui.anaylze.AnalyzeFragment"
+        android:label="AnalyzeFragment"
+        tools:layout="@layout/fragment_anaylze"/>
+    <activity
+        android:id="@+id/newRecordActivity"
+        android:name="life.chenshi.keepaccounts.ui.newrecord.NewRecordActivity"
+        android:label="NewRecordActivity"
+        tools:layout="@layout/activity_new_record"/>
+</navigation>
