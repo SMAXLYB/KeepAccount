@@ -1,9 +1,8 @@
 package life.chenshi.keepaccounts.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import java.util.*
 
 @Dao
 interface RecordDao {
@@ -20,7 +19,8 @@ interface RecordDao {
     suspend fun updateRecord(record: Record)
 
     // // 查 设计多个表查询可以使用@Transaction
-    // @Query()
-    // suspend fun get
+    // @Transaction
+    @Query("SELECT * from tb_records WHERE time BETWEEN :from AND :to ORDER BY time DESC")
+    fun getRecordByDateRange(from: Date, to: Date): LiveData<List<Record>>
 
 }

@@ -2,12 +2,12 @@ package life.chenshi.keepaccounts.ui.newrecord
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.base.BaseActivity
 import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.utils.BigDecimalUtil
@@ -15,7 +15,7 @@ import life.chenshi.keepaccounts.utils.DateUtils
 import java.math.BigDecimal
 import java.util.*
 
-class NewRecordActivity : AppCompatActivity() {
+class NewRecordActivity : BaseActivity() {
     private lateinit var mBinding: ActivityNewRecordBinding
     private val mNewRecordViewModel: NewRecordViewModel by lazy { ViewModelProvider(this)[NewRecordViewModel::class.java] }
 
@@ -93,13 +93,15 @@ class NewRecordActivity : AppCompatActivity() {
 
         //提交
         mBinding.btnSubmit.setOnClickListener {
-            val money: BigDecimal = BigDecimalUtil.yuan2FenBD("12.34")
+            val money: BigDecimal = BigDecimalUtil.yuan2FenBD(mBinding.etMoney.text.toString())
             val remark = mBinding.etRemark.text.toString()
             val date = mCurrentChooseCalendar.time
 
             mNewRecordViewModel.insertRecord(
-                Record(null, money, remark, date, 1, 1)
+                Record(null, money, remark, date, 0, 0)
             )
+
+            finish()
         }
     }
 }

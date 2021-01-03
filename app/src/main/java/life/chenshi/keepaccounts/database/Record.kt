@@ -28,4 +28,9 @@ data class Record @JvmOverloads constructor(
     var recordType: Int
 )
 
+object RecordType{
+    const val OUTCOME =0;
+    const val INCOME = 1;
+}
+
 

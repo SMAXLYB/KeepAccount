@@ -23,7 +23,7 @@ class Converters {
 
     @TypeConverter
     fun fromInt(value: Int?): BigDecimal? {
-        return value?.let { BigDecimal(it) }
+        return value?.let { BigDecimal(it).movePointLeft(2)}
     }
 
     @TypeConverter
