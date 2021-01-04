@@ -63,7 +63,7 @@
                             android:layout_height="10dp"
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@id/time"
-                            android:src="@drawable/index_arrow_down" />
+                            android:src="@drawable/index_arrow_down_white" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -107,7 +107,7 @@
                             android:layout_height="10dp"
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@id/category"
-                            android:src="@drawable/index_arrow_down" />
+                            android:src="@drawable/index_arrow_down_white" />
                     </RelativeLayout>
                 </LinearLayout>
 

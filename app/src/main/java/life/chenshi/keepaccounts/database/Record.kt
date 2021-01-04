@@ -28,9 +28,39 @@ data class Record @JvmOverloads constructor(
     var recordType: Int
 )
 
-object RecordType{
-    const val OUTCOME =0;
+object RecordType {
+    const val OUTCOME = 0;
     const val INCOME = 1;
+}
+
+object Category {
+    const val GOUWU = 0;
+    const val CHIFAN = 1;
+    const val JIAOTONG = 2;
+    const val YILIAO = 3;
+    const val ZHUFANG = 4;
+    const val TONGXUN = 5;
+    const val GONGZI = 6;
+    const val HONGBAO = 7;
+    const val JIJIN = 8;
+    const val JIANZHI = 9;
+    const val LIXI = 10;
+
+    fun convert2String(category: Int): String {
+        return when (category) {
+            GOUWU -> "购物"
+            CHIFAN -> "吃饭"
+            JIAOTONG -> "交通"
+            YILIAO -> "医疗"
+            ZHUFANG -> "住房"
+            TONGXUN -> "通讯"
+            GONGZI -> "工资"
+            HONGBAO -> "红包"
+            JIJIN -> "基金"
+            JIANZHI -> "兼职"
+            else -> "利息"
+        }
+    }
 }
 
 

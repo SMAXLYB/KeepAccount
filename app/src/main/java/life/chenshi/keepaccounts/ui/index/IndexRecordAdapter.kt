@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.database.Category
 import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.ItemBudgetBinding
@@ -44,7 +45,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
             )
             itemBudgetDetailBinding.apply {
                 // 支出主题
-                itemBudgetDetailTitle.text = it.category.toString()
+                itemBudgetDetailTitle.text = Category.convert2String(it.category)
                 // 备注
                 if (!it.remark.isNullOrEmpty()) {
                     with(itemBudgetDetailRemark) {
@@ -52,7 +53,8 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
                         visibility = View.VISIBLE
                     }
                 }
-
+                // 时间
+                itemBudgetDetailCostTime.text = DateUtils.date2String(it.time,DateUtils.HOUR_MINUTE)
                 if (it.recordType == RecordType.OUTCOME) {
                     // 圆点
                     with(itemBudgetDetailIcon){
@@ -77,6 +79,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
         }
 
         holder.binding.apply {
+            // 日期
             itemBudgetDate.text = DateUtils.date2MonthDay(recordList[0].time)
             itemBudgetTotalIncome.text = "总收入"
             itemBudgetTotalOutcome.text = "总支出"
