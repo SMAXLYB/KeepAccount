@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import life.chenshi.keepaccounts.R
@@ -16,14 +16,12 @@ import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.utils.BigDecimalUtil
 import life.chenshi.keepaccounts.utils.DateUtils
-import org.w3c.dom.Text
 import java.math.BigDecimal
 import java.util.*
 
 class NewRecordActivity : BaseActivity() {
     private lateinit var mBinding: ActivityNewRecordBinding
-    private val mNewRecordViewModel: NewRecordViewModel by lazy { ViewModelProvider(this)[NewRecordViewModel::class.java] }
-
+    private val mNewRecordViewModel: NewRecordViewModel by viewModels<NewRecordViewModel>()
     companion object {
         private const val TAG = "NewRecordActivity"
     }

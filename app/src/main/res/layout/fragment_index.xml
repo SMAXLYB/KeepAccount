@@ -51,7 +51,7 @@
                         android:paddingEnd="8dp">
 
                         <TextView
-                            android:id="@+id/time"
+                            android:id="@+id/index_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2020年12月"
@@ -62,7 +62,7 @@
                             android:layout_width="10dp"
                             android:layout_height="10dp"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/time"
+                            android:layout_toRightOf="@id/index_time"
                             android:src="@drawable/index_arrow_down_white" />
                     </RelativeLayout>
                 </LinearLayout>
