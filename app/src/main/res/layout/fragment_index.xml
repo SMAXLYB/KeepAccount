@@ -128,7 +128,7 @@
                         android:text="收入" />
 
                     <TextView
-                        android:id="@+id/income_in_month"
+                        android:id="@+id/index_income_in_month"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="2dp"
@@ -154,7 +154,7 @@
                         android:text="支出" />
 
                     <TextView
-                        android:id="@+id/outcome_in_month"
+                        android:id="@+id/index_outcome_in_month"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="2dp"

@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.bean.SumMoneyBean
+import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.utils.DateUtils
 import java.util.*
@@ -96,15 +98,31 @@ class IndexFragment : Fragment() {
             }.observe(viewLifecycleOwner) {
                 mAdapter?.setData(it)
             }
+
+        // 查询时间选择监听
         mIndexViewModel.queryDateLiveData.observe(viewLifecycleOwner) {
             val calendar = Calendar.getInstance().apply { timeInMillis = it }
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH) + 1
             mBinding.indexTime.text = "${year}年${month}月"
+            val monthStart = DateUtils.getMonthStart(year, month)
+            val monthEnd = DateUtils.getMonthEnd(year, month)
             mIndexViewModel.getRecordByDateRange(
-                DateUtils.getMonthStart(year, month),
-                DateUtils.getMonthEnd(year, month)
+                monthStart, monthEnd
             )
+            mIndexViewModel.getSumMoneyByDateRange(monthStart, monthEnd)
+                .observe(viewLifecycleOwner) { SumMoneyBeanList ->
+                    // 防止只有收入/支出的时候,另外一个没有变化
+                    mBinding.indexOutcomeInMonth.text = "-0.00"
+                    mBinding.indexIncomeInMonth.text = "+0.00"
+                    SumMoneyBeanList.forEach {
+                        if (it.recordType == RecordType.OUTCOME) {
+                            mBinding.indexOutcomeInMonth.text = "-${it.sumMoney}"
+                        } else {
+                            mBinding.indexIncomeInMonth.text = "+${it.sumMoney}"
+                        }
+                    }
+                }
         }
     }
 }

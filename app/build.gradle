@@ -78,6 +78,6 @@ dependencies {
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
     // 时间格式化
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.4.Final'
-    // 图标
+    // 图表
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

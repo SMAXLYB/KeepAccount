@@ -1,8 +1,10 @@
 package life.chenshi.keepaccounts.ui.index
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import life.chenshi.keepaccounts.bean.SumMoneyBean
 import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordDatabase
 import life.chenshi.keepaccounts.utils.DateUtils
@@ -28,6 +30,13 @@ class IndexViewModel : ViewModel() {
         recordsByDateRangeLiveData.addSource(recordDAO.getRecordByDateRange(from, to)) {
             recordsByDateRangeLiveData.value = it
         }
+    }
+
+    /**
+     * 根据日期范围取出收支的总金额
+     */
+    fun getSumMoneyByDateRange(from: Date,to: Date):LiveData<List<SumMoneyBean>>{
+        return recordDAO.getSumMoneyByDataRange(from,to)
     }
 
     /**

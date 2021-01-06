@@ -1,1 +1,13 @@
 /build
+*.swf
+*.air
+*.ipa
+*.apk
+*.lock
+*.bin
+*.iml
+*.txt
+*.ser
+*.name
+*.log
+.idea/

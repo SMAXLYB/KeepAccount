@@ -81,8 +81,8 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
         holder.binding.apply {
             // 日期
             itemBudgetDate.text = DateUtils.date2MonthDay(recordList[0].time)
-            itemBudgetTotalIncome.text = "总收入"
-            itemBudgetTotalOutcome.text = "总支出"
+            itemBudgetTotalIncome.text = ""
+            itemBudgetTotalOutcome.text = "金额"
         }
     }
 
