@@ -15,10 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.bean.SumMoneyBean
 import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
-import life.chenshi.keepaccounts.utils.DateUtils
+import life.chenshi.keepaccounts.utils.DateUtil
 import java.util.*
 
 class IndexFragment : Fragment() {
@@ -77,6 +76,7 @@ class IndexFragment : Fragment() {
                     .setThemeColor(Color.parseColor("#03A9F4"))
                     .setLabelText(year = "年", month = "月")
                     .setOnChoose { millisecond ->
+                        mBinding.srlIndexRefresh.isRefreshing = true
                         mIndexViewModel.queryDateLiveData.value = millisecond
                     }
                     .build()
@@ -88,6 +88,11 @@ class IndexFragment : Fragment() {
         mBinding.fabNewRecord.setOnClickListener {
             it.findNavController().navigate(R.id.action_indexFragment_to_newRecordActivity, null)
         }
+
+        // 下拉刷新
+        mBinding.srlIndexRefresh.setOnRefreshListener {
+            mIndexViewModel.getRecordByDataRange()
+        }
     }
 
     private fun initObserver() {
@@ -97,6 +102,9 @@ class IndexFragment : Fragment() {
                 mIndexViewModel.convert2RecordListGroupByDay(it)
             }.observe(viewLifecycleOwner) {
                 mAdapter?.setData(it)
+                if (mBinding.srlIndexRefresh.isRefreshing) {
+                    mBinding.srlIndexRefresh.isRefreshing = false
+                }
             }
 
         // 查询时间选择监听
@@ -105,8 +113,8 @@ class IndexFragment : Fragment() {
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH) + 1
             mBinding.indexTime.text = "${year}年${month}月"
-            val monthStart = DateUtils.getMonthStart(year, month)
-            val monthEnd = DateUtils.getMonthEnd(year, month)
+            val monthStart = DateUtil.getMonthStart(year, month)
+            val monthEnd = DateUtil.getMonthEnd(year, month)
             mIndexViewModel.getRecordByDateRange(
                 monthStart, monthEnd
             )

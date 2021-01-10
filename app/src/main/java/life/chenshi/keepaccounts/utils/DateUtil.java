@@ -8,9 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateUtils {
+public class DateUtil {
     @SuppressLint("SimpleDateFormat")
-    public static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM");
+    public static final DateFormat YEAR_MONTH_FORMAT = new SimpleDateFormat("yyyy年MM月");
+    @SuppressLint("SimpleDateFormat")
+    public static final DateFormat YEAR_FORMAT = new SimpleDateFormat("yyyy年");
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat ALL_FORMAT = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
     @SuppressLint("SimpleDateFormat")
@@ -18,7 +20,7 @@ public class DateUtils {
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat HOUR_MINUTE = new SimpleDateFormat("HH:mm");
     @SuppressLint("SimpleDateFormat")
-    public static final DateFormat YEAR_MONTH_DAY_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    public static final DateFormat YEAR_MONTH_DAY_FORMAT = new SimpleDateFormat("yyyy年MM月dd日");
 
 
     /**
@@ -86,11 +88,11 @@ public class DateUtils {
     }
 
     /**
-     * 获取当前年份
+     * 获取当前年月
      */
     public static String getCurrentYearMonth() {
         Calendar calendar = Calendar.getInstance();
-        return date2String(calendar.getTime(), FORMAT);
+        return date2String(calendar.getTime(), YEAR_MONTH_FORMAT);
     }
 
     /**
@@ -103,7 +105,7 @@ public class DateUtils {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month - 1);
-        return date2String(calendar.getTime(), FORMAT);
+        return date2String(calendar.getTime(), YEAR_MONTH_FORMAT);
     }
 
     /**
@@ -242,5 +244,14 @@ public class DateUtils {
         calendar.set(Calendar.MILLISECOND, maxMillisecond);
 
         return calendar.getTimeInMillis();
+    }
+
+    /**
+     * 获取一个月中的天数
+     */
+    public static int getDaysInMonth(long millisecond){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millisecond);
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 }

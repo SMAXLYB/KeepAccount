@@ -12,7 +12,7 @@ import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.ItemBudgetBinding
 import life.chenshi.keepaccounts.databinding.ItemBudgetDetailBinding
-import life.chenshi.keepaccounts.utils.DateUtils
+import life.chenshi.keepaccounts.utils.DateUtil
 
 class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
     RecyclerView.Adapter<IndexRecordAdapter.IndexRecordViewHolder>() {
@@ -54,7 +54,8 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
                     }
                 }
                 // 时间
-                itemBudgetDetailCostTime.text = DateUtils.date2String(it.time,DateUtils.HOUR_MINUTE)
+                itemBudgetDetailCostTime.text = DateUtil.date2String(it.time,
+                    DateUtil.HOUR_MINUTE)
                 if (it.recordType == RecordType.OUTCOME) {
                     // 圆点
                     with(itemBudgetDetailIcon){
@@ -80,7 +81,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
 
         holder.binding.apply {
             // 日期
-            itemBudgetDate.text = DateUtils.date2MonthDay(recordList[0].time)
+            itemBudgetDate.text = DateUtil.date2MonthDay(recordList[0].time)
             itemBudgetTotalIncome.text = ""
             itemBudgetTotalOutcome.text = "金额"
         }

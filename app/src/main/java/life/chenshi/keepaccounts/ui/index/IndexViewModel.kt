@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import life.chenshi.keepaccounts.bean.SumMoneyBean
+import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordDatabase
-import life.chenshi.keepaccounts.utils.DateUtils
+import life.chenshi.keepaccounts.utils.DateUtil
 import java.util.*
 
 class IndexViewModel : ViewModel() {
@@ -18,8 +18,8 @@ class IndexViewModel : ViewModel() {
 
     init {
         getRecordByDateRange(
-            DateUtils.getCurrentMonthStart(),
-            DateUtils.getCurrentMonthEnd()
+            DateUtil.getCurrentMonthStart(),
+            DateUtil.getCurrentMonthEnd()
         )
     }
 
@@ -32,11 +32,23 @@ class IndexViewModel : ViewModel() {
         }
     }
 
+    // 下拉刷新记录
+    fun getRecordByDataRange(){
+        val calendar = Calendar.getInstance().apply { timeInMillis = queryDateLiveData.value!! }
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val monthStart = DateUtil.getMonthStart(year, month)
+        val monthEnd = DateUtil.getMonthEnd(year, month)
+        getRecordByDateRange(
+            monthStart, monthEnd
+        )
+    }
+
     /**
      * 根据日期范围取出收支的总金额
      */
-    fun getSumMoneyByDateRange(from: Date,to: Date):LiveData<List<SumMoneyBean>>{
-        return recordDAO.getSumMoneyByDataRange(from,to)
+    fun getSumMoneyByDateRange(from: Date,to: Date):LiveData<List<SumMoneyByDateBean>>{
+        return recordDAO.getSumMoneyByDateRange(from,to)
     }
 
     /**
@@ -57,7 +69,7 @@ class IndexViewModel : ViewModel() {
             val lastRecordListGroup = recordListGroupByDay[recordListGroupByDay.size - 1]
             val lastRecordDate = lastRecordListGroup[lastRecordListGroup.size - 1].time
             // 如果在同一天
-            if (DateUtils.isSameDay(lastRecordDate, it.time)) {
+            if (DateUtil.isSameDay(lastRecordDate, it.time)) {
                 lastRecordListGroup.add(it)
             } else {
                 recordListGroupByDay.add(mutableListOf(it))

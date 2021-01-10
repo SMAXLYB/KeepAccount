@@ -165,13 +165,19 @@
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_budget"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                tools:listitem="@layout/item_budget" />
+                android:id="@+id/srl_index_refresh"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_budget"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    tools:listitem="@layout/item_budget" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </LinearLayout>
 
@@ -181,9 +187,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="15dp"
-            app:borderWidth="0dp"
             android:backgroundTint="#29B6F6"
             android:src="@drawable/index_float_botton_bg"
+            app:borderWidth="0dp"
             app:fabSize="mini" />
 
     </FrameLayout>

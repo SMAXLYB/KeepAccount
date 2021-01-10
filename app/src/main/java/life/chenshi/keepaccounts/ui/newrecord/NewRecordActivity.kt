@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
@@ -13,15 +12,19 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.base.BaseActivity
 import life.chenshi.keepaccounts.database.Record
+import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.utils.BigDecimalUtil
-import life.chenshi.keepaccounts.utils.DateUtils
+import life.chenshi.keepaccounts.utils.DateUtil
+import life.chenshi.keepaccounts.utils.ToastUtil
+import life.chenshi.keepaccounts.utils.setEnable
 import java.math.BigDecimal
 import java.util.*
 
 class NewRecordActivity : BaseActivity() {
     private lateinit var mBinding: ActivityNewRecordBinding
     private val mNewRecordViewModel: NewRecordViewModel by viewModels<NewRecordViewModel>()
+
     companion object {
         private const val TAG = "NewRecordActivity"
     }
@@ -40,15 +43,15 @@ class NewRecordActivity : BaseActivity() {
 
     private fun initView() {
         mBinding.newRecordDate.text =
-            DateUtils.date2String(
+            DateUtil.date2String(
                 mNewRecordViewModel.mCurrentChooseCalendar.time,
-                DateUtils.YEAR_MONTH_DAY_FORMAT
+                DateUtil.YEAR_MONTH_DAY_FORMAT
             )
 
         mBinding.newRecordTime.text =
-            DateUtils.date2String(
+            DateUtil.date2String(
                 mNewRecordViewModel.mCurrentChooseCalendar.time,
-                DateUtils.HOUR_MINUTE
+                DateUtil.HOUR_MINUTE
             )
 
 
@@ -66,10 +69,7 @@ class NewRecordActivity : BaseActivity() {
         mNewRecordViewModel.categoryViews.forEach {
             if (it.tag as Int == mNewRecordViewModel.lastSelectedCategoryIndex) {
                 it as TextView
-                it.apply {
-                    isEnabled = false
-                    setTextColor(Color.parseColor("#ffffff"))
-                }
+                it.setEnable(false)
             }
         }
     }
@@ -78,27 +78,15 @@ class NewRecordActivity : BaseActivity() {
         // 收支类型选择
         mBinding.newRecordTypeOutcome.setOnClickListener {
             it as TextView
-            it.apply {
-                isEnabled = false
-                setTextColor(Color.parseColor("#ffffff"))
-            }
-            mBinding.newRecordTypeIncome.apply {
-                isEnabled = true
-                setTextColor(Color.parseColor("#515151"))
-            }
+            it.setEnable(false)
+            mBinding.newRecordTypeIncome.setEnable(true)
             mBinding.newRecordLabelContainerOutcome.visibility = View.VISIBLE
             mBinding.newRecordLabelContainerIncome.visibility = View.GONE
         }
         mBinding.newRecordTypeIncome.setOnClickListener {
             it as TextView
-            it.apply {
-                isEnabled = false
-                setTextColor(Color.parseColor("#ffffff"))
-            }
-            mBinding.newRecordTypeOutcome.apply {
-                isEnabled = true
-                setTextColor(Color.parseColor("#515151"))
-            }
+            it.setEnable(false)
+            mBinding.newRecordTypeOutcome.setEnable(true)
             mBinding.newRecordLabelContainerOutcome.visibility = View.GONE
             mBinding.newRecordLabelContainerIncome.visibility = View.VISIBLE
         }
@@ -112,9 +100,9 @@ class NewRecordActivity : BaseActivity() {
                         set(year, month, day)
                     }
                     mBinding.newRecordDate.text =
-                        DateUtils.date2String(
+                        DateUtil.date2String(
                             mNewRecordViewModel.mCurrentChooseCalendar.time,
-                            DateUtils.YEAR_MONTH_DAY_FORMAT
+                            DateUtil.YEAR_MONTH_DAY_FORMAT
                         )
                 },
                 mNewRecordViewModel.mCurrentChooseCalendar
@@ -135,9 +123,9 @@ class NewRecordActivity : BaseActivity() {
                         set(Calendar.MINUTE, minute)
                     }
                     mBinding.newRecordTime.text =
-                        DateUtils.date2String(
+                        DateUtil.date2String(
                             mNewRecordViewModel.mCurrentChooseCalendar.time,
-                            DateUtils.HOUR_MINUTE
+                            DateUtil.HOUR_MINUTE
                         )
                 },
                 mNewRecordViewModel.mCurrentChooseCalendar.get(Calendar.HOUR_OF_DAY),
@@ -159,20 +147,14 @@ class NewRecordActivity : BaseActivity() {
         val listener = View.OnClickListener {
             // 先将自身置为高亮状态
             it as TextView
-            it.apply {
-                isEnabled = false
-                setTextColor(Color.parseColor("#ffffff"))
-            }
+            it.setEnable(false)
 
             //将上一次选择的类型标记为普通状态
             mNewRecordViewModel.categoryViews.forEachIndexed { index, view ->
                 // 如果是上一次选择的类型
                 if (index == mNewRecordViewModel.lastSelectedCategoryIndex) {
                     view as TextView
-                    view.apply {
-                        isEnabled = true
-                        setTextColor(Color.parseColor("#515151"))
-                    }
+                    view.setEnable(true)
                 }
             }
 
@@ -184,16 +166,16 @@ class NewRecordActivity : BaseActivity() {
         // 提交
         mBinding.btnSubmit.setOnClickListener {
             if (mBinding.etMoney.text.isNullOrEmpty()) {
-                Toast.makeText(this, "请填写金额", Toast.LENGTH_SHORT).show()
+                ToastUtil.showShort("请填写金额")
                 return@setOnClickListener
             }
             val money: BigDecimal = BigDecimalUtil.yuan2FenBD(mBinding.etMoney.text.toString())
             val remark = mBinding.etRemark.text.toString()
             val date = mNewRecordViewModel.mCurrentChooseCalendar.time
             val recordType = if (!mBinding.newRecordTypeOutcome.isEnabled) {
-                0
+                RecordType.OUTCOME
             } else {
-                1
+                RecordType.INCOME
             }
             val category = mNewRecordViewModel.lastSelectedCategoryIndex
 

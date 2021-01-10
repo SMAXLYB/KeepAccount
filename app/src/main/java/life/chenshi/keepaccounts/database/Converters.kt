@@ -12,18 +12,18 @@ class Converters {
     // 时间戳转日期
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+        return value?.let { Date(it * 1000L) }
     }
 
     // 日期转时间戳
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {
-        return date?.time
+        return date?.time?.div(1000)
     }
 
     @TypeConverter
     fun fromInt(value: Int?): BigDecimal? {
-        return value?.let { BigDecimal(it).movePointLeft(2)}
+        return value?.let { BigDecimal(it).movePointLeft(2) }
     }
 
     @TypeConverter
