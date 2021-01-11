@@ -91,7 +91,7 @@ class IndexFragment : Fragment() {
 
         // 下拉刷新
         mBinding.srlIndexRefresh.setOnRefreshListener {
-            mIndexViewModel.getRecordByDataRange()
+            mIndexViewModel.getRecordAndSumMoneyByDataRange()
         }
     }
 
@@ -113,8 +113,8 @@ class IndexFragment : Fragment() {
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH) + 1
             mBinding.indexTime.text = "${year}年${month}月"
-            val monthStart = DateUtil.getMonthStart(year, month)
-            val monthEnd = DateUtil.getMonthEnd(year, month)
+            val monthStart = DateUtil.getMonthStart(it)
+            val monthEnd = DateUtil.getMonthEnd(it)
             mIndexViewModel.getRecordByDateRange(
                 monthStart, monthEnd
             )

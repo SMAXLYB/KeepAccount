@@ -141,15 +141,11 @@ public class DateUtil {
 
     /**
      * 获取某月份开始时刻的 Date
-     *
-     * @param year  年份
-     * @param month 月份
      * @return 当前月份开始的 Date
      */
-    public static Date getMonthStart(int year, int month) {
+    public static Date getMonthStart(Long millisecond) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month - 1);
+        calendar.setTimeInMillis(millisecond);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -160,15 +156,11 @@ public class DateUtil {
 
     /**
      * 获取某月份结束时刻的 Date
-     *
-     * @param year  年份
-     * @param month 月份
      * @return 当前月份结束的 Date
      */
-    public static Date getMonthEnd(int year, int month) {
+    public static Date getMonthEnd(Long millisecond) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month - 1);
+        calendar.setTimeInMillis(millisecond);
         int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         int maxHour = calendar.getActualMaximum(Calendar.HOUR_OF_DAY);
         int maxMinute = calendar.getActualMaximum(Calendar.MINUTE);
@@ -192,8 +184,7 @@ public class DateUtil {
      * @return 当前月份开始的 Date
      */
     public static Date getCurrentMonthStart() {
-        Calendar calendar = Calendar.getInstance();
-        return getMonthStart(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1);
+        return getMonthStart(System.currentTimeMillis());
     }
 
     /**
@@ -204,8 +195,7 @@ public class DateUtil {
      * @return 当前月份结束的 Date
      */
     public static Date getCurrentMonthEnd() {
-        Calendar calendar = Calendar.getInstance();
-        return getMonthEnd(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1);
+        return getMonthEnd(System.currentTimeMillis());
     }
 
     /**

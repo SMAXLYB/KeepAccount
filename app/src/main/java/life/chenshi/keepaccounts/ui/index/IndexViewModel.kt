@@ -33,15 +33,13 @@ class IndexViewModel : ViewModel() {
     }
 
     // 下拉刷新记录
-    fun getRecordByDataRange(){
-        val calendar = Calendar.getInstance().apply { timeInMillis = queryDateLiveData.value!! }
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH) + 1
-        val monthStart = DateUtil.getMonthStart(year, month)
-        val monthEnd = DateUtil.getMonthEnd(year, month)
+    fun getRecordAndSumMoneyByDataRange(){
+        val monthStart = DateUtil.getMonthStart(queryDateLiveData.value!!)
+        val monthEnd = DateUtil.getMonthEnd(queryDateLiveData.value!!)
         getRecordByDateRange(
             monthStart, monthEnd
         )
+        getSumMoneyByDateRange(monthStart,monthEnd)
     }
 
     /**

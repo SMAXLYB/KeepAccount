@@ -2,7 +2,7 @@ package life.chenshi.keepaccounts.ui.anaylze
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.mikephil.charting.components.YAxis
@@ -32,15 +32,11 @@ class AnalyzeViewModel : ViewModel() {
 
     // 走势图收支数据
     val tendencyIncomeRecordsLiveData by lazy {
-        MutableLiveData<List<SumMoneyByDateAndTypeBean>>(emptyList())
+        MediatorLiveData<List<SumMoneyByDateAndTypeBean>>()
     }
     val tendencyOutcomeRecordsLiveData by lazy {
-        MutableLiveData<List<SumMoneyByDateAndTypeBean>>(emptyList())
+        MediatorLiveData<List<SumMoneyByDateAndTypeBean>>()
     }
-
-    // 解决延时查询问题
-    lateinit var tempTendencyIncomeLiveData: LiveData<List<SumMoneyByDateAndTypeBean>>
-    lateinit var tempTendencyOutcomeLiveData: LiveData<List<SumMoneyByDateAndTypeBean>>
 
     init {
         val currentStartDate = DateUtil.getCurrentMonthStart()
@@ -57,18 +53,27 @@ class AnalyzeViewModel : ViewModel() {
         to: Date,
         type: Int
     ) {
-        if (type == RecordType.INCOME) {
-            tempTendencyIncomeLiveData = recordDAO.getSumMoneyByDateAndType(from, to, type)
-        } else {
-            tempTendencyOutcomeLiveData = recordDAO.getSumMoneyByDateAndType(from, to, type)
+        tendencyIncomeRecordsLiveData.addSource(
+            recordDAO.getSumMoneyByDateAndType(
+                from,
+                to,
+                type
+            )
+        ) {
+            if (type == RecordType.INCOME) {
+                tendencyIncomeRecordsLiveData.value = it
+            } else {
+                tendencyOutcomeRecordsLiveData.value = it
+            }
         }
     }
+
 
     /**
      * 生成LineDataSet
      * @param entries 数据
      * @param label 线段标签
-     * @param colorId 线段颜色
+     * @param color 线段颜色
      */
     fun generateLineDataSet(entries: List<Entry>, label: String, color: String): LineDataSet {
         return LineDataSet(entries, label).apply {
