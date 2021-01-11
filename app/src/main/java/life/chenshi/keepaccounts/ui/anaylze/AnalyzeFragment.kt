@@ -33,15 +33,15 @@ class AnalyzeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         mBinding = DataBindingUtil.inflate<FragmentAnaylzeBinding>(
-            inflater,
-            R.layout.fragment_anaylze,
-            container,
-            false
+                inflater,
+                R.layout.fragment_anaylze,
+                container,
+                false
         )
         return mBinding.root
     }
@@ -54,7 +54,7 @@ class AnalyzeFragment : Fragment() {
         initObserver()
 
         val month =
-            arrayOf("1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月")
+                arrayOf("1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月")
 
 
         /* // 饼图
@@ -117,33 +117,33 @@ class AnalyzeFragment : Fragment() {
 
     private fun initView() {
 
-        val outcomeEntries: List<Entry> = listOf(
-            Entry(1.0f, 3000.51f),
-            Entry(2.0f, 2500.0f),
-            Entry(3.0f, 1800.0f),
-            Entry(4.0f, 2000.0f),
-            Entry(5.0f, 1951.0f),
-            Entry(6.0f, 1545.12f),
-            Entry(7.0f, 3121.0f),
-            Entry(8.0f, 2214.0f),
-            Entry(9.0f, 0.0f),
-            Entry(10.0f, 1942.01f),
-            Entry(11.0f, 1345.0f),
-            Entry(12.0f, 2454.0f)
+        val outcomeEntries: MutableList<Entry> = mutableListOf(
+                Entry(1.0f, 0.0f),
+                Entry(2.0f, 0.0f),
+                Entry(3.0f, 0.0f),
+                Entry(4.0f, 0.0f),
+                Entry(5.0f, 8.0f),
+                Entry(6.0f, 0.0f),
+                Entry(7.0f, 0.0f),
+                Entry(8.0f, 0.0f),
+                Entry(9.0f, 1.0f),
+                Entry(10.0f, 0.0f),
+                Entry(11.0f, 0.0f),
+                Entry(12.0f, 0.0f)
         )
 
-        val incomeEntries: List<Entry> = listOf(
-            Entry(1.0f, 3541.11f),
-            Entry(2.0f, 2541.0f),
-            Entry(3.0f, 3122.0f),
-            Entry(4.0f, 2451.0f),
-            Entry(5.0f, 1557.0f),
-            Entry(6.0f, 1687.0f),
-            Entry(7.0f, 2757.33f),
-            Entry(8.0f, 2154.0f),
-            Entry(10.0f, 2854.0f),
-            Entry(11.0f, 2554.0f),
-            Entry(12.0f, 1878.0f)
+        val incomeEntries: MutableList<Entry> = mutableListOf(
+                Entry(1.0f, 0.11f),
+                Entry(2.0f, 0.0f),
+                Entry(3.0f, 0.0f),
+                Entry(4.0f, 0.0f),
+                Entry(5.0f, 0.0f),
+                Entry(6.0f, 0.0f),
+                Entry(7.0f, 8.33f),
+                Entry(8.0f, 0.0f),
+                Entry(10.0f, 0.0f),
+                Entry(11.0f, 0.0f),
+                Entry(12.0f, 0.0f)
         )
 
 
@@ -180,7 +180,8 @@ class AnalyzeFragment : Fragment() {
             setDrawAxisLine(false) //不绘制网格
             enableGridDashedLine(10f, 5f, 1f) // 虚线
             axisMinimum = 0.0f // 设置起始值
-            // labelCount = 6 // 标签个数
+            // setLabelCount(6,true)
+            // spaceTop = 20f
         }
 
         // 可变设置
@@ -198,20 +199,33 @@ class AnalyzeFragment : Fragment() {
         }
 
         val incomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(
-            generateEmptyEntriesOfMonth(DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)),
-            "收入",
-            "8bc34a"
+                mAnalyzeViewModel.generateEmptyEntriesOfMonth(
+                        DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)),
+                "收入",
+                "8bc34a"
         )
-        val outcomeLineDataSet =
-            mAnalyzeViewModel.generateLineDataSet(generateEmptyEntriesOfMonth(DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)), "支出", "E91E63")
+        val outcomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(
+                mAnalyzeViewModel.generateEmptyEntriesOfMonth(
+                        DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)),
+                "支出",
+                "E91E63"
+        )
+        //
+        // val incomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(
+        //         incomeEntries,
+        //         "收入",
+        //         "8bc34a"
+        // )
+        // val outcomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(
+        //         outcomeEntries,
+        //         "支出",
+        //         "E91E63"
+        // )
 
-        // val incomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(mutableListOf(),"收入","8bc34a")
-        // val outcomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(mutableListOf(),"支出","E91E63")
         mBinding.lineChart.apply {
             data = LineData(listOf(incomeLineDataSet, outcomeLineDataSet)) //填充数据
             invalidate() //刷新
         }
-
     }
 
     private fun initListener() {
@@ -228,22 +242,22 @@ class AnalyzeFragment : Fragment() {
         mBinding.analyzeDate.setOnClickListener {
             activity?.let { activity ->
                 CardDatePickerDialog.builder(activity)
-                    .setMaxTime(System.currentTimeMillis())
-                    .showBackNow(false)
-                    .setDisplayType(
-                        mutableListOf(
-                            DateTimeConfig.YEAR,
-                            DateTimeConfig.MONTH
+                        .setMaxTime(System.currentTimeMillis())
+                        .showBackNow(false)
+                        .setDisplayType(
+                                mutableListOf(
+                                        DateTimeConfig.YEAR,
+                                        DateTimeConfig.MONTH
+                                )
                         )
-                    )
-                    // .setDefaultTime(mAnalyzeViewModel.queryDateLiveData.value!!)
-                    .setThemeColor(Color.parseColor("#03A9F4"))
-                    .setLabelText(year = "年", month = "月")
-                    .setOnChoose { millisecond ->
-                        mAnalyzeViewModel.queryDateLiveData.value = millisecond
-                    }
-                    .build()
-                    .show()
+                        // .setDefaultTime(mAnalyzeViewModel.queryDateLiveData.value!!)
+                        .setThemeColor(Color.parseColor("#03A9F4"))
+                        .setLabelText(year = "年", month = "月")
+                        .setOnChoose { millisecond ->
+                            mAnalyzeViewModel.queryDateLiveData.value = millisecond
+                        }
+                        .build()
+                        .show()
             }
         }
 
@@ -296,7 +310,7 @@ class AnalyzeFragment : Fragment() {
                     mBinding.analyzeTypeYear.setEnable(true)
                     mBinding.analyzeTypeMonth.setEnable(false)
                     mBinding.analyzeDate.text =
-                        DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
+                            DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
                 }
             }
 
@@ -307,7 +321,7 @@ class AnalyzeFragment : Fragment() {
                     mBinding.analyzeDate.text = DateUtil.date2String(date, DateUtil.YEAR_FORMAT)
                 } else {
                     mBinding.analyzeDate.text =
-                        DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
+                            DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
                 }
             }
 
@@ -325,6 +339,9 @@ class AnalyzeFragment : Fragment() {
             // 走势类型
             tendencyIncomeSelectedLiveData.observe(viewLifecycleOwner) {
                 mBinding.analyzeTendencyIncome.setSelect(it)
+                if(it){
+                    
+                }
             }
             tendencyOutcomeSelectedLiveData.observe(viewLifecycleOwner) {
                 mBinding.analyzeTendencyOutcome.setSelect(it)
@@ -339,7 +356,20 @@ class AnalyzeFragment : Fragment() {
                 if (beans.isEmpty()) {
 
                 } else {
-
+                    // todo 还要判断年视图还是月视图
+                    val incomeLineDataSet = mBinding.lineChart.lineData.getDataSetByIndex(0)
+                    incomeLineDataSet.clear()
+                    val entries = mAnalyzeViewModel.generateEmptyEntriesOfMonth(DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!))
+                    beans.forEach {
+                        entries[it.getDay()-1].y = it.getMoney()
+                    }
+                    entries.forEach {
+                        incomeLineDataSet.addEntry(it)
+                    }
+                    mBinding.lineChart.xAxis.valueFormatter = DayValueFormatter()
+                    mBinding.lineChart.lineData.notifyDataChanged()
+                    mBinding.lineChart.notifyDataSetChanged()
+                    mBinding.lineChart.invalidate()
                 }
                 stopRefreshing()
             }
@@ -347,16 +377,19 @@ class AnalyzeFragment : Fragment() {
                 if (beans.isEmpty()) {
 
                 } else {
-                    // todo 还要判断年视图还是月视图
-                    /* val outcomeLineDataSet = mBinding.lineChart.lineData.getDataSetByIndex(1)
-                     outcomeLineDataSet.clear()
-                     // beans.forEach {
-                     //     val entry = Entry(it.getDay(),it.getMoney())
-                     //     outcomeLineDataSet.addEntry(entry)
-                     // }
-                     // mBinding.lineChart.xAxis.valueFormatter = DayValueFormatter()
-                     mBinding.lineChart.notifyDataSetChanged()
-                     mBinding.lineChart.invalidate()*/
+                    val outcomeLineDataSet = mBinding.lineChart.lineData.getDataSetByIndex(1)
+                    outcomeLineDataSet.clear()
+                    val entries = mAnalyzeViewModel.generateEmptyEntriesOfMonth(DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!))
+                    beans.forEach {
+                        entries[it.getDay()-1].y = it.getMoney()
+                    }
+                    entries.forEach {
+                        outcomeLineDataSet.addEntry(it)
+                    }
+                    mBinding.lineChart.xAxis.valueFormatter = DayValueFormatter()
+                    mBinding.lineChart.lineData.notifyDataChanged()
+                    mBinding.lineChart.notifyDataSetChanged()
+                    mBinding.lineChart.invalidate()
                 }
                 stopRefreshing()
             }
@@ -369,19 +402,4 @@ class AnalyzeFragment : Fragment() {
         }
     }
 
-    private fun generateEmptyEntriesOfMonth(daysInMonth: Int): List<Entry> {
-        val entries: MutableList<Entry> = mutableListOf()
-        for (i in 1..12) {
-            entries.add(Entry(i.toFloat(), 0.0f))
-        }
-        return entries
-    }
-
-    private fun generateEmptyEntriesOfYear(): List<Entry> {
-        val entries: MutableList<Entry> = mutableListOf()
-        for (i in 1..12) {
-            entries.add(Entry(i.toFloat(), 0.0f))
-        }
-        return entries
-    }
 }

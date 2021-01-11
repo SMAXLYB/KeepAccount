@@ -26,7 +26,7 @@ class AnalyzeViewModel : ViewModel() {
     // 占比图类型
     val proportionTypeLiveData by lazy { MutableLiveData<Int>(AnalyzeFragment.TYPE_QUERY_INCOME) }
 
-    // 走势图类型
+    // 走势图显示类型
     val tendencyIncomeSelectedLiveData by lazy { MutableLiveData<Boolean>(true) }
     val tendencyOutcomeSelectedLiveData by lazy { MutableLiveData<Boolean>(false) }
 
@@ -70,7 +70,6 @@ class AnalyzeViewModel : ViewModel() {
      * @param label 线段标签
      * @param colorId 线段颜色
      */
-    //Color.parseColor("#5f8bc34a")  Color.parseColor("#5fE91E63") 半透明
     fun generateLineDataSet(entries: List<Entry>, label: String, color: String): LineDataSet {
         return LineDataSet(entries, label).apply {
             axisDependency = YAxis.AxisDependency.LEFT // 依赖左轴
@@ -85,5 +84,21 @@ class AnalyzeViewModel : ViewModel() {
             mode = LineDataSet.Mode.CUBIC_BEZIER // 线段模式
             setCircleColor(Color.parseColor("#$color")) // 圆点颜色
         }
+    }
+
+    fun generateEmptyEntriesOfMonth(daysInMonth: Int): MutableList<Entry> {
+        val entries: MutableList<Entry> = mutableListOf()
+        for (i in 1..daysInMonth) {
+            entries.add(Entry(i.toFloat(), 0.0f))
+        }
+        return entries
+    }
+
+    fun generateEmptyEntriesOfYear(): MutableList<Entry> {
+        val entries: MutableList<Entry> = mutableListOf()
+        for (i in 1..12) {
+            entries.add(Entry(i.toFloat(), 0.0f))
+        }
+        return entries
     }
 }

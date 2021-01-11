@@ -14,7 +14,7 @@ class MyMarkerView(context: Context, resId: Int) : MarkerView(context, resId) {
 
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
         e?.let {
-            tvContent.text = "${it.y}元"
+            tvContent.text = "${e.x}日 ${it.y}元"
         }
         super.refreshContent(e, highlight)
     }
