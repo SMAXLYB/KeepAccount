@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategory
 
-class AnalyzeProportionAdapter(val data: List<String>) : BaseAdapter() {
+class AnalyzeProportionAdapter(val data: List<SumMoneyGroupByCategory>) : BaseAdapter() {
     override fun getCount(): Int {
         return data.size
     }
@@ -36,8 +37,8 @@ class AnalyzeProportionAdapter(val data: List<String>) : BaseAdapter() {
             view = convertView
             viewHolder = view.tag as ProportionViewHolder
         }
-        viewHolder.type?.text = str
-        viewHolder.description?.text = "消费 65454 元, 总共花费 5 笔"
+        // viewHolder.type?.text = str
+        // viewHolder.description?.text = "总共消费 ${} 元, 花费了 ${} 笔"
         return view
     }
 
