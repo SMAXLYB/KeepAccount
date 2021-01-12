@@ -25,6 +25,7 @@ class AnalyzeFragment : Fragment() {
 
     private lateinit var mBinding: FragmentAnaylzeBinding
     private val mAnalyzeViewModel by activityViewModels<AnalyzeViewModel>()
+    private var mProportionAdapter: AnalyzeProportionAdapter? = null
 
     companion object {
         const val TYPE_YEAR = 0
@@ -32,15 +33,15 @@ class AnalyzeFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         mBinding = DataBindingUtil.inflate<FragmentAnaylzeBinding>(
-                inflater,
-                R.layout.fragment_anaylze,
-                container,
-                false
+            inflater,
+            R.layout.fragment_anaylze,
+            container,
+            false
         )
         return mBinding.root
     }
@@ -51,17 +52,12 @@ class AnalyzeFragment : Fragment() {
         initView()
         initListener()
         initObserver()
-
-
-
-
-         // mBinding.lvAnalyzeProportionDetail.adapter = AnalyzeProportionAdapter(month.toList())
     }
 
     private fun initView() {
         // 线段图固定设置
         mBinding.lineChart.apply {
-            setScaleEnabled(false) //禁止缩放
+            // setScaleEnabled(false) //禁止缩放
             description.isEnabled = false // 去除说明
             setBackgroundColor(Color.parseColor("#ffffff"))
             setGridBackgroundColor(Color.parseColor("#ffffff"))
@@ -111,18 +107,18 @@ class AnalyzeFragment : Fragment() {
         }
 
         val incomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(
-                mAnalyzeViewModel.generateEmptyEntriesOfMonth(
-                        DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
-                ),
-                "收入",
-                "8bc34a"
+            mAnalyzeViewModel.generateEmptyEntriesOfMonth(
+                DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
+            ),
+            "收入",
+            "8bc34a"
         )
         val outcomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(
-                mAnalyzeViewModel.generateEmptyEntriesOfMonth(
-                        DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
-                ),
-                "支出",
-                "E91E63"
+            mAnalyzeViewModel.generateEmptyEntriesOfMonth(
+                DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
+            ),
+            "支出",
+            "E91E63"
         )
 
         mBinding.lineChart.apply {
@@ -132,18 +128,18 @@ class AnalyzeFragment : Fragment() {
 
         // 饼图固定设置
         val pieDataSet = PieDataSet(mAnalyzeViewModel.generateEmptyEntriesForPieChart(), "")
-                .apply {
-                    sliceSpace = 1f //间隔
-                    yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE // 描述文字在外
-                    setColors(
-                            Color.parseColor("#FFCC00"),
-                            Color.parseColor("#99CCFF"),
-                            Color.parseColor("#ffc6ff"),
-                            Color.parseColor("#FF9999"),
-                            Color.parseColor("#CCCCFF"),
-                            Color.parseColor("#aacc00")
-                    )
-                }
+            .apply {
+                sliceSpace = 1f //间隔
+                yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE // 描述文字在外
+                setColors(
+                    Color.parseColor("#FFCC00"),
+                    Color.parseColor("#99CCFF"),
+                    Color.parseColor("#ffc6ff"),
+                    Color.parseColor("#FF9999"),
+                    Color.parseColor("#CCCCFF"),
+                    Color.parseColor("#aacc00")
+                )
+            }
 
         val pieData = PieData(pieDataSet).apply {
             setValueFormatter(PercentFormatter(mBinding.pieChart))
@@ -152,7 +148,6 @@ class AnalyzeFragment : Fragment() {
         }
 
         mBinding.pieChart.apply {
-
             setUsePercentValues(true) // 百分比模式
             description.isEnabled = false
             setDrawEntryLabels(false) // 隐藏label
@@ -165,12 +160,17 @@ class AnalyzeFragment : Fragment() {
                 horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
                 verticalAlignment = Legend.LegendVerticalAlignment.CENTER
                 orientation = Legend.LegendOrientation.VERTICAL
+                textSize = 11f
             }
             setNoDataText("暂无数据")
             centerText = "暂无数据"
             data = pieData
             invalidate()
         }
+
+        mProportionAdapter = AnalyzeProportionAdapter(emptyList())
+        mBinding.lvAnalyzeProportionDetail.adapter = mProportionAdapter
+
     }
 
     private fun initListener() {
@@ -187,22 +187,22 @@ class AnalyzeFragment : Fragment() {
         mBinding.analyzeDate.setOnClickListener {
             activity?.let { activity ->
                 CardDatePickerDialog.builder(activity)
-                        .setMaxTime(System.currentTimeMillis())
-                        .showBackNow(false)
-                        .setDisplayType(
-                                mutableListOf(
-                                        DateTimeConfig.YEAR,
-                                        DateTimeConfig.MONTH
-                                )
+                    .setMaxTime(System.currentTimeMillis())
+                    .showBackNow(false)
+                    .setDisplayType(
+                        mutableListOf(
+                            DateTimeConfig.YEAR,
+                            DateTimeConfig.MONTH
                         )
-                        // .setDefaultTime(mAnalyzeViewModel.queryDateLiveData.value!!)
-                        .setThemeColor(Color.parseColor("#03A9F4"))
-                        .setLabelText(year = "年", month = "月")
-                        .setOnChoose { millisecond ->
-                            mAnalyzeViewModel.queryDateLiveData.value = millisecond
-                        }
-                        .build()
-                        .show()
+                    )
+                    // .setDefaultTime(mAnalyzeViewModel.queryDateLiveData.value!!)
+                    .setThemeColor(Color.parseColor("#03A9F4"))
+                    .setLabelText(year = "年", month = "月")
+                    .setOnChoose { millisecond ->
+                        mAnalyzeViewModel.queryDateLiveData.value = millisecond
+                    }
+                    .build()
+                    .show()
             }
         }
 
@@ -257,7 +257,7 @@ class AnalyzeFragment : Fragment() {
                     mBinding.analyzeTypeYear.setEnable(true)
                     mBinding.analyzeTypeMonth.setEnable(false)
                     mBinding.analyzeDate.text =
-                            DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
+                        DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
                 }
             }
 
@@ -270,7 +270,7 @@ class AnalyzeFragment : Fragment() {
                     mBinding.analyzeDate.text = DateUtil.date2String(date, DateUtil.YEAR_FORMAT)
                 } else {
                     mBinding.analyzeDate.text =
-                            DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
+                        DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
                 }
 
                 // 重新查询数据库
@@ -278,11 +278,13 @@ class AnalyzeFragment : Fragment() {
                     val monthStart = DateUtil.getMonthStart(queryDateLiveData.value!!)
                     val monthEnd = DateUtil.getMonthEnd(queryDateLiveData.value!!)
                     getTendencyRecords(
-                            monthStart, monthEnd, RecordType.INCOME
+                        monthStart, monthEnd, RecordType.INCOME
                     )
                     getTendencyRecords(
-                            monthStart, monthEnd, RecordType.OUTCOME
+                        monthStart, monthEnd, RecordType.OUTCOME
                     )
+                    getProportionRecords(monthStart, monthEnd, RecordType.INCOME)
+                    getProportionRecords(monthStart, monthEnd, RecordType.OUTCOME)
                 }
             }
 
@@ -291,9 +293,15 @@ class AnalyzeFragment : Fragment() {
                 if (it == RecordType.INCOME) {
                     mBinding.analyzeProportionIncome.setEnableAndSelect(true)
                     mBinding.analyzeProportionOutcome.setEnableAndSelect(false)
+                    proportionIncomeRecordsLiveData.apply {
+                        value = value
+                    }
                 } else if (it == RecordType.OUTCOME) {
                     mBinding.analyzeProportionIncome.setEnableAndSelect(false)
                     mBinding.analyzeProportionOutcome.setEnableAndSelect(true)
+                    proportionOutcomeRecordsLiveData.apply {
+                        value = value
+                    }
                 }
             }
 
@@ -334,10 +342,10 @@ class AnalyzeFragment : Fragment() {
                     if (mAnalyzeViewModel.tendencyIncomeSelectedLiveData.value!!) {
                         // todo 还要判断年视图还是月视图
                         val incomeLineDataSet =
-                                mBinding.lineChart.lineData.getDataSetByIndex(RecordType.INCOME)
+                            mBinding.lineChart.lineData.getDataSetByIndex(RecordType.INCOME)
                         incomeLineDataSet.clear()
                         val entries = mAnalyzeViewModel.generateEmptyEntriesOfMonth(
-                                DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
+                            DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
                         )
                         beans.forEach {
                             entries[it.getDay() - 1].y = it.getMoney()
@@ -362,10 +370,10 @@ class AnalyzeFragment : Fragment() {
                 } else {
                     if (mAnalyzeViewModel.tendencyOutcomeSelectedLiveData.value!!) {
                         val outcomeLineDataSet =
-                                mBinding.lineChart.lineData.getDataSetByIndex(RecordType.OUTCOME)
+                            mBinding.lineChart.lineData.getDataSetByIndex(RecordType.OUTCOME)
                         outcomeLineDataSet.clear()
                         val entries = mAnalyzeViewModel.generateEmptyEntriesOfMonth(
-                                DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
+                            DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
                         )
                         beans.forEach {
                             entries[it.getDay() - 1].y = it.getMoney()
@@ -379,6 +387,54 @@ class AnalyzeFragment : Fragment() {
 
                 }
                 stopRefreshing()
+            }
+            proportionIncomeRecordsLiveData.observe(viewLifecycleOwner) { beans ->
+                if (beans == null) {
+                    ToastUtil.showShort("初始化中...")
+                } else if (beans.isEmpty()) {
+                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RecordType.INCOME) {
+                        fillEmptyEntriesToPieDataSet()
+                        mProportionAdapter?.setData(emptyList())
+                        notifyPieChartRedraw()
+                    }
+                } else {
+                    // 如果当前选择了收入
+                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RecordType.INCOME) {
+                        // pieChart只有一条数据
+                        val pieDataSet = mBinding.pieChart.data.dataSet
+                        pieDataSet.clear()
+                        beans.forEach {
+                            pieDataSet.addEntry(PieEntry(it.getMoney(), it.getCategory()))
+                        }
+                        mBinding.pieChart.centerText = "收入"
+                        notifyPieChartRedraw()
+                        mProportionAdapter?.setData(beans)
+                    }
+                }
+            }
+            proportionOutcomeRecordsLiveData.observe(viewLifecycleOwner) { beans ->
+                if (beans == null) {
+                    ToastUtil.showShort("初始化中...")
+                } else if (beans.isEmpty()) {
+                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RecordType.OUTCOME) {
+                        fillEmptyEntriesToPieDataSet()
+                        mProportionAdapter?.setData(emptyList())
+                        notifyPieChartRedraw()
+                    }
+                } else {
+                    // 如果当前选择了收入
+                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RecordType.OUTCOME) {
+                        // pieChart只有一条数据
+                        val pieDataSet = mBinding.pieChart.data.dataSet
+                        pieDataSet.clear()
+                        beans.forEach {
+                            pieDataSet.addEntry(PieEntry(it.getMoney(), it.getCategory()))
+                        }
+                        mBinding.pieChart.centerText = "支出"
+                        notifyPieChartRedraw()
+                        mProportionAdapter?.setData(beans)
+                    }
+                }
             }
         }
     }
@@ -415,10 +471,25 @@ class AnalyzeFragment : Fragment() {
         val dataSet = mBinding.lineChart.lineData.getDataSetByIndex(recordType)
         dataSet.clear()
         // todo 要判断月还是年
-        val emptyEntries = mAnalyzeViewModel.generateEmptyEntriesOfMonth(DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!))
+        val emptyEntries =
+            mAnalyzeViewModel.generateEmptyEntriesOfMonth(DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!))
         emptyEntries.forEach {
             dataSet.addEntry(it)
         }
     }
 
+    private fun notifyPieChartRedraw() {
+        mBinding.pieChart.apply {
+            data.notifyDataChanged()
+            notifyDataSetChanged()
+            invalidate()
+        }
+    }
+
+    private fun fillEmptyEntriesToPieDataSet() {
+        val dataSet = mBinding.pieChart.data.dataSet
+        dataSet.clear()
+        dataSet.addEntry(mAnalyzeViewModel.generateEmptyEntriesForPieChart()[0])
+        mBinding.pieChart.centerText = "暂无数据"
+    }
 }

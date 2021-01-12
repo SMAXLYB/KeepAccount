@@ -10,6 +10,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.PieEntry
+import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategory
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.database.RecordDatabase
 import life.chenshi.keepaccounts.database.RecordType
@@ -42,20 +43,33 @@ class AnalyzeViewModel : ViewModel() {
     private var mTempTendencyIncomeLiveData: LiveData<List<SumMoneyGroupByDateBean>>? = null
     private var mTempTendencyOutcomeLiveData: LiveData<List<SumMoneyGroupByDateBean>>? = null
 
+    // 饼图收支数据
+    val proportionIncomeRecordsLiveData by lazy {
+        MediatorLiveData<List<SumMoneyGroupByCategory>>()
+    }
+    val proportionOutcomeRecordsLiveData by lazy {
+        MediatorLiveData<List<SumMoneyGroupByCategory>>()
+    }
+    private var mTempProportionIncomeLiveData: LiveData<List<SumMoneyGroupByCategory>>? = null
+    private var mTempProportionOutcomeLiveData: LiveData<List<SumMoneyGroupByCategory>>? = null
+
     init {
         val currentStartDate = DateUtil.getCurrentMonthStart()
         val currentEndDate = DateUtil.getCurrentMonthEnd()
         getTendencyRecords(currentStartDate, currentEndDate, RecordType.OUTCOME)
         getTendencyRecords(currentStartDate, currentEndDate, RecordType.INCOME)
+        getProportionRecords(currentStartDate, currentEndDate, RecordType.INCOME)
+        getProportionRecords(currentStartDate, currentEndDate, RecordType.OUTCOME)
     }
+
 
     /**
      * 根据时间范围,收支类型查询记录, 按天分组
      */
     fun getTendencyRecords(
-            from: Date,
-            to: Date,
-            type: Int
+        from: Date,
+        to: Date,
+        type: Int
     ) {
         if (type == RecordType.INCOME) {
             if (mTempTendencyIncomeLiveData != null) {
@@ -63,7 +77,7 @@ class AnalyzeViewModel : ViewModel() {
             }
             mTempTendencyIncomeLiveData = recordDAO.getSumMoneyGroupByDate(from, to, type)
             tendencyIncomeRecordsLiveData.addSource(
-                    mTempTendencyIncomeLiveData!!
+                mTempTendencyIncomeLiveData!!
             ) {
                 tendencyIncomeRecordsLiveData.value = it
             }
@@ -73,9 +87,40 @@ class AnalyzeViewModel : ViewModel() {
             }
             mTempTendencyOutcomeLiveData = recordDAO.getSumMoneyGroupByDate(from, to, type)
             tendencyOutcomeRecordsLiveData.addSource(
-                    mTempTendencyOutcomeLiveData!!
+                mTempTendencyOutcomeLiveData!!
             ) {
                 tendencyOutcomeRecordsLiveData.value = it
+            }
+        }
+    }
+
+    /**
+     * 根据时间范围,收支类型查询记录, 按category分组
+     */
+    fun getProportionRecords(
+        from: Date,
+        to: Date,
+        type: Int
+    ) {
+        if (type == RecordType.INCOME) {
+            if (mTempProportionIncomeLiveData != null) {
+                proportionIncomeRecordsLiveData.removeSource(mTempProportionIncomeLiveData!!)
+            }
+            mTempProportionIncomeLiveData = recordDAO.getSumMoneyGroupByCategory(from, to, type)
+            proportionIncomeRecordsLiveData.addSource(
+                mTempProportionIncomeLiveData!!
+            ) {
+                proportionIncomeRecordsLiveData.value = it
+            }
+        } else {
+            if (mTempProportionOutcomeLiveData != null) {
+                proportionOutcomeRecordsLiveData.removeSource(mTempProportionOutcomeLiveData!!)
+            }
+            mTempProportionOutcomeLiveData = recordDAO.getSumMoneyGroupByCategory(from, to, type)
+            proportionOutcomeRecordsLiveData.addSource(
+                mTempProportionOutcomeLiveData!!
+            ) {
+                proportionOutcomeRecordsLiveData.value = it
             }
         }
     }
@@ -92,9 +137,9 @@ class AnalyzeViewModel : ViewModel() {
             axisDependency = YAxis.AxisDependency.LEFT // 依赖左轴
             setDrawFilled(true) //填充颜色
             fillDrawable = GradientDrawable(
-                    GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
+                GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
                     Color.parseColor("#5f$color"), Color.parseColor("#00ffffff")
-            )
+                )
             )
             setDrawValues(false) //不绘制值
             setColor(Color.parseColor("#$color"), 255) //线段颜色

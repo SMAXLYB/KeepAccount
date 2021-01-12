@@ -54,7 +54,7 @@ class IndexFragment : Fragment() {
 
     private fun initView() {
         mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
-        mAdapter = IndexRecordAdapter(Collections.emptyList())
+        mAdapter = IndexRecordAdapter(emptyList())
         mBinding.rvBudget.adapter = mAdapter
     }
 

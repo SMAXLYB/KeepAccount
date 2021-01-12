@@ -8,12 +8,21 @@
     android:background="@drawable/item_listview_pressed_bg"
     android:paddingBottom="7dp">
 
+    <!--<ImageView-->
+    <!--    android:id="@+id/iv_item_proportion_detail_icon"-->
+    <!--    android:layout_width="25dp"-->
+    <!--    android:layout_height="25dp"-->
+    <!--    android:layout_marginStart="20dp"-->
+    <!--    android:src="@drawable/index_item_icon_bill"-->
+    <!--    app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--    app:layout_constraintStart_toStartOf="parent"-->
+    <!--    app:layout_constraintTop_toTopOf="parent" />-->
     <ImageView
         android:id="@+id/iv_item_proportion_detail_icon"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:layout_marginStart="20dp"
-        android:src="@drawable/index_item_icon_bill"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
