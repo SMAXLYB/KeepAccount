@@ -1,20 +1,26 @@
 package life.chenshi.keepaccounts.ui.index
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.map
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.utils.DateUtil
@@ -55,6 +61,7 @@ class IndexFragment : Fragment() {
     private fun initView() {
         mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
         mAdapter = IndexRecordAdapter(emptyList())
+        mAdapter!!.setOnItemLongClickListener { showDeleteDialog(it) }
         mBinding.rvBudget.adapter = mAdapter
     }
 
@@ -131,6 +138,16 @@ class IndexFragment : Fragment() {
                         }
                     }
                 }
+        }
+    }
+
+    private fun showDeleteDialog(record: Record) {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setPositiveButton("确定") { _, _ -> mIndexViewModel.deleteRecord(record) }
+                .setNegativeButton("取消") { _, _ -> }
+                .setMessage("确定删除吗")
+                .show()
         }
     }
 }

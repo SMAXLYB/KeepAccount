@@ -8,9 +8,9 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategory
+import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
 
-class AnalyzeProportionAdapter(private var records: List<SumMoneyGroupByCategory>) : BaseAdapter() {
+class AnalyzeProportionAdapter(private var records: List<SumMoneyGroupByCategoryBean>) : BaseAdapter() {
 
     private val colors =
         arrayOf<String>("#FFCC00", "#99CCFF", "#ffc6ff", "#FF9999", "#CCCCFF", "#aacc00")
@@ -27,7 +27,7 @@ class AnalyzeProportionAdapter(private var records: List<SumMoneyGroupByCategory
         return 0
     }
 
-    fun setData(data: List<SumMoneyGroupByCategory>) {
+    fun setData(data: List<SumMoneyGroupByCategoryBean>) {
         records = data
         notifyDataSetChanged()
     }

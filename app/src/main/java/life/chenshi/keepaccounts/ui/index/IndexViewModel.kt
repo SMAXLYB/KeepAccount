@@ -1,9 +1,8 @@
 package life.chenshi.keepaccounts.ui.index
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordDatabase
@@ -33,20 +32,20 @@ class IndexViewModel : ViewModel() {
     }
 
     // 下拉刷新记录
-    fun getRecordAndSumMoneyByDataRange(){
+    fun getRecordAndSumMoneyByDataRange() {
         val monthStart = DateUtil.getMonthStart(queryDateLiveData.value!!)
         val monthEnd = DateUtil.getMonthEnd(queryDateLiveData.value!!)
         getRecordByDateRange(
             monthStart, monthEnd
         )
-        getSumMoneyByDateRange(monthStart,monthEnd)
+        getSumMoneyByDateRange(monthStart, monthEnd)
     }
 
     /**
      * 根据日期范围取出收支的总金额
      */
-    fun getSumMoneyByDateRange(from: Date,to: Date):LiveData<List<SumMoneyByDateBean>>{
-        return recordDAO.getSumMoneyByDateRange(from,to)
+    fun getSumMoneyByDateRange(from: Date, to: Date): LiveData<List<SumMoneyByDateBean>> {
+        return recordDAO.getSumMoneyByDateRange(from, to)
     }
 
     /**
@@ -75,5 +74,14 @@ class IndexViewModel : ViewModel() {
         }
         recordListGroupByDay[0].removeAt(0)
         return recordListGroupByDay
+    }
+
+    /**
+     * 删除记录
+     */
+    fun deleteRecord(record: Record) {
+        viewModelScope.launch(Dispatchers.IO) {
+            recordDAO.deleteRecord(record)
+        }
     }
 }

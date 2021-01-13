@@ -88,59 +88,8 @@ public class DateUtil {
     }
 
     /**
-     * 获取当前年月
-     */
-    public static String getCurrentYearMonth() {
-        Calendar calendar = Calendar.getInstance();
-        return date2String(calendar.getTime(), YEAR_MONTH_FORMAT);
-    }
-
-    /**
-     * 格式化年月
-     *
-     * @param year  年份
-     * @param month 月份（字面）
-     */
-    public static String getYearMonthFormatString(int year, int month) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month - 1);
-        return date2String(calendar.getTime(), YEAR_MONTH_FORMAT);
-    }
-
-    /**
-     * 获取当前年份
-     */
-    public static int getCurrentYear() {
-        Calendar calendar = Calendar.getInstance();
-        return calendar.get(Calendar.YEAR);
-    }
-
-    /**
-     * 获取修正后的当前月份
-     */
-    public static int getCurrentMonth() {
-        Calendar calendar = Calendar.getInstance();
-        return calendar.get(Calendar.MONTH) + 1;
-    }
-
-    /**
-     * 获取某月有多少天
-     *
-     * @param year  年份
-     * @param month 月份
-     * @return 该月的天数
-     */
-    public static int getDayCount(int year, int month) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month - 1);
-
-        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-    }
-
-    /**
      * 获取某月份开始时刻的 Date
+     *
      * @return 当前月份开始的 Date
      */
     public static Date getMonthStart(Long millisecond) {
@@ -156,6 +105,7 @@ public class DateUtil {
 
     /**
      * 获取某月份结束时刻的 Date
+     *
      * @return 当前月份结束的 Date
      */
     public static Date getMonthEnd(Long millisecond) {
@@ -239,9 +189,58 @@ public class DateUtil {
     /**
      * 获取一个月中的天数
      */
-    public static int getDaysInMonth(long millisecond){
+    public static int getDaysInMonth(long millisecond) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(millisecond);
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取今年开始date
+     */
+    public static Date getCurrentYearStart() {
+        return getYearStart(System.currentTimeMillis());
+    }
+
+    /**
+     * 根据时间戳获取某年的开始date
+     */
+    public static Date getYearStart(Long millisecond) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millisecond);
+        calendar.set(Calendar.DAY_OF_YEAR, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    /**
+     * 获取今年结束date
+     */
+    public static Date getCurrentYearEnd() {
+        return getYearEnd(System.currentTimeMillis());
+    }
+
+    /**
+     * 根据时间戳获取某年的结束date
+     */
+    public static Date getYearEnd(Long millisecond) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millisecond);
+        // 获取一年最大的天数
+        int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
+        int maxHour = calendar.getActualMaximum(Calendar.HOUR_OF_DAY);
+        int maxMinute = calendar.getActualMaximum(Calendar.MINUTE);
+        int maxSecond = calendar.getActualMaximum(Calendar.SECOND);
+        int maxMillisecond = calendar.getActualMaximum(Calendar.MILLISECOND);
+
+        calendar.set(Calendar.DAY_OF_YEAR,maxDay);
+        calendar.set(Calendar.HOUR_OF_DAY, maxHour);
+        calendar.set(Calendar.MINUTE, maxMinute);
+        calendar.set(Calendar.SECOND, maxSecond);
+        calendar.set(Calendar.MILLISECOND, maxMillisecond);
+        return calendar.getTime();
     }
 }

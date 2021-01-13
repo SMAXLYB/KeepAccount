@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
-import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategory
+import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
 import java.util.*
 
 @Dao
@@ -36,9 +36,9 @@ interface RecordDao {
     fun getSumMoneyByDateRange(from: Date, to: Date): LiveData<List<SumMoneyByDateBean>>
 
     /**
-     * 按日期范围, 收支类型查询金额总和 分组为时间 时间早的靠前
+     * 按日期范围, 收支类型查询金额总和 分组为日期 时间早的靠前
      */
-    @Query("select strftime('%d',time,'unixepoch','localtime') as day, sum(money) as sumMoney from tb_records where time between :from and :to and record_type = :type group by day order by day asc")
+    @Query("select strftime('%d',time,'unixepoch','localtime') as date, sum(money) as sumMoney from tb_records where time between :from and :to and record_type = :type group by date order by date asc")
     fun getSumMoneyGroupByDate(
             from: Date,
             to: Date,
@@ -46,8 +46,17 @@ interface RecordDao {
     ): LiveData<List<SumMoneyGroupByDateBean>>
 
     /**
+     * 按日期范围,收支类型查询金额总和 分组为月份 时间早的靠前
+     */
+    @Query("select strftime('%m',time,'unixepoch','localtime') as date, sum(money) as sumMoney from tb_records where time between :from and :to and record_type = :type group by date order by date asc")
+    fun getSumMoneyGroupByMonth(
+            from: Date,
+            to: Date,
+            type: Int): LiveData<List<SumMoneyGroupByDateBean>>
+
+    /**
      * 按日期范围, 收支类型查询金额总和 分组为category 金额大的靠前
      */
     @Query("select category, sum(money) as sumMoney ,count(category) as count from tb_records where time between :from and :to and record_type = :type group by category order by sumMoney desc")
-    fun getSumMoneyGroupByCategory(from: Date, to: Date, type: Int): LiveData<List<SumMoneyGroupByCategory>>
+    fun getSumMoneyGroupByCategory(from: Date, to: Date, type: Int): LiveData<List<SumMoneyGroupByCategoryBean>>
 }

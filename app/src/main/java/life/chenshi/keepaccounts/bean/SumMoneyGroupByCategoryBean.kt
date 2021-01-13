@@ -4,7 +4,7 @@ import life.chenshi.keepaccounts.database.Category
 import life.chenshi.keepaccounts.database.RecordType
 import java.math.BigDecimal
 
-class SumMoneyGroupByCategory(
+class SumMoneyGroupByCategoryBean(
         private val category: Int,
         private val count: Int,
         private val sumMoney: BigDecimal) {

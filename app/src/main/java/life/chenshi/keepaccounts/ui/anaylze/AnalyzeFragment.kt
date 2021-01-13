@@ -57,7 +57,7 @@ class AnalyzeFragment : Fragment() {
     private fun initView() {
         // 线段图固定设置
         mBinding.lineChart.apply {
-            // setScaleEnabled(false) //禁止缩放
+            setScaleEnabled(false) //禁止缩放
             description.isEnabled = false // 去除说明
             setBackgroundColor(Color.parseColor("#ffffff"))
             setGridBackgroundColor(Color.parseColor("#ffffff"))
@@ -66,7 +66,7 @@ class AnalyzeFragment : Fragment() {
                 verticalAlignment = Legend.LegendVerticalAlignment.TOP
                 horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER //图例标识位置
             }
-            marker = MyMarkerView(requireActivity(), R.layout.layout_anaylze_marker)
+            marker = MyMarkerView(TYPE_MONTH, requireActivity(), R.layout.layout_anaylze_marker)
             setNoDataText("暂无数据")
 
         }
@@ -80,7 +80,6 @@ class AnalyzeFragment : Fragment() {
             setDrawGridLines(false) // 取消网格线
             setAvoidFirstLastClipping(true)
             axisMinimum = 1.0f // 起点
-            // setLabelCount(6, true) // 坐标标签个数
         }
         // 获取左轴(Y轴)
         val yAxis = mBinding.lineChart.axisLeft.apply {
@@ -88,8 +87,6 @@ class AnalyzeFragment : Fragment() {
             setDrawAxisLine(false) //不绘制网格
             enableGridDashedLine(10f, 5f, 1f) // 虚线
             axisMinimum = 0.0f // 设置起始值
-            // setLabelCount(6,true)
-            // spaceTop = 20f
         }
 
         // 可变设置
@@ -99,11 +96,6 @@ class AnalyzeFragment : Fragment() {
             //     lineColor = Color.parseColor("#DC143C")
             //     textColor = Color.parseColor("#DC143C")
             // })
-            // valueFormatter = object : ValueFormatter() {
-            //     override fun getFormattedValue(value: Float): String {
-            //         return "${value.div(1000)}k"
-            //     }
-            // }
         }
 
         val incomeLineDataSet = mAnalyzeViewModel.generateLineDataSet(
@@ -253,15 +245,29 @@ class AnalyzeFragment : Fragment() {
                     mBinding.analyzeTypeYear.setEnable(false)
                     mBinding.analyzeTypeMonth.setEnable(true)
                     mBinding.analyzeDate.text = DateUtil.date2String(date, DateUtil.YEAR_FORMAT)
+                    mBinding.lineChart.xAxis.axisMaximum = 12f
+                    mBinding.lineChart.xAxis.valueFormatter = MonthValueFormatter()
+                    (mBinding.lineChart.marker as MyMarkerView).setType(TYPE_YEAR)
                 } else {
                     mBinding.analyzeTypeYear.setEnable(true)
                     mBinding.analyzeTypeMonth.setEnable(false)
                     mBinding.analyzeDate.text =
                         DateUtil.date2String(date, DateUtil.YEAR_MONTH_FORMAT)
+                    mBinding.lineChart.xAxis.axisMaximum =
+                        DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
+                            .toFloat()
+                    mBinding.lineChart.xAxis.valueFormatter = DayValueFormatter()
+                    (mBinding.lineChart.marker as MyMarkerView).setType(TYPE_MONTH)
+
+                }
+
+                // 通知时间发生变化
+                queryDateLiveData.apply {
+                    value = value
                 }
             }
 
-            // 当前查看日期发生变化:新建fragment/选择时间
+            // 当前查看日期发生变化:新建fragment/选择时间/按年查看
             queryDateLiveData.observe(viewLifecycleOwner) {
                 mBinding.srlAnalyzeRefresh.isRefreshing = true
                 // 改变文字
@@ -277,18 +283,12 @@ class AnalyzeFragment : Fragment() {
                 mAnalyzeViewModel.apply {
                     val monthStart = DateUtil.getMonthStart(queryDateLiveData.value!!)
                     val monthEnd = DateUtil.getMonthEnd(queryDateLiveData.value!!)
-                    getTendencyRecords(
-                        monthStart, monthEnd, RecordType.INCOME
-                    )
-                    getTendencyRecords(
-                        monthStart, monthEnd, RecordType.OUTCOME
-                    )
-                    getProportionRecords(monthStart, monthEnd, RecordType.INCOME)
-                    getProportionRecords(monthStart, monthEnd, RecordType.OUTCOME)
+                    getTendencyRecords()
+                    getProportionRecords()
                 }
             }
 
-            // 占比类型
+            // 占比类型选择
             proportionTypeLiveData.observe(viewLifecycleOwner) {
                 if (it == RecordType.INCOME) {
                     mBinding.analyzeProportionIncome.setEnableAndSelect(true)
@@ -305,7 +305,7 @@ class AnalyzeFragment : Fragment() {
                 }
             }
 
-            // 走势类型
+            // 走势类型选择
             tendencyIncomeSelectedLiveData.observe(viewLifecycleOwner) {
                 mBinding.analyzeTendencyIncome.setSelect(it)
                 if (it) {
@@ -334,26 +334,33 @@ class AnalyzeFragment : Fragment() {
                 if (beans == null) {
                     ToastUtil.showShort("初始化中...")
                 } else if (beans.isEmpty()) {
+                    //如果当前选择了收入,就刷新
                     if (mAnalyzeViewModel.tendencyIncomeSelectedLiveData.value!!) {
                         fillEmptyEntriesToLineDataSet(RecordType.INCOME)
                         notifyLineChartRedraw()
                     }
                 } else {
                     if (mAnalyzeViewModel.tendencyIncomeSelectedLiveData.value!!) {
-                        // todo 还要判断年视图还是月视图
                         val incomeLineDataSet =
                             mBinding.lineChart.lineData.getDataSetByIndex(RecordType.INCOME)
                         incomeLineDataSet.clear()
-                        val entries = mAnalyzeViewModel.generateEmptyEntriesOfMonth(
-                            DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
-                        )
+                        // 如果是月查看
+                        val entries =
+                            if (mAnalyzeViewModel.currentTypeLiveData.value == TYPE_MONTH) {
+                                mAnalyzeViewModel.generateEmptyEntriesOfMonth(
+                                    DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
+                                )
+                            } else {
+//                            mBinding.lineChart.xAxis.axisMaximum = 12f
+//                            mBinding.lineChart.xAxis.valueFormatter = MonthValueFormatter()
+                                mAnalyzeViewModel.generateEmptyEntriesOfYear()
+                            }
                         beans.forEach {
-                            entries[it.getDay() - 1].y = it.getMoney()
+                            entries[it.getDate() - 1].y = it.getMoney()
                         }
                         entries.forEach {
                             incomeLineDataSet.addEntry(it)
                         }
-                        mBinding.lineChart.xAxis.valueFormatter = DayValueFormatter()
                         notifyLineChartRedraw()
                     }
                 }
@@ -372,16 +379,24 @@ class AnalyzeFragment : Fragment() {
                         val outcomeLineDataSet =
                             mBinding.lineChart.lineData.getDataSetByIndex(RecordType.OUTCOME)
                         outcomeLineDataSet.clear()
-                        val entries = mAnalyzeViewModel.generateEmptyEntriesOfMonth(
-                            DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
-                        )
+                        val entries =
+                            if (mAnalyzeViewModel.currentTypeLiveData.value == TYPE_MONTH) {
+//                            mBinding.lineChart.xAxis.axisMaximum = DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!).toFloat()
+//                            mBinding.lineChart.xAxis.valueFormatter = DayValueFormatter()
+                                mAnalyzeViewModel.generateEmptyEntriesOfMonth(
+                                    DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!)
+                                )
+                            } else {
+//                            mBinding.lineChart.xAxis.axisMaximum = 12f
+//                            mBinding.lineChart.xAxis.valueFormatter = MonthValueFormatter()
+                                mAnalyzeViewModel.generateEmptyEntriesOfYear()
+                            }
                         beans.forEach {
-                            entries[it.getDay() - 1].y = it.getMoney()
+                            entries[it.getDate() - 1].y = it.getMoney()
                         }
                         entries.forEach {
                             outcomeLineDataSet.addEntry(it)
                         }
-                        mBinding.lineChart.xAxis.valueFormatter = DayValueFormatter()
                         notifyLineChartRedraw()
                     }
 
@@ -454,6 +469,9 @@ class AnalyzeFragment : Fragment() {
     private fun notifyLineChartRedraw() {
         mBinding.lineChart.lineData.notifyDataChanged()
         mBinding.lineChart.notifyDataSetChanged()
+        mBinding.lineChart.apply {
+            data = data
+        }
         mBinding.lineChart.invalidate()
     }
 
@@ -470,9 +488,16 @@ class AnalyzeFragment : Fragment() {
     private fun fillEmptyEntriesToLineDataSet(recordType: Int) {
         val dataSet = mBinding.lineChart.lineData.getDataSetByIndex(recordType)
         dataSet.clear()
-        // todo 要判断月还是年
-        val emptyEntries =
+        val emptyEntries = if (mAnalyzeViewModel.currentTypeLiveData.value == TYPE_MONTH) {
+//            mBinding.lineChart.xAxis.axisMaximum = DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!).toFloat()
+//            mBinding.lineChart.xAxis.valueFormatter = DayValueFormatter()
             mAnalyzeViewModel.generateEmptyEntriesOfMonth(DateUtil.getDaysInMonth(mAnalyzeViewModel.queryDateLiveData.value!!))
+        } else {
+            mBinding.lineChart.xAxis.axisMaximum = 12f
+//            mBinding.lineChart.xAxis.valueFormatter = MonthValueFormatter()
+            mAnalyzeViewModel.generateEmptyEntriesOfYear()
+        }
+
         emptyEntries.forEach {
             dataSet.addEntry(it)
         }

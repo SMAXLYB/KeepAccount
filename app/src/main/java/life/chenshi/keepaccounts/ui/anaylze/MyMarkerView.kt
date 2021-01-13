@@ -8,13 +8,22 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
 import life.chenshi.keepaccounts.R
 
-class MyMarkerView(context: Context, resId: Int) : MarkerView(context, resId) {
+class MyMarkerView(private var type: Int, context: Context, resId: Int) :
+    MarkerView(context, resId) {
+
+    fun setType(type: Int) {
+        this.type = type
+    }
 
     private var tvContent: TextView = findViewById<TextView>(R.id.tv_marker_content)
 
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
         e?.let {
-            tvContent.text = "${e.x}日 ${it.y}元"
+            if (type == AnalyzeFragment.TYPE_MONTH) {
+                tvContent.text = "${e.x}日\n${it.y}元"
+            } else {
+                tvContent.text = "${e.x}月\n${it.y}元"
+            }
         }
         super.refreshContent(e, highlight)
     }
