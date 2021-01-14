@@ -9,8 +9,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:scrollbars="none"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -37,19 +38,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:text="测试用户"
                     android:textSize="16sp"
-                    android:text="欢迎使用，点击登陆"
                     app:layout_constraintBottom_toTopOf="@id/signature"
                     app:layout_constraintStart_toEndOf="@id/avatar"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/signature"
-                    android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="懂你的每一份努力和改变"
+                    android:text="记录你的每一份改变"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/avatar"
                     app:layout_constraintTop_toBottomOf="@id/nickname" />
@@ -59,9 +60,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:paddingStart="15dp"
                 android:text="基本设置"
-                android:layout_marginTop="10dp"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -69,9 +70,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="1dp"
-                app:cardMaxElevation="2dp"
-                app:cardCornerRadius="10dp">
+                app:cardMaxElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -81,14 +82,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@drawable/setting_about" />
+                            android:src="@drawable/setting_book" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -96,28 +99,35 @@
                             android:layout_marginStart="15dp"
                             android:layout_weight="2"
                             android:gravity="center_vertical"
-                            android:text="重置应用" />
+                            android:text="当前账本" />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical|end"
-                            android:text="V1.0.0测试版" />
+                            android:text="日常账本" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/anaylze_arrow_more" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@drawable/setting_update" />
+                            android:src="@drawable/setting_budget" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -125,28 +135,27 @@
                             android:layout_marginStart="15dp"
                             android:layout_weight="2"
                             android:gravity="center_vertical"
-                            android:text="检测更新" />
+                            android:text="设置预算" />
 
-                        <TextView
-                            android:layout_width="0dp"
+                        <ImageView
+                            android:layout_width="10dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|end"
-                            android:text="V1.0.0测试版" />
+                            android:src="@drawable/anaylze_arrow_more" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@drawable/setting_help" />
+                            android:src="@drawable/setting_category" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -154,28 +163,36 @@
                             android:layout_marginStart="15dp"
                             android:layout_weight="2"
                             android:gravity="center_vertical"
-                            android:text="使用帮助" />
+                            android:text="收支类型" />
 
-                        <TextView
-                            android:layout_width="0dp"
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:gravity="center_vertical|end"-->
+                        <!--                            android:text="V1.0.0测试版" />-->
+
+
+                        <ImageView
+                            android:layout_width="10dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|end"
-                            android:text="V1.0.0测试版" />
+                            android:src="@drawable/anaylze_arrow_more" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@drawable/setting_agreement" />
+                            android:src="@drawable/setting_backup" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -183,16 +200,24 @@
                             android:layout_marginStart="15dp"
                             android:layout_weight="2"
                             android:gravity="center_vertical"
-                            android:text="用户协议" />
+                            android:text="备份恢复" />
 
-                        <TextView
-                            android:layout_width="0dp"
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:gravity="center_vertical|end"-->
+                        <!--                            android:text="V1.0.0测试版" />-->
+
+
+                        <ImageView
+                            android:layout_width="10dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|end"
-                            android:text="V1.0.0测试版" />
+                            android:src="@drawable/anaylze_arrow_more" />
                     </LinearLayout>
+
+
                 </LinearLayout>
 
 
@@ -201,8 +226,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="15dp"
                 android:layout_marginTop="10dp"
+                android:paddingStart="15dp"
                 android:text="其他"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -212,9 +237,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="1dp"
-                app:cardMaxElevation="2dp"
-                app:cardCornerRadius="10dp">
+                app:cardMaxElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -222,11 +247,14 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="25dp"
@@ -241,21 +269,67 @@
                             android:gravity="center_vertical"
                             android:text="关于应用" />
 
-                        <TextView
-                            android:layout_width="0dp"
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:gravity="center_vertical|end"-->
+                        <!--                            android:text="V1.0.0测试版" />-->
+
+                        <ImageView
+                            android:layout_width="10dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|end"
-                            android:text="V1.0.0测试版" />
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/anaylze_arrow_more" />
                     </LinearLayout>
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/setting_feedback" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="15dp"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical"
+                            android:text="反馈建议" />
+
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:gravity="center_vertical|end"-->
+                        <!--                            android:text="V1.0.0测试版" />-->
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/anaylze_arrow_more" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="25dp"
@@ -277,14 +351,22 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical|end"
                             android:text="V1.0.0测试版" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/anaylze_arrow_more" />
                     </LinearLayout>
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="25dp"
@@ -299,21 +381,30 @@
                             android:gravity="center_vertical"
                             android:text="使用帮助" />
 
-                        <TextView
-                            android:layout_width="0dp"
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:gravity="center_vertical|end"-->
+                        <!--                            android:text="V1.0.0测试版" />-->
+
+                        <ImageView
+                            android:layout_width="10dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|end"
-                            android:text="V1.0.0测试版" />
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/anaylze_arrow_more" />
                     </LinearLayout>
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="25dp"
@@ -328,13 +419,18 @@
                             android:gravity="center_vertical"
                             android:text="用户协议" />
 
-                        <TextView
-                            android:layout_width="0dp"
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:gravity="center_vertical|end"-->
+                        <!--                            android:text="V1.0.0测试版" />-->
+                        <ImageView
+                            android:layout_width="10dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|end"
-                            android:text="V1.0.0测试版" />
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/anaylze_arrow_more" />
                     </LinearLayout>
                 </LinearLayout>
 

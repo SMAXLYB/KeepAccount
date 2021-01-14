@@ -1,24 +1,23 @@
 package life.chenshi.keepaccounts.ui.index
 
-import android.content.DialogInterface
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.map
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordType
@@ -34,18 +33,17 @@ class IndexFragment : Fragment() {
 
     companion object {
         private const val TAG = "IndexFragment"
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        const val SHOW_TYPE_ALL = -1;
+        const val SHOW_TYPE_OUTCOME = 0;
+        const val SHOW_TYPE_INCOME = 1;
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        mBinding = DataBindingUtil.inflate<FragmentIndexBinding>(
+    ): View {
+        mBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_index, container, false
         )
         return mBinding.root
@@ -67,8 +65,7 @@ class IndexFragment : Fragment() {
 
     private fun initListener() {
         // 时间
-        mBinding.indexTime.setOnClickListener {
-            it as TextView
+        mBinding.timeContainer.setOnClickListener {
             activity?.let { activity ->
                 CardDatePickerDialog.builder(activity)
                     .setTitle("选择年月")
@@ -91,9 +88,45 @@ class IndexFragment : Fragment() {
             }
         }
 
+        mBinding.typeContainer.setOnClickListener {
+            activity?.let { activity ->
+                val view =
+                    layoutInflater.inflate(R.layout.index_bottom_sheet, null) as ConstraintLayout
+                val bottomSheetDialog =
+                    BottomSheetDialog(activity, R.style.BottomSheetDialog).apply {
+                        setContentView(view)
+                        setCanceledOnTouchOutside(true)
+                        setCancelable(true)
+                        show()
+                    }
+                val children = view.children
+                children.forEach {
+                    it.setOnClickListener { v ->
+                        mIndexViewModel.currentShowType.value =
+                            when (v.id) {
+                                R.id.ll_index_type_income -> {
+                                    mBinding.tvCategory.text = "收入"
+                                    SHOW_TYPE_INCOME
+                                }
+                                R.id.ll_index_type_outcome -> {
+                                    mBinding.tvCategory.text = "支出"
+                                    SHOW_TYPE_OUTCOME
+                                }
+                                else -> {
+                                    mBinding.tvCategory.text = "全部"
+                                    SHOW_TYPE_ALL
+                                }
+                            }
+                        bottomSheetDialog.dismiss()
+                    }
+                }
+            }
+        }
+
         // 新建记录
         mBinding.fabNewRecord.setOnClickListener {
-            it.findNavController().navigate(R.id.action_indexFragment_to_newRecordActivity, null)
+            it.findNavController()
+                .navigate(R.id.action_indexFragment_to_newRecordActivity, null)
         }
 
         // 下拉刷新
@@ -102,16 +135,19 @@ class IndexFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initObserver() {
         // 首页加载日期范围内的数据
         mIndexViewModel.recordsByDateRangeLiveData
-            .map { it ->
-                mIndexViewModel.convert2RecordListGroupByDay(it)
+            .map {
+                mIndexViewModel.convert2RecordListGroupByDay(
+                    it,
+                    mIndexViewModel.currentShowType.value!!
+                )
             }.observe(viewLifecycleOwner) {
+                mBinding.srlIndexRefresh.isRefreshing = true
                 mAdapter?.setData(it)
-                if (mBinding.srlIndexRefresh.isRefreshing) {
-                    mBinding.srlIndexRefresh.isRefreshing = false
-                }
+                stopRefreshing()
             }
 
         // 查询时间选择监听
@@ -130,15 +166,25 @@ class IndexFragment : Fragment() {
                     // 防止只有收入/支出的时候,另外一个没有变化
                     mBinding.indexOutcomeInMonth.text = "-0.00"
                     mBinding.indexIncomeInMonth.text = "+0.00"
-                    SumMoneyBeanList.forEach {
-                        if (it.recordType == RecordType.OUTCOME) {
-                            mBinding.indexOutcomeInMonth.text = "-${it.sumMoney}"
+                    SumMoneyBeanList.forEach { bean ->
+                        if (bean.recordType == RecordType.OUTCOME) {
+                            mBinding.indexOutcomeInMonth.text = "-${bean.sumMoney}"
                         } else {
-                            mBinding.indexIncomeInMonth.text = "+${it.sumMoney}"
+                            mBinding.indexIncomeInMonth.text = "+${bean.sumMoney}"
                         }
                     }
                 }
         }
+
+        // 收支类型选择
+        mIndexViewModel.currentShowType.observe(viewLifecycleOwner) {
+            mIndexViewModel.recordsByDateRangeLiveData.apply {
+                if (value != null) {
+                    value = value
+                }
+            }
+        }
+
     }
 
     private fun showDeleteDialog(record: Record) {
@@ -148,6 +194,12 @@ class IndexFragment : Fragment() {
                 .setNegativeButton("取消") { _, _ -> }
                 .setMessage("确定删除吗")
                 .show()
+        }
+    }
+
+    private fun stopRefreshing() {
+        if (mBinding.srlIndexRefresh.isRefreshing) {
+            mBinding.srlIndexRefresh.isRefreshing = false
         }
     }
 }

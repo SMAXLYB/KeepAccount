@@ -85,7 +85,7 @@
 
                     <RelativeLayout
 
-                        android:id="@+id/category_container"
+                        android:id="@+id/type_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -95,7 +95,7 @@
                         android:paddingEnd="8dp">
 
                         <TextView
-                            android:id="@+id/category"
+                            android:id="@+id/tv_category"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="全部"
@@ -106,7 +106,7 @@
                             android:layout_width="10dp"
                             android:layout_height="10dp"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/category"
+                            android:layout_toRightOf="@id/tv_category"
                             android:src="@drawable/index_arrow_down_white" />
                     </RelativeLayout>
                 </LinearLayout>

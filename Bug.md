@@ -10,6 +10,7 @@
  - [Index] 记住上次选择时间
  - [Index] 列表Icon根据收支大小变化
  - [Analyze] MarkerView显示时间
+ - 添加是否主动刷新功能
 
 #待优化
  - [NewRecord] 消费类型可以自定义
@@ -17,3 +18,4 @@
  - [NewRecord] 输入备注时不遮挡内容
  - [Index, Analyze] 数据使用LiveData而不是MediatorLiveData
  - [Analyze] 折线图高度动态变化
+ - [Index] 选择查看类型,当前类型高亮
