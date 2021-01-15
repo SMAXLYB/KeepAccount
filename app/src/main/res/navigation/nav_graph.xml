@@ -13,20 +13,31 @@
         <action
             android:id="@+id/action_indexFragment_to_newRecordActivity"
             app:destination="@id/newRecordActivity" />
+<!--        <argument-->
+<!--            android:name="record"-->
+<!--            android:defaultValue="@null"-->
+<!--            app:argType="life.chenshi.keepaccounts.database.Record"-->
+<!--            app:nullable="true" />-->
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="life.chenshi.keepaccounts.ui.setting.SettingFragment"
         android:label="SettingFragment"
-        tools:layout="@layout/fragment_setting"/>
+        tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/analyzeFragment"
         android:name="life.chenshi.keepaccounts.ui.anaylze.AnalyzeFragment"
         android:label="AnalyzeFragment"
-        tools:layout="@layout/fragment_anaylze"/>
+        tools:layout="@layout/fragment_anaylze" />
     <activity
         android:id="@+id/newRecordActivity"
         android:name="life.chenshi.keepaccounts.ui.newrecord.NewRecordActivity"
         android:label="NewRecordActivity"
-        tools:layout="@layout/activity_new_record"/>
+        tools:layout="@layout/activity_new_record">
+        <argument
+            android:name="record"
+            android:defaultValue="@null"
+            app:argType="life.chenshi.keepaccounts.database.Record"
+            app:nullable="true" />
+    </activity>
 </navigation>

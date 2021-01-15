@@ -4,26 +4,20 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.Category
 import life.chenshi.keepaccounts.database.Record
-import life.chenshi.keepaccounts.database.RecordDatabase
 import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.ItemBudgetBinding
 import life.chenshi.keepaccounts.databinding.ItemBudgetDetailBinding
 import life.chenshi.keepaccounts.utils.DateUtil
-import kotlin.coroutines.coroutineContext
 
 class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
     RecyclerView.Adapter<IndexRecordAdapter.IndexRecordViewHolder>() {
-    private var mListener: ((Record) -> Unit)? = null
+    private var mLongClickListener: ((Record) -> Unit)? = null
+    private var mClickListener: ((Record) -> Unit)? = null
 
     class IndexRecordViewHolder(var binding: ItemBudgetBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -84,18 +78,14 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
                         setTextColor(Color.parseColor("#8bc34a"))
                     }
                 }
-                mListener?.let { _ ->
+                mLongClickListener?.let { _ ->
+                    root.setOnClickListener { _ ->
+                        mClickListener?.invoke(it)
+                    }
                     root.setOnLongClickListener { _ ->
-                        mListener!!(it)
+                        mLongClickListener?.invoke(it)
                         true
                     }
-//                    root.setOnLongClickListener { _ ->
-//                        AlertDialog.Builder()
-//                        MainScope().launch(Dispatchers.IO) {
-//                            RecordDatabase.getDatabase().getRecordDao().deleteRecord(this)
-//                        }
-//                        false
-//                    }
                 }
             }
             itemBudgetDetailContainer.addView(itemBudgetDetailBinding.root)
@@ -119,6 +109,10 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
     }
 
     fun setOnItemLongClickListener(listener: (Record) -> Unit) {
-        mListener = listener
+        mLongClickListener = listener
+    }
+
+    fun setOnClickListener(listener: (Record) -> Unit) {
+        mClickListener = listener
     }
 }

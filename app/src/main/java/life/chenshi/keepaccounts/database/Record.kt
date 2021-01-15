@@ -1,5 +1,7 @@
 package life.chenshi.keepaccounts.database
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
@@ -26,7 +28,48 @@ data class Record @JvmOverloads constructor(
     // 0支出/1收入
     @ColumnInfo(name = "record_type")
     var recordType: Int
-)
+) : Parcelable {
+
+    // 构造函数
+    constructor(source: Parcel) : this(
+        source.readInt(),
+        BigDecimal(source.readString()),
+        source.readString(),
+        Date(source.readLong()),
+        source.readInt(),
+        source.readInt()
+    )
+
+    // 序列化
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeValue(id)
+        dest.writeString(money.toString())
+        dest.writeString(remark)
+        dest.writeInt(category)
+        dest.writeLong(time.time)
+        dest.writeInt(recordType)
+    }
+
+    // 描述信息
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    // 反序列化
+    companion object CREATOR : Parcelable.Creator<Record> {
+        override fun createFromParcel(parcel: Parcel): Record {
+            return Record(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Record?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+    override fun toString(): String {
+        return "Record(id=$id, money=$money, remark=$remark, time=$time, category=$category, recordType=$recordType)"
+    }
+}
 
 object RecordType {
     const val OUTCOME = 0;

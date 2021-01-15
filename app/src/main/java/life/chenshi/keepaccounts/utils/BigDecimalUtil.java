@@ -20,11 +20,6 @@ import android.text.TextUtils;
 
 import java.math.BigDecimal;
 
-/**
- * BigDecimal 工具类
- *
- * @author Bakumon https://bakumon.me
- */
 public class BigDecimalUtil {
 
     /**

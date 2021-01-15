@@ -2,11 +2,13 @@ package life.chenshi.keepaccounts.ui.newrecord
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.navArgs
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import life.chenshi.keepaccounts.R
@@ -14,14 +16,12 @@ import life.chenshi.keepaccounts.base.BaseActivity
 import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
-import life.chenshi.keepaccounts.utils.BigDecimalUtil
-import life.chenshi.keepaccounts.utils.DateUtil
-import life.chenshi.keepaccounts.utils.ToastUtil
-import life.chenshi.keepaccounts.utils.setEnable
+import life.chenshi.keepaccounts.utils.*
 import java.math.BigDecimal
 import java.util.*
 
 class NewRecordActivity : BaseActivity() {
+    private val mRecord by navArgs<NewRecordActivityArgs>()
     private lateinit var mBinding: ActivityNewRecordBinding
     private val mNewRecordViewModel: NewRecordViewModel by viewModels<NewRecordViewModel>()
 
@@ -42,6 +42,9 @@ class NewRecordActivity : BaseActivity() {
     }
 
     private fun initView() {
+
+        Log.d(TAG, "initView: ${mRecord}")
+        
         mBinding.newRecordDate.text =
             DateUtil.date2String(
                 mNewRecordViewModel.mCurrentChooseCalendar.time,
@@ -80,15 +83,15 @@ class NewRecordActivity : BaseActivity() {
             it as TextView
             it.setEnable(false)
             mBinding.newRecordTypeIncome.setEnable(true)
-            mBinding.newRecordLabelContainerOutcome.visibility = View.VISIBLE
-            mBinding.newRecordLabelContainerIncome.visibility = View.GONE
+            mBinding.newRecordLabelContainerOutcome.visible()
+            mBinding.newRecordLabelContainerIncome.gone()
         }
         mBinding.newRecordTypeIncome.setOnClickListener {
             it as TextView
             it.setEnable(false)
             mBinding.newRecordTypeOutcome.setEnable(true)
-            mBinding.newRecordLabelContainerOutcome.visibility = View.GONE
-            mBinding.newRecordLabelContainerIncome.visibility = View.VISIBLE
+            mBinding.newRecordLabelContainerOutcome.gone()
+            mBinding.newRecordLabelContainerIncome.visible()
         }
 
         // 日期选择
@@ -196,5 +199,4 @@ class NewRecordActivity : BaseActivity() {
     private fun initObserver() {
 
     }
-
 }

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.map
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.loper7.date_time_picker.DateTimeConfig
@@ -59,8 +60,15 @@ class IndexFragment : Fragment() {
     private fun initView() {
         mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
         mAdapter = IndexRecordAdapter(emptyList())
+        mAdapter!!.setOnClickListener { editRecord(it) }
         mAdapter!!.setOnItemLongClickListener { showDeleteDialog(it) }
         mBinding.rvBudget.adapter = mAdapter
+    }
+
+    private fun editRecord(record: Record) {
+        val action =
+            IndexFragmentDirections.actionIndexFragmentToNewRecordActivity(record)
+        findNavController().navigate(action)
     }
 
     private fun initListener() {
@@ -88,6 +96,7 @@ class IndexFragment : Fragment() {
             }
         }
 
+        // 查看类型选择
         mBinding.typeContainer.setOnClickListener {
             activity?.let { activity ->
                 val view =
