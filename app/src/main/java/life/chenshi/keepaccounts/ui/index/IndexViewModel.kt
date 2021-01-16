@@ -55,20 +55,24 @@ class IndexViewModel : ViewModel() {
      * @param originList 原始数据库数据
      * @param showType 展示类型
      */
-    fun convert2RecordListGroupByDay(originList: List<Record>, showType:Int): List<List<Record>> {
+    fun convert2RecordListGroupByDay(originList: List<Record>, showType: Int): List<List<Record>> {
         // 首次使用应用时数据库无数据
         if (originList.isNullOrEmpty()) {
             return Collections.emptyList()
         }
         var listAfterFilter = originList
-        if(showType == IndexFragment.SHOW_TYPE_INCOME){
+        if (showType == IndexFragment.SHOW_TYPE_INCOME) {
             listAfterFilter = originList.filter { it.recordType == RecordType.INCOME }
         }
 
-        if(showType == IndexFragment.SHOW_TYPE_OUTCOME){
+        if (showType == IndexFragment.SHOW_TYPE_OUTCOME) {
             listAfterFilter = originList.filter { it.recordType == RecordType.OUTCOME }
         }
         val recordListGroupByDay: MutableList<MutableList<Record>> = mutableListOf()
+        // 如果经过筛选后没有数据, 直接返回空数据
+        if (listAfterFilter.isEmpty()) {
+            return recordListGroupByDay
+        }
         val tempRecordData: Date = listAfterFilter[0].time
         val records: MutableList<Record> = mutableListOf(listAfterFilter[0])
         recordListGroupByDay.add(records)

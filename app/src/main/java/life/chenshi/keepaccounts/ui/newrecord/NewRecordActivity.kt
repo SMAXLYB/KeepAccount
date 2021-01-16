@@ -1,13 +1,10 @@
 package life.chenshi.keepaccounts.ui.newrecord
 
 import android.graphics.Color
-import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.children
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.navArgs
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
@@ -21,30 +18,24 @@ import java.math.BigDecimal
 import java.util.*
 
 class NewRecordActivity : BaseActivity() {
-    private val mRecord by navArgs<NewRecordActivityArgs>()
-    private lateinit var mBinding: ActivityNewRecordBinding
-    private val mNewRecordViewModel: NewRecordViewModel by viewModels<NewRecordViewModel>()
+    private val mRecordArgs by navArgs<NewRecordActivityArgs>()
+    private val mBinding by bindingContentView<ActivityNewRecordBinding>(R.layout.activity_new_record)
+    private val mNewRecordViewModel by viewModels<NewRecordViewModel>()
 
     companion object {
         private const val TAG = "NewRecordActivity"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView<ActivityNewRecordBinding>(
-            this,
-            R.layout.activity_new_record
-        )
+    override fun initView() {
 
-        initView()
-        initListener()
-        initObserver()
-    }
+        // 如果时从列表中进入,填充信息
+        mRecordArgs.record?.let {
+            mNewRecordViewModel.mCurrentChooseCalendar.time = it.time
+            mBinding.etMoney.setText(it.money.toString())
+            mBinding.etRemark.setText(it.remark)
+        }
 
-    private fun initView() {
-
-        Log.d(TAG, "initView: ${mRecord}")
-        
+        // 日期
         mBinding.newRecordDate.text =
             DateUtil.date2String(
                 mNewRecordViewModel.mCurrentChooseCalendar.time,
@@ -56,7 +47,6 @@ class NewRecordActivity : BaseActivity() {
                 mNewRecordViewModel.mCurrentChooseCalendar.time,
                 DateUtil.HOUR_MINUTE
             )
-
 
         var categoryIndex = 0
         mBinding.newRecordLabelContainerOutcome.children.iterator()
@@ -77,7 +67,7 @@ class NewRecordActivity : BaseActivity() {
         }
     }
 
-    private fun initListener() {
+    override fun initListener() {
         // 收支类型选择
         mBinding.newRecordTypeOutcome.setOnClickListener {
             it as TextView
@@ -182,6 +172,17 @@ class NewRecordActivity : BaseActivity() {
             }
             val category = mNewRecordViewModel.lastSelectedCategoryIndex
 
+            mRecordArgs.record?.let {
+                it.money = money
+                it.remark = remark
+                it.time = date
+                it.category = category
+                it.recordType = recordType
+                mNewRecordViewModel.updateRecord(it)
+                finish()
+                return@setOnClickListener
+            }
+
             mNewRecordViewModel.insertRecord(
                 Record(null, money, remark, date, category, recordType)
             )
@@ -196,7 +197,7 @@ class NewRecordActivity : BaseActivity() {
     }
 
 
-    private fun initObserver() {
+    override fun initObserver() {
 
     }
 }

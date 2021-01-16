@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
@@ -24,6 +25,8 @@ import life.chenshi.keepaccounts.database.Record
 import life.chenshi.keepaccounts.database.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.utils.DateUtil
+import life.chenshi.keepaccounts.utils.inVisible
+import life.chenshi.keepaccounts.utils.visible
 import java.util.*
 
 class IndexFragment : Fragment() {
@@ -65,11 +68,6 @@ class IndexFragment : Fragment() {
         mBinding.rvBudget.adapter = mAdapter
     }
 
-    private fun editRecord(record: Record) {
-        val action =
-            IndexFragmentDirections.actionIndexFragmentToNewRecordActivity(record)
-        findNavController().navigate(action)
-    }
 
     private fun initListener() {
         // 时间
@@ -111,18 +109,17 @@ class IndexFragment : Fragment() {
                 val children = view.children
                 children.forEach {
                     it.setOnClickListener { v ->
+                        v as TextView
+                        mBinding.tvCategory.text = v.text
                         mIndexViewModel.currentShowType.value =
                             when (v.id) {
                                 R.id.ll_index_type_income -> {
-                                    mBinding.tvCategory.text = "收入"
                                     SHOW_TYPE_INCOME
                                 }
                                 R.id.ll_index_type_outcome -> {
-                                    mBinding.tvCategory.text = "支出"
                                     SHOW_TYPE_OUTCOME
                                 }
                                 else -> {
-                                    mBinding.tvCategory.text = "全部"
                                     SHOW_TYPE_ALL
                                 }
                             }
@@ -155,6 +152,11 @@ class IndexFragment : Fragment() {
                 )
             }.observe(viewLifecycleOwner) {
                 mBinding.srlIndexRefresh.isRefreshing = true
+                if (it.isNotEmpty()) {
+                    hideEmptyHintView()
+                } else {
+                    showEmptyHintView()
+                }
                 mAdapter?.setData(it)
                 stopRefreshing()
             }
@@ -196,6 +198,12 @@ class IndexFragment : Fragment() {
 
     }
 
+    private fun editRecord(record: Record) {
+        val action =
+            IndexFragmentDirections.actionIndexFragmentToNewRecordActivity(record)
+        findNavController().navigate(action)
+    }
+
     private fun showDeleteDialog(record: Record) {
         activity?.let {
             AlertDialog.Builder(it)
@@ -210,5 +218,15 @@ class IndexFragment : Fragment() {
         if (mBinding.srlIndexRefresh.isRefreshing) {
             mBinding.srlIndexRefresh.isRefreshing = false
         }
+    }
+
+    private fun hideEmptyHintView(){
+        mBinding.ivIndexEmpty.inVisible()
+        mBinding.tvIndexEmptyHint.inVisible()
+    }
+
+    private fun showEmptyHintView(){
+        mBinding.ivIndexEmpty.visible()
+        mBinding.tvIndexEmptyHint.visible()
     }
 }

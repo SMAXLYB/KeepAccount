@@ -42,11 +42,11 @@ data class Record @JvmOverloads constructor(
 
     // 序列化
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeValue(id)
+        dest.writeInt(id!!)
         dest.writeString(money.toString())
         dest.writeString(remark)
-        dest.writeInt(category)
         dest.writeLong(time.time)
+        dest.writeInt(category)
         dest.writeInt(recordType)
     }
 

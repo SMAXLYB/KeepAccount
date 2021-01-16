@@ -2,9 +2,9 @@ package life.chenshi.keepaccounts.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
+import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
 import java.util.*
 
 @Dao
@@ -40,9 +40,9 @@ interface RecordDao {
      */
     @Query("select strftime('%d',time,'unixepoch','localtime') as date, sum(money) as sumMoney from tb_records where time between :from and :to and record_type = :type group by date order by date asc")
     fun getSumMoneyGroupByDate(
-            from: Date,
-            to: Date,
-            type: Int
+        from: Date,
+        to: Date,
+        type: Int
     ): LiveData<List<SumMoneyGroupByDateBean>>
 
     /**
@@ -50,13 +50,24 @@ interface RecordDao {
      */
     @Query("select strftime('%m',time,'unixepoch','localtime') as date, sum(money) as sumMoney from tb_records where time between :from and :to and record_type = :type group by date order by date asc")
     fun getSumMoneyGroupByMonth(
-            from: Date,
-            to: Date,
-            type: Int): LiveData<List<SumMoneyGroupByDateBean>>
+        from: Date,
+        to: Date,
+        type: Int
+    ): LiveData<List<SumMoneyGroupByDateBean>>
 
     /**
      * 按日期范围, 收支类型查询金额总和 分组为category 金额大的靠前
      */
     @Query("select category, sum(money) as sumMoney ,count(category) as count from tb_records where time between :from and :to and record_type = :type group by category order by sumMoney desc")
-    fun getSumMoneyGroupByCategory(from: Date, to: Date, type: Int): LiveData<List<SumMoneyGroupByCategoryBean>>
+    fun getSumMoneyGroupByCategory(
+        from: Date,
+        to: Date,
+        type: Int
+    ): LiveData<List<SumMoneyGroupByCategoryBean>>
+
+    /**
+     * 搜索符合关键字的全部记录
+     */
+    @Query("select * from tb_records where remark like '%'|| :keyword || '%' order by time desc")
+    fun getRecordByKeyword(keyword: String): LiveData<List<Record>>
 }
