@@ -17,7 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.search.SearchActivity" />
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.newrecord.NewRecordActivity" />
     </application>
 

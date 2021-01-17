@@ -12,13 +12,12 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.PieEntry
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
-import life.chenshi.keepaccounts.database.RecordDatabase
-import life.chenshi.keepaccounts.database.RecordType
+import life.chenshi.keepaccounts.database.AppDatabase
+import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.utils.DateUtil
-import java.util.*
 
 class AnalyzeViewModel : ViewModel() {
-    private val recordDAO by lazy { RecordDatabase.getDatabase().getRecordDao() }
+    private val recordDAO by lazy { AppDatabase.getDatabase().getRecordDao() }
 
     // 当前按年查看还是按月查看
     val currentTypeLiveData = MutableLiveData<Int>(AnalyzeFragment.TYPE_MONTH)

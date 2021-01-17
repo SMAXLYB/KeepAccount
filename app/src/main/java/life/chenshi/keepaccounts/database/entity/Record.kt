@@ -1,17 +1,20 @@
-package life.chenshi.keepaccounts.database
+package life.chenshi.keepaccounts.database.entity
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 import java.math.BigDecimal
 import java.util.*
 
 @Entity(
     tableName = "tb_records",
-    indices = [Index(value = ["money", "time", "category", "record_type"])]
+    indices = [Index(value = ["money", "time", "category", "record_type", "book_id"])],
+    foreignKeys = [ForeignKey(
+        entity = Book::class,
+        parentColumns = ["id"],
+        childColumns = ["book_id"],
+        onDelete = ForeignKey.CASCADE
+    )]
 )
 data class Record @JvmOverloads constructor(
     // 账目的唯一id
@@ -27,7 +30,10 @@ data class Record @JvmOverloads constructor(
     var category: Int,
     // 0支出/1收入
     @ColumnInfo(name = "record_type")
-    var recordType: Int
+    var recordType: Int,
+    // 账本id
+    @ColumnInfo(name = "book_id")
+    var bookId: Int
 ) : Parcelable {
 
     // 构造函数
@@ -36,6 +42,7 @@ data class Record @JvmOverloads constructor(
         BigDecimal(source.readString()),
         source.readString(),
         Date(source.readLong()),
+        source.readInt(),
         source.readInt(),
         source.readInt()
     )
@@ -48,6 +55,7 @@ data class Record @JvmOverloads constructor(
         dest.writeLong(time.time)
         dest.writeInt(category)
         dest.writeInt(recordType)
+        dest.writeInt(bookId)
     }
 
     // 描述信息
@@ -67,7 +75,7 @@ data class Record @JvmOverloads constructor(
     }
 
     override fun toString(): String {
-        return "Record(id=$id, money=$money, remark=$remark, time=$time, category=$category, recordType=$recordType)"
+        return "Record(bookid=${bookId}, id=$id, money=$money, remark=$remark, time=$time, category=$category, recordType=$recordType)"
     }
 }
 

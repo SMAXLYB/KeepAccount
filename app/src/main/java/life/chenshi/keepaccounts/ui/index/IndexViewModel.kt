@@ -4,16 +4,17 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
-import life.chenshi.keepaccounts.database.Record
-import life.chenshi.keepaccounts.database.RecordDatabase
-import life.chenshi.keepaccounts.database.RecordType
+import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.database.AppDatabase
+import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.utils.DateUtil
 import java.util.*
 
 class IndexViewModel : ViewModel() {
 
-    private val recordDAO by lazy { RecordDatabase.getDatabase().getRecordDao() }
+    private val recordDAO by lazy { AppDatabase.getDatabase().getRecordDao() }
     val recordsByDateRangeLiveData = MediatorLiveData<List<Record>>()
+    private var mTempRecordsLiveData: LiveData<List<Record>>? = null
     val currentShowType by lazy { MutableLiveData<Int>(IndexFragment.SHOW_TYPE_ALL) }
     val queryDateLiveData by lazy { MutableLiveData<Long>(System.currentTimeMillis()) }
 
@@ -28,7 +29,11 @@ class IndexViewModel : ViewModel() {
      * 根据日期范围取出记录
      */
     fun getRecordByDateRange(from: Date, to: Date) {
-        recordsByDateRangeLiveData.addSource(recordDAO.getRecordByDateRange(from, to)) {
+        if (mTempRecordsLiveData != null) {
+            recordsByDateRangeLiveData.removeSource(mTempRecordsLiveData!!)
+        }
+        mTempRecordsLiveData = recordDAO.getRecordByDateRange(from, to)
+        recordsByDateRangeLiveData.addSource(mTempRecordsLiveData!!) {
             recordsByDateRangeLiveData.value = it
         }
     }
@@ -53,19 +58,18 @@ class IndexViewModel : ViewModel() {
     /**
      * 将数据库的list<>转为list<list<>>，按同一天放在一个List中
      * @param originList 原始数据库数据
-     * @param showType 展示类型
      */
-    fun convert2RecordListGroupByDay(originList: List<Record>, showType: Int): List<List<Record>> {
+    fun convert2RecordListGroupByDay(originList: List<Record>): List<List<Record>> {
         // 首次使用应用时数据库无数据
         if (originList.isNullOrEmpty()) {
             return Collections.emptyList()
         }
         var listAfterFilter = originList
-        if (showType == IndexFragment.SHOW_TYPE_INCOME) {
+        if (currentShowType.value == IndexFragment.SHOW_TYPE_INCOME) {
             listAfterFilter = originList.filter { it.recordType == RecordType.INCOME }
         }
 
-        if (showType == IndexFragment.SHOW_TYPE_OUTCOME) {
+        if (currentShowType.value == IndexFragment.SHOW_TYPE_OUTCOME) {
             listAfterFilter = originList.filter { it.recordType == RecordType.OUTCOME }
         }
         val recordListGroupByDay: MutableList<MutableList<Record>> = mutableListOf()

@@ -4,13 +4,13 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.database.Record
-import life.chenshi.keepaccounts.database.RecordDatabase
+import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.database.AppDatabase
 import java.util.*
 
 class NewRecordViewModel : ViewModel() {
 
-    private val mRecordDao by lazy { RecordDatabase.getDatabase().getRecordDao() }
+    private val mRecordDao by lazy { AppDatabase.getDatabase().getRecordDao() }
 
     // 选择好的时间
     val mCurrentChooseCalendar: Calendar = Calendar.getInstance()

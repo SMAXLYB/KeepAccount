@@ -4,14 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import life.chenshi.keepaccounts.database.Record
-import life.chenshi.keepaccounts.database.RecordDatabase
+import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.database.AppDatabase
+import life.chenshi.keepaccounts.database.entity.RecordType
+import life.chenshi.keepaccounts.ui.index.IndexFragment
 import life.chenshi.keepaccounts.utils.DateUtil
 import java.util.*
 
 class SearchViewModel : ViewModel() {
 
-    private val mRecordDao by lazy { RecordDatabase.getDatabase().getRecordDao() }
+    private val mRecordDao by lazy { AppDatabase.getDatabase().getRecordDao() }
 
     // 默认查看全部类型
     val filterType by lazy { MutableLiveData<Int>(SearchActivity.FILTER_TYPE_ALL) }
@@ -40,25 +42,37 @@ class SearchViewModel : ViewModel() {
     /**
      * 将数据库的list<>转为list<list<>>，按同一天放在一个List中
      * @param originList 原始数据库数据
-     * @param showType 展示类型
      */
-    fun convert2RecordListGroupByDay(originList: List<Record>, showType: Int): List<List<Record>> {
+    fun convert2RecordListGroupByDay(originList: List<Record>): List<List<Record>> {
         // 首次使用应用时数据库无数据
         if (originList.isNullOrEmpty()) {
             return Collections.emptyList()
         }
         var listAfterFilter = originList
-        // if (showType == IndexFragment.SHOW_TYPE_INCOME) {
-        //     listAfterFilter = originList.filter { it.recordType == RecordType.INCOME }
-        // }
-
-        // if (showType == IndexFragment.SHOW_TYPE_OUTCOME) {
-        //     listAfterFilter = originList.filter { it.recordType == RecordType.OUTCOME }
-        // }
+        if (filterType.value == IndexFragment.SHOW_TYPE_INCOME) {
+            listAfterFilter = originList.filter { it.recordType == RecordType.INCOME }
+        }
+        if (filterType.value == IndexFragment.SHOW_TYPE_OUTCOME) {
+            listAfterFilter = originList.filter { it.recordType == RecordType.OUTCOME }
+        }
         val recordListGroupByDay: MutableList<MutableList<Record>> = mutableListOf()
         // 如果经过筛选后没有数据, 直接返回空数据
         if (listAfterFilter.isEmpty()) {
             return recordListGroupByDay
+        }
+
+        listAfterFilter = when (filterOrder.value) {
+            SearchActivity.ORDER_TYPE_MONEY_ASC -> {
+                listAfterFilter.sortedBy{ it.money }
+            }
+            SearchActivity.ORDER_TYPE_MONEY_DESC -> {
+                listAfterFilter.sortedByDescending { it.money }
+            }
+            SearchActivity.ORDER_TYPE_DATE_ASC -> {
+                listAfterFilter.sortedBy { it.time }
+            }
+            else ->
+                listAfterFilter
         }
         val tempRecordData: Date = listAfterFilter[0].time
         val records: MutableList<Record> = mutableListOf(listAfterFilter[0])

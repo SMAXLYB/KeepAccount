@@ -10,8 +10,8 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.base.BaseActivity
-import life.chenshi.keepaccounts.database.Record
-import life.chenshi.keepaccounts.database.RecordType
+import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.utils.*
 import java.math.BigDecimal
@@ -184,7 +184,7 @@ class NewRecordActivity : BaseActivity() {
             }
 
             mNewRecordViewModel.insertRecord(
-                Record(null, money, remark, date, category, recordType)
+                Record(null, money, remark, date, category, recordType,1)
             )
 
             finish()

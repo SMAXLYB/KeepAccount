@@ -6,13 +6,13 @@
     android:background="@drawable/index_bottom_sheet">
 
     <TextView
-        android:id="@+id/ll_search_order_date_asc"
+        android:id="@+id/ll_search_order_date_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
         android:text="时间倒序"
-        app:layout_constraintBottom_toTopOf="@id/ll_search_order_date_desc"
+        app:layout_constraintBottom_toTopOf="@id/ll_search_order_date_asc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
 
 
     <TextView
-        android:id="@+id/ll_search_order_date_desc"
+        android:id="@+id/ll_search_order_date_asc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -28,22 +28,9 @@
         android:text="时间正序"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_search_order_date_asc"
-        app:layout_constraintWidth_percent="0.6" />
-
-
-    <TextView
-        android:id="@+id/ll_search_order_money_asc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:text="金额倒序"
-        app:layout_constraintBottom_toTopOf="@id/ll_search_order_money_desc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_search_order_date_desc"
         app:layout_constraintWidth_percent="0.6" />
+
 
     <TextView
         android:id="@+id/ll_search_order_money_desc"
@@ -51,8 +38,21 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
+        android:text="金额倒序"
+        app:layout_constraintBottom_toTopOf="@id/ll_search_order_money_asc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_search_order_date_asc"
+        app:layout_constraintWidth_percent="0.6" />
+
+    <TextView
+        android:id="@+id/ll_search_order_money_asc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
         android:text="金额正序"
-        app:layout_constraintTop_toBottomOf="@id/ll_search_order_money_asc"
+        app:layout_constraintTop_toBottomOf="@id/ll_search_order_money_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

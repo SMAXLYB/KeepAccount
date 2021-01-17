@@ -125,7 +125,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center"
-                        android:text="收入" />
+                        android:text="月收入" />
 
                     <TextView
                         android:id="@+id/index_income_in_month"
@@ -151,7 +151,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center"
-                        android:text="支出" />
+                        android:text="月支出" />
 
                     <TextView
                         android:id="@+id/index_outcome_in_month"

@@ -1,19 +1,19 @@
 package life.chenshi.keepaccounts.ui.search
 
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.map
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.base.BaseActivity
 import life.chenshi.keepaccounts.databinding.ActivitySearchBinding
 import life.chenshi.keepaccounts.ui.index.IndexRecordAdapter
-import life.chenshi.keepaccounts.utils.ToastUtil
-import life.chenshi.keepaccounts.utils.gone
-import life.chenshi.keepaccounts.utils.inVisible
-import life.chenshi.keepaccounts.utils.visible
+import life.chenshi.keepaccounts.utils.*
 
 class SearchActivity : BaseActivity() {
 
@@ -35,6 +35,7 @@ class SearchActivity : BaseActivity() {
     }
 
     override fun initView() {
+        mBinding.rvSearchRecords.layoutManager = LinearLayoutManager(this)
         mAdapter = IndexRecordAdapter(emptyList())
         mBinding.rvSearchRecords.adapter = mAdapter
     }
@@ -62,15 +63,20 @@ class SearchActivity : BaseActivity() {
             mBinding.etSearchKeyword.setText("")
         }
 
+        // 键盘回车
+        mBinding.etSearchKeyword.setOnEditorActionListener { v, actionId, event ->
+            // 如果是回车搜索
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchingWithKeyword()
+                return@setOnEditorActionListener true
+            }
+
+            false
+        }
+
         // 搜索
         mBinding.ivSearchSearch.setOnClickListener {
-            val keyword = mBinding.etSearchKeyword.text
-            if (!keyword.isNullOrBlank()) {
-                mSearchViewModel.getRecordByKeyword(keyword.toString())
-            } else {
-                ToastUtil.showShort("请输入有效关键字")
-                stopRefreshing()
-            }
+            searchingWithKeyword()
         }
 
         // 日期筛选
@@ -149,27 +155,38 @@ class SearchActivity : BaseActivity() {
             }
         }
 
+        // 下拉刷新
         mBinding.srlSearchRefresh.setOnRefreshListener {
-            val keyword = mBinding.etSearchKeyword.text
-            if (!keyword.isNullOrBlank()) {
-                mSearchViewModel.getRecordByKeyword(keyword.toString())
-            } else {
-                ToastUtil.showShort("请输入有效关键字")
-                stopRefreshing()
-            }
+            searchingWithKeyword()
         }
     }
 
     override fun initObserver() {
         mSearchViewModel.apply {
+            // 类型变化
+            filterType.observe(this@SearchActivity) {
+                recordsByKeywordLiveData.apply {
+                    value = value ?: emptyList()
+                }
+            }
 
-            recordsByKeywordLiveData.observe(this@SearchActivity) {
+            filterOrder.observe(this@SearchActivity) {
+                recordsByKeywordLiveData.apply {
+                    value = value ?: emptyList()
+                }
+            }
+
+            // 数据变化
+            recordsByKeywordLiveData.map {
                 mBinding.srlSearchRefresh.isRefreshing = true
-                if (it == null || it.isEmpty()) {
+                convert2RecordListGroupByDay(it)
+            }.observe(this@SearchActivity) {
+                if (it.isEmpty()) {
                     showEmptyHintView()
                 } else {
                     hideEmptyHintView()
                 }
+                mAdapter?.setData(it)
                 stopRefreshing()
             }
         }
@@ -190,6 +207,22 @@ class SearchActivity : BaseActivity() {
             if (this.isRefreshing) {
                 this.isRefreshing = false
             }
+        }
+    }
+
+    private fun searchingWithKeyword() {
+        if (mBinding.etSearchKeyword.isSoftInputMethodVisible()) {
+            mBinding.etSearchKeyword.hideSoftInputMethod()
+        }
+        if (mBinding.etSearchKeyword.hasFocus()) {
+            mBinding.etSearchKeyword.clearFocus()
+        }
+        val keyword = mBinding.etSearchKeyword.text
+        if (!keyword.isNullOrBlank()) {
+            mSearchViewModel.getRecordByKeyword(keyword.toString())
+        } else {
+            ToastUtil.showShort("请输入有效关键字")
+            stopRefreshing()
         }
     }
 }

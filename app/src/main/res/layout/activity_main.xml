@@ -25,10 +25,11 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         app:itemIconSize="20dp"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nav_host_fragment_container"
-        android:layout_height="wrap_content"/>
+        android:layout_height="50dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

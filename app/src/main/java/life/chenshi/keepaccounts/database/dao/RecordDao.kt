@@ -1,10 +1,11 @@
-package life.chenshi.keepaccounts.database
+package life.chenshi.keepaccounts.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
+import life.chenshi.keepaccounts.database.entity.Record
 import java.util.*
 
 @Dao

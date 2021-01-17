@@ -21,8 +21,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.Record
-import life.chenshi.keepaccounts.database.RecordType
+import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.utils.DateUtil
 import life.chenshi.keepaccounts.utils.inVisible
@@ -146,12 +146,9 @@ class IndexFragment : Fragment() {
         // 首页加载日期范围内的数据
         mIndexViewModel.recordsByDateRangeLiveData
             .map {
-                mIndexViewModel.convert2RecordListGroupByDay(
-                    it,
-                    mIndexViewModel.currentShowType.value!!
-                )
-            }.observe(viewLifecycleOwner) {
                 mBinding.srlIndexRefresh.isRefreshing = true
+                mIndexViewModel.convert2RecordListGroupByDay(it)
+            }.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     hideEmptyHintView()
                 } else {
@@ -220,12 +217,12 @@ class IndexFragment : Fragment() {
         }
     }
 
-    private fun hideEmptyHintView(){
+    private fun hideEmptyHintView() {
         mBinding.ivIndexEmpty.inVisible()
         mBinding.tvIndexEmptyHint.inVisible()
     }
 
-    private fun showEmptyHintView(){
+    private fun showEmptyHintView() {
         mBinding.ivIndexEmpty.visible()
         mBinding.tvIndexEmptyHint.visible()
     }

@@ -1,7 +1,6 @@
 package life.chenshi.keepaccounts.bean
 
-import life.chenshi.keepaccounts.database.Category
-import life.chenshi.keepaccounts.database.RecordType
+import life.chenshi.keepaccounts.database.entity.Category
 import java.math.BigDecimal
 
 class SumMoneyGroupByCategoryBean(
