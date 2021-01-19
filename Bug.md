@@ -19,3 +19,4 @@
  - [Index, Analyze] 数据使用LiveData而不是MediatorLiveData
  - [Analyze] 折线图高度动态变化
  - [Index] 选择查看类型,当前类型高亮
+ - 捕获必要的exception

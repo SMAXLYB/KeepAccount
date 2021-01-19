@@ -81,4 +81,7 @@ dependencies {
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.4.Final'
     // 图表
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+     // 数据存储
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha05"
 }
