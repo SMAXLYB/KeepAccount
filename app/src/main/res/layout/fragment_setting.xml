@@ -102,6 +102,7 @@
                             android:text="当前账本" />
 
                         <TextView
+                            android:id="@+id/tv_setting_current_book"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="5dp"

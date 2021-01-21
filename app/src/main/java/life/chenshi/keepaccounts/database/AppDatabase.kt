@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import life.chenshi.keepaccounts.database.dao.BookDao
 import life.chenshi.keepaccounts.database.dao.RecordDao
 import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.database.entity.Record
@@ -91,4 +92,6 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     abstract fun getRecordDao(): RecordDao
+
+    abstract fun getBookDao(): BookDao
 }

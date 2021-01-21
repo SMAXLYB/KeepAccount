@@ -1,9 +1,7 @@
 package life.chenshi.keepaccounts.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import life.chenshi.keepaccounts.database.entity.Book
 
 @Dao
@@ -21,4 +19,6 @@ interface BookDao {
     fun updateBook(book: Book)
 
     // 查
+    @Query("SELECT * FROM tb_books")
+    fun getAllBook(): LiveData<List<Book>>
 }

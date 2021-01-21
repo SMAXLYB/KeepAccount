@@ -28,7 +28,11 @@
         android:id="@+id/settingFragment"
         android:name="life.chenshi.keepaccounts.ui.setting.SettingFragment"
         android:label="SettingFragment"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_bookActivity"
+            app:destination="@id/bookActivity" />
+    </fragment>
     <fragment
         android:id="@+id/analyzeFragment"
         android:name="life.chenshi.keepaccounts.ui.anaylze.AnalyzeFragment"
@@ -51,4 +55,9 @@
         android:name="life.chenshi.keepaccounts.ui.search.SearchActivity"
         android:label="SearchFragment"
         tools:layout="@layout/activity_search" />
+    <activity
+        android:id="@+id/bookActivity"
+        tools:layout="@layout/activity_book"
+        android:name="life.chenshi.keepaccounts.ui.setting.book.BookActivity"
+        android:label="BookActivity" />
 </navigation>
