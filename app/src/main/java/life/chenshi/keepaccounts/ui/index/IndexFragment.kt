@@ -13,22 +13,20 @@ import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.map
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
-import life.chenshi.keepaccounts.utils.*
+import life.chenshi.keepaccounts.utils.DateUtil
+import life.chenshi.keepaccounts.utils.ToastUtil
+import life.chenshi.keepaccounts.utils.inVisible
+import life.chenshi.keepaccounts.utils.visible
 import java.util.*
 
 class IndexFragment : Fragment() {
@@ -132,24 +130,12 @@ class IndexFragment : Fragment() {
         }
 
         // 新建记录
-        mBinding.fabNewRecord.setOnClickListener { view ->
-            lifecycleScope.launch {
-                var currentBookId: Int = -1
-                DataStoreUtil.readFromDataStore("CURRENT_BOOK_ID", -1)
-                    .take(1)
-                    .collect {
-                        currentBookId = it
-                    }
-
-                if (currentBookId == -1) {
-                    ToastUtil.showShort("您还没有账本哦,快去新建一个吧~")
-                    return@launch
-                }
-
-                view.findNavController()
-                    .navigate(R.id.action_indexFragment_to_newRecordActivity, null)
-            }
-
+        mBinding.fabNewRecord.setOnClickListener {
+            mIndexViewModel.hasDefaultBook({
+                findNavController().navigate(R.id.action_indexFragment_to_newRecordActivity, null)
+            }, {
+                ToastUtil.showShort("您还没有账本哦,快去新建一个吧~")
+            })
         }
 
         // 下拉刷新

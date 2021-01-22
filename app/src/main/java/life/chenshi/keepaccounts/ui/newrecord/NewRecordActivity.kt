@@ -183,11 +183,14 @@ class NewRecordActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            mNewRecordViewModel.insertRecord(
-                Record(null, money, remark, date, category, recordType,1)
-            )
-
-            finish()
+            mNewRecordViewModel.hasDefaultBook({
+                mNewRecordViewModel.insertRecord(
+                    Record(null, money, remark, date, category, recordType, it)
+                )
+                finish()
+            }, {
+                ToastUtil.showShort("您还没有账本,快去新建一个吧~")
+            })
         }
 
         // 取消

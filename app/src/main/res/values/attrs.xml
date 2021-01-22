@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleImageView">
+        <!--边框宽度-->
+        <attr name="borderWidth" format="integer" />
+        <!--边框颜色-->
+        <attr name="borderColor" format="color" />
+        <!--是否有阴影-->
+        <attr name="showShadow" format="boolean" />
+        <!--阴影颜色-->
+        <attr name="shadowColor" format="color" />
+        <!--阴影模糊半径-->
+        <attr name="shadowRadius" format="float" />
+    </declare-styleable>
+</resources>
