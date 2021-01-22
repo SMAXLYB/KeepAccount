@@ -33,8 +33,8 @@ class SettingFragment : Fragment() {
     }
 
     private fun initView() {
-        mBinding.tvSettingCurrentBook.apply {
-            mSettingViewModel.hasDefaultBook({},{})
-        }
+        // mBinding.tvSettingCurrentBook.apply {
+        //     mSettingViewModel.hasDefaultBook({},{})
+        // }
     }
 }

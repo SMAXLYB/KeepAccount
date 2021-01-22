@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="CircleImageView">
         <!--边框宽度-->
-        <attr name="borderWidth" format="integer" />
+        <attr name="borderWidths" format="integer" />
         <!--边框颜色-->
         <attr name="borderColor" format="color" />
         <!--是否有阴影-->
