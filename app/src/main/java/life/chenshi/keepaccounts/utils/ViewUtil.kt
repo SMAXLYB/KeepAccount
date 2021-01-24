@@ -1,6 +1,8 @@
 package life.chenshi.keepaccounts.utils
 
+import android.content.res.Resources
 import android.graphics.Color
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 
@@ -44,4 +46,13 @@ fun TextView.setSelect(selected: Boolean) {
     } else {
         setTextColor(Color.parseColor("#515151"))
     }
+}
+
+fun Int.dp2px(): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics
+    )
+        .toInt()
 }

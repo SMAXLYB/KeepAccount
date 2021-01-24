@@ -21,4 +21,8 @@ interface BookDao {
     // 查
     @Query("SELECT * FROM tb_books")
     fun getAllBooks(): Flow<List<Book>>
+
+    // todo 可能会有问题,切换activity后更新不及时
+    @Query("SELECT name FROM tb_books WHERE id = :id")
+    suspend fun getBookNameById(id: Int): String
 }

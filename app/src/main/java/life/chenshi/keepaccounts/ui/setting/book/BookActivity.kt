@@ -9,6 +9,7 @@ class BookActivity : BaseActivity() {
     private val mBinding by bindingContentView<ActivityBookBinding>(R.layout.activity_book)
 
     override fun initView() {
+        mBinding
     }
 
     override fun initListener() {

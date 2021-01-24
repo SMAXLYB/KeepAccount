@@ -91,14 +91,13 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
+            <include layout="@layout/item_divider"
                 android:id="@+id/item_budget_divider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/item_budget_divider"
                 app:layout_constraintBottom_toTopOf="@id/item_budget_detail_container"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

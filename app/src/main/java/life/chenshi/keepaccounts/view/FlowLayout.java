@@ -1,22 +1,26 @@
 package life.chenshi.keepaccounts.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import life.chenshi.keepaccounts.utils.ViewUtilKt;
+
+/**
+ * @author smaxlyb
+ */
 public class FlowLayout extends ViewGroup {
     private static final String TAG = "FlowLayout";
     private List<Rect> mChildrenBounds;
-    private int itemSpacing; // item之间的间隔
-    private int lineSpacing; // 行与行之间的间隔
+    private int itemSpacing;
+    private int lineSpacing;
 
     public FlowLayout(Context context) {
         this(context, null);
@@ -33,10 +37,13 @@ public class FlowLayout extends ViewGroup {
 
     private void initData() {
         mChildrenBounds = new ArrayList<>();
-        itemSpacing = dp2px(20); // item之间的间隔
-        lineSpacing = dp2px(10); // 行与行之间的间隔
+        // item之间的间隔
+        itemSpacing = ViewUtilKt.dp2px(20);
+        // 行与行之间的间隔
+        lineSpacing = ViewUtilKt.dp2px(10);
     }
 
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // 1.获取父View的测量要求
@@ -51,12 +58,16 @@ public class FlowLayout extends ViewGroup {
         int paddingBottom = getPaddingBottom();
 
         int childCount = getChildCount();
-
-        int widthUsed = 0; // 已使用宽度
-        int heightUsed = paddingTop; // 已使用高度
-        int lineHeight = 0; // 行高
-        int lineWidthUsed = getPaddingLeft(); // 一行左边已经使用了的宽度,随着view数目增加会变化
-        int lineWidthRemained = widthConstraintSize - paddingRight; // 除去左边已经使用的空间和右边的padding之后剩余的空间
+        // 已使用宽度
+        int widthUsed = 0;
+        // 已使用高度
+        int heightUsed = paddingTop;
+        // 行高
+        int lineHeight = 0;
+        // 一行左边已经使用了的宽度,随着view数目增加会变化
+        int lineWidthUsed = getPaddingLeft();
+        // 除去左边已经使用的空间和右边的padding之后剩余的空间
+        int lineWidthRemained = widthConstraintSize - paddingRight;
 
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
@@ -128,9 +139,5 @@ public class FlowLayout extends ViewGroup {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-    }
-
-    private static int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
     }
 }

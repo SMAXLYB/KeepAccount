@@ -1,5 +1,6 @@
 package life.chenshi.keepaccounts.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
@@ -120,6 +121,7 @@ class CircleImageView @JvmOverloads constructor(
         )
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         loadBitmap()
         mBitmap = centerSquareScaleBitmap(mBitmap!!, ceil(mBitmapDiameter.toDouble() + 1).toInt())

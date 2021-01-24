@@ -115,7 +115,7 @@ class IndexViewModel : ViewModel() {
      * @param doIfHas 有默认账本时的操作
      * @param doIfNot 无账本的操作
      */
-    fun hasDefaultBook(doIfHas: (Int) -> Unit, doIfNot: () -> Unit) {
+    fun hasDefaultBook(doIfHas: (Int) -> Unit, doIfNot: (() -> Unit)? = null) {
         viewModelScope.launch {
             var currentBookId = -1
             DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1)
@@ -128,7 +128,7 @@ class IndexViewModel : ViewModel() {
                 val books = mBookDao.getAllBooks().first()
                 // 如果数据库没有数据
                 if (books.isEmpty()) {
-                    doIfNot()
+                    doIfNot?.invoke()
                     return@launch
                 }
                 // 如果数据库有记录, 写入到本地

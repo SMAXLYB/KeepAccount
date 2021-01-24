@@ -22,7 +22,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         // 初始化controller，绑定navMenu
-        mNavController = findNavController(R.id.nav_host_fragment_container)
+        mNavController = findNavController(R.id.index_nav_host_fragment_container)
         findViewById<BottomNavigationView>(R.id.bottom_navigation_view).setupWithNavController(
             mNavController
         )

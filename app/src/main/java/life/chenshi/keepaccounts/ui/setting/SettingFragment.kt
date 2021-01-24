@@ -7,12 +7,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.databinding.FragmentSettingBinding
 
 class SettingFragment : Fragment() {
     private lateinit var mBinding: FragmentSettingBinding
     private val mSettingViewModel by viewModels<SettingViewModel>()
+
+    companion object {
+        private const val TAG = "SettingFragment"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,11 +38,23 @@ class SettingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
+        initListener()
     }
 
     private fun initView() {
-        // mBinding.tvSettingCurrentBook.apply {
-        //     mSettingViewModel.hasDefaultBook({},{})
-        // }
+        mBinding.tvSettingCurrentBook.apply {
+            mSettingViewModel.hasDefaultBook({
+                lifecycleScope.launch {
+                    val name = mSettingViewModel.getBookNameById(it)
+                    mBinding.tvSettingCurrentBook.text = name
+                }
+            })
+        }
+
+        mBinding.settingUserName.text = mSettingViewModel.getGreetContent()
+    }
+
+    private fun initListener() {
+        mBinding.llSettingItemCurrentBook.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_bookActivity))
     }
 }

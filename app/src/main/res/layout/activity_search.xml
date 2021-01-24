@@ -166,8 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_search_not_found"
                     android:gravity="center"
-                    android:text="什么都没有找到, 下拉刷新试试~"
-                    android:textSize="14sp" />
+                    android:text="什么都没有找到, 下拉刷新试试~" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_search_records"

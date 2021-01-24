@@ -66,7 +66,7 @@ class AnalyzeFragment : Fragment() {
                 verticalAlignment = Legend.LegendVerticalAlignment.TOP
                 horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER //图例标识位置
             }
-            marker = MyMarkerView(TYPE_MONTH, requireActivity(), R.layout.layout_anaylze_marker)
+            marker = MyMarkerView(TYPE_MONTH, requireActivity(), R.layout.layout_analyze_marker)
             setNoDataText("暂无数据")
 
         }

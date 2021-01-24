@@ -7,446 +7,297 @@
 
     </data>
 
-    <life.chenshi.keepaccounts.view.CircleImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center"
-        android:src="@drawable/setting_avatar"
-        app:borderColor="@color/colorPrimary"
-        app:shadowColor="#BCBCBC"
-        app:shadowRadius="30"
-        app:showShadow="true" />
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:background="#A4F1F1F1">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/setting_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#A4F1F1F1"
-            android:orientation="vertical">
-
-            <!--顶部头像-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp">
-
-                <ImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="测试用户"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@id/signature"
-                    app:layout_constraintStart_toEndOf="@id/avatar"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/signature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="记录你的每一份改变"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/avatar"
-                    app:layout_constraintTop_toBottomOf="@id/nickname" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!--基本设置-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingStart="15dp"
-                android:text="基本设置"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/setting_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/setting_header_bg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="1dp"
-                app:cardMaxElevation="2dp">
+                app:cardMaxElevation="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            <life.chenshi.keepaccounts.view.CircleImageView
+                android:id="@+id/setting_user_avatar"
+                android:layout_width="900dp"
+                android:layout_height="90dp"
+                android:elevation="1dp"
+                android:src="@drawable/setting_avatar"
+                app:borderColor="@color/colorPrimary"
+                app:layout_constraintBottom_toTopOf="@id/setting_user_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shadowColor="#BCBCBC"
+                app:shadowRadius="15"
+                app:showShadow="true" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_book" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="当前账本" />
-
-                        <TextView
-                            android:id="@+id/tv_setting_current_book"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|end"
-                            android:text="日常账本" />
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/anaylze_arrow_more" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_budget" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="设置预算" />
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/anaylze_arrow_more" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_category" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="收支类型" />
-
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="match_parent"-->
-                        <!--                            android:layout_marginRight="5dp"-->
-                        <!--                            android:layout_weight="1"-->
-                        <!--                            android:gravity="center_vertical|end"-->
-                        <!--                            android:text="V1.0.0测试版" />-->
-
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/anaylze_arrow_more" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_backup" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="备份恢复" />
-
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="match_parent"-->
-                        <!--                            android:layout_marginRight="5dp"-->
-                        <!--                            android:layout_weight="1"-->
-                        <!--                            android:gravity="center_vertical|end"-->
-                        <!--                            android:text="V1.0.0测试版" />-->
-
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/anaylze_arrow_more" />
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/setting_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingStart="15dp"
-                android:text="其他"
+                android:layout_marginBottom="10dp"
+                android:elevation="1dp"
+                android:gravity="center"
+                android:text="Hello，早上好"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/setting_keep_days"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/setting_user_avatar" />
 
-            <!--其他-->
-            <androidx.cardview.widget.CardView
+            <TextView
+                android:id="@+id/setting_keep_days"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="1dp"
-                app:cardMaxElevation="2dp">
+                android:layout_marginBottom="15dp"
+                android:elevation="1dp"
+                android:gravity="center"
+                android:text="今天是使用纯记的第1天"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/setting_user_name" />
 
-                <LinearLayout
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/setting_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/setting_header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    style="@style/SettingCardView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_about" />
+                        <LinearLayout
+                            android:id="@+id/ll_setting_item_current_book"
+                            style="@style/SettingItemLinearLayout">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="关于应用" />
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_book" />
 
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="match_parent"-->
-                        <!--                            android:layout_marginRight="5dp"-->
-                        <!--                            android:layout_weight="1"-->
-                        <!--                            android:gravity="center_vertical|end"-->
-                        <!--                            android:text="V1.0.0测试版" />-->
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="当前账本" />
 
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
-                            android:src="@drawable/anaylze_arrow_more" />
+                            <TextView
+                                android:id="@+id/tv_setting_current_book"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|end"
+                                android:text="" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
+
+                        <include
+                            style="@style/IncludeDivider"
+                            layout="@layout/item_divider" />
+
+                        <LinearLayout style="@style/SettingItemLinearLayout">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_budget" />
+
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="设置预算" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
+
+                        <include
+                            style="@style/IncludeDivider"
+                            layout="@layout/item_divider" />
+
+                        <LinearLayout style="@style/SettingItemLinearLayout">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_category" />
+
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="收支类型" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
+
+                        <include
+                            style="@style/IncludeDivider"
+                            layout="@layout/item_divider" />
+
+                        <LinearLayout style="@style/SettingItemLinearLayout">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_backup" />
+
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="备份恢复" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
+
+
+                        <include
+                            style="@style/IncludeDivider"
+                            layout="@layout/item_divider" />
+
+                        <LinearLayout style="@style/SettingItemLinearLayout">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_more" />
+
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="更多设置" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    style="@style/SettingCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_feedback" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="反馈建议" />
+                        <LinearLayout style="@style/SettingItemLinearLayout">
 
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="match_parent"-->
-                        <!--                            android:layout_marginRight="5dp"-->
-                        <!--                            android:layout_weight="1"-->
-                        <!--                            android:gravity="center_vertical|end"-->
-                        <!--                            android:text="V1.0.0测试版" />-->
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_help" />
 
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/anaylze_arrow_more" />
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="使用帮助" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
+
+                        <include
+                            style="@style/IncludeDivider"
+                            layout="@layout/item_divider" />
+
+                        <LinearLayout style="@style/SettingItemLinearLayout">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_feedback" />
+
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="反馈建议" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
+
+                        <include
+                            style="@style/IncludeDivider"
+                            layout="@layout/item_divider" />
+
+                        <LinearLayout style="@style/SettingItemLinearLayout">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_update" />
+
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="检测更新" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|end"
+                                android:text="测试版v1.1" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
+
+                        <include
+                            style="@style/IncludeDivider"
+                            layout="@layout/item_divider" />
+
+                        <LinearLayout style="@style/SettingItemLinearLayout">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/setting_about" />
+
+                            <TextView
+                                style="@style/SettingItemContentTextView"
+                                android:text="关于我们" />
+
+                            <ImageView style="@style/SettingArrow" />
+                        </LinearLayout>
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
 
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_update" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="检测更新" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|end"
-                            android:text="V1.0.0测试版" />
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/anaylze_arrow_more" />
-                    </LinearLayout>
-
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_help" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="使用帮助" />
-
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="match_parent"-->
-                        <!--                            android:layout_marginRight="5dp"-->
-                        <!--                            android:layout_weight="1"-->
-                        <!--                            android:gravity="center_vertical|end"-->
-                        <!--                            android:text="V1.0.0测试版" />-->
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
-                            android:src="@drawable/anaylze_arrow_more" />
-                    </LinearLayout>
-
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/setting_agreement" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:text="用户协议" />
-
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="0dp"-->
-                        <!--                            android:layout_height="match_parent"-->
-                        <!--                            android:layout_marginRight="5dp"-->
-                        <!--                            android:layout_weight="1"-->
-                        <!--                            android:gravity="center_vertical|end"-->
-                        <!--                            android:text="V1.0.0测试版" />-->
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
-                            android:src="@drawable/anaylze_arrow_more" />
-                    </LinearLayout>
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

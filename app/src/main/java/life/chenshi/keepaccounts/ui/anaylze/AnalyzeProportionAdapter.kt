@@ -56,7 +56,7 @@ class AnalyzeProportionAdapter(private var records: List<SumMoneyGroupByCategory
         return view
     }
 
-    class ProportionViewHolder() {
+    private class ProportionViewHolder() {
         var icon: ImageView? = null
         var category: TextView? = null
         var description: TextView? = null
