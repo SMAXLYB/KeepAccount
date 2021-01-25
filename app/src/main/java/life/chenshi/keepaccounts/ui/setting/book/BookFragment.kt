@@ -1,15 +1,18 @@
 package life.chenshi.keepaccounts.ui.setting.book
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.databinding.FragmentBookBinding
+import life.chenshi.keepaccounts.utils.ToastUtil
+import life.chenshi.keepaccounts.utils.inVisible
+import life.chenshi.keepaccounts.utils.visible
 
 class BookFragment : Fragment() {
 
@@ -18,6 +21,8 @@ class BookFragment : Fragment() {
     }
 
     private lateinit var mBinding: FragmentBookBinding
+    private val mBookViewModel by activityViewModels<BookViewModel>()
+    private var mAdapter: BookAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,44 +44,35 @@ class BookFragment : Fragment() {
     }
 
     private fun initView() {
-        val data = listOf(
-            Book(12, "默认", "moren"),
-            Book(13, "默认", "moren"),
-            Book(14, "默认", "moren"),
-            Book(15, "默认", "moren"),
-            Book(12, "默认", "moren"),
-            Book(13, "默认", "moren"),
-            Book(14, "默认", "moren"),
-            Book(15, "默认", "moren"),
-            Book(12, "默认", "moren"),
-            Book(13, "默认", "moren"),
-            Book(14, "默认", "moren"),
-            Book(15, "默认", "moren"),
-            Book(14, "默认", "moren"),
-            Book(15, "默认", "moren"),
-            Book(12, "默认", "moren"),
-            Book(13, "默认", "moren"),
-            Book(14, "默认", "moren"),
-            Book(15, "默认", "moren")
-        )
-        val bookAdapter = BookAdapter(data)
-        mBinding.gvBooks.adapter = bookAdapter
-        mBinding.gvBooks.
-        mBinding.gvBooks.setOnItemClickListener { parent, view, position, id ->
-            Log.d(TAG, "initListener: position=$position  id=$id")
-            bookAdapter.setItemSelected(15)
-        }
+        mAdapter = BookAdapter(listOf(Book(-1, "", "")))
+        mBinding.gvBooks.adapter = mAdapter
     }
 
     private fun initListener() {
-
-        mBinding.gvBooks.setOnItemLongClickListener { parent, view, position, id ->
-            Log.d(TAG, "initLongListener: position=$position  id=$id")
+        mBinding.gvBooks.setOnItemClickListener { _, _, position, id ->
+            if (id == -1L) {
+                ToastUtil.showShort("添加")
+            } else {
+                ToastUtil.showShort("$position")
+            }
+        }
+        mBinding.gvBooks.setOnItemLongClickListener { _, _, _, id ->
+            mBookViewModel.takeIf { id != -1L }?.let {
+                it.deleteBookById(id.toInt())
+                // DataStoreUtil.writeToDataStore()
+            }
             true
         }
     }
 
     private fun initObserver() {
-
+        mBookViewModel.booksLiveData.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                mBinding.gpBookEmpty.visible()
+            } else {
+                mBinding.gpBookEmpty.inVisible()
+            }
+            mAdapter?.setData(it.apply { plusAssign(Book(-1, "", "")) })
+        }
     }
 }

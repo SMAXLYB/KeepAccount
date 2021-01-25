@@ -9,7 +9,7 @@ import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Book
 
 class BookAdapter(private var books: List<Book>) : BaseAdapter() {
-    private var mSelectedPosition = 1
+    private var mSelectedPosition = 0
 
     override fun getCount(): Int {
         return books.size
@@ -25,9 +25,14 @@ class BookAdapter(private var books: List<Book>) : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val book = books[position]
-        val viewHolder: BookViewHolder
         val view: View
-        if (convertView == null) {
+        if (book.id == -1) {
+            view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_book_empty, parent, false)
+            return view
+        }
+        val viewHolder: BookViewHolder
+        if (convertView == null || convertView.tag == null) {
             view = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
             viewHolder = BookViewHolder()
             viewHolder.bookName = view.findViewById(R.id.tv_item_book_name)
