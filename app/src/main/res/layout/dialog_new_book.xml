@@ -1,40 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tv_dialog_new_book_title"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="新建账本" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/book_add_dialog_bg" />
-
-    <TextView
-        android:id="@+id/tv_dialog_new_book_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="账本名称" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_dialog_new_book_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tv_dialog_new_book_desctiption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="描述说明" />
+        android:layout_margin="40dp"
+        android:background="@drawable/corner_all_12dp">
 
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_dialog_new_book_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:id="@+id/ll_dialog_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_top_12dp_blue_bg"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_dialog_new_book_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="新建账本"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/tv_dialog_close"
+                android:layout_width="30dp"
+                android:background="@drawable/ripple_20dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/dialog_close" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_dialog_new_book_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="账本名称"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/et_dialog_new_book_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_dialog_new_book_name" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_dialog_new_book_name"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="#A4F1F1F1"
+            android:hint="(必填)2-4字"
+            android:lines="1"
+            android:maxLength="4"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_dialog_new_book_name"
+            app:layout_constraintTop_toBottomOf="@id/ll_dialog_header" />
+
+        <TextView
+            android:id="@+id/tv_dialog_new_book_desctiption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="描述说明"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_dialog_new_book_description" />
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_dialog_new_book_description"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="#A4F1F1F1"
+            android:gravity="top"
+            android:hint="(非必填)50字以内"
+            android:lines="4"
+            android:maxLength="50"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_dialog_new_book_desctiption"
+            app:layout_constraintTop_toBottomOf="@id/et_dialog_new_book_name" />
+
+        <Button
+            android:id="@+id/btn_dialog_submit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/corner_all_12dp_bule_bg"
+            android:text="提 交"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_dialog_new_book_description"
+            app:layout_constraintWidth_percent="0.3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

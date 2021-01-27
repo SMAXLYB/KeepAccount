@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.databinding.FragmentBookBinding
-import life.chenshi.keepaccounts.utils.ToastUtil
 import life.chenshi.keepaccounts.utils.inVisible
 import life.chenshi.keepaccounts.utils.visible
 
@@ -51,14 +51,22 @@ class BookFragment : Fragment() {
     private fun initListener() {
         mBinding.gvBooks.setOnItemClickListener { _, _, position, id ->
             if (id == -1L) {
-                ToastUtil.showShort("添加")
+                NewBookFragment().showNow(requireActivity().supportFragmentManager, "ADD_BOOK")
             } else {
-                ToastUtil.showShort("$position")
+                mBookViewModel.currentBookId.value = id.toInt()
             }
         }
         mBinding.gvBooks.setOnItemLongClickListener { _, _, _, id ->
             mBookViewModel.takeIf { id != -1L }?.let {
-                it.deleteBookById(id.toInt())
+                activity?.let { activity ->
+                    AlertDialog.Builder(activity)
+                        .setPositiveButton("确定") { _, _ ->
+                            it.deleteBookById(id.toInt())
+                        }
+                        .setNegativeButton("取消") { _, _ -> }
+                        .setMessage("确定删除吗")
+                        .show()
+                }
                 // DataStoreUtil.writeToDataStore()
             }
             true
@@ -66,13 +74,19 @@ class BookFragment : Fragment() {
     }
 
     private fun initObserver() {
+        // 账本数据
         mBookViewModel.booksLiveData.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 mBinding.gpBookEmpty.visible()
             } else {
                 mBinding.gpBookEmpty.inVisible()
             }
-            mAdapter?.setData(it.apply { plusAssign(Book(-1, "", "")) })
+            mAdapter?.setData(it.toMutableList().apply { plusAssign(Book(-1, "", "")) })
+        }
+
+        // 当前账本
+        mBookViewModel.currentBookId.observe(viewLifecycleOwner) {
+            mAdapter?.setItemSelected(it)
         }
     }
 }
