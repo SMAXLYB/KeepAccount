@@ -12,7 +12,7 @@ import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.global.MyApplication
 
-@Database(entities = [Record::class, Book::class], version = 2)
+@Database(entities = [Record::class, Book::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -31,7 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
                             AppDatabase::class.java,
                             DATABASE_NAME
                         )
-                            .addMigrations(MIGRATION_1_TO_2)
+                            // .addMigrations(MIGRATION_1_TO_2)
                             .build()
                     }
                 }

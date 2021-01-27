@@ -4,26 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.databinding.FragmentNewBookBinding
+import androidx.fragment.app.DialogFragment
 
-class NewBookFragment : Fragment() {
-    private lateinit var mBinding: FragmentNewBookBinding
+class NewBookFragment : DialogFragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // setStyle(DialogFragment.STYLE_NO_TITLE,null)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        mBinding = DataBindingUtil.inflate<FragmentNewBookBinding>(
-            inflater,
-            R.layout.fragment_new_book,
-            container,
-            false
-        )
-
-        return mBinding.root
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 }

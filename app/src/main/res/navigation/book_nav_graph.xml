@@ -9,14 +9,5 @@
         android:id="@+id/bookFragment"
         android:name="life.chenshi.keepaccounts.ui.setting.book.BookFragment"
         tools:layout="@layout/fragment_book"
-        android:label="BookFragment" >
-        <action
-            android:id="@+id/action_bookFragment_to_newBookFragment"
-            app:destination="@id/newBookFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/newBookFragment"
-        tools:layout="@layout/fragment_new_book"
-        android:name="life.chenshi.keepaccounts.ui.setting.book.NewBookFragment"
-        android:label="NewBookFragment" />
+        android:label="BookFragment" />
 </navigation>

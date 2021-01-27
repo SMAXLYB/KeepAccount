@@ -3,7 +3,6 @@ package life.chenshi.keepaccounts.ui.index
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
@@ -17,7 +16,6 @@ import java.util.*
 
 class IndexViewModel : ViewModel() {
 
-    private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }
     private val recordDAO by lazy { AppDatabase.getDatabase().getRecordDao() }
     val recordsByDateRangeLiveData = MediatorLiveData<List<Record>>()
     private var mTempRecordsLiveData: LiveData<List<Record>>? = null
@@ -111,7 +109,7 @@ class IndexViewModel : ViewModel() {
     }
 
     /**
-     * 是否有默认账本 侧重点在于新版本
+     * 是否有默认账本
      * @param doIfHas 有默认账本时的操作
      * @param doIfNot 无账本的操作
      */
@@ -123,21 +121,9 @@ class IndexViewModel : ViewModel() {
                 .collect {
                     currentBookId = it
                 }
-            // 如果本地没有记录, 查询数据库
             if (currentBookId == -1) {
-                val books = mBookDao.getAllBooks().first()
-                // 如果数据库没有数据
-                if (books.isEmpty()) {
-                    doIfNot?.invoke()
-                    return@launch
-                }
-                // 如果数据库有记录, 写入到本地
-                if (books.isNotEmpty()) {
-                    currentBookId = books[0].id!!
-                    DataStoreUtil.writeToDataStore(
-                        DataStoreConstant.CURRENT_BOOK_ID, currentBookId
-                    )
-                }
+                doIfNot?.invoke()
+                return@launch
             }
             doIfHas(currentBookId)
         }

@@ -134,7 +134,7 @@ class IndexFragment : Fragment() {
             mIndexViewModel.hasDefaultBook({
                 findNavController().navigate(R.id.action_indexFragment_to_newRecordActivity, null)
             }, {
-                ToastUtil.showShort("您还没有账本哦,快去新建一个吧~")
+                ToastUtil.showShort("当前尚未选择账本~")
             })
         }
 
