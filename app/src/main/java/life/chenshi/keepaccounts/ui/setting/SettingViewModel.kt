@@ -3,7 +3,6 @@ package life.chenshi.keepaccounts.ui.setting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import life.chenshi.keepaccounts.constant.DataStoreConstant
@@ -18,15 +17,14 @@ class SettingViewModel : ViewModel() {
         viewModelScope.launch {
             var currentBookId = -1
             DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1)
-                .take(1)
                 .collect {
                     currentBookId = it
+                    if (currentBookId == -1) {
+                        doIfNot?.invoke()
+                        return@collect
+                    }
+                    doIfHas(currentBookId)
                 }
-            if (currentBookId == -1) {
-                doIfNot?.invoke()
-                return@launch
-            }
-            doIfHas(currentBookId)
         }
     }
 

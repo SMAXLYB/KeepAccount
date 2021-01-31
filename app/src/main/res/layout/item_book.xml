@@ -44,7 +44,7 @@
         android:layout_height="25dp"
         android:background="@drawable/item_book_current_bg"
         android:gravity="center"
-        android:text="当前账本"
+        android:text="默认账本"
         android:textColor="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

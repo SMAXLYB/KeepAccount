@@ -48,13 +48,22 @@ class SettingFragment : Fragment() {
                     val name = mSettingViewModel.getBookNameById(it)
                     mBinding.tvSettingCurrentBook.text = name
                 }
+            }, {
+                mBinding.tvSettingCurrentBook.text = ""
             })
         }
 
         mBinding.settingUserName.text = mSettingViewModel.getGreetContent()
+
     }
 
     private fun initListener() {
-        mBinding.llSettingItemCurrentBook.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_bookActivity))
+        mBinding.llSettingItemCurrentBook.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                R.id.action_settingFragment_to_bookActivity
+            )
+        )
+
+        mBinding.llSettingItemCategory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_categoryActivity))
     }
 }

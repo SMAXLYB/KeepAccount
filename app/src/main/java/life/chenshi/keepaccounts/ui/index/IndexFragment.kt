@@ -13,12 +13,14 @@ import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
@@ -158,7 +160,9 @@ class IndexFragment : Fragment() {
                     showEmptyHintView()
                 }
                 mAdapter?.setData(it)
-                stopRefreshing()
+                lifecycleScope.launch {
+                    stopRefreshing()
+                }
             }
 
         // 查询时间选择监听
@@ -215,8 +219,10 @@ class IndexFragment : Fragment() {
     }
 
     private fun stopRefreshing() {
-        if (mBinding.srlIndexRefresh.isRefreshing) {
-            mBinding.srlIndexRefresh.isRefreshing = false
+        lifecycleScope.launch {
+            if (mBinding.srlIndexRefresh.isRefreshing) {
+                mBinding.srlIndexRefresh.isRefreshing = false
+            }
         }
     }
 

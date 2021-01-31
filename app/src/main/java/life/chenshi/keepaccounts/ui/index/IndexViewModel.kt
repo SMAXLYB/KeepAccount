@@ -21,6 +21,8 @@ class IndexViewModel : ViewModel() {
     private var mTempRecordsLiveData: LiveData<List<Record>>? = null
     val currentShowType by lazy { MutableLiveData<Int>(IndexFragment.SHOW_TYPE_ALL) }
     val queryDateLiveData by lazy { MutableLiveData<Long>(System.currentTimeMillis()) }
+    private val currentBookId =
+        DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1)
 
     init {
         getRecordByDateRange(
@@ -36,9 +38,14 @@ class IndexViewModel : ViewModel() {
         if (mTempRecordsLiveData != null) {
             recordsByDateRangeLiveData.removeSource(mTempRecordsLiveData!!)
         }
-        mTempRecordsLiveData = recordDAO.getRecordByDateRange(from, to)
-        recordsByDateRangeLiveData.addSource(mTempRecordsLiveData!!) {
-            recordsByDateRangeLiveData.value = it
+        viewModelScope.launch {
+            currentBookId.take(1)
+                .collect {
+                    mTempRecordsLiveData = recordDAO.getRecordByDateRange(from, to, it)
+                }
+            recordsByDateRangeLiveData.addSource(mTempRecordsLiveData!!) {
+                recordsByDateRangeLiveData.value = it
+            }
         }
     }
 
@@ -56,7 +63,7 @@ class IndexViewModel : ViewModel() {
      * 根据日期范围取出收支的总金额
      */
     fun getSumMoneyByDateRange(from: Date, to: Date): LiveData<List<SumMoneyByDateBean>> {
-        return recordDAO.getSumMoneyByDateRange(from, to)
+        return recordDAO.getSumMoneyByDateRange(from, to,)
     }
 
     /**

@@ -31,11 +31,10 @@
         tools:layout="@layout/fragment_setting" >
         <action
             android:id="@+id/action_settingFragment_to_bookActivity"
-            app:destination="@id/bookActivity"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_out"
-            app:popExitAnim="@android:anim/fade_in" />
+            app:destination="@id/bookActivity"/>
+        <action
+            android:id="@+id/action_settingFragment_to_categoryActivity"
+            app:destination="@id/categoryActivity" />
     </fragment>
     <fragment
         android:id="@+id/analyzeFragment"
@@ -64,4 +63,9 @@
         tools:layout="@layout/activity_book"
         android:name="life.chenshi.keepaccounts.ui.setting.book.BookActivity"
         android:label="BookActivity" />
+    <activity
+        android:id="@+id/categoryActivity"
+        android:name="life.chenshi.keepaccounts.ui.setting.category.CategoryActivity"
+        android:label="CategoryActivity"
+        tools:layout="@layout/layout_category"/>
 </navigation>

@@ -1,5 +1,6 @@
 package life.chenshi.keepaccounts.ui.setting.book
 
+import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.databinding.DialogNewBookBinding
+import life.chenshi.keepaccounts.utils.ToastUtil
 
 class NewBookFragment : DialogFragment() {
     companion object {
@@ -49,8 +53,19 @@ class NewBookFragment : DialogFragment() {
                 return@setOnClickListener
             }
 
-            mBookViewModel.insertBook(Book(name = name, description = description))
-            dismiss()
+            lifecycleScope.launch {
+                kotlin.runCatching {
+                    mBookViewModel.insertBook(Book(name = name, description = description))
+                }.onSuccess {
+                    dismiss()
+                }.onFailure {
+                    if (it is SQLiteConstraintException) {
+                        ToastUtil.showLong("账本名重复,换一个试试吧~")
+                    } else {
+                        ToastUtil.showLong("添加失败, 发生未知异常!")
+                    }
+                }
+            }
         }
     }
 }

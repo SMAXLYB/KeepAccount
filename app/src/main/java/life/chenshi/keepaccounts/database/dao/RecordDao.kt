@@ -27,8 +27,8 @@ interface RecordDao {
     /**
      * 按日期范围查询记录
      */
-    @Query("SELECT * FROM tb_records WHERE time BETWEEN :from AND :to ORDER BY time DESC")
-    fun getRecordByDateRange(from: Date, to: Date): LiveData<List<Record>>
+    @Query("SELECT * FROM tb_records WHERE book_id = :bookId and time BETWEEN :from AND :to ORDER BY time DESC")
+    fun getRecordByDateRange(from: Date, to: Date, bookId: Int): LiveData<List<Record>>
 
     /**
      * 按日期范围查询金额总和 分组为支出/收入
@@ -39,36 +39,39 @@ interface RecordDao {
     /**
      * 按日期范围, 收支类型查询金额总和 分组为日期 时间早的靠前
      */
-    @Query("select strftime('%d',time,'unixepoch','localtime') as date, sum(money) as sumMoney from tb_records where time between :from and :to and record_type = :type group by date order by date asc")
+    @Query("select strftime('%d',time,'unixepoch','localtime') as date, sum(money) as sumMoney from tb_records where book_id = :bookId and time between :from and :to and record_type = :type group by date order by date asc")
     fun getSumMoneyGroupByDate(
         from: Date,
         to: Date,
-        type: Int
+        type: Int,
+        bookId: Int
     ): LiveData<List<SumMoneyGroupByDateBean>>
 
     /**
      * 按日期范围,收支类型查询金额总和 分组为月份 时间早的靠前
      */
-    @Query("select strftime('%m',time,'unixepoch','localtime') as date, sum(money) as sumMoney from tb_records where time between :from and :to and record_type = :type group by date order by date asc")
+    @Query("select strftime('%m',time,'unixepoch','localtime') as date, sum(money) as sumMoney from tb_records where book_id = :bookId and time between :from and :to and record_type = :type group by date order by date asc")
     fun getSumMoneyGroupByMonth(
         from: Date,
         to: Date,
-        type: Int
+        type: Int,
+        bookId: Int
     ): LiveData<List<SumMoneyGroupByDateBean>>
 
     /**
      * 按日期范围, 收支类型查询金额总和 分组为category 金额大的靠前
      */
-    @Query("select category, sum(money) as sumMoney ,count(category) as count from tb_records where time between :from and :to and record_type = :type group by category order by sumMoney desc")
+    @Query("select category, sum(money) as sumMoney ,count(category) as count from tb_records where book_id = :bookId and time between :from and :to and record_type = :type group by category order by sumMoney desc")
     fun getSumMoneyGroupByCategory(
         from: Date,
         to: Date,
-        type: Int
+        type: Int,
+        bookId: Int
     ): LiveData<List<SumMoneyGroupByCategoryBean>>
 
     /**
      * 搜索符合关键字的全部记录
      */
-    @Query("select * from tb_records where remark like '%'|| :keyword || '%' order by time desc")
-    fun getRecordByKeyword(keyword: String): LiveData<List<Record>>
+    @Query("select * from tb_records where book_id = :bookId and remark like '%'|| :keyword || '%' order by time desc")
+    fun getRecordByKeyword(keyword: String, bookId: Int): LiveData<List<Record>>
 }

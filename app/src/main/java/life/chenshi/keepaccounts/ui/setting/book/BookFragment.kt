@@ -8,6 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.databinding.FragmentBookBinding
@@ -49,13 +51,19 @@ class BookFragment : Fragment() {
     }
 
     private fun initListener() {
-        mBinding.gvBooks.setOnItemClickListener { _, _, position, id ->
+        // 单击选择,只会触发本地id
+        mBinding.gvBooks.setOnItemClickListener { _, _, _, id ->
             if (id == -1L) {
+                // 新增, 触发数据库
                 NewBookFragment().showNow(requireActivity().supportFragmentManager, "ADD_BOOK")
             } else {
-                mBookViewModel.currentBookId.value = id.toInt()
+                mBookViewModel.apply {
+                    setCurrentBookId(id.toInt())
+                }
             }
         }
+
+        // 长按删除, 一定触发数据库, 可能触发本地id
         mBinding.gvBooks.setOnItemLongClickListener { _, _, _, id ->
             mBookViewModel.takeIf { id != -1L }?.let {
                 activity?.let { activity ->
@@ -67,26 +75,45 @@ class BookFragment : Fragment() {
                         .setMessage("确定删除吗")
                         .show()
                 }
-                // DataStoreUtil.writeToDataStore()
             }
             true
         }
     }
 
     private fun initObserver() {
+
         // 账本数据
         mBookViewModel.booksLiveData.observe(viewLifecycleOwner) {
+            if (it == null) {
+                return@observe
+            }
             if (it.isEmpty()) {
                 mBinding.gpBookEmpty.visible()
             } else {
                 mBinding.gpBookEmpty.inVisible()
             }
-            mAdapter?.setData(it.toMutableList().apply { plusAssign(Book(-1, "", "")) })
+
+            mBookViewModel.currentBookId.apply {
+                mBookViewModel.getCurrentBookPositionInListById(value!!).let { position ->
+                    mAdapter?.setItemSelected(position)
+                }
+            }
+            mAdapter?.setData(
+                it.toMutableList().apply {
+                    plusAssign(Book(-1, "", ""))
+                })
         }
 
-        // 当前账本
-        mBookViewModel.currentBookId.observe(viewLifecycleOwner) {
-            mAdapter?.setItemSelected(it)
+        lifecycleScope.launch {
+            mBookViewModel.currentBookId
+                .observe(viewLifecycleOwner) {
+                    // 如果是删除变动,数据库会刷新界面
+                    if (it != -1) {
+                        mBookViewModel.booksLiveData.apply {
+                            value = value
+                        }
+                    }
+                }
         }
     }
 }

@@ -23,6 +23,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
+                android:foreground="@drawable/setting_header_bg"
                 android:id="@+id/setting_header_bg"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -119,7 +120,7 @@
 
                             <TextView
                                 style="@style/SettingItemContentTextView"
-                                android:text="当前账本" />
+                                android:text="默认账本" />
 
                             <TextView
                                 android:id="@+id/tv_setting_current_book"
@@ -155,7 +156,9 @@
                             style="@style/IncludeDivider"
                             layout="@layout/item_divider" />
 
-                        <LinearLayout style="@style/SettingItemLinearLayout">
+                        <LinearLayout
+                            android:id="@+id/ll_setting_item_category"
+                            style="@style/SettingItemLinearLayout">
 
                             <ImageView
                                 android:layout_width="25dp"

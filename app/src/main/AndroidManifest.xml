@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LaunchTheme">
-        <activity android:name=".ui.setting.book.BookActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +21,8 @@
             android:name=".ui.search.SearchActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.newrecord.NewRecordActivity" />
+        <activity android:name=".ui.setting.book.BookActivity" />
+        <activity android:name=".ui.setting.category.CategoryActivity" />
     </application>
 
 </manifest>

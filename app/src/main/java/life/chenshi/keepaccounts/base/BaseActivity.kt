@@ -18,11 +18,11 @@ abstract class BaseActivity : AppCompatActivity() {
         initObserver()
     }
 
-    protected abstract fun initObserver()
+    protected abstract fun initView()
 
     protected abstract fun initListener()
 
-    protected abstract fun initView()
+    protected abstract fun initObserver()
 
     protected inline fun <reified T : ViewDataBinding> bindingContentView(@LayoutRes resId: Int): Lazy<T> =
         lazy { DataBindingUtil.setContentView(this, resId) }

@@ -7,9 +7,11 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Book
+import life.chenshi.keepaccounts.utils.gone
+import life.chenshi.keepaccounts.utils.visible
 
 class BookAdapter(private var books: List<Book>) : BaseAdapter() {
-    private var mSelectedPosition = 1
+    private var mSelectedPosition = -1
 
     override fun getCount(): Int {
         return books.size
@@ -40,18 +42,24 @@ class BookAdapter(private var books: List<Book>) : BaseAdapter() {
             viewHolder.bookDescription = view.findViewById(R.id.tv_item_book_description)
             viewHolder.currentBook = view.findViewById(R.id.tv_item_current_book)
             view.tag = viewHolder
-            view.setTag(R.id.position,position)
         } else {
             view = convertView
             viewHolder = view.tag as BookViewHolder
         }
-
+        
         viewHolder.bookName?.text = book.name
         viewHolder.bookDescription?.text = book.description
-        if (position == mSelectedPosition) {
-            viewHolder.currentBook?.visibility = View.VISIBLE
+
+        // 本地没有id
+        if (mSelectedPosition == -1) {
+            viewHolder.currentBook?.gone()
+            return view
+        }
+        // 本地有id
+        if (mSelectedPosition == position) {
+            viewHolder.currentBook?.visible()
         } else {
-            viewHolder.currentBook?.visibility = View.GONE
+            viewHolder.currentBook?.gone()
         }
 
         return view
@@ -62,7 +70,7 @@ class BookAdapter(private var books: List<Book>) : BaseAdapter() {
         notifyDataSetChanged()
     }
 
-    private class BookViewHolder() {
+    class BookViewHolder() {
         var bookName: TextView? = null
         var bookDescription: TextView? = null
         var currentBook: TextView? = null

@@ -2,18 +2,20 @@ package life.chenshi.keepaccounts.ui.anaylze
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.PieEntry
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
+import life.chenshi.keepaccounts.constant.DataStoreConstant
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.RecordType
+import life.chenshi.keepaccounts.utils.DataStoreUtil
 import life.chenshi.keepaccounts.utils.DateUtil
 
 class AnalyzeViewModel : ViewModel() {
@@ -31,6 +33,7 @@ class AnalyzeViewModel : ViewModel() {
     // 走势图显示类型
     val tendencyIncomeSelectedLiveData by lazy { MutableLiveData<Boolean>(true) }
     val tendencyOutcomeSelectedLiveData by lazy { MutableLiveData<Boolean>(false) }
+    val currentBookId = DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1)
 
     // 走势图收支数据
     val tendencyIncomeRecordsLiveData by lazy {
@@ -62,59 +65,70 @@ class AnalyzeViewModel : ViewModel() {
      * 根据时间范围,收支类型查询记录, 按天/月分组
      */
     fun getTendencyRecords() {
-        // 按月查询
-        if (currentTypeLiveData.value == AnalyzeFragment.TYPE_MONTH) {
-            val from = DateUtil.getMonthStart(queryDateLiveData.value)
-            val to = DateUtil.getMonthEnd(queryDateLiveData.value)
+        viewModelScope.launch {
+            var bookId: Int = -1
+            currentBookId.take(1)
+                .collect {
+                    bookId = it
+                }
+            // 按月查询
+            if (currentTypeLiveData.value == AnalyzeFragment.TYPE_MONTH) {
+                val from = DateUtil.getMonthStart(queryDateLiveData.value)
+                val to = DateUtil.getMonthEnd(queryDateLiveData.value)
 
-            // 查询收入
-            if (mTempTendencyIncomeLiveData != null) {
-                tendencyIncomeRecordsLiveData.removeSource(mTempTendencyIncomeLiveData!!)
-            }
-            mTempTendencyIncomeLiveData = recordDAO.getSumMoneyGroupByDate(from, to, RecordType.INCOME)
-            tendencyIncomeRecordsLiveData.addSource(
+                // 查询收入
+                if (mTempTendencyIncomeLiveData != null) {
+                    tendencyIncomeRecordsLiveData.removeSource(mTempTendencyIncomeLiveData!!)
+                }
+
+                mTempTendencyIncomeLiveData =
+                    recordDAO.getSumMoneyGroupByDate(from, to, RecordType.INCOME, bookId)
+                tendencyIncomeRecordsLiveData.addSource(
                     mTempTendencyIncomeLiveData!!
-            ) {
-                tendencyIncomeRecordsLiveData.value = it
-            }
+                ) {
+                    tendencyIncomeRecordsLiveData.value = it
+                }
 
-            // 查询支出
-            if (mTempTendencyOutcomeLiveData != null) {
-                tendencyOutcomeRecordsLiveData.removeSource(mTempTendencyOutcomeLiveData!!)
-            }
-            mTempTendencyOutcomeLiveData = recordDAO.getSumMoneyGroupByDate(from, to, RecordType.OUTCOME)
-            tendencyOutcomeRecordsLiveData.addSource(
+                // 查询支出
+                if (mTempTendencyOutcomeLiveData != null) {
+                    tendencyOutcomeRecordsLiveData.removeSource(mTempTendencyOutcomeLiveData!!)
+                }
+                mTempTendencyOutcomeLiveData =
+                    recordDAO.getSumMoneyGroupByDate(from, to, RecordType.OUTCOME, bookId)
+                tendencyOutcomeRecordsLiveData.addSource(
                     mTempTendencyOutcomeLiveData!!
-            ) {
-                tendencyOutcomeRecordsLiveData.value = it
-            }
+                ) {
+                    tendencyOutcomeRecordsLiveData.value = it
+                }
 
-        } else {
-            val from = DateUtil.getYearStart(queryDateLiveData.value)
-            val to = DateUtil.getYearEnd(queryDateLiveData.value)
+            } else {
+                val from = DateUtil.getYearStart(queryDateLiveData.value)
+                val to = DateUtil.getYearEnd(queryDateLiveData.value)
 
-            // 查询收入
-            if (mTempTendencyIncomeLiveData != null) {
-                tendencyIncomeRecordsLiveData.removeSource(mTempTendencyIncomeLiveData!!)
-            }
-            mTempTendencyIncomeLiveData = recordDAO.getSumMoneyGroupByMonth(from, to, RecordType.INCOME)
-            tendencyIncomeRecordsLiveData.addSource(
+                // 查询收入
+                if (mTempTendencyIncomeLiveData != null) {
+                    tendencyIncomeRecordsLiveData.removeSource(mTempTendencyIncomeLiveData!!)
+                }
+                mTempTendencyIncomeLiveData =
+                    recordDAO.getSumMoneyGroupByMonth(from, to, RecordType.INCOME, bookId)
+                tendencyIncomeRecordsLiveData.addSource(
                     mTempTendencyIncomeLiveData!!
-            ) {
-                tendencyIncomeRecordsLiveData.value = it
-            }
+                ) {
+                    tendencyIncomeRecordsLiveData.value = it
+                }
 
-            // 查询支出
-            if (mTempTendencyOutcomeLiveData != null) {
-                tendencyOutcomeRecordsLiveData.removeSource(mTempTendencyOutcomeLiveData!!)
-            }
-            mTempTendencyOutcomeLiveData = recordDAO.getSumMoneyGroupByMonth(from, to, RecordType.OUTCOME)
-            tendencyOutcomeRecordsLiveData.addSource(
+                // 查询支出
+                if (mTempTendencyOutcomeLiveData != null) {
+                    tendencyOutcomeRecordsLiveData.removeSource(mTempTendencyOutcomeLiveData!!)
+                }
+                mTempTendencyOutcomeLiveData =
+                    recordDAO.getSumMoneyGroupByMonth(from, to, RecordType.OUTCOME, bookId)
+                tendencyOutcomeRecordsLiveData.addSource(
                     mTempTendencyOutcomeLiveData!!
-            ) {
-                tendencyOutcomeRecordsLiveData.value = it
+                ) {
+                    tendencyOutcomeRecordsLiveData.value = it
+                }
             }
-
         }
     }
 
@@ -122,52 +136,64 @@ class AnalyzeViewModel : ViewModel() {
      * 根据时间范围,收支类型查询记录, 按category分组
      */
     fun getProportionRecords() {
-        if (currentTypeLiveData.value == AnalyzeFragment.TYPE_MONTH) {
-            val from = DateUtil.getMonthStart(queryDateLiveData.value)
-            val to = DateUtil.getMonthEnd(queryDateLiveData.value)
+        viewModelScope.launch {
+            var bookId = -1
+            currentBookId.take(1)
+                .collect {
+                    bookId = it
+                }
 
-            if (mTempProportionIncomeLiveData != null) {
-                proportionIncomeRecordsLiveData.removeSource(mTempProportionIncomeLiveData!!)
-            }
-            mTempProportionIncomeLiveData = recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.INCOME)
-            proportionIncomeRecordsLiveData.addSource(
+            if (currentTypeLiveData.value == AnalyzeFragment.TYPE_MONTH) {
+                val from = DateUtil.getMonthStart(queryDateLiveData.value)
+                val to = DateUtil.getMonthEnd(queryDateLiveData.value)
+
+                if (mTempProportionIncomeLiveData != null) {
+                    proportionIncomeRecordsLiveData.removeSource(mTempProportionIncomeLiveData!!)
+                }
+                mTempProportionIncomeLiveData =
+                    recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.INCOME, bookId)
+                proportionIncomeRecordsLiveData.addSource(
                     mTempProportionIncomeLiveData!!
-            ) {
-                proportionIncomeRecordsLiveData.value = it
-            }
+                ) {
+                    proportionIncomeRecordsLiveData.value = it
+                }
 
-            if (mTempProportionOutcomeLiveData != null) {
-                proportionOutcomeRecordsLiveData.removeSource(mTempProportionOutcomeLiveData!!)
-            }
-            mTempProportionOutcomeLiveData = recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.OUTCOME)
-            proportionOutcomeRecordsLiveData.addSource(
+                if (mTempProportionOutcomeLiveData != null) {
+                    proportionOutcomeRecordsLiveData.removeSource(mTempProportionOutcomeLiveData!!)
+                }
+                mTempProportionOutcomeLiveData =
+                    recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.OUTCOME, bookId)
+                proportionOutcomeRecordsLiveData.addSource(
                     mTempProportionOutcomeLiveData!!
-            ) {
-                proportionOutcomeRecordsLiveData.value = it
-            }
+                ) {
+                    proportionOutcomeRecordsLiveData.value = it
+                }
 
-        } else {
-            val from = DateUtil.getYearStart(queryDateLiveData.value)
-            val to = DateUtil.getYearEnd(queryDateLiveData.value)
+            } else {
+                val from = DateUtil.getYearStart(queryDateLiveData.value)
+                val to = DateUtil.getYearEnd(queryDateLiveData.value)
 
-            if (mTempProportionIncomeLiveData != null) {
-                proportionIncomeRecordsLiveData.removeSource(mTempProportionIncomeLiveData!!)
-            }
-            mTempProportionIncomeLiveData = recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.INCOME)
-            proportionIncomeRecordsLiveData.addSource(
+                if (mTempProportionIncomeLiveData != null) {
+                    proportionIncomeRecordsLiveData.removeSource(mTempProportionIncomeLiveData!!)
+                }
+                mTempProportionIncomeLiveData =
+                    recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.INCOME, bookId)
+                proportionIncomeRecordsLiveData.addSource(
                     mTempProportionIncomeLiveData!!
-            ) {
-                proportionIncomeRecordsLiveData.value = it
-            }
+                ) {
+                    proportionIncomeRecordsLiveData.value = it
+                }
 
-            if (mTempProportionOutcomeLiveData != null) {
-                proportionOutcomeRecordsLiveData.removeSource(mTempProportionOutcomeLiveData!!)
-            }
-            mTempProportionOutcomeLiveData = recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.OUTCOME)
-            proportionOutcomeRecordsLiveData.addSource(
+                if (mTempProportionOutcomeLiveData != null) {
+                    proportionOutcomeRecordsLiveData.removeSource(mTempProportionOutcomeLiveData!!)
+                }
+                mTempProportionOutcomeLiveData =
+                    recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.OUTCOME, bookId)
+                proportionOutcomeRecordsLiveData.addSource(
                     mTempProportionOutcomeLiveData!!
-            ) {
-                proportionOutcomeRecordsLiveData.value = it
+                ) {
+                    proportionOutcomeRecordsLiveData.value = it
+                }
             }
         }
 
@@ -185,9 +211,9 @@ class AnalyzeViewModel : ViewModel() {
             axisDependency = YAxis.AxisDependency.LEFT // 依赖左轴
             setDrawFilled(true) //填充颜色
             fillDrawable = GradientDrawable(
-                    GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
+                GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(
                     Color.parseColor("#5f$color"), Color.parseColor("#00ffffff")
-            )
+                )
             )
             setDrawValues(false) //不绘制值
             setColor(Color.parseColor("#$color"), 255) //线段颜色

@@ -1,13 +1,15 @@
 package life.chenshi.keepaccounts.ui.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import life.chenshi.keepaccounts.database.entity.Record
+import androidx.lifecycle.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.launch
+import life.chenshi.keepaccounts.constant.DataStoreConstant
 import life.chenshi.keepaccounts.database.AppDatabase
+import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.ui.index.IndexFragment
+import life.chenshi.keepaccounts.utils.DataStoreUtil
 import life.chenshi.keepaccounts.utils.DateUtil
 import java.util.*
 
@@ -28,15 +30,24 @@ class SearchViewModel : ViewModel() {
     val recordsByKeywordLiveData by lazy { MediatorLiveData<List<Record>>() }
     private var mTempRecordLiveData: LiveData<List<Record>>? = null
 
+    private val currentBookId =
+        DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1)
+
     fun getRecordByKeyword(keyword: String) {
         if (mTempRecordLiveData != null) {
             recordsByKeywordLiveData.removeSource(mTempRecordLiveData!!)
         }
 
-        mTempRecordLiveData = mRecordDao.getRecordByKeyword(keyword)
-        recordsByKeywordLiveData.addSource(mTempRecordLiveData!!) {
-            recordsByKeywordLiveData.value = it
+        viewModelScope.launch {
+            currentBookId.take(1)
+                .collect { id ->
+                    mTempRecordLiveData = mRecordDao.getRecordByKeyword(keyword, id)
+                    recordsByKeywordLiveData.addSource(mTempRecordLiveData!!) {
+                        recordsByKeywordLiveData.value = it
+                    }
+                }
         }
+
     }
 
     /**
@@ -63,7 +74,7 @@ class SearchViewModel : ViewModel() {
 
         listAfterFilter = when (filterOrder.value) {
             SearchActivity.ORDER_TYPE_MONEY_ASC -> {
-                listAfterFilter.sortedBy{ it.money }
+                listAfterFilter.sortedBy { it.money }
             }
             SearchActivity.ORDER_TYPE_MONEY_DESC -> {
                 listAfterFilter.sortedByDescending { it.money }

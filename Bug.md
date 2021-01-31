@@ -21,3 +21,5 @@
  - [Index] 选择查看类型,当前类型高亮
  - 捕获必要的exception
  - [Book] 优化新建账本按钮
+ - [NewRecord] 优化界面,可以选择账本
+ - [Analyze] 可以选择账本查看
