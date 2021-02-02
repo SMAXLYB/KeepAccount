@@ -33,6 +33,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_category"
@@ -83,6 +84,7 @@
             app:layout_constraintTop_toBottomOf="@id/iv_sub_category_empty" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_sub_category"
             android:layout_width="0dp"
             android:layout_margin="5dp"
             android:layout_height="wrap_content"

@@ -75,7 +75,7 @@
                 android:layout_marginBottom="15dp"
                 android:elevation="1dp"
                 android:gravity="center"
-                android:text="今天是使用纯记的第1天"
+                android:text="今天是使用纯迹的第1天"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
