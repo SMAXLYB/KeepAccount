@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "86e4259e7c513ce1b8f439065a8a60c1",
+    "identityHash": "3f1155d9bbe8195933812c7b9e4656f3",
     "entities": [
       {
         "tableName": "tb_records",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `money` INTEGER NOT NULL, `remark` TEXT, `time` INTEGER NOT NULL, `category` INTEGER NOT NULL, `record_type` INTEGER NOT NULL, `book_id` INTEGER NOT NULL, FOREIGN KEY(`book_id`) REFERENCES `tb_books`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `money` INTEGER NOT NULL, `remark` TEXT, `time` INTEGER NOT NULL, `category` INTEGER NOT NULL, `subCategory` INTEGER NOT NULL, `record_type` INTEGER NOT NULL, `book_id` INTEGER NOT NULL, FOREIGN KEY(`book_id`) REFERENCES `tb_books`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -35,6 +35,12 @@
           {
             "fieldPath": "category",
             "columnName": "category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subCategory",
+            "columnName": "subCategory",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -130,7 +136,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '86e4259e7c513ce1b8f439065a8a60c1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3f1155d9bbe8195933812c7b9e4656f3')"
     ]
   }
 }

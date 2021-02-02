@@ -16,7 +16,7 @@ import java.util.*
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class Record @JvmOverloads constructor(
+data class Record constructor(
     // 账目的唯一id
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
@@ -26,8 +26,10 @@ data class Record @JvmOverloads constructor(
     var remark: String? = null,
     // 时间
     var time: Date,
-    // 类型暂时用文字代替，后续可以升级改造单独一个表出来
+    // 消费类型主类
     var category: Int,
+    // 消费类型子类
+    var subCategory: Int = 0,
     // 0支出/1收入
     @ColumnInfo(name = "record_type")
     var recordType: Int,
@@ -44,6 +46,7 @@ data class Record @JvmOverloads constructor(
         Date(source.readLong()),
         source.readInt(),
         source.readInt(),
+        source.readInt(),
         source.readInt()
     )
 
@@ -54,6 +57,7 @@ data class Record @JvmOverloads constructor(
         dest.writeString(remark)
         dest.writeLong(time.time)
         dest.writeInt(category)
+        dest.writeInt(subCategory)
         dest.writeInt(recordType)
         dest.writeInt(bookId)
     }
@@ -75,7 +79,7 @@ data class Record @JvmOverloads constructor(
     }
 
     override fun toString(): String {
-        return "Record(bookid=${bookId}, id=$id, money=$money, remark=$remark, time=$time, category=$category, recordType=$recordType)"
+        return "Record(bookId=${bookId}, id=$id, money=$money, remark=$remark, time=$time, category=$category, subcategory=${subCategory}, recordType=$recordType)"
     }
 }
 
@@ -84,7 +88,7 @@ object RecordType {
     const val INCOME = 1;
 }
 
-object Category {
+object Category2 {
     const val GOUWU = 0;
     const val CHIFAN = 1;
     const val JIAOTONG = 2;

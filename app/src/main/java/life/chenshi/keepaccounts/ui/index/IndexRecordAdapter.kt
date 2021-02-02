@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.entity.Category
+import life.chenshi.keepaccounts.database.entity.Category2
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.ItemBudgetBinding
@@ -46,7 +46,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
             )
             itemBudgetDetailBinding.apply {
                 // 支出主题
-                itemBudgetDetailTitle.text = Category.convert2String(it.category)
+                itemBudgetDetailTitle.text = Category2.convert2String(it.category)
                 // 备注
                 if (!it.remark.isNullOrEmpty()) {
                     with(itemBudgetDetailRemark) {

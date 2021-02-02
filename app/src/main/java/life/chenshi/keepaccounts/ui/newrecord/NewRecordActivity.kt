@@ -185,7 +185,7 @@ class NewRecordActivity : BaseActivity() {
 
             mNewRecordViewModel.hasDefaultBook({
                 mNewRecordViewModel.insertRecord(
-                    Record(null, money, remark, date, category, recordType, it)
+                    Record(null, money, remark, date, category,0, recordType, it)
                 )
                 finish()
             }, {
