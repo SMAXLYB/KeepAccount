@@ -7,8 +7,8 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Book
-import life.chenshi.keepaccounts.utils.gone
-import life.chenshi.keepaccounts.utils.visible
+import life.chenshi.keepaccounts.common.utils.gone
+import life.chenshi.keepaccounts.common.utils.visible
 
 class BookAdapter(private var books: List<Book>) : BaseAdapter() {
     private var mSelectedPosition = -1

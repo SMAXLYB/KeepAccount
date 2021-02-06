@@ -15,8 +15,8 @@ import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.constant.DataStoreConstant
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.RecordType
-import life.chenshi.keepaccounts.utils.DataStoreUtil
-import life.chenshi.keepaccounts.utils.DateUtil
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.common.utils.DateUtil
 
 class AnalyzeViewModel : ViewModel() {
     private val recordDAO by lazy { AppDatabase.getDatabase().getRecordDao() }

@@ -1,7 +1,7 @@
 package life.chenshi.keepaccounts.ui.setting.book
 
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.base.BaseActivity
+import life.chenshi.keepaccounts.common.base.BaseActivity
 import life.chenshi.keepaccounts.databinding.ActivityBookBinding
 
 class BookActivity : BaseActivity() {

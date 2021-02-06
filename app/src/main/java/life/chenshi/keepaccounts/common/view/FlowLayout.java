@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.view;
+package life.chenshi.keepaccounts.common.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import life.chenshi.keepaccounts.utils.ViewUtilKt;
+import life.chenshi.keepaccounts.common.utils.ViewUtilKt;
 
 /**
  * @author smaxlyb

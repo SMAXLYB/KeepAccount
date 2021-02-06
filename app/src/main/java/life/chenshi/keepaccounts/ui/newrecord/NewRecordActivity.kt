@@ -9,11 +9,11 @@ import androidx.navigation.navArgs
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.base.BaseActivity
+import life.chenshi.keepaccounts.common.base.BaseActivity
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
-import life.chenshi.keepaccounts.utils.*
+import life.chenshi.keepaccounts.common.utils.*
 import java.math.BigDecimal
 import java.util.*
 

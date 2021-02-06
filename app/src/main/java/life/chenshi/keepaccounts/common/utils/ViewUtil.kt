@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.utils
+package life.chenshi.keepaccounts.common.utils
 
 import android.content.res.Resources
 import android.graphics.Color

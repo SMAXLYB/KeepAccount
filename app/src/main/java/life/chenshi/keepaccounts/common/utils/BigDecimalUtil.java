@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package life.chenshi.keepaccounts.utils;
+package life.chenshi.keepaccounts.common.utils;
 
 import android.text.TextUtils;
 

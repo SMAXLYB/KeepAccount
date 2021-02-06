@@ -3,7 +3,7 @@ package life.chenshi.keepaccounts.ui.setting.category
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.base.BaseActivity
+import life.chenshi.keepaccounts.common.base.BaseActivity
 import life.chenshi.keepaccounts.databinding.LayoutCategoryBinding
 
 class CategoryActivity : BaseActivity() {

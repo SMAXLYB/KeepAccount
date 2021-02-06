@@ -25,10 +25,10 @@ import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
-import life.chenshi.keepaccounts.utils.DateUtil
-import life.chenshi.keepaccounts.utils.ToastUtil
-import life.chenshi.keepaccounts.utils.inVisible
-import life.chenshi.keepaccounts.utils.visible
+import life.chenshi.keepaccounts.common.utils.DateUtil
+import life.chenshi.keepaccounts.common.utils.ToastUtil
+import life.chenshi.keepaccounts.common.utils.inVisible
+import life.chenshi.keepaccounts.common.utils.visible
 import java.util.*
 
 class IndexFragment : Fragment() {

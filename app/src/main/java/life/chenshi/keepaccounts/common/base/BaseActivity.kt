@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.base
+package life.chenshi.keepaccounts.common.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
@@ -12,7 +12,6 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_KeepAccounts)
         super.onCreate(savedInstanceState)
-
         initView()
         initListener()
         initObserver()

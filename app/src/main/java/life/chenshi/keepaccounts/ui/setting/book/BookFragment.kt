@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.databinding.FragmentBookBinding
-import life.chenshi.keepaccounts.utils.inVisible
-import life.chenshi.keepaccounts.utils.visible
+import life.chenshi.keepaccounts.common.utils.inVisible
+import life.chenshi.keepaccounts.common.utils.visible
 
 class BookFragment : Fragment() {
 

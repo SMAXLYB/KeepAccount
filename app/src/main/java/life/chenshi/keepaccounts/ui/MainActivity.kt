@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.base.BaseActivity
+import life.chenshi.keepaccounts.common.base.BaseActivity
 
 class MainActivity : BaseActivity() {
     private lateinit var mNavController: NavController

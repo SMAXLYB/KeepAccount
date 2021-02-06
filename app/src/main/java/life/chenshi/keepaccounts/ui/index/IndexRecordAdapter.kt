@@ -12,7 +12,7 @@ import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.ItemBudgetBinding
 import life.chenshi.keepaccounts.databinding.ItemBudgetDetailBinding
-import life.chenshi.keepaccounts.utils.DateUtil
+import life.chenshi.keepaccounts.common.utils.DateUtil
 
 class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
     RecyclerView.Adapter<IndexRecordAdapter.IndexRecordViewHolder>() {

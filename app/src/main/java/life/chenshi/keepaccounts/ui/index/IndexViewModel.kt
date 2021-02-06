@@ -10,8 +10,8 @@ import life.chenshi.keepaccounts.constant.DataStoreConstant
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
-import life.chenshi.keepaccounts.utils.DataStoreUtil
-import life.chenshi.keepaccounts.utils.DateUtil
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.common.utils.DateUtil
 import java.util.*
 
 class IndexViewModel : ViewModel() {

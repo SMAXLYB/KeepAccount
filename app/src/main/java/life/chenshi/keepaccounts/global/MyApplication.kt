@@ -1,7 +1,7 @@
 package life.chenshi.keepaccounts.global
 
 import android.app.Application
-import life.chenshi.keepaccounts.utils.DataStoreUtil
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 
 class MyApplication : Application() {
 
@@ -13,7 +13,9 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        DataStoreUtil.init(this)
         INSTANCE = this
+        DataStoreUtil.init(this)
+        GlobalCrashHandler.getInstance().init(this)
+
     }
 }

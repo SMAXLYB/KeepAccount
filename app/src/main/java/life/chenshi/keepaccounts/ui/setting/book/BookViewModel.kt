@@ -5,7 +5,7 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.constant.DataStoreConstant
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Book
-import life.chenshi.keepaccounts.utils.DataStoreUtil
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 
 class BookViewModel : ViewModel() {
     private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }

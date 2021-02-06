@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.view
+package life.chenshi.keepaccounts.common.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -81,10 +81,8 @@ class CircleImageView @JvmOverloads constructor(
             if (mShowShadow) {
                 setShadowLayer(mShadowRadius, 0f, 0f, mShadowColor)
             }
+            setLayerType(LAYER_TYPE_SOFTWARE, null)
         }
-
-        // 开启硬件加速 todo 什么作用
-        this.setLayerType(LAYER_TYPE_HARDWARE, mBorderPaint)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

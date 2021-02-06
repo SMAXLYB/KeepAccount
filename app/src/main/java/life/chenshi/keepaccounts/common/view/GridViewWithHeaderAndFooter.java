@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.view;
+package life.chenshi.keepaccounts.common.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;

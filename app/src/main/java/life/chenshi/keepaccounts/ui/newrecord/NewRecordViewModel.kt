@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.constant.DataStoreConstant
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.utils.DataStoreUtil
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import java.util.*
 
 class NewRecordViewModel : ViewModel() {
