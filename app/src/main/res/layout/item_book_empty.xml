@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/item_book_add"
+        android:src="@drawable/item_add"
         android:layout_height="wrap_content"/>
 
 

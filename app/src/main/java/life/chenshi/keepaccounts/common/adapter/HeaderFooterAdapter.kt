@@ -14,10 +14,12 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         private const val ITEM_TYPE_NORMAL = 0
     }
 
+    private var needFullSpan = true
+
     /*********** 保存了每个view节点的全部信息 *********/
-    private val mHeaders = arrayListOf<DataBean>()
-    private val mFooters = arrayListOf<DataBean>()
-    private val mNormals = arrayListOf<DataBean>()
+    protected val mHeaders = arrayListOf<DataBean>()
+    protected val mFooters = arrayListOf<DataBean>()
+    protected val mNormals = arrayListOf<DataBean>()
 
     override fun getItemViewType(position: Int): Int {
         if (isHeaderViewPosition(position)) {
@@ -35,9 +37,9 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     /*************** 创建ViewHolder *************/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (isHeaderType(viewType)) {
-            return onCreateHeaderViewHolder(parent, viewType)
+            return onCreateHeaderViewHolder(parent, viewType)!!
         } else if (isFooterType(viewType)) {
-            return onCreateFooterViewHolder(parent, viewType)
+            return onCreateFooterViewHolder(parent, viewType)!!
         }
 
         return onCreateNormalViewHolder(parent, viewType)
@@ -45,18 +47,25 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     abstract fun onCreateNormalViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
 
-    abstract fun onCreateFooterViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
+    protected open fun onCreateFooterViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+        return null
+    }
 
-    abstract fun onCreateHeaderViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
+    protected open fun onCreateHeaderViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+        return null
+    }
 
+    /**
+     * 判断是否为头部类型
+     */
     private fun isHeaderType(viewType: Int): Boolean {
         return mHeaders.takeIf { !it.isNullOrEmpty() }
-            ?.firstOrNull { it.type == viewType } == null
+            ?.firstOrNull { it.type == viewType } != null
     }
 
     private fun isFooterType(viewType: Int): Boolean {
-        return mHeaders.takeIf { !it.isNullOrEmpty() }
-            ?.firstOrNull { it.type == viewType } == null
+        return mFooters.takeIf { !it.isNullOrEmpty() }
+            ?.firstOrNull { it.type == viewType } != null
     }
 
     /*************** 绑定viewHolder ******************/
@@ -66,19 +75,23 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                 onBindHeaderViewHolder(holder, position)
             }
             isFooterViewPosition(position) -> {
-                onBindFooterViewHolder(holder, position)
+                onBindFooterViewHolder(holder, position - getHeaderViewCount() - getNormalViewCount())
             }
             else -> {
-                onBindNormalViewHolder(holder, position)
+                onBindNormalViewHolder(holder, position - getHeaderViewCount())
             }
         }
     }
 
-    abstract fun onBindFooterViewHolder(holder: RecyclerView.ViewHolder, position: Int)
+    protected open fun onBindFooterViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+    }
 
     abstract fun onBindNormalViewHolder(holder: RecyclerView.ViewHolder, position: Int)
 
-    abstract fun onBindHeaderViewHolder(holder: RecyclerView.ViewHolder, position: Int)
+    protected open fun onBindHeaderViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+    }
 
     private fun isHeaderViewPosition(position: Int): Boolean {
         return getHeaderViewCount() > position
@@ -93,6 +106,12 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     fun getFooterViewCount() = mFooters.size
     fun getNormalViewCount() = mNormals.size
 
+    fun addHeaders(data: List<Any>) {
+        data.forEach {
+            addHeader(it)
+        }
+    }
+
     fun addHeader(data: Any) {
         addHeader(data, ITEM_TYPE_HEADER)
     }
@@ -101,12 +120,24 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         mHeaders.add(DataBean(data, type))
     }
 
-    fun addFooter(data: Any) {
+    fun addFooters(data: List<Any>) {
+        data.forEach {
+            addFooter(it)
+        }
+    }
+
+    fun addFooter(data: Any = Unit) {
         addFooter(data, ITEM_TYPE_FOOTER)
     }
 
     fun addFooter(data: Any, type: Int) {
         mFooters.add(DataBean(data, type))
+    }
+
+    fun addNormals(data: List<Any>) {
+        data.forEach {
+            addNormal(it)
+        }
     }
 
     fun addNormal(data: Any) {
@@ -117,11 +148,15 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         mNormals.add(DataBean(data, type))
     }
 
+    fun setHeaderOrFooterFullSpan(needFullSpan: Boolean) {
+        this.needFullSpan = needFullSpan
+    }
+
     /**********兼容gridLayout************/
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         val layoutManager = recyclerView.layoutManager
-        if (layoutManager is GridLayoutManager) {
+        if (needFullSpan && layoutManager is GridLayoutManager) {
             layoutManager as GridLayoutManager
             // 原本的跨列数计算方式
             val spanSizeLookup = layoutManager.spanSizeLookup
@@ -147,7 +182,7 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
         super.onViewAttachedToWindow(holder)
         val layoutParams = holder.itemView.layoutParams
-        if (layoutParams != null && layoutParams is StaggeredGridLayoutManager.LayoutParams) {
+        if (needFullSpan && layoutParams != null && layoutParams is StaggeredGridLayoutManager.LayoutParams) {
             val position = holder.layoutPosition
             if (isHeaderViewPosition(position) || isFooterViewPosition(position)) {
                 layoutParams.isFullSpan = true
@@ -155,5 +190,5 @@ abstract class HeaderFooterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    private data class DataBean(val data: Any, val type: Int)
+    protected data class DataBean(val data: Any, val type: Int)
 }

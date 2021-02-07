@@ -14,12 +14,13 @@
         <ImageView
             android:id="@+id/im_crash_img"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="0dp"
             android:layout_margin="5dp"
             android:src="@drawable/crash_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/tv_crash_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -27,59 +28,58 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="T_T 很抱歉,应用发生了崩溃!\n您可以发送以下崩溃日志,以帮助我们尽快解决问题"
             app:layout_constraintBottom_toTopOf="@id/scrollview"
-            app:layout_constraintTop_toBottomOf="@id/im_crash_img"
-            android:text="T_T 很抱歉,应用发生了崩溃!\n您可以发送以下崩溃日志,以帮助我们尽快解决问题" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/im_crash_img" />
 
         <ScrollView
             android:id="@+id/scrollview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="5dp"
             android:background="@drawable/corner_all_12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.6"
-            app:layout_constraintStart_toStartOf="parent"
+            android:padding="5dp"
             app:layout_constraintBottom_toTopOf="@id/btn_copy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_crash_hint"
             app:layout_constraintWidth_percent="0.9">
 
             <TextView
                 android:id="@+id/tv_crash_info"
-                android:textColor="@color/colorTextRed"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextRed" />
         </ScrollView>
 
         <Button
             android:id="@+id/btn_exit"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.3"
             android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:textColor="@color/white"
-            android:text="尝试重启App"
             android:background="@drawable/corner_all_12dp_bule_bg"
+            android:text="尝试重启App"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_copy"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scrollview" />
+            app:layout_constraintTop_toBottomOf="@id/scrollview"
+            app:layout_constraintWidth_percent="0.3" />
 
         <Button
             android:id="@+id/btn_copy"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.3"
             android:layout_height="40dp"
             android:background="@drawable/corner_all_12dp_bule_bg"
-            android:textColor="@color/white"
-            android:layout_margin="20dp"
             android:text="复制到剪切板"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_exit"
-            app:layout_constraintTop_toBottomOf="@id/scrollview" />
+            app:layout_constraintTop_toBottomOf="@id/scrollview"
+            app:layout_constraintWidth_percent="0.3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
