@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
-        android:background="@drawable/corner_all_12dp">
+        android:background="@drawable/corner_all_12dp_white_bg">
 
 
         <RelativeLayout
@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/corner_top_12dp_blue_bg"
-            android:padding="15dp"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tv_dialog_new_book_title"
+                android:id="@+id/tv_dialog_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -37,17 +37,18 @@
             <ImageView
                 android:id="@+id/tv_dialog_close"
                 android:layout_width="30dp"
-                android:background="@drawable/ripple_20dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
+                android:background="@drawable/ripple_20dp"
                 android:src="@drawable/dialog_close" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_dialog_new_book_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginStart="20dp"
+            android:gravity="center"
             android:text="账本名称"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/et_dialog_new_book_name"
@@ -75,9 +76,9 @@
         <TextView
             android:id="@+id/tv_dialog_new_book_desctiption"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:gravity="center"
             android:text="描述说明"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,9 +107,9 @@
         <Button
             android:id="@+id/btn_dialog_submit"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/corner_all_12dp_bule_bg"
+            android:layout_height="35dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/corner_all_25dp_blue_bg"
             android:text="提 交"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"

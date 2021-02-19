@@ -4,7 +4,10 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tb_books", indices = [Index("name", unique = true)])
+@Entity(tableName = "tb_books",
+    indices = [
+        Index("id"),
+        Index("name", unique = true)])
 data class Book(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,

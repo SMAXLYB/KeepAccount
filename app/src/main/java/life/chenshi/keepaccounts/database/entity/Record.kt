@@ -8,7 +8,11 @@ import java.util.*
 
 @Entity(
     tableName = "tb_records",
-    indices = [Index(value = ["money", "time", "category", "record_type", "book_id"])],
+    indices = [
+        Index(value = ["id"]),
+        Index(value = ["time"]),
+        Index(value = ["category"]),
+        Index(value = ["book_id"])],
     foreignKeys = [ForeignKey(
         entity = Book::class,
         parentColumns = ["id"],

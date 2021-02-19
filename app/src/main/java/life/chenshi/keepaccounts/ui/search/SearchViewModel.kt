@@ -4,13 +4,13 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.constant.DataStoreConstant
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.common.utils.DateUtil
+import life.chenshi.keepaccounts.constant.CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.ui.index.IndexFragment
-import life.chenshi.keepaccounts.common.utils.DataStoreUtil
-import life.chenshi.keepaccounts.common.utils.DateUtil
 import java.util.*
 
 class SearchViewModel : ViewModel() {
@@ -31,7 +31,7 @@ class SearchViewModel : ViewModel() {
     private var mTempRecordLiveData: LiveData<List<Record>>? = null
 
     private val currentBookId =
-        DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1)
+        DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
 
     fun getRecordByKeyword(keyword: String) {
         if (mTempRecordLiveData != null) {

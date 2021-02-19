@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.entity.Book
-import life.chenshi.keepaccounts.databinding.FragmentBookBinding
+import life.chenshi.keepaccounts.common.utils.ToastUtil
 import life.chenshi.keepaccounts.common.utils.inVisible
 import life.chenshi.keepaccounts.common.utils.visible
+import life.chenshi.keepaccounts.common.view.CustomDialog
+import life.chenshi.keepaccounts.database.entity.Book
+import life.chenshi.keepaccounts.databinding.FragmentBookBinding
 
 class BookFragment : Fragment() {
 
@@ -56,6 +57,8 @@ class BookFragment : Fragment() {
             if (id == -1L) {
                 // 新增, 触发数据库
                 NewBookFragment().showNow(requireActivity().supportFragmentManager, "ADD_BOOK")
+                // CustomDialog.Builder(requireActivity())
+                //     .build()
             } else {
                 mBookViewModel.apply {
                     setCurrentBookId(id.toInt())
@@ -67,13 +70,22 @@ class BookFragment : Fragment() {
         mBinding.gvBooks.setOnItemLongClickListener { _, _, _, id ->
             mBookViewModel.takeIf { id != -1L }?.let {
                 activity?.let { activity ->
-                    AlertDialog.Builder(activity)
-                        .setPositiveButton("确定") { _, _ ->
-                            it.deleteBookById(id.toInt())
+                    CustomDialog.Builder(activity)
+                        .setTitle("删除提示")
+                        .setMessage("\u3000\u3000您正在进行删除操作, 此操作不可逆, 确定继续吗?")
+                        .setPositiveButton("确定") { dialog,binding->
+                            kotlin.runCatching { it.deleteBookById(id.toInt()) }
+                                .onSuccess {
+                                    ToastUtil.showSuccess("删除成功")
+                                    dialog.dismiss()
+                                }
+                                .onFailure { ToastUtil.showFail("删除失败")}
                         }
-                        .setNegativeButton("取消") { _, _ -> }
-                        .setMessage("确定删除吗")
-                        .show()
+                        .setNegativeButton("取消")
+                        .setCancelable(false)
+                        .setClosedButtonEnable(false)
+                        .build()
+                        .showNow()
                 }
             }
             true

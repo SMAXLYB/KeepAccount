@@ -10,4 +10,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="list_view_pressed_gray">#ffe6e6e6</color>
     <color name="global_background_gray">#A4F1F1F1</color>
+    <color name="switch_button_unchecked_gray">#717171</color>
 </resources>

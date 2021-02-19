@@ -12,7 +12,7 @@
         android:layout_width="20dp"
         android:layout_marginStart="10dp"
         android:layout_height="35dp"
-        android:src="@drawable/toast_icon"
+        android:src="@drawable/toast_icon_warning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_toast_message"
         app:layout_constraintStart_toStartOf="parent"

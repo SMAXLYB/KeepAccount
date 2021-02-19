@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
@@ -22,13 +21,14 @@ import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.database.entity.RecordType
-import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.common.utils.DateUtil
 import life.chenshi.keepaccounts.common.utils.ToastUtil
 import life.chenshi.keepaccounts.common.utils.inVisible
 import life.chenshi.keepaccounts.common.utils.visible
+import life.chenshi.keepaccounts.common.view.CustomDialog
+import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.database.entity.RecordType
+import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import java.util.*
 
 class IndexFragment : Fragment() {
@@ -210,11 +210,18 @@ class IndexFragment : Fragment() {
 
     private fun showDeleteDialog(record: Record) {
         activity?.let {
-            AlertDialog.Builder(it)
-                .setPositiveButton("确定") { _, _ -> mIndexViewModel.deleteRecord(record) }
-                .setNegativeButton("取消") { _, _ -> }
-                .setMessage("确定删除吗")
-                .show()
+            CustomDialog.Builder(it)
+                .setTitle("删除记录")
+                .setPositiveButton("确定") { dialog, binding ->
+                    mIndexViewModel.deleteRecord(record)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("取消")
+                .setClosedButtonEnable(false)
+                .setMessage("\u3000\u3000您正在进行删除操作, 此操作不可逆, 确定继续吗")
+                .setCancelable(false)
+                .build()
+                .showNow()
         }
     }
 

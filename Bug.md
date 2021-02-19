@@ -12,6 +12,7 @@
  - [Index] 列表Icon根据收支大小变化
  - [Analyze] MarkerView显示时间
  - 添加是否主动刷新功能
+ - [Category] 完善退出删除模式
 
 #待优化
  - [NewRecord] 消费类型可以自定义
@@ -24,3 +25,4 @@
  - [Book] 优化新建账本按钮
  - [NewRecord] 优化界面,可以选择账本
  - [Analyze] 可以选择账本查看
+ - 删除提示可以自定义

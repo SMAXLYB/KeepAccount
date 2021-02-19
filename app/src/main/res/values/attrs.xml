@@ -12,4 +12,18 @@
         <!--阴影模糊半径-->
         <attr name="shadowRadius" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="SwitchButton">
+        <!--未选中的背景颜色-->
+        <attr name="uncheckedBackgroundColor" format="color" />
+        <!--未选中的圆形颜色-->
+        <attr name="uncheckedCircleColor" format="color" />
+
+        <!--选中的背景颜色-->
+        <attr name="checkedBackgroundColor" format="color" />
+        <!--选中的圆形颜色-->
+        <attr name="checkedCircleColor" format="color" />
+
+        <attr name="strokeWidth" format="dimension" />
+    </declare-styleable>
 </resources>

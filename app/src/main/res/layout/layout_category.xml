@@ -57,7 +57,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:padding="10dp"
-            android:text="子类"
+            android:text="子类  |  退出删除模式"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/barrier"

@@ -9,8 +9,11 @@ interface CategoryDao {
     @Insert
     suspend fun insertCategory(category: Category)
 
-    @Query("")
-    suspend fun deleteCategory(category: Category)
+    /**
+     * 伪删除
+     */
+    @Query("UPDATE tb_categories SET state = -1 WHERE id = :categoryId")
+    suspend fun deleteCategory(categoryId: Int)
 
     @Delete
     suspend fun forceDeleteCategory(category: Category)
@@ -18,6 +21,12 @@ interface CategoryDao {
     @Update
     suspend fun updateCategory(category: Category)
 
-    @Query("SELECT * FROM tb_categories where state = 0")
+    @Query("SELECT * FROM tb_categories")
     fun getAllCategory(): Flow<List<Category>>
+
+    @Query("SELECT * FROM tb_categories where state = :state")
+    fun getAllCategoryBy(state: Int): Flow<List<Category>>
+
+    @Query("SELECT * FROM tb_categories WHERE name like :name LIMIT 1")
+    fun getCategoryBy(name: String): Category?
 }

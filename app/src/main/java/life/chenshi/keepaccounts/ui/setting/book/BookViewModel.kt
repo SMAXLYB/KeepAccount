@@ -2,12 +2,15 @@ package life.chenshi.keepaccounts.ui.setting.book
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.constant.DataStoreConstant
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.constant.CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Book
-import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 
 class BookViewModel : ViewModel() {
+    companion object{
+        private const val TAG = "BookViewModel"
+    }
     private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }
 
     val booksLiveData = MediatorLiveData<List<Book>>()
@@ -27,10 +30,6 @@ class BookViewModel : ViewModel() {
     fun deleteBookById(bookId: Int) {
         viewModelScope.launch {
             mBookDao.deleteBookById(bookId)
-            // currentBookId.take(1).collect {
-            //     if (bookId == it) {
-            //     }
-            // }
             if (currentBookId.value == bookId) {
                 setCurrentBookId(-1)
             }
@@ -49,7 +48,7 @@ class BookViewModel : ViewModel() {
      */
     fun setCurrentBookId(id: Int) {
         viewModelScope.launch {
-            DataStoreUtil.writeToDataStore(DataStoreConstant.CURRENT_BOOK_ID, id)
+            DataStoreUtil.writeToDataStore(CURRENT_BOOK_ID, id)
         }
     }
 
@@ -59,7 +58,7 @@ class BookViewModel : ViewModel() {
     private fun getCurrentBookId() {
         viewModelScope.launch {
             currentBookId =
-                DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1).asLiveData()
+                DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1).asLiveData()
         }
     }
 

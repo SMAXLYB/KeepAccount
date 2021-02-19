@@ -36,3 +36,8 @@ fun EditText.hideSoftInputMethod() {
         context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 }
+
+fun EditText.showSoftInputMethod(){
+    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.showSoftInput(this,0)
+}

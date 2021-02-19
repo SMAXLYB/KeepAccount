@@ -61,7 +61,6 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/ripple_30dp"
                     android:clickable="true"
-
                     android:focusable="true"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"

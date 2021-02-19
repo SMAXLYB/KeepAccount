@@ -269,13 +269,18 @@
                                 style="@style/SettingItemContentTextView"
                                 android:text="检测更新" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginEnd="5dp"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical|end"
-                                android:text="测试版v1.1" />
+                            <!--<TextView-->
+                            <!--    android:layout_width="0dp"-->
+                            <!--    android:layout_height="match_parent"-->
+                            <!--    android:layout_marginEnd="5dp"-->
+                            <!--    android:layout_weight="1"-->
+                            <!--    android:gravity="center_vertical|end"-->
+                            <!--    android:text="测试版v1.1" />-->
+
+                            <life.chenshi.keepaccounts.common.view.SwitchButton
+                                android:layout_width="50dp"
+                                app:uncheckedBackgroundColor="#DDDDDD"
+                                android:layout_height="25dp"/>
 
                             <ImageView style="@style/SettingArrow" />
                         </LinearLayout>

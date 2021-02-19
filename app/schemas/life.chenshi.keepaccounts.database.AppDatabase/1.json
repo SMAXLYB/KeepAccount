@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3f1155d9bbe8195933812c7b9e4656f3",
+    "identityHash": "9a82b2f989b1c82e64a34fc014fb4b2b",
     "entities": [
       {
         "tableName": "tb_records",
@@ -65,16 +65,36 @@
         },
         "indices": [
           {
-            "name": "index_tb_records_money_time_category_record_type_book_id",
+            "name": "index_tb_records_id",
             "unique": false,
             "columnNames": [
-              "money",
-              "time",
-              "category",
-              "record_type",
+              "id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_records_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_tb_records_time",
+            "unique": false,
+            "columnNames": [
+              "time"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_records_time` ON `${TABLE_NAME}` (`time`)"
+          },
+          {
+            "name": "index_tb_records_category",
+            "unique": false,
+            "columnNames": [
+              "category"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_records_category` ON `${TABLE_NAME}` (`category`)"
+          },
+          {
+            "name": "index_tb_records_book_id",
+            "unique": false,
+            "columnNames": [
               "book_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_records_money_time_category_record_type_book_id` ON `${TABLE_NAME}` (`money`, `time`, `category`, `record_type`, `book_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_records_book_id` ON `${TABLE_NAME}` (`book_id`)"
           }
         ],
         "foreignKeys": [
@@ -122,6 +142,14 @@
         },
         "indices": [
           {
+            "name": "index_tb_books_id",
+            "unique": false,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_books_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
             "name": "index_tb_books_name",
             "unique": true,
             "columnNames": [
@@ -131,12 +159,121 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "tb_categories",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `state` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_tb_categories_name",
+            "unique": true,
+            "columnNames": [
+              "name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_tb_categories_name` ON `${TABLE_NAME}` (`name`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_sub_categories",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `state` INTEGER NOT NULL, `category_id` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `tb_categories`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "categoryId",
+            "columnName": "category_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_tb_sub_categories_name_category_id",
+            "unique": true,
+            "columnNames": [
+              "name",
+              "category_id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_tb_sub_categories_name_category_id` ON `${TABLE_NAME}` (`name`, `category_id`)"
+          },
+          {
+            "name": "index_tb_sub_categories_category_id",
+            "unique": false,
+            "columnNames": [
+              "category_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_sub_categories_category_id` ON `${TABLE_NAME}` (`category_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tb_categories",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "category_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3f1155d9bbe8195933812c7b9e4656f3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9a82b2f989b1c82e64a34fc014fb4b2b')"
     ]
   }
 }

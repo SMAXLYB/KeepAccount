@@ -9,18 +9,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:id="@+id/cl_item_category"
         android:background="@drawable/item_category_bg"
         android:layout_height="50dp">
 
 
         <ImageView
             android:id="@+id/iv_item_category_delete"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_margin="1dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:padding="1dp"
             android:visibility="invisible"
             tools:visibility="visible"
-            android:src="@drawable/item_category_delete"
+            android:src="@drawable/item_category_delete_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +31,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="5dp"
+            android:layout_width="3dp"
             android:visibility="invisible"
-            tools:visibility="visible"
+            tools:visibility="gone"
             android:background="@color/colorPrimary"
             android:layout_height="20dp" />
 
@@ -40,9 +41,11 @@
             android:id="@+id/tv_item_category"
             android:layout_width="wrap_content"
             android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/text_selected"
             android:layout_height="match_parent"
             android:text="医疗医疗"
-            app:layout_constraintStart_toEndOf="@id/item_category_indicator"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

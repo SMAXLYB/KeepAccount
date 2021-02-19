@@ -1,17 +1,16 @@
 package life.chenshi.keepaccounts.ui.index
 
 import androidx.lifecycle.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
-import life.chenshi.keepaccounts.constant.DataStoreConstant
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.common.utils.DateUtil
+import life.chenshi.keepaccounts.constant.CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
-import life.chenshi.keepaccounts.common.utils.DataStoreUtil
-import life.chenshi.keepaccounts.common.utils.DateUtil
 import java.util.*
 
 class IndexViewModel : ViewModel() {
@@ -22,7 +21,7 @@ class IndexViewModel : ViewModel() {
     val currentShowType by lazy { MutableLiveData<Int>(IndexFragment.SHOW_TYPE_ALL) }
     val queryDateLiveData by lazy { MutableLiveData<Long>(System.currentTimeMillis()) }
     private val currentBookId =
-        DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1)
+        DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
 
     init {
         getRecordByDateRange(
@@ -88,7 +87,6 @@ class IndexViewModel : ViewModel() {
         if (listAfterFilter.isEmpty()) {
             return recordListGroupByDay
         }
-        val tempRecordData: Date = listAfterFilter[0].time
         val records: MutableList<Record> = mutableListOf(listAfterFilter[0])
         recordListGroupByDay.add(records)
         // 对每条记录进行循环，以日期为单位，找出日期相同的记录，放在一起
@@ -110,7 +108,7 @@ class IndexViewModel : ViewModel() {
      * 删除记录
      */
     fun deleteRecord(record: Record) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch{
             recordDAO.deleteRecord(record)
         }
     }
@@ -123,7 +121,7 @@ class IndexViewModel : ViewModel() {
     fun hasDefaultBook(doIfHas: (Int) -> Unit, doIfNot: (() -> Unit)? = null) {
         viewModelScope.launch {
             var currentBookId = -1
-            DataStoreUtil.readFromDataStore(DataStoreConstant.CURRENT_BOOK_ID, -1)
+            DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
                 .take(1)
                 .collect {
                     currentBookId = it
