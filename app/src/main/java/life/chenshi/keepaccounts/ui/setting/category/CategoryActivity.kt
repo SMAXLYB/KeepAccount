@@ -101,55 +101,21 @@ class CategoryActivity : BaseActivity() {
             }
             // 删除主类
             setOnItemDeleteClickListener { category ->
-                CustomDialog.Builder(this@CategoryActivity)
-                    .setCancelable(false)
-                    .setTitle("删除主类")
-                    .setMessage("\u3000\u3000您正在进行删除操作, 此操作不可逆, 确定继续吗?")
-                    .setClosedButtonEnable(false)
-                    .setPositiveButton("确定") { dialog, _ ->
+                mCategoryViewModel.confirmBeforeDelete {
+                    if (it) {
+                        deleteCategoryWithDialog(category)
+                    } else {
                         lifecycleScope.launch {
                             mCategoryViewModel.deleteCategory(category)
-                            dialog.dismiss()
                         }
                     }
-                    .setNegativeButton("取消")
-                    .build()
-                    .showNow()
+                }
             }
         }
         // 添加主类
         mCategoryFooterAdapter.setOnItemClickListener {
             takeUnless { mCategoryViewModel.isDeleteMode.value!! }?.run {
-                CustomDialog.Builder(this@CategoryActivity)
-                    .setCancelable(false)
-                    .setTitle("添加主类")
-                    .setContentView {
-                        LayoutAddCategoryBinding.inflate(layoutInflater)
-                    }
-                    .setPositiveButton("确定") { dialog, binding ->
-                        binding as LayoutAddCategoryBinding
-                        val text = binding.etCategoryName.text?.toString()?.trim()
-                        if (text.isNullOrEmpty()) {
-                            binding.etCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
-                            return@setPositiveButton
-                        }
-                        lifecycleScope.launch {
-                            kotlin.runCatching {
-                                mCategoryViewModel.insertCategory(Category(name = binding.etCategoryName.text.toString()))
-                            }.onSuccess {
-                                ToastUtil.showSuccess("添加成功")
-                                dialog.dismiss()
-                            }.onFailure {
-                                if (it is SQLiteConstraintException) {
-                                    ToastUtil.showFail("主类名称重复,换一个试试吧~")
-                                } else {
-                                    throw it
-                                }
-                            }
-                        }
-                    }
-                    .build()
-                    .showNow()
+                addCategory()
             } ?: ToastUtil.showShort("请先退出删除模式")
         }
         //子类
@@ -200,69 +166,21 @@ class CategoryActivity : BaseActivity() {
                 true
             }
             // 删除
-            setOnItemDeleteClickListener {
-                CustomDialog.Builder(this@CategoryActivity)
-                    .setCancelable(false)
-                    .setTitle("删除子类")
-                    .setMessage("\u3000\u3000您正在进行删除操作, 此操作不可逆, 确定继续吗?")
-                    .setClosedButtonEnable(false)
-                    .setPositiveButton("确定") { dialog, _ ->
+            setOnItemDeleteClickListener { subCategory ->
+                mCategoryViewModel.confirmBeforeDelete {
+                    if (it) {
+                        deleteSubCategoryWithDialog(subCategory)
+                    } else {
                         lifecycleScope.launch {
-                            mCategoryViewModel.deleteSubCategory(it)
-                            dialog.dismiss()
+                            mCategoryViewModel.deleteSubCategory(subCategory)
                         }
                     }
-                    .setNegativeButton("取消")
-                    .build()
-                    .showNow()
+                }
             }
         }
         mSubCategoryFooterAdapter.setOnItemClickListener {
             takeUnless { mCategoryViewModel.isDeleteMode.value!! }?.run {
-                CustomDialog.Builder(this@CategoryActivity)
-                    .setCancelable(false)
-                    .setTitle("添加子类")
-                    .setContentView {
-                        LayoutAddSubCategoryBinding.inflate(layoutInflater).apply {
-                            tvCategoryName.text = mCategoryViewModel.currentCategory.value!!.name
-                        }
-                    }
-                    .setPositiveButton("确定") { dialog, binding ->
-                        binding as LayoutAddSubCategoryBinding
-                        val text = binding.etSubCategoryName.text?.toString()?.trim()
-                        if (text.isNullOrEmpty()) {
-                            binding.etSubCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
-                            return@setPositiveButton
-                        }
-                        lifecycleScope.launch {
-                            // 保证在添加子类时,已经选择了主类
-                            kotlin.runCatching {
-                                mCategoryViewModel.insertSubCategory(
-                                    SubCategory(
-                                        name = binding.etSubCategoryName.text.toString(),
-                                        categoryId = mCategoryViewModel.currentCategory.value!!.id!!
-                                    )
-                                )
-                            }.onSuccess {
-                                ToastUtil.showSuccess("添加成功")
-                                dialog.dismiss()
-                            }.onFailure {
-                                if (it is SQLiteConstraintException) {
-                                    // FOREIGN KEY外键约束 唯一约束UNIQUE
-                                    if (it.message!!.contains("UNIQUE")) {
-                                        ToastUtil.showFail("子类名称重复,换一个试试吧~")
-                                    } else if (it.message!!.contains("FOREIGN")) {
-                                        ToastUtil.showFail("添加失败,主类不存在!")
-                                        dialog.dismiss()
-                                    }
-                                } else {
-                                    ToastUtil.showFail("添加失败")
-                                }
-                            }
-                        }
-                    }
-                    .build()
-                    .showNow()
+                addSubCategory()
             } ?: ToastUtil.showShort("请先退出删除模式")
         }
 
@@ -335,5 +253,119 @@ class CategoryActivity : BaseActivity() {
                 mSubCategoryFooterAdapter.setFooterViewVisibility(!it)
             }
         }
+    }
+
+    private fun addCategory() {
+        CustomDialog.Builder(this@CategoryActivity)
+            .setCancelable(false)
+            .setTitle("添加主类")
+            .setContentView {
+                LayoutAddCategoryBinding.inflate(layoutInflater)
+            }
+            .setPositiveButton("确定") { dialog, binding ->
+                binding as LayoutAddCategoryBinding
+                val text = binding.etCategoryName.text?.toString()?.trim()
+                if (text.isNullOrEmpty()) {
+                    binding.etCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
+                    return@setPositiveButton
+                }
+                lifecycleScope.launch {
+                    kotlin.runCatching {
+                        mCategoryViewModel.insertCategory(Category(name = binding.etCategoryName.text.toString()))
+                    }.onSuccess {
+                        ToastUtil.showSuccess("添加成功")
+                        dialog.dismiss()
+                    }.onFailure {
+                        if (it is SQLiteConstraintException) {
+                            ToastUtil.showFail("主类名称重复,换一个试试吧~")
+                        } else {
+                            throw it
+                        }
+                    }
+                }
+            }
+            .build()
+            .showNow()
+    }
+
+    private fun addSubCategory() {
+        CustomDialog.Builder(this@CategoryActivity)
+            .setCancelable(false)
+            .setTitle("添加子类")
+            .setContentView {
+                LayoutAddSubCategoryBinding.inflate(layoutInflater).apply {
+                    tvCategoryName.text = mCategoryViewModel.currentCategory.value!!.name
+                }
+            }
+            .setPositiveButton("确定") { dialog, binding ->
+                binding as LayoutAddSubCategoryBinding
+                val text = binding.etSubCategoryName.text?.toString()?.trim()
+                if (text.isNullOrEmpty()) {
+                    binding.etSubCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
+                    return@setPositiveButton
+                }
+                lifecycleScope.launch {
+                    // 保证在添加子类时,已经选择了主类
+                    kotlin.runCatching {
+                        mCategoryViewModel.insertSubCategory(
+                            SubCategory(
+                                name = binding.etSubCategoryName.text.toString(),
+                                categoryId = mCategoryViewModel.currentCategory.value!!.id!!
+                            )
+                        )
+                    }.onSuccess {
+                        ToastUtil.showSuccess("添加成功")
+                        dialog.dismiss()
+                    }.onFailure {
+                        if (it is SQLiteConstraintException) {
+                            // FOREIGN KEY外键约束 唯一约束UNIQUE
+                            if (it.message!!.contains("UNIQUE")) {
+                                ToastUtil.showFail("子类名称重复,换一个试试吧~")
+                            } else if (it.message!!.contains("FOREIGN")) {
+                                ToastUtil.showFail("添加失败,主类不存在!")
+                                dialog.dismiss()
+                            }
+                        } else {
+                            ToastUtil.showFail("添加失败")
+                        }
+                    }
+                }
+            }
+            .build()
+            .showNow()
+    }
+
+    private fun deleteCategoryWithDialog(category: Category) {
+        CustomDialog.Builder(this@CategoryActivity)
+            .setCancelable(false)
+            .setTitle("删除主类")
+            .setMessage("\u3000\u3000您正在进行删除操作, 此操作不可逆, 确定继续吗?")
+            .setClosedButtonEnable(false)
+            .setPositiveButton("确定") { dialog, _ ->
+                lifecycleScope.launch {
+                    mCategoryViewModel.deleteCategory(category)
+                    dialog.dismiss()
+                }
+            }
+            .setNegativeButton("取消")
+            .build()
+            .showNow()
+    }
+
+    private fun deleteSubCategoryWithDialog(subCategory: SubCategory) {
+        CustomDialog.Builder(this@CategoryActivity)
+            .setCancelable(false)
+            .setTitle("删除子类")
+            .setMessage("\u3000\u3000您正在进行删除操作, 此操作不可逆, 确定继续吗?")
+            .setClosedButtonEnable(false)
+            .setPositiveButton("确定") { dialog, _ ->
+                lifecycleScope.launch {
+                    mCategoryViewModel.deleteSubCategory(subCategory)
+                    dialog.dismiss()
+                }
+            }
+            .setNegativeButton("取消")
+            .build()
+            .showNow()
     }
 }

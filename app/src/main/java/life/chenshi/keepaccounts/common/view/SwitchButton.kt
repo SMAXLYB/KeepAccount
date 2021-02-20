@@ -57,9 +57,16 @@ class SwitchButton @JvmOverloads constructor(
     // 初始化
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.SwitchButton)
-        uncheckedBackgroundColor = typedArray.getColor(R.styleable.SwitchButton_uncheckedBackgroundColor, uncheckedBackgroundColor)
-        uncheckedCircleColor = typedArray.getColor(R.styleable.SwitchButton_uncheckedCircleColor, uncheckedCircleColor)
-        checkedBackgroundColor = typedArray.getColor(R.styleable.SwitchButton_checkedBackgroundColor, checkedBackgroundColor)
+        uncheckedBackgroundColor = typedArray.getColor(
+            R.styleable.SwitchButton_uncheckedBackgroundColor,
+            uncheckedBackgroundColor
+        )
+        uncheckedCircleColor =
+            typedArray.getColor(R.styleable.SwitchButton_uncheckedCircleColor, uncheckedCircleColor)
+        checkedBackgroundColor = typedArray.getColor(
+            R.styleable.SwitchButton_checkedBackgroundColor,
+            checkedBackgroundColor
+        )
         // checkedCircleColor = typedArray.getColor(R.styleable.SwitchButton_checkedCircleColor, checkedCircleColor)
         strokeWidth = typedArray.getDimension(R.styleable.SwitchButton_strokeWidth, 0f)
         typedArray.recycle()
@@ -136,7 +143,8 @@ class SwitchButton @JvmOverloads constructor(
 
         // 画圆
         val cy = paddingTop + bgRadius
-        val currentXPosition = paddingLeft + radius + strokeWidth + distance * mCurrentXPositionRatio
+        val currentXPosition =
+            paddingLeft + radius + strokeWidth + distance * mCurrentXPositionRatio
 
         canvas.drawCircle(currentXPosition, cy, radius, mCirclePaint)
     }
@@ -170,9 +178,9 @@ class SwitchButton @JvmOverloads constructor(
             ValueAnimator.ofInt(currentBackgroundColor, uncheckedBackgroundColor)
         }
 
-        val transAnimator = if(mChecked){
+        val transAnimator = if (mChecked) {
             ObjectAnimator.ofFloat(this, "currentXPositionRatio", 0f, 1f)
-        }else{
+        } else {
             ObjectAnimator.ofFloat(this, "currentXPositionRatio", 1f, 0f)
         }
         argbAnimator.setEvaluator(ArgbEvaluator())
@@ -213,8 +221,8 @@ class SwitchButton @JvmOverloads constructor(
     /**
      * 重置为选中状态
      */
-    fun resetToChecked(){
-        if(mChecked){
+    fun resetToChecked() {
+        if (mChecked) {
             return
         }
         currentBackgroundColor = checkedBackgroundColor
@@ -225,13 +233,21 @@ class SwitchButton @JvmOverloads constructor(
     /**
      * 重置为非选中状态
      */
-    fun resetToUnchecked(){
-        if(!mChecked){
+    fun resetToUnchecked() {
+        if (!mChecked) {
             return
         }
         currentBackgroundColor = uncheckedBackgroundColor
         mCurrentXPositionRatio = 0f
         mChecked = !mChecked
+    }
+
+    fun reset(checked: Boolean) {
+        if (checked) {
+            resetToChecked()
+        } else {
+            resetToUnchecked()
+        }
     }
 }
 

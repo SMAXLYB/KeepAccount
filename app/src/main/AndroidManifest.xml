@@ -22,9 +22,9 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.newrecord.NewRecordActivity" />
         <activity android:name=".ui.setting.book.BookActivity" />
-        <activity
-            android:name=".ui.setting.category.CategoryActivity"/>
+        <activity android:name=".ui.setting.category.CategoryActivity" />
         <activity android:name=".ui.CrashActivity" />
+        <activity android:name=".ui.setting.moresetting.MoreSettingActivity" />
     </application>
 
 </manifest>

@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.DateUtil
-import life.chenshi.keepaccounts.common.utils.ToastUtil
-import life.chenshi.keepaccounts.common.utils.inVisible
-import life.chenshi.keepaccounts.common.utils.visible
+import life.chenshi.keepaccounts.common.utils.*
 import life.chenshi.keepaccounts.common.view.CustomDialog
+import life.chenshi.keepaccounts.constant.SWITCHER_CONFIRM_BEFORE_DELETE
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
@@ -66,7 +66,19 @@ class IndexFragment : Fragment() {
         mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
         mAdapter = IndexRecordAdapter(emptyList())
         mAdapter!!.setOnClickListener { editRecord(it) }
-        mAdapter!!.setOnItemLongClickListener { showDeleteDialog(it) }
+        mAdapter!!.setOnItemLongClickListener { record ->
+            lifecycleScope.launch {
+                DataStoreUtil.readFromDataStore(SWITCHER_CONFIRM_BEFORE_DELETE, true)
+                    .take(1)
+                    .collect {
+                        if (it) {
+                            showDeleteDialog(record)
+                        } else {
+                            mIndexViewModel.deleteRecord(record)
+                        }
+                    }
+            }
+        }
         mBinding.rvBudget.adapter = mAdapter
     }
 
@@ -212,7 +224,7 @@ class IndexFragment : Fragment() {
         activity?.let {
             CustomDialog.Builder(it)
                 .setTitle("删除记录")
-                .setPositiveButton("确定") { dialog, binding ->
+                .setPositiveButton("确定") { dialog, _ ->
                     mIndexViewModel.deleteRecord(record)
                     dialog.dismiss()
                 }

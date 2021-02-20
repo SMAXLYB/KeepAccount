@@ -59,11 +59,15 @@ class SettingFragment : Fragment() {
 
     private fun initListener() {
         mBinding.llSettingItemCurrentBook.setOnClickListener(
-            Navigation.createNavigateOnClickListener(
-                R.id.action_settingFragment_to_bookActivity
-            )
+            Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_bookActivity)
         )
 
-        mBinding.llSettingItemCategory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_categoryActivity))
+        mBinding.llSettingItemCategory.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_categoryActivity)
+        )
+
+        mBinding.llSettingItemMoreSetting.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_moreSettingActivity)
+        )
     }
 }

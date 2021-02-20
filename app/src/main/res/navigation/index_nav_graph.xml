@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_settingFragment_to_categoryActivity"
             app:destination="@id/categoryActivity" />
+        <action
+            android:id="@+id/action_settingFragment_to_moreSettingActivity"
+            app:destination="@id/moreSettingActivity" />
     </fragment>
     <fragment
         android:id="@+id/analyzeFragment"
@@ -68,4 +71,9 @@
         android:name="life.chenshi.keepaccounts.ui.setting.category.CategoryActivity"
         android:label="CategoryActivity"
         tools:layout="@layout/layout_category"/>
+    <activity
+        android:id="@+id/moreSettingActivity"
+        android:name="life.chenshi.keepaccounts.ui.setting.moresetting.MoreSettingActivity"
+        tools:layout="@layout/activity_more_setting"
+        android:label="MoreSettingActivity" />
 </navigation>

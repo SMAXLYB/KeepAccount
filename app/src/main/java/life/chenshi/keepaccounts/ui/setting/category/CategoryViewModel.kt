@@ -2,8 +2,12 @@ package life.chenshi.keepaccounts.ui.setting.category
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
+import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.constant.STATE_DELETE
 import life.chenshi.keepaccounts.constant.STATE_NORMAL
+import life.chenshi.keepaccounts.constant.SWITCHER_CONFIRM_BEFORE_DELETE
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Category
 import life.chenshi.keepaccounts.database.entity.SubCategory
@@ -137,4 +141,14 @@ class CategoryViewModel : ViewModel() {
             }
             return@withContext null
         }
+
+    fun confirmBeforeDelete(callback: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            DataStoreUtil.readFromDataStore(SWITCHER_CONFIRM_BEFORE_DELETE, true)
+                .take(1)
+                .collect {
+                    callback.invoke(it)
+                }
+        }
+    }
 }
