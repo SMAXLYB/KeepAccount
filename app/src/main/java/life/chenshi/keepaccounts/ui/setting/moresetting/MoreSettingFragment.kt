@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseFragment
 import life.chenshi.keepaccounts.constant.SWITCHER_CONFIRM_BEFORE_DELETE
+import life.chenshi.keepaccounts.constant.SWITCHER_EXIT_APP
 import life.chenshi.keepaccounts.databinding.FragmentMoreSettingBinding
 
 class MoreSettingFragment : BaseFragment() {
@@ -41,11 +42,19 @@ class MoreSettingFragment : BaseFragment() {
         mMoreSettingViewModel.readFromDataStore(SWITCHER_CONFIRM_BEFORE_DELETE) {
             mBinding.switcherConfirmBeforeDelete.reset(it)
         }
+
+        mMoreSettingViewModel.readFromDataStore(SWITCHER_EXIT_APP) {
+            mBinding.switcherExitApp.reset(it)
+        }
     }
 
     private fun initListener() {
         mBinding.switcherConfirmBeforeDelete.setOnCheckChangedListener {
             mMoreSettingViewModel.writeToDataStore(SWITCHER_CONFIRM_BEFORE_DELETE, it)
+        }
+
+        mBinding.switcherExitApp.setOnCheckChangedListener {
+            mMoreSettingViewModel.writeToDataStore(SWITCHER_EXIT_APP, it)
         }
     }
 

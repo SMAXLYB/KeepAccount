@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.common.utils.DateUtil
-import life.chenshi.keepaccounts.constant.CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.RecordType
@@ -16,12 +16,13 @@ import java.util.*
 class IndexViewModel : ViewModel() {
 
     private val recordDAO by lazy { AppDatabase.getDatabase().getRecordDao() }
+    private val bookDao by lazy { AppDatabase.getDatabase().getBookDao() }
     val recordsByDateRangeLiveData = MediatorLiveData<List<Record>>()
     private var mTempRecordsLiveData: LiveData<List<Record>>? = null
     val currentShowType by lazy { MutableLiveData<Int>(IndexFragment.SHOW_TYPE_ALL) }
     val queryDateLiveData by lazy { MutableLiveData<Long>(System.currentTimeMillis()) }
     private val currentBookId =
-        DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
+        DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
 
     init {
         getRecordByDateRange(
@@ -114,14 +115,16 @@ class IndexViewModel : ViewModel() {
     }
 
     /**
-     * 是否有默认账本
-     * @param doIfHas 有默认账本时的操作
+     * 是否有账本
+     * @param doIfHas 有账本时的操作
      * @param doIfNot 无账本的操作
      */
-    fun hasDefaultBook(doIfHas: (Int) -> Unit, doIfNot: (() -> Unit)? = null) {
+    fun hasBook(doIfHas: (Int) -> Unit, doIfNot: (() -> Unit)? = null) {
+
+        bookDao.getAllBooks()
         viewModelScope.launch {
             var currentBookId = -1
-            DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
+            DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
                 .take(1)
                 .collect {
                     currentBookId = it

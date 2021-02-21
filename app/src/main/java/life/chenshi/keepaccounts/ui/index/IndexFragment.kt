@@ -145,10 +145,10 @@ class IndexFragment : Fragment() {
 
         // 新建记录
         mBinding.fabNewRecord.setOnClickListener {
-            mIndexViewModel.hasDefaultBook({
+            mIndexViewModel.hasBook({
                 findNavController().navigate(R.id.action_indexFragment_to_newRecordActivity, null)
             }, {
-                ToastUtil.showShort("当前尚未选择账本~")
+                ToastUtil.showShort("当前无账本,请先新建账本~")
             })
         }
 

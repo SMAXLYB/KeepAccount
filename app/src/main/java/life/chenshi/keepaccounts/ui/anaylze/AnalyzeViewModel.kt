@@ -14,7 +14,7 @@ import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
 import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.common.utils.DateUtil
-import life.chenshi.keepaccounts.constant.CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.RecordType
 
@@ -33,7 +33,7 @@ class AnalyzeViewModel : ViewModel() {
     // 走势图显示类型
     val tendencyIncomeSelectedLiveData by lazy { MutableLiveData<Boolean>(true) }
     val tendencyOutcomeSelectedLiveData by lazy { MutableLiveData<Boolean>(false) }
-    private val currentBookId = DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
+    private val currentBookId = DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
 
     // 走势图收支数据
     val tendencyIncomeRecordsLiveData by lazy {

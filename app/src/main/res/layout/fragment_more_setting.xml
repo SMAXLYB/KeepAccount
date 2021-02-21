@@ -84,15 +84,15 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="退出应用时, 需按2次返回才会退出应用, 默认开启"
+                    android:text="退出应用时, 需在2秒再次按返回才会退出应用, 默认开启, 关闭后直接退出应用"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/option_switcher1"
+                    app:layout_constraintEnd_toStartOf="@id/switcher_exit_app"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/option_name1" />
 
                 <life.chenshi.keepaccounts.common.view.SwitchButton
-                    android:id="@+id/option_switcher1"
+                    android:id="@+id/switcher_exit_app"
                     android:layout_width="45dp"
                     android:layout_height="25dp"
                     app:layout_constraintBottom_toBottomOf="parent"
