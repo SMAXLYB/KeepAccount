@@ -86,26 +86,7 @@ class IndexFragment : Fragment() {
     private fun initListener() {
         // 时间
         mBinding.timeContainer.setOnClickListener {
-            activity?.let { activity ->
-                CardDatePickerDialog.builder(activity)
-                    .setTitle("选择年月")
-                    .showBackNow(false)
-                    .setDisplayType(
-                        mutableListOf(
-                            DateTimeConfig.YEAR,//显示年
-                            DateTimeConfig.MONTH,//显示月
-                        )
-                    )
-                    .setMaxTime(System.currentTimeMillis())
-                    .setThemeColor(Color.parseColor("#03A9F4"))
-                    .setLabelText(year = "年", month = "月")
-                    .setOnChoose { millisecond ->
-                        mBinding.srlIndexRefresh.isRefreshing = true
-                        mIndexViewModel.queryDateLiveData.value = millisecond
-                    }
-                    .build()
-                    .show()
-            }
+            showTimePickerDialog()
         }
 
         // 查看类型选择
@@ -220,6 +201,28 @@ class IndexFragment : Fragment() {
         findNavController().navigate(action)
     }
 
+    private fun showTimePickerDialog(){
+        activity?.let { activity ->
+            CardDatePickerDialog.builder(activity)
+                .setTitle("选择年月")
+                .showBackNow(false)
+                .setDisplayType(
+                    mutableListOf(
+                        DateTimeConfig.YEAR,//显示年
+                        DateTimeConfig.MONTH,//显示月
+                    )
+                )
+                .setMaxTime(System.currentTimeMillis())
+                .setThemeColor(Color.parseColor("#03A9F4"))
+                .setLabelText(year = "年", month = "月")
+                .setOnChoose { millisecond ->
+                    mBinding.srlIndexRefresh.isRefreshing = true
+                    mIndexViewModel.queryDateLiveData.value = millisecond
+                }
+                .build()
+                .show()
+        }
+    }
     private fun showDeleteDialog(record: Record) {
         activity?.let {
             CustomDialog.Builder(it)

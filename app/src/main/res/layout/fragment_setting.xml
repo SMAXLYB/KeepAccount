@@ -147,7 +147,7 @@
 
                             <TextView
                                 style="@style/SettingItemContentTextView"
-                                android:text="设置预算" />
+                                android:text="资产管理" />
 
                             <ImageView style="@style/SettingArrow" />
                         </LinearLayout>

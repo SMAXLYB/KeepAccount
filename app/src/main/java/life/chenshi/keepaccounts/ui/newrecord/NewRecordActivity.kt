@@ -1,21 +1,10 @@
 package life.chenshi.keepaccounts.ui.newrecord
 
-import android.graphics.Color
-import android.view.View
-import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.core.view.children
 import androidx.navigation.navArgs
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
-import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
-import life.chenshi.keepaccounts.common.utils.*
-import java.math.BigDecimal
-import java.util.*
 
 class NewRecordActivity : BaseActivity() {
     private val mRecordArgs by navArgs<NewRecordActivityArgs>()
@@ -25,6 +14,14 @@ class NewRecordActivity : BaseActivity() {
     companion object {
         private const val TAG = "NewRecordActivity"
     }
+
+    override fun initView() {
+        mBinding
+    }
+
+    override fun initListener() {
+    }
+    /*
 
     override fun initView() {
 
@@ -198,6 +195,7 @@ class NewRecordActivity : BaseActivity() {
             finish()
         }
     }
+    */
 
 
     override fun initObserver() {

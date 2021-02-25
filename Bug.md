@@ -13,6 +13,8 @@
  - [Analyze] MarkerView显示时间
  - 添加是否主动刷新功能
  - [Category] 完善退出删除模式
+ - [NewRecord] 新增标签
+ - [NewRecord] 新增附件
 
 #待优化
  - [NewRecord] 消费类型可以自定义

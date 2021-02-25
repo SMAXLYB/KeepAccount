@@ -7,414 +7,400 @@
 
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#A4F1F1F1"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:scrollbars="none">
 
-        <!--收支类型切换-->
         <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:id="@+id/new_record_type_outcome"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/new_record_outcome_bg"
-                android:enabled="false"
-                android:gravity="center"
-                android:text="支出"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/new_record_type_income"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/new_record_income_bg"
-                android:gravity="center"
-                android:text="收入"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_margin="10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/new_record_date_time_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_money_container"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_all_12dp_white_bg"
+                android:padding="5dp">
 
+                <!--收支-->
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_record_type"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="时间"
-                    android:textSize="16sp" />
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:text="收支"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/required"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
+                <RadioGroup
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|start"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_record_type"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_record_type"
+                    app:layout_constraintTop_toTopOf="@id/tv_record_type">
+
+                    <RadioButton
+                        android:id="@+id/rb_income"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:button="@null"
+                        android:drawableStart="@drawable/radio_button_bg"
+                        android:drawablePadding="5dp"
+                        android:text="收入" />
+
+                    <RadioButton
+                        android:id="@+id/rb_outcome"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:button="@null"
+                        android:drawableStart="@drawable/radio_button_bg"
+                        android:drawablePadding="5dp"
+                        android:text="支出" />
+                </RadioGroup>
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="1dp"
-                    app:cardMaxElevation="2dp">
+                    android:background="@drawable/item_budget_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_record_type" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/new_record_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:gravity="center"
-                            android:text="1990-01-01"
-                            app:layout_constraintBottom_toTopOf="@id/new_record_time"
-                            app:layout_constraintEnd_toStartOf="@id/new_record_date_arrow"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/new_record_date_arrow"
-                            android:layout_width="7dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="3dp"
-                            android:src="@drawable/index_arrow_down_gray"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/new_record_date"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/new_record_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:gravity="center"
-                            android:text="00:00"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/new_record_time_arrow"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/new_record_date" />
-
-                        <ImageView
-                            android:id="@+id/new_record_time_arrow"
-                            android:layout_width="7dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="3dp"
-                            android:src="@drawable/index_arrow_down_gray"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/new_record_time" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/new_record_money_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toEndOf="@id/new_record_date_time_container"
-                app:layout_constraintTop_toTopOf="parent">
-
+                <!--金额-->
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
                     android:text="金额"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/required"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_record_type" />
 
-                    android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/et_money"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/corner_all_12dp_gray_bg"
+                    android:hint="请输入金额(最多2位小数)"
+                    android:inputType="number|numberDecimal"
+                    android:paddingStart="5dp"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_money"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_money"
+                    app:layout_constraintTop_toTopOf="@id/tv_money" />
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/new_record_edittext_bg"
-                    android:gravity="center"
-                    android:hint="0.00"
-                    android:inputType="numberDecimal"
-                    android:maxLength="9"
-                    android:textSize="22sp" />
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/item_budget_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_money" />
+                <!--账本-->
+                <TextView
+                    android:id="@+id/tv_book"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:text="账本"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/required"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_money" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="类型"
+                <TextView
+                    android:id="@+id/tv_choose_book"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|start"
+                    android:paddingStart="20dp"
+                    android:text="请选择账本"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_book"
+                    app:layout_constraintEnd_toStartOf="@id/arrow1"
+                    app:layout_constraintStart_toEndOf="@id/tv_book"
+                    app:layout_constraintTop_toTopOf="@id/tv_book" />
 
-            android:textSize="16sp" />
+                <ImageView
+                    android:id="@+id/arrow1"
+                    style="@style/NewRecordArrow"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_book"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_book" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/item_budget_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_book" />
+                <!--类别-->
+                <TextView
+                    android:id="@+id/tv_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:text="类别"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/required"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_book" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|start"
+                    android:paddingStart="20dp"
+                    android:text="请选择类别"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_category"
+                    app:layout_constraintEnd_toStartOf="@id/arrow2"
+                    app:layout_constraintStart_toEndOf="@id/tv_category"
+                    app:layout_constraintTop_toTopOf="@id/tv_category" />
+
+                <ImageView
+                    android:id="@+id/arrow2"
+                    style="@style/NewRecordArrow"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_category"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_category" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/item_budget_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_category" />
+                <!--时间-->
+                <TextView
+                    android:id="@+id/tv_datetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:text="时间"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/required"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_category" />
+
+                <TextView
+                    android:id="@+id/tv_date_time"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|start"
+                    android:paddingStart="20dp"
+                    android:text="请选择时间"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_datetime"
+                    app:layout_constraintEnd_toStartOf="@id/arrow3"
+                    app:layout_constraintStart_toEndOf="@id/tv_datetime"
+                    app:layout_constraintTop_toTopOf="@id/tv_datetime" />
+
+                <ImageView
+                    android:id="@+id/arrow3"
+                    style="@style/NewRecordArrow"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_datetime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_datetime" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/new_record_label_container_outcome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/new_record_label_0"
-                android:layout_width="wrap_content"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:text="购物"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_1"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/corner_all_12dp_white_bg"
+                android:padding="5dp">
 
-            <TextView
-                android:id="@+id/new_record_label_1"
-                android:layout_width="wrap_content"
+
+                <!--资产-->
+                <TextView
+                    android:id="@+id/tv_asset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:paddingStart="21dp"
+                    android:text="资产"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|start"
+                    android:paddingStart="20dp"
+                    android:text="未选择资产"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_asset"
+                    app:layout_constraintEnd_toStartOf="@+id/arrow4"
+                    app:layout_constraintStart_toEndOf="@id/tv_asset"
+                    app:layout_constraintTop_toTopOf="@id/tv_asset" />
+
+                <ImageView
+                    android:id="@+id/arrow4"
+                    style="@style/NewRecordArrow"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_asset"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_asset" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/item_budget_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_asset" />
+                <!--标签-->
+                <TextView
+                    android:id="@+id/tv_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:paddingStart="21dp"
+                    android:text="标签"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_asset" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/item_budget_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label" />
+                <!--地点-->
+                <TextView
+                    android:id="@+id/tv_addr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:paddingStart="21dp"
+                    android:text="地点"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_label" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:text="吃饭"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/corner_all_12dp_white_bg"
+                android:padding="5dp">
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_2"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_0"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:paddingStart="21dp"
+                    android:text="备注"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/new_record_label_2"
-                android:layout_width="wrap_content"
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/corner_all_12dp_gray_bg"
+                    android:gravity="top|start"
+                    android:hint="请输入备注(最多200字)"
+                    android:padding="5dp"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_remark"
+                    app:layout_constraintTop_toTopOf="@id/tv_remark" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/corner_all_12dp_white_bg"
+                android:padding="5dp">
 
-                android:text="交通"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_3"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_1"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_attachment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:padding="10dp"
+                    android:paddingStart="21dp"
+                    android:text="附件"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/new_record_label_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-
-                android:text="医疗"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_4"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_2"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/new_record_label_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-
-                android:paddingBottom="5dp"
-                android:text="住房"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_5"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_3"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/new_record_label_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-
-                android:text="通讯"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_4"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/new_record_label_container_income"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <TextView
-                android:id="@+id/new_record_label_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:text="工资"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_7"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/new_record_label_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:text="红包"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_8"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_6"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/new_record_label_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-
-                android:text="基金"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_9"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_7"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/new_record_label_9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-
-                android:text="兼职"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_record_label_10"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_8"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/new_record_label_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/new_record_label"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-
-                android:paddingBottom="5dp"
-                android:text="利息"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_record_label_9"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:text="备注"
-
-            android:textSize="16sp" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_remark"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/new_record_edittext_bg"
-            android:gravity="top"
-            android:hint="请输入50字备注（非必填）"
-
-            android:maxLength="50"
-            android:padding="5dp"
-            android:textSize="14sp" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/corner_all_12dp_gray_bg"
+                    android:src="@drawable/index_float_botton_bg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_attachment"
+                    app:layout_constraintTop_toTopOf="@id/tv_attachment" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:id="@+id/btn_submit"
-                android:layout_margin="10dp"
-                android:layout_width="0dp"
-                android:textColor="@color/white"
-                android:background="@drawable/new_record_submit_bg"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btn_cancel"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="提交" />
-
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_margin="10dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toEndOf="@id/btn_submit"
-                android:layout_width="0dp"
-                android:background="@drawable/new_record_cancel_bg"
-                android:layout_height="40dp"
-                android:text="取消" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </LinearLayout>
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/corner_all_25dp_blue_bg"
+                android:text="提 交"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
 </layout>

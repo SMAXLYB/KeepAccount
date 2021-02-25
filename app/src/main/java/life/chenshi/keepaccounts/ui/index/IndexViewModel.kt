@@ -1,9 +1,11 @@
 package life.chenshi.keepaccounts.ui.index
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.common.utils.DateUtil
@@ -63,7 +65,7 @@ class IndexViewModel : ViewModel() {
      * 根据日期范围取出收支的总金额
      */
     fun getSumMoneyByDateRange(from: Date, to: Date): LiveData<List<SumMoneyByDateBean>> {
-        return recordDAO.getSumMoneyByDateRange(from, to,)
+        return recordDAO.getSumMoneyByDateRange(from, to)
     }
 
     /**
@@ -109,7 +111,7 @@ class IndexViewModel : ViewModel() {
      * 删除记录
      */
     fun deleteRecord(record: Record) {
-        viewModelScope.launch{
+        viewModelScope.launch {
             recordDAO.deleteRecord(record)
         }
     }
@@ -119,21 +121,16 @@ class IndexViewModel : ViewModel() {
      * @param doIfHas 有账本时的操作
      * @param doIfNot 无账本的操作
      */
-    fun hasBook(doIfHas: (Int) -> Unit, doIfNot: (() -> Unit)? = null) {
-
-        bookDao.getAllBooks()
+    fun hasBook(doIfHas: () -> Unit, doIfNot: (() -> Unit)? = null) {
         viewModelScope.launch {
-            var currentBookId = -1
-            DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
-                .take(1)
-                .collect {
-                    currentBookId = it
-                }
-            if (currentBookId == -1) {
-                doIfNot?.invoke()
-                return@launch
+            val numOfBooks = withContext(Dispatchers.IO) {
+                bookDao.getNumOfBooks()
             }
-            doIfHas(currentBookId)
+            if (numOfBooks == 0) {
+                doIfNot?.invoke()
+            } else {
+                doIfHas()
+            }
         }
     }
 }

@@ -20,7 +20,9 @@
         <activity
             android:name=".ui.search.SearchActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.newrecord.NewRecordActivity" />
+        <activity
+            android:name=".ui.newrecord.NewRecordActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.setting.book.BookActivity" />
         <activity android:name=".ui.setting.category.CategoryActivity" />
         <activity android:name=".ui.CrashActivity" />
