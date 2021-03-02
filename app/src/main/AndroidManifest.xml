@@ -22,7 +22,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.newrecord.NewRecordActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".ui.setting.book.BookActivity" />
         <activity android:name=".ui.setting.category.CategoryActivity" />
         <activity android:name=".ui.CrashActivity" />

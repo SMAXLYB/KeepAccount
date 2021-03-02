@@ -71,8 +71,6 @@ class SwitchButton @JvmOverloads constructor(
         strokeWidth = typedArray.getDimension(R.styleable.SwitchButton_strokeWidth, 0f)
         typedArray.recycle()
 
-        this.setLayerType(LAYER_TYPE_SOFTWARE, null)
-
         initData()
     }
 
@@ -91,6 +89,8 @@ class SwitchButton @JvmOverloads constructor(
             style = Paint.Style.FILL
             color = uncheckedCircleColor
         }
+
+        setLayerType(LAYER_TYPE_SOFTWARE, null)
     }
 
     // 测量
@@ -113,8 +113,8 @@ class SwitchButton @JvmOverloads constructor(
         val paddingHeight = paddingTop + paddingBottom
 
         // 背景宽高
-        val bgWidth = measuredWidth - paddingWidth
-        val bgHeight = measuredHeight - paddingHeight
+        val bgWidth = w - paddingWidth
+        val bgHeight = h - paddingHeight
 
         bgRadius = bgHeight.toFloat() / 2
 
