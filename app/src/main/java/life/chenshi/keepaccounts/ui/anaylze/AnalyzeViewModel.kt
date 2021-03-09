@@ -10,13 +10,14 @@ import com.github.mikephil.charting.data.PieEntry
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
-import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.common.utils.DateUtil
 import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.database.AppDatabase
-import life.chenshi.keepaccounts.database.entity.RecordType
+import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByMajorCategoryBean
+import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByDateBean
 
 class AnalyzeViewModel : ViewModel() {
     private val recordDAO by lazy { AppDatabase.getDatabase().getRecordDao() }
@@ -28,7 +29,7 @@ class AnalyzeViewModel : ViewModel() {
     val queryDateLiveData by lazy { MutableLiveData<Long>(System.currentTimeMillis()) }
 
     // 占比图类型
-    val proportionTypeLiveData by lazy { MutableLiveData<Int>(RecordType.INCOME) }
+    val proportionTypeLiveData by lazy { MutableLiveData<Int>(RECORD_TYPE_INCOME) }
 
     // 走势图显示类型
     val tendencyIncomeSelectedLiveData by lazy { MutableLiveData<Boolean>(true) }
@@ -47,13 +48,13 @@ class AnalyzeViewModel : ViewModel() {
 
     // 饼图收支数据
     val proportionIncomeRecordsLiveData by lazy {
-        MediatorLiveData<List<SumMoneyGroupByCategoryBean>>()
+        MediatorLiveData<List<SumMoneyGroupByMajorCategoryBean>>()
     }
     val proportionOutcomeRecordsLiveData by lazy {
-        MediatorLiveData<List<SumMoneyGroupByCategoryBean>>()
+        MediatorLiveData<List<SumMoneyGroupByMajorCategoryBean>>()
     }
-    private var mTempProportionIncomeLiveData: LiveData<List<SumMoneyGroupByCategoryBean>>? = null
-    private var mTempProportionOutcomeLiveData: LiveData<List<SumMoneyGroupByCategoryBean>>? = null
+    private var mTempProportionIncomeLiveData: LiveData<List<SumMoneyGroupByMajorCategoryBean>>? = null
+    private var mTempProportionOutcomeLiveData: LiveData<List<SumMoneyGroupByMajorCategoryBean>>? = null
 
     init {
         getTendencyRecords()
@@ -82,7 +83,7 @@ class AnalyzeViewModel : ViewModel() {
                 }
 
                 mTempTendencyIncomeLiveData =
-                    recordDAO.getSumMoneyGroupByDate(from, to, RecordType.INCOME, bookId)
+                    recordDAO.getSumMoneyGroupByDate(from, to, RECORD_TYPE_INCOME, bookId)
                 tendencyIncomeRecordsLiveData.addSource(
                     mTempTendencyIncomeLiveData!!
                 ) {
@@ -94,7 +95,7 @@ class AnalyzeViewModel : ViewModel() {
                     tendencyOutcomeRecordsLiveData.removeSource(mTempTendencyOutcomeLiveData!!)
                 }
                 mTempTendencyOutcomeLiveData =
-                    recordDAO.getSumMoneyGroupByDate(from, to, RecordType.OUTCOME, bookId)
+                    recordDAO.getSumMoneyGroupByDate(from, to, RECORD_TYPE_OUTCOME, bookId)
                 tendencyOutcomeRecordsLiveData.addSource(
                     mTempTendencyOutcomeLiveData!!
                 ) {
@@ -110,7 +111,7 @@ class AnalyzeViewModel : ViewModel() {
                     tendencyIncomeRecordsLiveData.removeSource(mTempTendencyIncomeLiveData!!)
                 }
                 mTempTendencyIncomeLiveData =
-                    recordDAO.getSumMoneyGroupByMonth(from, to, RecordType.INCOME, bookId)
+                    recordDAO.getSumMoneyGroupByMonth(from, to, RECORD_TYPE_INCOME, bookId)
                 tendencyIncomeRecordsLiveData.addSource(
                     mTempTendencyIncomeLiveData!!
                 ) {
@@ -122,7 +123,7 @@ class AnalyzeViewModel : ViewModel() {
                     tendencyOutcomeRecordsLiveData.removeSource(mTempTendencyOutcomeLiveData!!)
                 }
                 mTempTendencyOutcomeLiveData =
-                    recordDAO.getSumMoneyGroupByMonth(from, to, RecordType.OUTCOME, bookId)
+                    recordDAO.getSumMoneyGroupByMonth(from, to, RECORD_TYPE_OUTCOME, bookId)
                 tendencyOutcomeRecordsLiveData.addSource(
                     mTempTendencyOutcomeLiveData!!
                 ) {
@@ -151,7 +152,7 @@ class AnalyzeViewModel : ViewModel() {
                     proportionIncomeRecordsLiveData.removeSource(mTempProportionIncomeLiveData!!)
                 }
                 mTempProportionIncomeLiveData =
-                    recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.INCOME, bookId)
+                    recordDAO.getSumMoneyGroupByCategory(from, to, RECORD_TYPE_INCOME, bookId)
                 proportionIncomeRecordsLiveData.addSource(
                     mTempProportionIncomeLiveData!!
                 ) {
@@ -162,7 +163,7 @@ class AnalyzeViewModel : ViewModel() {
                     proportionOutcomeRecordsLiveData.removeSource(mTempProportionOutcomeLiveData!!)
                 }
                 mTempProportionOutcomeLiveData =
-                    recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.OUTCOME, bookId)
+                    recordDAO.getSumMoneyGroupByCategory(from, to, RECORD_TYPE_OUTCOME, bookId)
                 proportionOutcomeRecordsLiveData.addSource(
                     mTempProportionOutcomeLiveData!!
                 ) {
@@ -177,7 +178,7 @@ class AnalyzeViewModel : ViewModel() {
                     proportionIncomeRecordsLiveData.removeSource(mTempProportionIncomeLiveData!!)
                 }
                 mTempProportionIncomeLiveData =
-                    recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.INCOME, bookId)
+                    recordDAO.getSumMoneyGroupByCategory(from, to, RECORD_TYPE_INCOME, bookId)
                 proportionIncomeRecordsLiveData.addSource(
                     mTempProportionIncomeLiveData!!
                 ) {
@@ -188,7 +189,7 @@ class AnalyzeViewModel : ViewModel() {
                     proportionOutcomeRecordsLiveData.removeSource(mTempProportionOutcomeLiveData!!)
                 }
                 mTempProportionOutcomeLiveData =
-                    recordDAO.getSumMoneyGroupByCategory(from, to, RecordType.OUTCOME, bookId)
+                    recordDAO.getSumMoneyGroupByCategory(from, to, RECORD_TYPE_OUTCOME, bookId)
                 proportionOutcomeRecordsLiveData.addSource(
                     mTempProportionOutcomeLiveData!!
                 ) {

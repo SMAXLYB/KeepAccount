@@ -52,7 +52,7 @@
                 android:id="@+id/tv_crash_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorTextRed" />
+                android:textColor="#FF5E5E" />
         </ScrollView>
 
         <Button

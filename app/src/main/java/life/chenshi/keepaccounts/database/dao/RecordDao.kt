@@ -2,9 +2,9 @@ package life.chenshi.keepaccounts.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
-import life.chenshi.keepaccounts.bean.SumMoneyGroupByCategoryBean
-import life.chenshi.keepaccounts.bean.SumMoneyGroupByDateBean
+import life.chenshi.keepaccounts.database.bean.SumMoneyByDateBean
+import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByDateBean
+import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByMajorCategoryBean
 import life.chenshi.keepaccounts.database.entity.Record
 import java.util.*
 
@@ -61,13 +61,13 @@ interface RecordDao {
     /**
      * 按日期范围, 收支类型查询金额总和 分组为category 金额大的靠前
      */
-    @Query("select category, sum(money) as sumMoney ,count(category) as count from tb_records where book_id = :bookId and time between :from and :to and record_type = :type group by category order by sumMoney desc")
+    @Query("select major_category_id as majorCategory, sum(money) as sumMoney ,count(major_category_id) as count from tb_records where book_id = :bookId and time between :from and :to and record_type = :type group by major_category_id order by sumMoney desc")
     fun getSumMoneyGroupByCategory(
         from: Date,
         to: Date,
         type: Int,
         bookId: Int
-    ): LiveData<List<SumMoneyGroupByCategoryBean>>
+    ): LiveData<List<SumMoneyGroupByMajorCategoryBean>>
 
     /**
      * 搜索符合关键字的全部记录

@@ -7,16 +7,16 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import life.chenshi.keepaccounts.database.dao.BookDao
-import life.chenshi.keepaccounts.database.dao.CategoryDao
+import life.chenshi.keepaccounts.database.dao.MajorCategoryDao
 import life.chenshi.keepaccounts.database.dao.RecordDao
-import life.chenshi.keepaccounts.database.dao.SubCategoryDao
+import life.chenshi.keepaccounts.database.dao.MinorCategoryDao
 import life.chenshi.keepaccounts.database.entity.Book
-import life.chenshi.keepaccounts.database.entity.Category
+import life.chenshi.keepaccounts.database.entity.MajorCategory
 import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.database.entity.SubCategory
+import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.global.MyApplication
 
-@Database(entities = [Record::class, Book::class, Category::class, SubCategory::class], version = 1)
+@Database(entities = [Record::class, Book::class, MajorCategory::class, MinorCategory::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -99,7 +99,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getBookDao(): BookDao
 
-    abstract fun getCategoryDao(): CategoryDao
+    abstract fun getCategoryDao(): MajorCategoryDao
 
-    abstract fun getSubCategoryDao(): SubCategoryDao
+    abstract fun getSubCategoryDao(): MinorCategoryDao
 }

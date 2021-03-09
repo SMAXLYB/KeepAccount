@@ -1,14 +1,14 @@
 package life.chenshi.keepaccounts.ui.newrecord
 
-import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.database.AppDatabase
+import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.database.entity.Record
 import java.util.*
 
@@ -17,12 +17,12 @@ class NewRecordViewModel : ViewModel() {
     private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }
     private val mRecordDao by lazy { AppDatabase.getDatabase().getRecordDao() }
 
-    // 选择好的时间
-    val mCurrentChooseCalendar: Calendar = Calendar.getInstance()
+    // 当前所有选中的配置
+    val currentBook = MutableLiveData<Book>()
+    val currentRecordType = MutableLiveData<Int>(RECORD_TYPE_OUTCOME)
+    val currentDateTime = MutableLiveData<Long>(System.currentTimeMillis())
 
-    // 最后一次选择的类型
-    var lastSelectedCategoryIndex = 0
-    val categoryViews = mutableListOf<View>()
+    val books = mBookDao.getAllBooks()
 
     fun insertRecord(record: Record) {
         viewModelScope.launch {
@@ -37,7 +37,6 @@ class NewRecordViewModel : ViewModel() {
     }
 
     /**
-     * 是否有默认账本 侧重点在于兼容老版本
      * @param doIfHas 有默认账本时的操作
      * @param doIfNot 无账本的操作
      */
@@ -56,4 +55,6 @@ class NewRecordViewModel : ViewModel() {
             doIfHas(currentBookId)
         }
     }
+
+    suspend fun getBookNameById(id: Int) = mBookDao.getBookNameById(id)
 }

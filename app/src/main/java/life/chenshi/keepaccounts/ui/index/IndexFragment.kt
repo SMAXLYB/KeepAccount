@@ -27,7 +27,6 @@ import life.chenshi.keepaccounts.common.utils.*
 import life.chenshi.keepaccounts.common.view.CustomDialog
 import life.chenshi.keepaccounts.constant.SWITCHER_CONFIRM_BEFORE_DELETE
 import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import java.util.*
 
@@ -129,7 +128,7 @@ class IndexFragment : Fragment() {
             mIndexViewModel.hasBook({
                 findNavController().navigate(R.id.action_indexFragment_to_newRecordActivity, null)
             }, {
-                ToastUtil.showShort("当前无账本,请先新建账本~")
+                ToastUtil.showShort(resources.getString(R.string.no_book_tip))
             })
         }
 
@@ -175,7 +174,7 @@ class IndexFragment : Fragment() {
                     mBinding.indexOutcomeInMonth.text = "-0.00"
                     mBinding.indexIncomeInMonth.text = "+0.00"
                     SumMoneyBeanList.forEach { bean ->
-                        if (bean.recordType == RecordType.OUTCOME) {
+                        if (bean.recordType == SHOW_TYPE_OUTCOME) {
                             mBinding.indexOutcomeInMonth.text = "-${bean.sumMoney}"
                         } else {
                             mBinding.indexIncomeInMonth.text = "+${bean.sumMoney}"
@@ -201,10 +200,9 @@ class IndexFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun showTimePickerDialog(){
+    private fun showTimePickerDialog() {
         activity?.let { activity ->
             CardDatePickerDialog.builder(activity)
-                .setTitle("选择年月")
                 .showBackNow(false)
                 .setDisplayType(
                     mutableListOf(
@@ -212,7 +210,7 @@ class IndexFragment : Fragment() {
                         DateTimeConfig.MONTH,//显示月
                     )
                 )
-                .setMaxTime(System.currentTimeMillis())
+                .setBackGroundModel(CardDatePickerDialog.STACK)
                 .setThemeColor(Color.parseColor("#03A9F4"))
                 .setLabelText(year = "年", month = "月")
                 .setOnChoose { millisecond ->
@@ -223,6 +221,7 @@ class IndexFragment : Fragment() {
                 .show()
         }
     }
+
     private fun showDeleteDialog(record: Record) {
         activity?.let {
             CustomDialog.Builder(it)

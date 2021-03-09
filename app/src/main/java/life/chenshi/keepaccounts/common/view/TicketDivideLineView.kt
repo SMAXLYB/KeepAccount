@@ -6,7 +6,11 @@ import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.view.View
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.common.utils.dp2px
 
+/**
+ * 票券分割线效果
+ */
 class TicketDivideLineView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

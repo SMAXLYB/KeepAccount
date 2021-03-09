@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.database.AppDatabase
@@ -28,13 +27,8 @@ class SettingViewModel : ViewModel() {
         }
     }
 
-    suspend fun getBookNameById(id: Int): String {
-        return withContext(viewModelScope.coroutineContext) {
-            mBookDao.getBookNameById(
-                id
-            )
-        }
-    }
+    suspend fun getBookNameById(id: Int): String =
+        mBookDao.getBookNameById(id)
 
     fun getGreetContent(): String {
         return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {

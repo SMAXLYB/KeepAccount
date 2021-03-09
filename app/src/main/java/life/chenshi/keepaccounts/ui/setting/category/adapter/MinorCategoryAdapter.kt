@@ -8,29 +8,29 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.utils.setVisibility
-import life.chenshi.keepaccounts.database.entity.SubCategory
+import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.databinding.ItemSubCategoryAddBinding
 import life.chenshi.keepaccounts.databinding.ItemSubCategoryBinding
 
 class SubCategoryAdapter :
-    ListAdapter<SubCategory, SubCategoryAdapter.SubCategoryViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<MinorCategory, SubCategoryAdapter.SubCategoryViewHolder>(DIFF_CALLBACK) {
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<SubCategory>() {
-            override fun areItemsTheSame(oldItem: SubCategory, newItem: SubCategory): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MinorCategory>() {
+            override fun areItemsTheSame(oldItem: MinorCategory, newItem: MinorCategory): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: SubCategory, newItem: SubCategory): Boolean {
+            override fun areContentsTheSame(oldItem: MinorCategory, newItem: MinorCategory): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    private var onItemClick: ItemClickListener<ItemSubCategoryBinding,SubCategory>? = null
-    private var onItemLongClick: ItemLongClickListener<SubCategory>? = null
-    private var onItemDeleteClick: ItemDeleteListener<SubCategory>? = null
+    private var onItemClick: ItemClickListener<ItemSubCategoryBinding,MinorCategory>? = null
+    private var onItemLongClick: ItemLongClickListener<MinorCategory>? = null
+    private var onItemDeleteClick: ItemDeleteListener<MinorCategory>? = null
     private var mIsDeleteMode = false
-    private var mCurrentSubCategory: SubCategory? = null
+    private var mCurrentMinorCategory: MinorCategory? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubCategoryViewHolder {
         val binding = DataBindingUtil.inflate<ItemSubCategoryBinding>(
@@ -46,8 +46,8 @@ class SubCategoryAdapter :
         holder.bind(position)
     }
 
-    fun setCurrentSubCategory(category: SubCategory?) {
-        this.mCurrentSubCategory = category
+    fun setCurrentSubCategory(category: MinorCategory?) {
+        this.mCurrentMinorCategory = category
     }
 
     fun setDeleteMode(turnOn: Boolean = true) {
@@ -59,15 +59,15 @@ class SubCategoryAdapter :
         }
     }
 
-    fun setOnItemClickListener(listener: ItemClickListener<ItemSubCategoryBinding,SubCategory>) {
+    fun setOnItemClickListener(listener: ItemClickListener<ItemSubCategoryBinding,MinorCategory>) {
         this.onItemClick = listener
     }
 
-    fun setOnItemLongClickListener(listener: ItemLongClickListener<SubCategory>) {
+    fun setOnItemLongClickListener(listener: ItemLongClickListener<MinorCategory>) {
         this.onItemLongClick = listener
     }
 
-    fun setOnItemDeleteClickListener(listener: ItemDeleteListener<SubCategory>) {
+    fun setOnItemDeleteClickListener(listener: ItemDeleteListener<MinorCategory>) {
         this.onItemDeleteClick = listener
     }
 
@@ -85,7 +85,7 @@ class SubCategoryAdapter :
                 }
 
                 // 样式修改
-                ivItemSubCategorySelected.setVisibility(subCategory.id == mCurrentSubCategory?.id && !mIsDeleteMode)
+                ivItemSubCategorySelected.setVisibility(subCategory.id == mCurrentMinorCategory?.id && !mIsDeleteMode)
                 ivItemSubCategoryDelete.setVisibility(mIsDeleteMode)
                 tvItemSubCategoryName.text = subCategory.name
 
@@ -98,8 +98,8 @@ class SubCategoryAdapter :
     }
 }
 
-class SubCategoryFooterAdapter :
-    RecyclerView.Adapter<SubCategoryFooterAdapter.SubCategoryFooterViewHolder>() {
+class MinorCategoryFooterAdapter :
+    RecyclerView.Adapter<MinorCategoryFooterAdapter.SubCategoryFooterViewHolder>() {
     private var mItemCount = 0
     private var mOnItemClickListener: (() -> Unit)? = null
 

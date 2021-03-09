@@ -7,9 +7,10 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.common.utils.DateUtil
 import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.ui.index.IndexFragment
 import java.util.*
 
@@ -61,10 +62,10 @@ class SearchViewModel : ViewModel() {
         }
         var listAfterFilter = originList
         if (filterType.value == IndexFragment.SHOW_TYPE_INCOME) {
-            listAfterFilter = originList.filter { it.recordType == RecordType.INCOME }
+            listAfterFilter = originList.filter { it.recordType == RECORD_TYPE_INCOME }
         }
         if (filterType.value == IndexFragment.SHOW_TYPE_OUTCOME) {
-            listAfterFilter = originList.filter { it.recordType == RecordType.OUTCOME }
+            listAfterFilter = originList.filter { it.recordType == RECORD_TYPE_OUTCOME }
         }
         val recordListGroupByDay: MutableList<MutableList<Record>> = mutableListOf()
         // 如果经过筛选后没有数据, 直接返回空数据

@@ -6,17 +6,16 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.Checkable
 import androidx.core.animation.addListener
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.common.utils.dp2px
 
 typealias CheckChangedListener = (Boolean) -> Unit
 
@@ -249,13 +248,4 @@ class SwitchButton @JvmOverloads constructor(
             resetToUnchecked()
         }
     }
-}
-
-fun Int.dp2px(): Int {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        this.toFloat(),
-        Resources.getSystem().displayMetrics
-    )
-        .toInt()
 }

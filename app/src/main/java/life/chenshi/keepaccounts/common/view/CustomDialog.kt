@@ -29,6 +29,7 @@ class CustomDialog constructor() : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
         setStyle(DialogFragment.STYLE_NO_TITLE, 0)
     }
 
@@ -43,6 +44,7 @@ class CustomDialog constructor() : DialogFragment() {
 
         params.binding?.apply {
             mBinding.viewContainer.removeView(mBinding.tvDialogMessage)
+            (this.root.parent as? ViewGroup)?.removeView(this.root)
             mBinding.viewContainer.addView(this.root)
         }
         return mBinding.root

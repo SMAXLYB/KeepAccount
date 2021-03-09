@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="life.chenshi.keepaccounts">
 
+    <!--键盘点击时震动-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".global.MyApplication"
         android:allowBackup="true"

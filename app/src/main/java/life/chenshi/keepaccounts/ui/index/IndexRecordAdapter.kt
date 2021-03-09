@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.entity.Category2
+import life.chenshi.keepaccounts.common.utils.DateUtil
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.database.entity.RecordType
 import life.chenshi.keepaccounts.databinding.ItemBudgetBinding
 import life.chenshi.keepaccounts.databinding.ItemBudgetDetailBinding
-import life.chenshi.keepaccounts.common.utils.DateUtil
 
 class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
     RecyclerView.Adapter<IndexRecordAdapter.IndexRecordViewHolder>() {
@@ -46,7 +45,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
             )
             itemBudgetDetailBinding.apply {
                 // 支出主题
-                itemBudgetDetailTitle.text = Category2.convert2String(it.category)
+                // itemBudgetDetailTitle.text = Category2.convert2String(it.category)
                 // 备注
                 if (!it.remark.isNullOrEmpty()) {
                     with(itemBudgetDetailRemark) {
@@ -59,7 +58,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
                     it.time,
                     DateUtil.HOUR_MINUTE
                 )
-                if (it.recordType == RecordType.OUTCOME) {
+                if (it.recordType == RECORD_TYPE_OUTCOME) {
                     // 圆点
                     with(itemBudgetDetailIcon) {
                         setImageResource(R.drawable.item_budget_detail_icon_outcome)

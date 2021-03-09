@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.utils.setVisibility
-import life.chenshi.keepaccounts.database.entity.Category
+import life.chenshi.keepaccounts.database.entity.MajorCategory
 import life.chenshi.keepaccounts.databinding.ItemCategoryAddBinding
 import life.chenshi.keepaccounts.databinding.ItemCategoryBinding
 
@@ -17,24 +17,24 @@ typealias ItemDeleteListener<T> = (T) -> Unit
 typealias ItemClickListener<VB, T> = (VB, T) -> Unit
 typealias ItemLongClickListener<T> = (ViewDataBinding, T) -> Boolean
 
-class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DIFF_CALLBACK) {
+class CategoryAdapter : ListAdapter<MajorCategory, CategoryAdapter.CategoryViewHolder>(DIFF_CALLBACK) {
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
-            override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MajorCategory>() {
+            override fun areItemsTheSame(oldItem: MajorCategory, newItem: MajorCategory): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+            override fun areContentsTheSame(oldItem: MajorCategory, newItem: MajorCategory): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    private var onItemClick: ItemClickListener<ItemCategoryBinding, Category>? = null
-    private var onItemLongClick: ItemLongClickListener<Category>? = null
-    private var onItemDeleteClick: ItemDeleteListener<Category>? = null
+    private var onItemClick: ItemClickListener<ItemCategoryBinding, MajorCategory>? = null
+    private var onItemLongClick: ItemLongClickListener<MajorCategory>? = null
+    private var onItemDeleteClick: ItemDeleteListener<MajorCategory>? = null
     private var mIsDeleteMode = false
-    private var mCurrentCategory: Category? = null
+    private var mCurrentMajorCategory: MajorCategory? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding = DataBindingUtil.inflate<ItemCategoryBinding>(
@@ -54,8 +54,8 @@ class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder
         return super.getItemId(position)
     }
 
-    fun setCurrentCategory(category: Category?) {
-        this.mCurrentCategory = category
+    fun setCurrentCategory(majorCategory: MajorCategory?) {
+        this.mCurrentMajorCategory = majorCategory
     }
 
     fun setDeleteMode(turnOn: Boolean = true) {
@@ -67,15 +67,15 @@ class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder
         }
     }
 
-    fun setOnItemClickListener(listener: ItemClickListener<ItemCategoryBinding,Category>) {
+    fun setOnItemClickListener(listener: ItemClickListener<ItemCategoryBinding,MajorCategory>) {
         this.onItemClick = listener
     }
 
-    fun setOnItemLongClickListener(listener: ItemLongClickListener<Category>) {
+    fun setOnItemLongClickListener(listener: ItemLongClickListener<MajorCategory>) {
         this.onItemLongClick = listener
     }
 
-    fun setOnItemDeleteClickListener(listener: ItemDeleteListener<Category>) {
+    fun setOnItemDeleteClickListener(listener: ItemDeleteListener<MajorCategory>) {
         this.onItemDeleteClick = listener
     }
 
@@ -94,12 +94,12 @@ class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder
 
                 // 样式修改
                 clItemCategory.isSelected =
-                    category.id == mCurrentCategory?.id && !mIsDeleteMode
-                itemCategoryIndicator.setVisibility(category.id == mCurrentCategory?.id && !mIsDeleteMode)
+                    category.id == mCurrentMajorCategory?.id && !mIsDeleteMode
+                itemCategoryIndicator.setVisibility(category.id == mCurrentMajorCategory?.id && !mIsDeleteMode)
                 tvItemCategory.isSelected =
-                    category.id == mCurrentCategory?.id && !mIsDeleteMode
+                    category.id == mCurrentMajorCategory?.id && !mIsDeleteMode
                 tvItemCategory.textSize =
-                    if (category.id == mCurrentCategory?.id && !mIsDeleteMode) {
+                    if (category.id == mCurrentMajorCategory?.id && !mIsDeleteMode) {
                         16f
                     } else {
                         14f
@@ -117,8 +117,8 @@ class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder
     }
 }
 
-class CategoryFooterAdapter :
-    RecyclerView.Adapter<CategoryFooterAdapter.CategoryFooterViewHolder>() {
+class MajorCategoryFooterAdapter :
+    RecyclerView.Adapter<MajorCategoryFooterAdapter.CategoryFooterViewHolder>() {
     private var mItemCount = 1
     private var mOnItemClickListener: (() -> Unit)? = null
 

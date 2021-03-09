@@ -15,9 +15,10 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.entity.RecordType
-import life.chenshi.keepaccounts.databinding.FragmentAnaylzeBinding
 import life.chenshi.keepaccounts.common.utils.*
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.databinding.FragmentAnaylzeBinding
 import java.util.*
 
 
@@ -200,10 +201,10 @@ class AnalyzeFragment : Fragment() {
 
         // 占比
         mBinding.analyzeProportionIncome.setOnClickListener {
-            mAnalyzeViewModel.proportionTypeLiveData.value = RecordType.INCOME
+            mAnalyzeViewModel.proportionTypeLiveData.value = RECORD_TYPE_INCOME
         }
         mBinding.analyzeProportionOutcome.setOnClickListener {
-            mAnalyzeViewModel.proportionTypeLiveData.value = RecordType.OUTCOME
+            mAnalyzeViewModel.proportionTypeLiveData.value = RECORD_TYPE_OUTCOME
         }
 
         // 走势
@@ -290,13 +291,13 @@ class AnalyzeFragment : Fragment() {
 
             // 占比类型选择
             proportionTypeLiveData.observe(viewLifecycleOwner) {
-                if (it == RecordType.INCOME) {
+                if (it == RECORD_TYPE_INCOME) {
                     mBinding.analyzeProportionIncome.setEnableAndSelect(true)
                     mBinding.analyzeProportionOutcome.setEnableAndSelect(false)
                     proportionIncomeRecordsLiveData.apply {
                         value = value
                     }
-                } else if (it == RecordType.OUTCOME) {
+                } else if (it == RECORD_TYPE_OUTCOME) {
                     mBinding.analyzeProportionIncome.setEnableAndSelect(false)
                     mBinding.analyzeProportionOutcome.setEnableAndSelect(true)
                     proportionOutcomeRecordsLiveData.apply {
@@ -313,7 +314,7 @@ class AnalyzeFragment : Fragment() {
                         value = value
                     }
                 } else {
-                    clearLineDataSet(RecordType.INCOME)
+                    clearLineDataSet(RECORD_TYPE_INCOME)
                     notifyLineChartRedraw()
                 }
             }
@@ -324,7 +325,7 @@ class AnalyzeFragment : Fragment() {
                         value = value
                     }
                 } else {
-                    clearLineDataSet(RecordType.OUTCOME)
+                    clearLineDataSet(RECORD_TYPE_OUTCOME)
                     notifyLineChartRedraw()
                 }
             }
@@ -336,13 +337,13 @@ class AnalyzeFragment : Fragment() {
                 } else if (beans.isEmpty()) {
                     //如果当前选择了收入,就刷新
                     if (mAnalyzeViewModel.tendencyIncomeSelectedLiveData.value!!) {
-                        fillEmptyEntriesToLineDataSet(RecordType.INCOME)
+                        fillEmptyEntriesToLineDataSet(RECORD_TYPE_INCOME)
                         notifyLineChartRedraw()
                     }
                 } else {
                     if (mAnalyzeViewModel.tendencyIncomeSelectedLiveData.value!!) {
                         val incomeLineDataSet =
-                            mBinding.lineChart.lineData.getDataSetByIndex(RecordType.INCOME)
+                            mBinding.lineChart.lineData.getDataSetByIndex(RECORD_TYPE_INCOME)
                         incomeLineDataSet.clear()
                         // 如果是月查看
                         val entries =
@@ -371,13 +372,13 @@ class AnalyzeFragment : Fragment() {
                     ToastUtil.showShort("初始化中...")
                 } else if (beans.isEmpty()) {
                     if (mAnalyzeViewModel.tendencyOutcomeSelectedLiveData.value!!) {
-                        fillEmptyEntriesToLineDataSet(RecordType.OUTCOME)
+                        fillEmptyEntriesToLineDataSet(RECORD_TYPE_OUTCOME)
                         notifyLineChartRedraw()
                     }
                 } else {
                     if (mAnalyzeViewModel.tendencyOutcomeSelectedLiveData.value!!) {
                         val outcomeLineDataSet =
-                            mBinding.lineChart.lineData.getDataSetByIndex(RecordType.OUTCOME)
+                            mBinding.lineChart.lineData.getDataSetByIndex(RECORD_TYPE_OUTCOME)
                         outcomeLineDataSet.clear()
                         val entries =
                             if (mAnalyzeViewModel.currentTypeLiveData.value == TYPE_MONTH) {
@@ -407,14 +408,14 @@ class AnalyzeFragment : Fragment() {
                 if (beans == null) {
                     ToastUtil.showShort("初始化中...")
                 } else if (beans.isEmpty()) {
-                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RecordType.INCOME) {
+                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RECORD_TYPE_INCOME) {
                         fillEmptyEntriesToPieDataSet()
                         mProportionAdapter?.setData(emptyList())
                         notifyPieChartRedraw()
                     }
                 } else {
                     // 如果当前选择了收入
-                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RecordType.INCOME) {
+                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RECORD_TYPE_INCOME) {
                         // pieChart只有一条数据
                         val pieDataSet = mBinding.pieChart.data.dataSet
                         pieDataSet.clear()
@@ -431,14 +432,14 @@ class AnalyzeFragment : Fragment() {
                 if (beans == null) {
                     ToastUtil.showShort("初始化中...")
                 } else if (beans.isEmpty()) {
-                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RecordType.OUTCOME) {
+                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RECORD_TYPE_OUTCOME) {
                         fillEmptyEntriesToPieDataSet()
                         mProportionAdapter?.setData(emptyList())
                         notifyPieChartRedraw()
                     }
                 } else {
                     // 如果当前选择了收入
-                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RecordType.OUTCOME) {
+                    if (mAnalyzeViewModel.proportionTypeLiveData.value == RECORD_TYPE_OUTCOME) {
                         // pieChart只有一条数据
                         val pieDataSet = mBinding.pieChart.data.dataSet
                         pieDataSet.clear()

@@ -42,14 +42,15 @@
                 android:id="@+id/tv_record_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/cornor_all_5dp_gray_bg"
+                android:background="@drawable/corner_all_5dp_gray_bg"
                 android:text="支出"
+                android:textColor="@color/black"
                 android:textSize="24sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/slash"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.592" />
 
             <TextView
                 android:id="@+id/slash"
@@ -66,8 +67,9 @@
                 android:id="@+id/tv_asset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/cornor_all_5dp_gray_bg"
+                android:background="@drawable/corner_all_5dp_gray_bg"
                 android:text="不计入资产"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/slash"
                 app:layout_constraintStart_toEndOf="@id/slash" />
 
@@ -75,11 +77,12 @@
                 android:id="@+id/tv_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/cornor_all_5dp_outcome_stroke"
+                android:background="@drawable/corner_all_5dp_record_stroke"
+                android:gravity="end"
                 android:padding="5dp"
-                android:text="￥00.00"
+                android:hint="￥00.00"
                 android:textColor="@color/outcome"
-                android:textSize="34sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,47 +110,91 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_content2"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:paddingStart="20dp"
+            android:paddingTop="5dp"
             android:paddingEnd="20dp"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="@id/cl_content1"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/cl_content1"
             app:layout_constraintTop_toBottomOf="@id/divider">
 
-            <!--
-
             <TextView
+                android:id="@+id/tv_datetime_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="时间"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_datetime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="类型" />
+                android:background="@drawable/corner_all_5dp_gray_bg"
+                android:text="2020/02/31 - 08:10"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_datetime_title" />
 
             <TextView
+                android:id="@+id/tv_book_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="标签" />
+                android:text="账本"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_book"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="地点(商家)" />
+                android:background="@drawable/corner_all_5dp_gray_bg"
+                android:text="默认账本"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_book_title" />
 
             <TextView
+                android:id="@+id/tv_category_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="参与者" />
+                android:paddingTop="5dp"
+                android:text="类型"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_datetime" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_new_record_category"
+                tools:spanCount="4"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal"
+                android:background="@drawable/corner_all_5dp_gray_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_category_title" />
+
 
             <TextView
+                android:id="@+id/tv_attachment_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="附件" />
-            -->
+                android:paddingTop="5dp"
+                android:text="附件"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_category" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/corner_all_5dp_gray_bg"
+                android:src="@drawable/index_float_button_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_attachment_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -169,9 +216,9 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:paddingStart="20dp"
-            android:paddingTop="10dp"
+            android:paddingTop="5dp"
             android:paddingEnd="20dp"
-            android:paddingBottom="20dp"
+            android:paddingBottom="15dp"
             app:layout_constraintEnd_toEndOf="@id/divider1"
             app:layout_constraintStart_toStartOf="@id/divider1"
             app:layout_constraintTop_toBottomOf="@id/divider1"
@@ -183,8 +230,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:paddingTop="5dp"
-                android:text="备注"
-                android:textStyle="bold" />
+                android:text="备注" />
 
             <EditText
                 android:id="@+id/et_remark"
@@ -192,7 +238,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/cornor_all_5dp_gray_bg"
+                android:background="@drawable/corner_all_5dp_gray_bg"
                 android:gravity="start|top"
                 android:hint="100字以内"
                 android:lines="2"
@@ -210,101 +256,124 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.helper.widget.Flow
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="tv_1,tv_2,tv_3,tv_4,tv_5,tv_6,tv_7,tv_8,tv_9,tv_10,tv_11,tv_12,tv_13,tv_14,tv_15,tv_16"
+                app:constraint_referenced_ids="tv_1,tv_2,tv_3,tv_5,tv_6,tv_7,tv_9,tv_10,tv_11,tv_13,tv_14,iv_delete"
                 app:flow_horizontalGap="0dp"
-                app:flow_maxElementsWrap="4"
+                app:flow_maxElementsWrap="3"
                 app:flow_verticalGap="0dp"
                 app:flow_wrapMode="aligned"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_16"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent" />
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintWidth_percent="0.75" />
 
             <TextView
                 android:id="@+id/tv_1"
                 style="@style/CustomKeyBoard"
+                android:tag="1"
                 android:text="1" />
 
             <TextView
                 android:id="@+id/tv_2"
                 style="@style/CustomKeyBoard"
+                android:tag="2"
                 android:text="2" />
 
             <TextView
                 android:id="@+id/tv_3"
                 style="@style/CustomKeyBoard"
+                android:tag="3"
                 android:text="3" />
 
             <TextView
+                app:layout_constraintBottom_toTopOf="@id/tv_16"
                 android:id="@+id/tv_4"
                 style="@style/CustomKeyBoard"
-                android:text="删除" />
+                android:tag="append"
+                android:text="追记"
+                app:layout_constraintWidth_percent="0.25"
+                app:layout_constraintDimensionRatio="h,2:2.4"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_5"
                 style="@style/CustomKeyBoard"
+                android:tag="4"
                 android:text="4" />
 
             <TextView
                 android:id="@+id/tv_6"
                 style="@style/CustomKeyBoard"
+                android:tag="5"
                 android:text="5" />
 
             <TextView
                 android:id="@+id/tv_7"
                 style="@style/CustomKeyBoard"
+                android:tag="6"
                 android:text="6" />
 
-            <TextView
-                android:id="@+id/tv_8"
-                style="@style/CustomKeyBoard"
-                android:text="+" />
+            <!--       <TextView
+                       android:id="@+id/tv_8"
+                       style="@style/CustomKeyBoard"
+                       android:tag="add"
+                       android:text="+" />-->
 
             <TextView
                 android:id="@+id/tv_9"
                 style="@style/CustomKeyBoard"
+                android:tag="7"
                 android:text="7" />
 
             <TextView
                 android:id="@+id/tv_10"
                 style="@style/CustomKeyBoard"
+                android:tag="8"
                 android:text="8" />
 
             <TextView
                 android:id="@+id/tv_11"
                 style="@style/CustomKeyBoard"
+                android:tag="9"
                 android:text="9" />
 
-            <TextView
-                android:id="@+id/tv_12"
-                style="@style/CustomKeyBoard"
-                android:text="-" />
+            <!-- <TextView
+                 android:id="@+id/tv_12"
+                 style="@style/CustomKeyBoard"
+                 android:tag="minus"
+                 android:text="-" />-->
 
             <TextView
                 android:id="@+id/tv_13"
                 style="@style/CustomKeyBoard"
+                android:tag="dot"
                 android:text="." />
 
             <TextView
                 android:id="@+id/tv_14"
-
                 style="@style/CustomKeyBoard"
+                android:tag="0"
                 android:text="0" />
 
-            <TextView
-                android:id="@+id/tv_15"
-
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:padding="15dp"
+                android:src="@drawable/new_record_keyboard_delete"
                 style="@style/CustomKeyBoard"
-                android:text="追记" />
+                android:tag="delete" />
 
             <TextView
                 android:id="@+id/tv_16"
                 style="@style/CustomKeyBoard"
                 android:background="@color/colorPrimary"
+                android:tag="save"
                 android:text="保存"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="h,2:2.4"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

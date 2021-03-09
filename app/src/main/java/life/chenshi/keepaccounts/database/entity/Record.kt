@@ -6,17 +6,27 @@ import androidx.room.*
 import java.math.BigDecimal
 import java.util.*
 
+/**
+ * 收支记录实体, 外键包含账本, 主类型;
+ * 当账本被删除,当下所有记录被删除;
+ * 当主类型被伪删除,当下记录不会删除,当主类被真的删除,当下所有记录会被删除
+ */
 @Entity(
     tableName = "tb_records",
     indices = [
         Index(value = ["id"]),
         Index(value = ["time"]),
-        Index(value = ["category"]),
+        Index(value = ["major_category_id"]),
         Index(value = ["book_id"])],
     foreignKeys = [ForeignKey(
         entity = Book::class,
         parentColumns = ["id"],
         childColumns = ["book_id"],
+        onDelete = ForeignKey.CASCADE
+    ), ForeignKey(
+        entity = MajorCategory::class,
+        parentColumns = ["id"],
+        childColumns = ["major_category_id"],
         onDelete = ForeignKey.CASCADE
     )]
 )
@@ -31,9 +41,11 @@ data class Record constructor(
     // 时间
     var time: Date,
     // 消费类型主类
-    var category: Int,
+    @ColumnInfo(name = "major_category_id")
+    var majorCategoryId: Int,
     // 消费类型子类
-    var subCategory: Int = 0,
+    @ColumnInfo(name = "minor_category_id")
+    var minorCategoryId: Int = 0,
     // 0支出/1收入
     @ColumnInfo(name = "record_type")
     var recordType: Int,
@@ -60,8 +72,8 @@ data class Record constructor(
         dest.writeString(money.toString())
         dest.writeString(remark)
         dest.writeLong(time.time)
-        dest.writeInt(category)
-        dest.writeInt(subCategory)
+        dest.writeInt(majorCategoryId)
+        dest.writeInt(minorCategoryId)
         dest.writeInt(recordType)
         dest.writeInt(bookId)
     }
@@ -83,42 +95,7 @@ data class Record constructor(
     }
 
     override fun toString(): String {
-        return "Record(bookId=${bookId}, id=$id, money=$money, remark=$remark, time=$time, category=$category, subcategory=${subCategory}, recordType=$recordType)"
-    }
-}
-
-object RecordType {
-    const val OUTCOME = 0;
-    const val INCOME = 1;
-}
-
-object Category2 {
-    const val GOUWU = 0;
-    const val CHIFAN = 1;
-    const val JIAOTONG = 2;
-    const val YILIAO = 3;
-    const val ZHUFANG = 4;
-    const val TONGXUN = 5;
-    const val GONGZI = 6;
-    const val HONGBAO = 7;
-    const val JIJIN = 8;
-    const val JIANZHI = 9;
-    const val LIXI = 10;
-
-    fun convert2String(category: Int): String {
-        return when (category) {
-            GOUWU -> "购物"
-            CHIFAN -> "吃饭"
-            JIAOTONG -> "交通"
-            YILIAO -> "医疗"
-            ZHUFANG -> "住房"
-            TONGXUN -> "通讯"
-            GONGZI -> "工资"
-            HONGBAO -> "红包"
-            JIJIN -> "基金"
-            JIANZHI -> "兼职"
-            else -> "利息"
-        }
+        return "Record(bookId=${bookId}, id=$id, money=$money, remark=$remark, time=$time, majorCategoryId=$majorCategoryId, minorCategoryId=${minorCategoryId}, recordType=$recordType)"
     }
 }
 

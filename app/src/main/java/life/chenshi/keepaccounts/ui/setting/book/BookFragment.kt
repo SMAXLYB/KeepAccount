@@ -73,7 +73,7 @@ class BookFragment : Fragment() {
                     CustomDialog.Builder(activity)
                         .setTitle("删除提示")
                         .setMessage("\u3000\u3000您正在进行删除操作, 此操作不可逆, 确定继续吗?")
-                        .setPositiveButton("确定") { dialog,binding->
+                        .setPositiveButton("确定") { dialog, _ ->
                             kotlin.runCatching { it.deleteBookById(id.toInt()) }
                                 .onSuccess {
                                     ToastUtil.showSuccess("删除成功")

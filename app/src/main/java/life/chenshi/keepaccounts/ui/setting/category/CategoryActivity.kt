@@ -2,6 +2,7 @@ package life.chenshi.keepaccounts.ui.setting.category
 
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ConcatAdapter
@@ -15,15 +16,15 @@ import life.chenshi.keepaccounts.common.utils.inVisible
 import life.chenshi.keepaccounts.common.utils.isNull
 import life.chenshi.keepaccounts.common.utils.visible
 import life.chenshi.keepaccounts.common.view.CustomDialog
-import life.chenshi.keepaccounts.database.entity.Category
-import life.chenshi.keepaccounts.database.entity.SubCategory
+import life.chenshi.keepaccounts.database.entity.MajorCategory
+import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.databinding.LayoutAddCategoryBinding
 import life.chenshi.keepaccounts.databinding.LayoutAddSubCategoryBinding
 import life.chenshi.keepaccounts.databinding.LayoutCategoryBinding
 import life.chenshi.keepaccounts.ui.setting.category.adapter.CategoryAdapter
-import life.chenshi.keepaccounts.ui.setting.category.adapter.CategoryFooterAdapter
+import life.chenshi.keepaccounts.ui.setting.category.adapter.MajorCategoryFooterAdapter
+import life.chenshi.keepaccounts.ui.setting.category.adapter.MinorCategoryFooterAdapter
 import life.chenshi.keepaccounts.ui.setting.category.adapter.SubCategoryAdapter
-import life.chenshi.keepaccounts.ui.setting.category.adapter.SubCategoryFooterAdapter
 
 class CategoryActivity : BaseActivity() {
     companion object {
@@ -34,19 +35,19 @@ class CategoryActivity : BaseActivity() {
     private val mBinding by bindingContentView<LayoutCategoryBinding>(R.layout.layout_category)
 
     private val mCategoryAdapter: CategoryAdapter by lazy { CategoryAdapter() }
-    private val mCategoryFooterAdapter: CategoryFooterAdapter by lazy { CategoryFooterAdapter() }
+    private val mMajorCategoryFooterAdapter: MajorCategoryFooterAdapter by lazy { MajorCategoryFooterAdapter() }
     private val mSubCategoryAdapter: SubCategoryAdapter by lazy { SubCategoryAdapter() }
-    private val mSubCategoryFooterAdapter: SubCategoryFooterAdapter by lazy { SubCategoryFooterAdapter() }
+    private val mMinorCategoryFooterAdapter: MinorCategoryFooterAdapter by lazy { MinorCategoryFooterAdapter() }
 
     override fun initView() {
         // 主类
         mBinding.rvCategory.layoutManager = LinearLayoutManager(this)
-        mBinding.rvCategory.adapter = ConcatAdapter(mCategoryAdapter, mCategoryFooterAdapter)
+        mBinding.rvCategory.adapter = ConcatAdapter(mCategoryAdapter, mMajorCategoryFooterAdapter)
 
         //子类
         mBinding.rvSubCategory.layoutManager = GridLayoutManager(this, 4)
         mBinding.rvSubCategory.adapter =
-            ConcatAdapter(mSubCategoryAdapter, mSubCategoryFooterAdapter)
+            ConcatAdapter(mSubCategoryAdapter, mMinorCategoryFooterAdapter)
     }
 
     override fun initListener() {
@@ -113,7 +114,7 @@ class CategoryActivity : BaseActivity() {
             }
         }
         // 添加主类
-        mCategoryFooterAdapter.setOnItemClickListener {
+        mMajorCategoryFooterAdapter.setOnItemClickListener {
             takeUnless { mCategoryViewModel.isDeleteMode.value!! }?.run {
                 addCategory()
             } ?: ToastUtil.showShort("请先退出删除模式")
@@ -130,7 +131,7 @@ class CategoryActivity : BaseActivity() {
                                     it != null && it.id == subCategory.id
                                 }?.let {
                                     // 如果在上一页,跳过不做处理
-                                    if (mCategoryViewModel.currentSubCategory.value!!.categoryId != mCategoryViewModel.currentCategory.value!!.id) {
+                                    if (mCategoryViewModel.currentSubCategory.value!!.majorCategoryId != mCategoryViewModel.currentCategory.value!!.id) {
                                         mCategoryViewModel.currentSubCategory.value = subCategory
                                         return@async
                                     }
@@ -178,7 +179,7 @@ class CategoryActivity : BaseActivity() {
                 }
             }
         }
-        mSubCategoryFooterAdapter.setOnItemClickListener {
+        mMinorCategoryFooterAdapter.setOnItemClickListener {
             takeUnless { mCategoryViewModel.isDeleteMode.value!! }?.run {
                 addSubCategory()
             } ?: ToastUtil.showShort("请先退出删除模式")
@@ -200,7 +201,7 @@ class CategoryActivity : BaseActivity() {
                     } else {
                         // 当前没有选中主类时,手动选择第一个
                         if (!mCategoryViewModel.isDeleteMode.value!!) {
-                            mSubCategoryFooterAdapter.showFooterView()
+                            mMinorCategoryFooterAdapter.showFooterView()
                         }
                         value = it.first()
                     }
@@ -243,14 +244,14 @@ class CategoryActivity : BaseActivity() {
         // 当前是否为删除模式
         mCategoryViewModel.isDeleteMode.observe(this) {
             mCategoryAdapter.setDeleteMode(it)
-            mCategoryFooterAdapter.setFooterViewVisibility(!it)
+            mMajorCategoryFooterAdapter.setFooterViewVisibility(!it)
             mSubCategoryAdapter.setDeleteMode(it)
             // 进入或退出删除时, 展示是否可添加
             // 如果一开始没有选中主类/删除掉了选中主类/删除了所有,则不显示
             if (mCategoryViewModel.currentCategory.value.isNull()) {
-                mSubCategoryFooterAdapter.setFooterViewVisibility(false)
+                mMinorCategoryFooterAdapter.setFooterViewVisibility(false)
             } else {
-                mSubCategoryFooterAdapter.setFooterViewVisibility(!it)
+                mMinorCategoryFooterAdapter.setFooterViewVisibility(!it)
             }
         }
     }
@@ -269,9 +270,10 @@ class CategoryActivity : BaseActivity() {
                     binding.etCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
                     return@setPositiveButton
                 }
-                lifecycleScope.launch {
+                 lifecycleScope.launch {
+                    Log.d(TAG, "addCategory: 开始执行")
                     kotlin.runCatching {
-                        mCategoryViewModel.insertCategory(Category(name = binding.etCategoryName.text.toString()))
+                        mCategoryViewModel.insertCategory(MajorCategory(name = binding.etCategoryName.text.toString()))
                     }.onSuccess {
                         ToastUtil.showSuccess("添加成功")
                         dialog.dismiss()
@@ -300,7 +302,7 @@ class CategoryActivity : BaseActivity() {
             .setPositiveButton("确定") { dialog, binding ->
                 binding as LayoutAddSubCategoryBinding
                 val text = binding.etSubCategoryName.text?.toString()?.trim()
-                if (text.isNullOrEmpty()) {
+                 if (text.isNullOrEmpty()) {
                     binding.etSubCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
                     return@setPositiveButton
                 }
@@ -308,9 +310,9 @@ class CategoryActivity : BaseActivity() {
                     // 保证在添加子类时,已经选择了主类
                     kotlin.runCatching {
                         mCategoryViewModel.insertSubCategory(
-                            SubCategory(
+                            MinorCategory(
                                 name = binding.etSubCategoryName.text.toString(),
-                                categoryId = mCategoryViewModel.currentCategory.value!!.id!!
+                                majorCategoryId = mCategoryViewModel.currentCategory.value!!.id!!
                             )
                         )
                     }.onSuccess {
@@ -335,7 +337,7 @@ class CategoryActivity : BaseActivity() {
             .showNow()
     }
 
-    private fun deleteCategoryWithDialog(category: Category) {
+    private fun deleteCategoryWithDialog(majorCategory: MajorCategory) {
         CustomDialog.Builder(this@CategoryActivity)
             .setCancelable(false)
             .setTitle("删除主类")
@@ -343,7 +345,7 @@ class CategoryActivity : BaseActivity() {
             .setClosedButtonEnable(false)
             .setPositiveButton("确定") { dialog, _ ->
                 lifecycleScope.launch {
-                    mCategoryViewModel.deleteCategory(category)
+                    mCategoryViewModel.deleteCategory(majorCategory)
                     dialog.dismiss()
                 }
             }
@@ -352,7 +354,7 @@ class CategoryActivity : BaseActivity() {
             .showNow()
     }
 
-    private fun deleteSubCategoryWithDialog(subCategory: SubCategory) {
+    private fun deleteSubCategoryWithDialog(minorCategory: MinorCategory) {
         CustomDialog.Builder(this@CategoryActivity)
             .setCancelable(false)
             .setTitle("删除子类")
@@ -360,7 +362,7 @@ class CategoryActivity : BaseActivity() {
             .setClosedButtonEnable(false)
             .setPositiveButton("确定") { dialog, _ ->
                 lifecycleScope.launch {
-                    mCategoryViewModel.deleteSubCategory(subCategory)
+                    mCategoryViewModel.deleteSubCategory(minorCategory)
                     dialog.dismiss()
                 }
             }

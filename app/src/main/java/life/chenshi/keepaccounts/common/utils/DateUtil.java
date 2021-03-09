@@ -21,6 +21,8 @@ public class DateUtil {
     public static final DateFormat HOUR_MINUTE = new SimpleDateFormat("HH:mm");
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat YEAR_MONTH_DAY_FORMAT = new SimpleDateFormat("yyyy年MM月dd日");
+    @SuppressLint("SimpleDateFormat")
+    public static final DateFormat YEAR_MONTH_DAY_HOUR_MIN_FORMAT = new SimpleDateFormat("yyyy/MM/dd - HH:mm");
 
 
     /**
@@ -236,7 +238,7 @@ public class DateUtil {
         int maxSecond = calendar.getActualMaximum(Calendar.SECOND);
         int maxMillisecond = calendar.getActualMaximum(Calendar.MILLISECOND);
 
-        calendar.set(Calendar.DAY_OF_YEAR,maxDay);
+        calendar.set(Calendar.DAY_OF_YEAR, maxDay);
         calendar.set(Calendar.HOUR_OF_DAY, maxHour);
         calendar.set(Calendar.MINUTE, maxMinute);
         calendar.set(Calendar.SECOND, maxSecond);

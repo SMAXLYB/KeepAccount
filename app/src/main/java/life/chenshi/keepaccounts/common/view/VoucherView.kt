@@ -7,6 +7,9 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import life.chenshi.keepaccounts.R
 
+/**
+ * 票据锯齿效果
+ */
 class VoucherView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

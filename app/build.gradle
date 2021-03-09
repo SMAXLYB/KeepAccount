@@ -74,10 +74,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     // 时间选择
-    implementation 'com.github.loperSeven:DateTimePicker:0.2.1'
-    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
-    // 时间格式化
-    implementation 'org.ocpsoft.prettytime:prettytime:4.0.4.Final'
+    implementation 'com.github.loperSeven:DateTimePicker:0.3.0'
     // 图表
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
      // dataStore

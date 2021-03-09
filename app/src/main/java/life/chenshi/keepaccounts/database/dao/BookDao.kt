@@ -6,7 +6,7 @@ import life.chenshi.keepaccounts.database.entity.Book
 
 @Dao
 interface BookDao {
-    // 增
+    // 增 suspend修饰-->后台执行 liveData返回-->后台执行
     @Insert
     suspend fun insertBook(book: Book)
 

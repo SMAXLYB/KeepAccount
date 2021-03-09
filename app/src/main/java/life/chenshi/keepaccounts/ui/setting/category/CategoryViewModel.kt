@@ -9,8 +9,8 @@ import life.chenshi.keepaccounts.constant.STATE_DELETE
 import life.chenshi.keepaccounts.constant.STATE_NORMAL
 import life.chenshi.keepaccounts.constant.SWITCHER_CONFIRM_BEFORE_DELETE
 import life.chenshi.keepaccounts.database.AppDatabase
-import life.chenshi.keepaccounts.database.entity.Category
-import life.chenshi.keepaccounts.database.entity.SubCategory
+import life.chenshi.keepaccounts.database.entity.MajorCategory
+import life.chenshi.keepaccounts.database.entity.MinorCategory
 
 class CategoryViewModel : ViewModel() {
     companion object {
@@ -21,13 +21,13 @@ class CategoryViewModel : ViewModel() {
     private val subCategoryDao = AppDatabase.getDatabase().getSubCategoryDao()
 
     // 当前选中主类
-    val currentCategory = MutableLiveData<Category>()
-    lateinit var categories: LiveData<List<Category>>
+    val currentCategory = MutableLiveData<MajorCategory>()
+    lateinit var categories: LiveData<List<MajorCategory>>
 
     // 当前选中子类
-    val currentSubCategory = MutableLiveData<SubCategory>()
-    var subCategories = MediatorLiveData<List<SubCategory>>()
-    private var tempSubCategories: LiveData<List<SubCategory>>? = null
+    val currentSubCategory = MutableLiveData<MinorCategory>()
+    var subCategories = MediatorLiveData<List<MinorCategory>>()
+    private var tempMinorCategories: LiveData<List<MinorCategory>>? = null
 
     // 当前删除模式
     val isDeleteMode = MutableLiveData<Boolean>(false)
@@ -36,37 +36,37 @@ class CategoryViewModel : ViewModel() {
         getAllCategory()
     }
 
-    suspend fun insertCategory(category: Category) = withContext(Dispatchers.IO) {
-        val existCategory = categoryDao.getCategoryBy(category.name)
+    suspend fun insertCategory(majorCategory: MajorCategory) = withContext(Dispatchers.IO) {
+        val existCategory = categoryDao.getMajorCategoryBy(majorCategory.name)
         // 如果已经存在并且为-1,重新标记0, 否则走正常流程
         existCategory?.takeIf { it.state == STATE_DELETE }?.run {
             this.state = STATE_NORMAL
-            categoryDao.updateCategory(this)
+            categoryDao.updateMajorCategory(this)
             return@withContext
         }
-        categoryDao.insertCategory(category)
+        categoryDao.insertMajorCategory(majorCategory)
     }
 
     /**
      * 删除主类, 连带删除当下所有子类
      */
-    suspend fun deleteCategory(category: Category) = withContext(Dispatchers.IO) {
+    suspend fun deleteCategory(majorCategory: MajorCategory) = withContext(Dispatchers.IO) {
         awaitAll(
             async {
-                categoryDao.deleteCategory(category.id!!)
+                categoryDao.deleteMajorCategory(majorCategory.id!!)
                 // 如果删除了选中, 将当选选中清空
                 currentCategory.value?.let {
-                    if (it.id == category.id) {
+                    if (it.id == majorCategory.id) {
                         currentCategory.postValue(null)
                     }
                 }
             },
             async {
                 // 连带删除当下所有子类
-                subCategoryDao.deleteAllSubCategoryBy(category.id!!)
+                subCategoryDao.deleteAllMinorCategoryBy(majorCategory.id!!)
                 // 如//果包含选中子类,还要置空
                 currentSubCategory.value?.takeIf {
-                    it.categoryId == category.id
+                    it.majorCategoryId == majorCategory.id
                 }?.run {
                     currentSubCategory.postValue(null)
                 }
@@ -77,40 +77,40 @@ class CategoryViewModel : ViewModel() {
     /**
      * 删除子类
      */
-    suspend fun deleteSubCategory(subCategory: SubCategory) {
-        subCategoryDao.deleteSubCategoryBy(subCategory.id!!)
+    suspend fun deleteSubCategory(minorCategory: MinorCategory) {
+        subCategoryDao.deleteMinorCategoryBy(minorCategory.id!!)
         // 如果删除了选中, 将选中清空
         currentSubCategory.value?.let {
-            if (it.id == subCategory.id) {
+            if (it.id == minorCategory.id) {
                 currentSubCategory.value = null
             }
         }
     }
 
-    suspend fun insertSubCategory(subCategory: SubCategory) = withContext(Dispatchers.IO) {
+    suspend fun insertSubCategory(minorCategory: MinorCategory) = withContext(Dispatchers.IO) {
         val existSubCategory =
-            subCategoryDao.getSubCategoryBy(subCategory.categoryId, subCategory.name)
+            subCategoryDao.getMinorCategoryBy(minorCategory.majorCategoryId, minorCategory.name)
         existSubCategory?.takeIf { it.state == STATE_DELETE }?.run {
             this.state = STATE_NORMAL
-            subCategoryDao.updateSubCategory(this)
+            subCategoryDao.updateMinorCategory(this)
             return@withContext
         }
-        subCategoryDao.insertSubCategory(subCategory)
+        subCategoryDao.insertMinorCategory(minorCategory)
     }
 
 
     private fun getAllCategory() {
-        categories = categoryDao.getAllCategoryBy(STATE_NORMAL).asLiveData()
+        categories = categoryDao.getAllMajorCategoryBy(STATE_NORMAL).asLiveData()
     }
 
     fun getAllSubCategoryByCategoryId(categoryId: Int) {
         viewModelScope.launch {
-            if (tempSubCategories != null) {
-                subCategories.removeSource(tempSubCategories!!)
+            if (tempMinorCategories != null) {
+                subCategories.removeSource(tempMinorCategories!!)
             }
-            tempSubCategories =
-                subCategoryDao.getALLSubCategoryBy(categoryId, STATE_NORMAL).asLiveData()
-            subCategories.addSource(tempSubCategories!!) {
+            tempMinorCategories =
+                subCategoryDao.getALLMinorCategoryBy(categoryId, STATE_NORMAL).asLiveData()
+            subCategories.addSource(tempMinorCategories!!) {
                 subCategories.value = it
             }
         }
@@ -119,10 +119,10 @@ class CategoryViewModel : ViewModel() {
     /**
      * 获取主类在adapter中的位置
      */
-    suspend fun getCurrentCategoryInAdapterPosition(category: Category) =
+    suspend fun getCurrentCategoryInAdapterPosition(majorCategory: MajorCategory) =
         withContext(Dispatchers.Default) {
             categories.value?.asSequence()?.forEachIndexed { index, c ->
-                if (category.id == c.id) {
+                if (majorCategory.id == c.id) {
                     return@withContext index
                 }
             }
@@ -132,10 +132,10 @@ class CategoryViewModel : ViewModel() {
     /**
      * 获取子类在adapter中的位置
      */
-    suspend fun getCurrentSubCategoryInAdapterPosition(subCategory: SubCategory) =
+    suspend fun getCurrentSubCategoryInAdapterPosition(minorCategory: MinorCategory) =
         withContext(Dispatchers.Default) {
             subCategories.value?.asSequence()?.forEachIndexed { index, s ->
-                if (subCategory.id == s.id) {
+                if (minorCategory.id == s.id) {
                     return@withContext index
                 }
             }

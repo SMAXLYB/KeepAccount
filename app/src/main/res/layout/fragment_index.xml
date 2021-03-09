@@ -209,7 +209,7 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="15dp"
             android:backgroundTint="#29B6F6"
-            android:src="@drawable/index_float_botton_bg"
+            android:src="@drawable/index_float_button_bg"
             app:borderWidth="0dp"
             app:fabSize="mini" />
 

@@ -18,12 +18,10 @@
         <attr name="uncheckedBackgroundColor" format="color" />
         <!--未选中的圆形颜色-->
         <attr name="uncheckedCircleColor" format="color" />
-
         <!--选中的背景颜色-->
         <attr name="checkedBackgroundColor" format="color" />
         <!--选中的圆形颜色-->
         <attr name="checkedCircleColor" format="color" />
-
         <attr name="strokeWidth" format="dimension" />
     </declare-styleable>
 
@@ -34,6 +32,15 @@
     </declare-styleable>
 
     <declare-styleable name="VoucherView">
-        <attr name="triangleRadius" format="dimension"/>
+        <attr name="triangleRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TextImageView">
+        <attr name="android:text" format="string" />
+        <attr name="android:radius" format="dimension" />
+        <attr name="android:src" format="reference" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="android:textColor" format="color" />
+        <attr name="android:textSize" format="dimension" />
     </declare-styleable>
 </resources>

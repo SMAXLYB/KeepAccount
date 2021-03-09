@@ -5,6 +5,16 @@
     android:layout_height="wrap_content"
     android:background="@drawable/corner_top_12dp_white_bg">
 
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.15"
+        android:layout_height="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/corner_all_5dp_gray_bg" />
+
     <TextView
         android:id="@+id/ll_index_type_all"
         android:layout_width="0dp"
@@ -15,9 +25,8 @@
         app:layout_constraintBottom_toTopOf="@id/ll_index_type_income"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line"
         app:layout_constraintWidth_percent="0.6" />
-
 
     <TextView
         android:id="@+id/ll_index_type_income"
@@ -30,7 +39,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_index_type_all"
         app:layout_constraintWidth_percent="0.6" />
-
 
     <TextView
         android:id="@+id/ll_index_type_outcome"

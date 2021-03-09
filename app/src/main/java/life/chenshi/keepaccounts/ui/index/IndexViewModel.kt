@@ -6,13 +6,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import life.chenshi.keepaccounts.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.common.utils.DateUtil
 import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.database.AppDatabase
+import life.chenshi.keepaccounts.database.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.database.entity.RecordType
 import java.util.*
 
 class IndexViewModel : ViewModel() {
@@ -79,11 +80,11 @@ class IndexViewModel : ViewModel() {
         }
         var listAfterFilter = originList
         if (currentShowType.value == IndexFragment.SHOW_TYPE_INCOME) {
-            listAfterFilter = originList.filter { it.recordType == RecordType.INCOME }
+            listAfterFilter = originList.filter { it.recordType == RECORD_TYPE_INCOME }
         }
 
         if (currentShowType.value == IndexFragment.SHOW_TYPE_OUTCOME) {
-            listAfterFilter = originList.filter { it.recordType == RecordType.OUTCOME }
+            listAfterFilter = originList.filter { it.recordType == RECORD_TYPE_OUTCOME }
         }
         val recordListGroupByDay: MutableList<MutableList<Record>> = mutableListOf()
         // 如果经过筛选后没有数据, 直接返回空数据
