@@ -1,14 +1,9 @@
 package life.chenshi.keepaccounts.ui.newrecord
 
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.text.InputFilter
 import android.text.Spanned
 import android.view.View
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,14 +18,14 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
 import life.chenshi.keepaccounts.common.base.BaseBottomSheetAdapter
-import life.chenshi.keepaccounts.common.utils.DateUtil
-import life.chenshi.keepaccounts.common.utils.ToastUtil
+import life.chenshi.keepaccounts.common.utils.*
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
-import life.chenshi.keepaccounts.database.entity.MajorCategory
+import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewItemBinding
+import java.math.BigDecimal
 import java.util.*
 
 class NewRecordActivity : BaseActivity() {
@@ -46,21 +41,24 @@ class NewRecordActivity : BaseActivity() {
         // 默认账本
         mNewRecordViewModel.hasDefaultBook({
             lifecycleScope.launch {
-                val bookNameById = mNewRecordViewModel.getBookNameById(it)
-                mBinding.tvBook.text = bookNameById
+                val book = mNewRecordViewModel.getBookById(it)
+                mNewRecordViewModel.currentBook.value = book
             }
         }, {
-            mBinding.tvBook.text = "未选择账本"
+            mNewRecordViewModel.currentBook.value = null
         })
 
         // 分类
         mBinding.rvCategory.apply {
-            layoutManager = LinearLayoutManager(this@NewRecordActivity,RecyclerView.HORIZONTAL,false)
-            adapter = CommonCategoryAdapter(listOf(MajorCategory(1,"你好"),MajorCategory(1,"你好"),MajorCategory(1,"你好"),MajorCategory(1,"你好"),MajorCategory(1,"你好"),MajorCategory(1,"你好"),MajorCategory(1,"你好"),MajorCategory(1,"你好")))
+            layoutManager = LinearLayoutManager(this@NewRecordActivity, RecyclerView.HORIZONTAL, false)
+            lifecycleScope.launch {
+                mNewRecordViewModel.getCommonCategory().collect {
+                    adapter = CommonCategoryAdapter(it)
+                }
+            }
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun initListener() {
         // 收支类型
         mBinding.tvRecordType.setOnClickListener {
@@ -76,14 +74,6 @@ class NewRecordActivity : BaseActivity() {
         }
 
         // 金额
-        mBinding.tvMoney.addTextChangedListener(
-            onTextChanged = { s, _, _, _ ->
-                s?.takeIf { it.length == 1 && "." == it }
-                    ?.run {
-                        mBinding.tvMoney
-                    }
-            }
-        )
         mBinding.tvMoney.filters = arrayOf(object : InputFilter {
             override fun filter(source: CharSequence?, start: Int, end: Int, dest: Spanned?, dstart: Int, dend: Int): CharSequence? {
                 source?.let { c ->
@@ -142,7 +132,7 @@ class NewRecordActivity : BaseActivity() {
         mBinding.tvDatetime.setOnClickListener {
             CardDatePickerDialog.builder(this)
                 .setBackGroundModel(CardDatePickerDialog.STACK)
-                .setThemeColor(resources.getColor(R.color.colorPrimary, null))
+                .setThemeColor(getColorById(R.color.colorPrimary))
                 .setDefaultTime(mNewRecordViewModel.currentDateTime.value!!)
                 .showBackNow(false)
                 .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH, DateTimeConfig.DAY, DateTimeConfig.HOUR, DateTimeConfig.MIN)
@@ -154,21 +144,21 @@ class NewRecordActivity : BaseActivity() {
                 .show()
         }
 
-        // 删除
+        // 删除-长按
         mBinding.ivDelete.setOnLongClickListener {
-            val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(30, 50))
+            vibrate()
             mBinding.tvMoney.text = ""
             true
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    /**
+     * 键盘点击事件
+     */
     fun onKeyBoardClick(v: View) {
         when (val operation = v.tag as String) {
             "delete" -> {
-                val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
-                vibrator.vibrate(VibrationEffect.createOneShot(30, 50))
+                vibrate()
                 mBinding.tvMoney.apply {
                     if (!text.isNullOrBlank()) {
                         text = text.substring(0, text.length - 1)
@@ -182,10 +172,10 @@ class NewRecordActivity : BaseActivity() {
             //     "减"
             // }
             "append" -> {
-                "追加"
+                append()
             }
             "save" -> {
-                "保存"
+                save()
             }
             "dot" -> {
                 mBinding.tvMoney.append(".")
@@ -239,21 +229,6 @@ class NewRecordActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        // 收支类型选择
-        mBinding.newRecordTypeOutcome.setOnClickListener {
-            it as TextView
-            it.setEnable(false)
-            mBinding.newRecordTypeIncome.setEnable(true)
-            mBinding.newRecordLabelContainerOutcome.visible()
-            mBinding.newRecordLabelContainerIncome.gone()
-        }
-        mBinding.newRecordTypeIncome.setOnClickListener {
-            it as TextView
-            it.setEnable(false)
-            mBinding.newRecordTypeOutcome.setEnable(true)
-            mBinding.newRecordLabelContainerOutcome.gone()
-            mBinding.newRecordLabelContainerIncome.visible()
-        }
 
         // 日期选择
         mBinding.newRecordDate.setOnClickListener {
@@ -363,24 +338,18 @@ class NewRecordActivity : BaseActivity() {
                 ToastUtil.showShort("您还没有账本,快去新建一个吧~")
             })
         }
-
-        // 取消
-        mBinding.btnCancel.setOnClickListener {
-            finish()
-        }
     }
     */
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun initObserver() {
         mNewRecordViewModel.run {
             // 收支类型
             currentRecordType.observe(this@NewRecordActivity) {
                 mBinding.tvRecordType.text = if (it == RECORD_TYPE_INCOME) {
-                    mBinding.tvMoney.setTextColor(resources.getColor(R.color.income, null))
+                    mBinding.tvMoney.setTextColor(getColorById(R.color.income))
                     "收入"
                 } else {
-                    mBinding.tvMoney.setTextColor(resources.getColor(R.color.outcome, null))
+                    mBinding.tvMoney.setTextColor(getColorById(R.color.outcome))
                     "支出"
                 }
                 mBinding.tvMoney.isSelected = it == RECORD_TYPE_OUTCOME
@@ -388,11 +357,7 @@ class NewRecordActivity : BaseActivity() {
 
             // 账本
             currentBook.observe(this@NewRecordActivity) {
-                if (it == null) {
-                    return@observe
-                }
-
-                mBinding.tvBook.text = it.name
+                mBinding.tvBook.text = it?.name ?: "未选择账本"
             }
 
             // 时间
@@ -402,6 +367,9 @@ class NewRecordActivity : BaseActivity() {
         }
     }
 
+    /**
+     * 展示底部对话框
+     */
     private fun <T> showBottomSheetDialog(
         data: List<T>,
         bindView: (BottomSheetRecyclerviewItemBinding, T) -> Unit,
@@ -433,4 +401,56 @@ class NewRecordActivity : BaseActivity() {
         }
     }
 
+    /**
+     * 保存 直接添加完成
+     */
+    private fun save() {
+        if (!dataVerification()) {
+            return
+        }
+
+        val money = BigDecimalUtil.yuan2FenBD(mBinding.tvMoney.text.toString())
+        val remark = mBinding.etRemark.text.toString()
+        val date = Date(mNewRecordViewModel.currentDateTime.value!!)
+        val recordType = mNewRecordViewModel.currentRecordType.value!!
+        val bookId = mNewRecordViewModel.currentBook.value!!.id!!
+        mNewRecordViewModel.insertRecord(
+            Record(null, money, remark, date, 0, 0, recordType, bookId)
+        )
+        ToastUtil.showSuccess("添加成功")
+        finish()
+    }
+
+    /**
+     * 追记 添加完成后清除内容继续填写
+     */
+    private fun append() {
+        if (!dataVerification()) {
+            return
+        }
+    }
+
+    /**
+     * 数据校验
+     */
+    private fun dataVerification(): Boolean {
+        val moneyText = mBinding.tvMoney.text
+        if (moneyText.isNullOrEmpty()) {
+            ToastUtil.showShort("请输入金额")
+            return false
+        }
+        val money: BigDecimal = BigDecimalUtil.yuan2FenBD(moneyText.toString())
+        if (money.compareTo(BigDecimal.ZERO) == 0) {
+            ToastUtil.showShort("金额不能为0")
+            return false
+        }
+
+        val book = mNewRecordViewModel.currentBook.value
+        if (book == null) {
+            ToastUtil.showShort("请选择账本")
+            return false
+        }
+
+        return true
+    }
 }

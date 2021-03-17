@@ -29,6 +29,6 @@ interface BookDao {
     suspend fun getNumOfBooks(): Int
 
     // todo 可能会有问题,切换activity后更新不及时
-    @Query("SELECT name FROM tb_books WHERE id = :id")
-    suspend fun getBookNameById(id: Int): String
+    @Query("SELECT * FROM tb_books WHERE id = :id")
+    suspend fun getBookById(id: Int): Book
 }

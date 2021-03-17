@@ -7,7 +7,8 @@ import life.chenshi.keepaccounts.databinding.ItemNewRecordCategoryBinding
 
 class CommonCategoryAdapter(data: List<AbstractCategory>) : BaseBottomSheetAdapter<AbstractCategory, ItemNewRecordCategoryBinding>(data) {
     override fun onBindViewHolder(binding: ItemNewRecordCategoryBinding, itemData: AbstractCategory) {
-
+        binding.tvCategory.text = itemData.name
+        binding.tivCategory.setText(itemData.name)
     }
 
     override fun getResLayoutId(): Int {

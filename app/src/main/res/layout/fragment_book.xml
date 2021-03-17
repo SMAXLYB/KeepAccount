@@ -15,8 +15,8 @@
         <androidx.constraintlayout.widget.Group
             android:id="@+id/gp_book_empty"
             android:layout_width="wrap_content"
-            android:visibility="invisible"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             app:constraint_referenced_ids="iv_book_empty,tv_book_empty_hint" />
 
         <ImageView
@@ -43,10 +43,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
-            android:padding="10dp"
             android:horizontalSpacing="10dp"
-            android:numColumns="3"
             android:listSelector="#00000000"
+            android:numColumns="3"
+            android:padding="10dp"
             android:scrollbars="none"
             android:verticalSpacing="20dp"
             app:layout_constraintBottom_toBottomOf="parent"

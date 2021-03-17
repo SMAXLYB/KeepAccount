@@ -1,2 +1,3 @@
+include ':gson_extra'
 include ':app'
 rootProject.name = "KeepAccounts"

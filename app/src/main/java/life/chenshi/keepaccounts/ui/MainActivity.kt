@@ -1,4 +1,3 @@
-
 package life.chenshi.keepaccounts.ui
 
 import android.view.Menu
@@ -14,6 +13,7 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.common.utils.ToastUtil
 import life.chenshi.keepaccounts.constant.SWITCHER_EXIT_APP
 
@@ -30,6 +30,10 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         setContentView(R.layout.activity_main)
+
+        StatusBarUtil.init(this)
+            .setColor(R.color.white, false)
+            .setDarkMode(true)
 
         // 初始化controller，绑定navMenu
         mNavController = findNavController(R.id.index_nav_host_fragment_container)

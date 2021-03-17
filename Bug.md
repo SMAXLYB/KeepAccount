@@ -28,3 +28,5 @@
  - [NewRecord] 优化界面,可以选择账本
  - [Analyze] 可以选择账本查看
  - 删除提示可以自定义
+ - Date改用Long
+ - 将收支类型放入entity中

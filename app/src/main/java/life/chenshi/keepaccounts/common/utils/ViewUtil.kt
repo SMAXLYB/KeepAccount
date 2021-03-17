@@ -56,6 +56,15 @@ fun TextView.setSelect(selected: Boolean) {
     }
 }
 
+fun TextView.setVisibilityWithText(text: String) {
+    visibility = if (text.isNotBlank()) {
+        setText(text)
+        View.VISIBLE
+    } else {
+        View.INVISIBLE
+    }
+}
+
 fun Int.dp2px(): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics

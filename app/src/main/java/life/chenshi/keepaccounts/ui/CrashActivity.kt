@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Process
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
+import life.chenshi.keepaccounts.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.common.utils.ToastUtil
 import life.chenshi.keepaccounts.databinding.ActivityCrashBinding
 import kotlin.system.exitProcess
@@ -16,6 +17,10 @@ class CrashActivity : BaseActivity() {
     private var exceptionInfo: String = "应用崩溃了"
 
     override fun initView() {
+        StatusBarUtil.init(this)
+            .setColor(R.color.global_background_gray, false)
+            .setDarkMode(true)
+
         intent.getStringExtra("exception_info")?.let {
             exceptionInfo = it
         }

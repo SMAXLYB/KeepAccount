@@ -16,6 +16,7 @@ import life.chenshi.keepaccounts.common.utils.inVisible
 import life.chenshi.keepaccounts.common.utils.isNull
 import life.chenshi.keepaccounts.common.utils.visible
 import life.chenshi.keepaccounts.common.view.CustomDialog
+import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.database.entity.MajorCategory
 import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.databinding.LayoutAddCategoryBinding
@@ -185,9 +186,9 @@ class CategoryActivity : BaseActivity() {
             } ?: ToastUtil.showShort("请先退出删除模式")
         }
 
-        mBinding.tvSubCategory.setOnClickListener {
-            mCategoryViewModel.isDeleteMode.value = false
-        }
+        // mBinding.tvSubCategory.setOnClickListener {
+        //     mCategoryViewModel.isDeleteMode.value = false
+        // }
     }
 
     override fun initObserver() {
@@ -273,7 +274,7 @@ class CategoryActivity : BaseActivity() {
                  lifecycleScope.launch {
                     Log.d(TAG, "addCategory: 开始执行")
                     kotlin.runCatching {
-                        mCategoryViewModel.insertCategory(MajorCategory(name = binding.etCategoryName.text.toString()))
+                        mCategoryViewModel.insertCategory(MajorCategory(name = binding.etCategoryName.text.toString(),recordType = RECORD_TYPE_OUTCOME))
                     }.onSuccess {
                         ToastUtil.showSuccess("添加成功")
                         dialog.dismiss()
@@ -312,7 +313,8 @@ class CategoryActivity : BaseActivity() {
                         mCategoryViewModel.insertSubCategory(
                             MinorCategory(
                                 name = binding.etSubCategoryName.text.toString(),
-                                majorCategoryId = mCategoryViewModel.currentCategory.value!!.id!!
+                                majorCategoryId = mCategoryViewModel.currentCategory.value!!.id!!,
+                                recordType = RECORD_TYPE_OUTCOME
                             )
                         )
                     }.onSuccess {

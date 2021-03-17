@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
+import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MINOR
 import life.chenshi.keepaccounts.constant.STATE_NORMAL
 
 @Entity(
@@ -22,11 +23,11 @@ class MinorCategory(
     id: Int? = null,
     name: String,
     state: Int = STATE_NORMAL,
+    recordType: Int,
     @ColumnInfo(name = "major_category_id")
     val majorCategoryId: Int
-) : AbstractCategory(id, name, state) {
+) : AbstractCategory(id, name, state, recordType, CATEGORY_TYPE_MINOR) {
 
-    override fun isMajorCategory(): Boolean = false
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -12,56 +12,25 @@
         android:layout_height="match_parent"
         android:background="@color/global_background_gray">
 
-
-        <RelativeLayout
-            android:id="@+id/rl_category"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.25">
-
-            <TextView
-                android:id="@+id/tv_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="主类"
-                android:textStyle="bold" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_category"
-                tools:listitem="@layout/item_category"/>
+                tools:listitem="@layout/item_category"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintWidth_percent="0.25"/>
 
-
-        </RelativeLayout>
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="right"
-            app:constraint_referenced_ids="rl_category" />
+            app:constraint_referenced_ids="rv_category" />
 
-        <TextView
-            android:id="@+id/tv_sub_category"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="子类  |  退出删除模式"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/barrier"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_sub_category_empty"
@@ -88,17 +57,17 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/barrier"
-            app:layout_constraintTop_toBottomOf="@id/tv_sub_category"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_sub_category" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/group"
-            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             app:constraint_referenced_ids="iv_sub_category_empty,tv_sub_category_empty_hint" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

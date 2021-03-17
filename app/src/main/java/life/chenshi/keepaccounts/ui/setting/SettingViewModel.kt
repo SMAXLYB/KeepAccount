@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.database.AppDatabase
+import life.chenshi.keepaccounts.database.entity.Book
 import java.util.*
 
 class SettingViewModel : ViewModel() {
@@ -27,8 +28,8 @@ class SettingViewModel : ViewModel() {
         }
     }
 
-    suspend fun getBookNameById(id: Int): String =
-        mBookDao.getBookNameById(id)
+    suspend fun getBookNameById(id: Int): Book =
+        mBookDao.getBookById(id)
 
     fun getGreetContent(): String {
         return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {

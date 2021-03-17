@@ -1,15 +1,18 @@
 package life.chenshi.keepaccounts.ui.newrecord
 
 import androidx.lifecycle.*
+import com.example.gson_extra.RuntimeTypeAdapterFactory
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
-import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
-import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.constant.*
 import life.chenshi.keepaccounts.database.AppDatabase
-import life.chenshi.keepaccounts.database.entity.Book
-import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.database.entity.*
 import java.util.*
 
 class NewRecordViewModel : ViewModel() {
@@ -21,6 +24,7 @@ class NewRecordViewModel : ViewModel() {
     val currentBook = MutableLiveData<Book>()
     val currentRecordType = MutableLiveData<Int>(RECORD_TYPE_OUTCOME)
     val currentDateTime = MutableLiveData<Long>(System.currentTimeMillis())
+    val currentAbstractCategory = MutableLiveData<AbstractCategory>()
 
     val books = mBookDao.getAllBooks()
 
@@ -56,5 +60,25 @@ class NewRecordViewModel : ViewModel() {
         }
     }
 
-    suspend fun getBookNameById(id: Int) = mBookDao.getBookNameById(id)
+    /**
+     * 获取常用类别
+     */
+    fun getCommonCategory(): Flow<List<AbstractCategory>> {
+        val defaultCommonCategoryStr = """
+            [{"id":1,"name":"你好啊","state":0,"type":"major_category"},{"id":1,"name":"你好啊啊啊","state":0,"type":"major_category"},{"majorCategoryId":1,"id":1,"name":"第二","state":1,"type":"minor_category"},{"id":1,"name":"你好","state":0,"type":"major_category"},{"id":1,"name":"你好","state":0,"type":"major_category"},{"id":1,"name":"你好","state":0,"type":"major_category"}]
+        """.trimIndent()
+
+        return DataStoreUtil.readFromDataStore(COMMON_CATEGORY, defaultCommonCategoryStr)
+            .take(1)
+            .map {
+                val typeFactory = RuntimeTypeAdapterFactory
+                    .of(AbstractCategory::class.java, "categoryType")
+                    .registerSubtype(MajorCategory::class.java, CATEGORY_TYPE_MAJOR)
+                    .registerSubtype(MinorCategory::class.java, CATEGORY_TYPE_MINOR)
+                val gson = GsonBuilder().registerTypeAdapterFactory(typeFactory).create()
+                gson.fromJson<List<AbstractCategory>>(it, object : TypeToken<List<AbstractCategory>>() {}.type)
+            }
+    }
+
+    suspend fun getBookById(id: Int) = mBookDao.getBookById(id)
 }

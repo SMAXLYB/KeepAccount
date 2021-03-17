@@ -45,8 +45,8 @@ class SettingFragment : Fragment() {
         mBinding.tvSettingCurrentBook.apply {
             mSettingViewModel.hasDefaultBook({
                 lifecycleScope.launch {
-                    val name = mSettingViewModel.getBookNameById(it)
-                    mBinding.tvSettingCurrentBook.text = name
+                    val book = mSettingViewModel.getBookNameById(it)
+                    mBinding.tvSettingCurrentBook.text = book.name
                 }
             }, {
                 mBinding.tvSettingCurrentBook.text = ""

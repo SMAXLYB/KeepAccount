@@ -264,7 +264,7 @@
                 app:flow_verticalGap="0dp"
                 app:flow_wrapMode="aligned"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_16"
+                app:layout_constraintEnd_toStartOf="@id/tv_save"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.75" />
@@ -288,8 +288,8 @@
                 android:text="3" />
 
             <TextView
-                app:layout_constraintBottom_toTopOf="@id/tv_16"
-                android:id="@+id/tv_4"
+                app:layout_constraintBottom_toTopOf="@id/tv_save"
+                android:id="@+id/tv_append"
                 style="@style/CustomKeyBoard"
                 android:tag="append"
                 android:text="追记"
@@ -365,7 +365,7 @@
                 android:tag="delete" />
 
             <TextView
-                android:id="@+id/tv_16"
+                android:id="@+id/tv_save"
                 style="@style/CustomKeyBoard"
                 android:background="@color/colorPrimary"
                 android:tag="save"

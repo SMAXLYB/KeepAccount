@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. Theme.AppCompat.Light.DarkActionBar -->
-    <style name="Theme.KeepAccounts" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.KeepAccounts" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#03A9F4</item>
         <item name="colorPrimaryVariant">#03A9F4</item>

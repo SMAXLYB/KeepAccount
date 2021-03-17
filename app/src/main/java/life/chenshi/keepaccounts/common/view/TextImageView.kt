@@ -127,12 +127,12 @@ class TextImageView @JvmOverloads constructor(
             return
         }
 
+        mText = text
+
         // 只取前2位
         if (text.length > 2) {
             mText = text.substring(0, 2)
         }
-
-        mText = text
         invalidate()
     }
 }

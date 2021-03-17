@@ -43,4 +43,13 @@
         <attr name="android:textColor" format="color" />
         <attr name="android:textSize" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="CustomActionBar">
+        <attr name="leftIcon" format="reference" />
+        <attr name="leftTitle" format="string" />
+        <attr name="centerTitle" format="string" />
+        <attr name="centerIcon" format="reference" />
+        <attr name="rightTitle" format="string" />
+        <attr name="rightIcon" format="reference" />
+    </declare-styleable>
 </resources>

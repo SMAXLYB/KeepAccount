@@ -2,6 +2,7 @@ package life.chenshi.keepaccounts.ui.setting.book
 
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
+import life.chenshi.keepaccounts.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.databinding.ActivityBookBinding
 
 class BookActivity : BaseActivity() {
@@ -10,6 +11,9 @@ class BookActivity : BaseActivity() {
 
     override fun initView() {
         mBinding
+        StatusBarUtil.init(this)
+            .setColor(R.color.white)
+            .setDarkMode(true)
     }
 
     override fun initListener() {

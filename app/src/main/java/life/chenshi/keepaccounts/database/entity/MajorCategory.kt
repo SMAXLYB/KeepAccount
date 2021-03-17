@@ -2,17 +2,16 @@ package life.chenshi.keepaccounts.database.entity
 
 import androidx.room.Entity
 import androidx.room.Index
+import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MAJOR
 import life.chenshi.keepaccounts.constant.STATE_NORMAL
 
-// todo 添加收支类型
 @Entity(tableName = "tb_major_categories", indices = [Index("name", unique = true)])
 class MajorCategory(
     id: Int? = null,
     name: String,
-    state: Int = STATE_NORMAL
-) : AbstractCategory(id, name, state) {
-
-    override fun isMajorCategory(): Boolean = true
+    state: Int = STATE_NORMAL,
+    recordType: Int
+) : AbstractCategory(id, name, state, recordType, CATEGORY_TYPE_MAJOR) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

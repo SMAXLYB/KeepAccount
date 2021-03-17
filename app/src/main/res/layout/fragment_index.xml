@@ -17,6 +17,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -177,9 +178,9 @@
                     <ImageView
                         android:id="@+id/iv_index_empty"
                         android:layout_width="200dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_height="150dp"
                         android:layout_centerInParent="true"
+                        android:layout_marginBottom="10dp"
                         android:src="@drawable/index_empty_record" />
 
                     <TextView
