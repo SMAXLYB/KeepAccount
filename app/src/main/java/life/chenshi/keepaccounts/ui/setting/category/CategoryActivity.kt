@@ -94,7 +94,7 @@ class CategoryActivity : BaseActivity() {
                             }
                         )
                     }
-                } ?: ToastUtil.showShort("请先退出删除模式")
+                } ?: ToastUtil.showShort("请退出删除模式")
             }
             // 主类长按
             setOnItemLongClickListener { _, _ ->
@@ -271,10 +271,10 @@ class CategoryActivity : BaseActivity() {
                     binding.etCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
                     return@setPositiveButton
                 }
-                 lifecycleScope.launch {
+                lifecycleScope.launch {
                     Log.d(TAG, "addCategory: 开始执行")
                     kotlin.runCatching {
-                        mCategoryViewModel.insertCategory(MajorCategory(name = binding.etCategoryName.text.toString(),recordType = RECORD_TYPE_OUTCOME))
+                        mCategoryViewModel.insertCategory(MajorCategory(name = binding.etCategoryName.text.toString(), recordType = RECORD_TYPE_OUTCOME))
                     }.onSuccess {
                         ToastUtil.showSuccess("添加成功")
                         dialog.dismiss()
@@ -303,7 +303,7 @@ class CategoryActivity : BaseActivity() {
             .setPositiveButton("确定") { dialog, binding ->
                 binding as LayoutAddSubCategoryBinding
                 val text = binding.etSubCategoryName.text?.toString()?.trim()
-                 if (text.isNullOrEmpty()) {
+                if (text.isNullOrEmpty()) {
                     binding.etSubCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
                     return@setPositiveButton
                 }

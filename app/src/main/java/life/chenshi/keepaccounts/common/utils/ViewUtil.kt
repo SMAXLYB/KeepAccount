@@ -2,8 +2,10 @@ package life.chenshi.keepaccounts.common.utils
 
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 
 fun View.visible() {
@@ -63,6 +65,11 @@ fun TextView.setVisibilityWithText(text: String) {
     } else {
         View.INVISIBLE
     }
+}
+
+fun ImageView.setVisibleWithDrawable(drawable: Drawable? = null) {
+    visibility = View.VISIBLE
+    setImageDrawable(drawable)
 }
 
 fun Int.dp2px(): Int {

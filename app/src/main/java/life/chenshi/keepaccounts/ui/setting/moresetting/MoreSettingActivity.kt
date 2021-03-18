@@ -16,9 +16,9 @@ class MoreSettingActivity : BaseActivity() {
             .setDarkMode(true)
 
         mBinding.bar.apply {
-            setLeftTitle("返回")
-            setCenterTitle("更多设置")
-            setRightTitle("编辑")
+            setLeftClickListener {
+                onBackPressed()
+            }
         }
     }
 

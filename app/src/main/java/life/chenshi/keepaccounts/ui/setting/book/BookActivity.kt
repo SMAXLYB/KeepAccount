@@ -14,6 +14,11 @@ class BookActivity : BaseActivity() {
         StatusBarUtil.init(this)
             .setColor(R.color.white)
             .setDarkMode(true)
+        mBinding.bar.apply {
+            setLeftClickListener {
+                onBackPressed()
+            }
+        }
     }
 
     override fun initListener() {

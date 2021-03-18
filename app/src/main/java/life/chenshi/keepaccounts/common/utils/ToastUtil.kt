@@ -11,7 +11,8 @@ import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.global.MyApplication
 
 object ToastUtil {
-    private var mToast: Toast? = null
+    // private var mToast: Toast? = null
+    private var currentText: String = ""
 
     fun showSuccess(text: String) {
         show(ToastType.Success, text)
@@ -30,33 +31,30 @@ object ToastUtil {
     }
 
     fun show(type: ToastType, text: String, isShort: Boolean = true) {
-        var message: TextView? = null
-        val context = MyApplication.getInstance().applicationContext
-        if (mToast == null) {
-            val toastView = LayoutInflater.from(context).inflate(R.layout.layout_toast, null)
-            toastView.findViewById<ImageView>(R.id.iv_toast_icon)
-                .setImageDrawable(ResourcesCompat.getDrawable(context.resources, type.src, null))
-            message =
-                toastView.findViewById<TextView>(R.id.tv_toast_message)
-            mToast = Toast(context)
-                .apply {
-                    setGravity(Gravity.CENTER, 0, 200)
-                    duration = if (isShort) {
-                        Toast.LENGTH_SHORT
-                    } else {
-                        Toast.LENGTH_LONG
-                    }
-                    view = toastView
-                }
-        } else {
-            message = mToast?.view?.findViewById(R.id.tv_toast_message)
-            mToast?.view?.findViewById<ImageView>(R.id.iv_toast_icon)
-                ?.setImageDrawable(ResourcesCompat.getDrawable(context.resources, type.src, null))
-
+        if (currentText == text) {
+            return
         }
-        message?.text = text
-        mToast?.show()
+
+        val context = MyApplication.getInstance().applicationContext
+        val toastView = LayoutInflater.from(context).inflate(R.layout.layout_toast, null)
+        toastView.findViewById<ImageView>(R.id.iv_toast_icon)
+            .setImageDrawable(ResourcesCompat.getDrawable(context.resources, type.src, null))
+        val message =
+            toastView.findViewById<TextView>(R.id.tv_toast_message)
+        message.text = text
+        val mToast = Toast(context)
+            .apply {
+                setGravity(Gravity.CENTER, 0, 200)
+                duration = if (isShort) {
+                    Toast.LENGTH_SHORT
+                } else {
+                    Toast.LENGTH_LONG
+                }
+                view = toastView
+            }
+        mToast.show()
     }
+
 
     sealed class ToastType(@DrawableRes val src: Int) {
         object Warning : ToastType(R.drawable.toast_icon_warning)

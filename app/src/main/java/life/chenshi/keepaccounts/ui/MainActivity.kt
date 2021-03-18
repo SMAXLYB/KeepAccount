@@ -32,7 +32,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         StatusBarUtil.init(this)
-            .setColor(R.color.white, false)
+            .setTransparent()
             .setDarkMode(true)
 
         // 初始化controller，绑定navMenu

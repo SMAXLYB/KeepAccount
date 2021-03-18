@@ -16,6 +16,7 @@ import android.widget.Checkable
 import androidx.core.animation.addListener
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.utils.dp2px
+import life.chenshi.keepaccounts.common.utils.getColorById
 
 typealias CheckChangedListener = (Boolean) -> Unit
 
@@ -33,9 +34,9 @@ class SwitchButton @JvmOverloads constructor(
     }
 
     // xml读取
-    private var uncheckedBackgroundColor = resources.getColor(R.color.list_view_pressed_gray, null)
-    private var uncheckedCircleColor = resources.getColor(R.color.white, null)
-    private var checkedBackgroundColor = resources.getColor(R.color.colorPrimary, null)
+    private var uncheckedBackgroundColor = context.getColorById(R.color.list_view_pressed_gray)
+    private var uncheckedCircleColor = context.getColorById(R.color.white)
+    private var checkedBackgroundColor = context.getColorById(R.color.colorPrimary)
 
     // private var checkedCircleColor = resources.getColor(R.color.white, null)
     private var strokeWidth: Float = 0f

@@ -1,37 +1,17 @@
 package life.chenshi.keepaccounts.ui.index
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.map
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.loper7.date_time_picker.DateTimeConfig
-import com.loper7.date_time_picker.dialog.CardDatePickerDialog
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.*
-import life.chenshi.keepaccounts.common.view.CustomDialog
-import life.chenshi.keepaccounts.constant.SWITCHER_CONFIRM_BEFORE_DELETE
-import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
-import java.util.*
 
 class IndexFragment : Fragment() {
-    private lateinit var mBinding: FragmentIndexBinding
+    // private lateinit var mBinding: FragmentIndexBinding
     private val mIndexViewModel by activityViewModels<IndexViewModel>()
 
     private var mAdapter: IndexRecordAdapter? = null
@@ -48,7 +28,7 @@ class IndexFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = DataBindingUtil.inflate(
+        val mBinding = DataBindingUtil.inflate<FragmentIndexBinding>(
             inflater, R.layout.fragment_index, container, false
         )
         return mBinding.root
@@ -58,11 +38,11 @@ class IndexFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         initView()
         initListener()
-        initObserver()
+        // initObserver()
     }
 
     private fun initView() {
-        mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
+        /*mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
         mAdapter = IndexRecordAdapter(emptyList())
         mAdapter!!.setOnClickListener { editRecord(it) }
         mAdapter!!.setOnItemLongClickListener { record ->
@@ -78,12 +58,12 @@ class IndexFragment : Fragment() {
                     }
             }
         }
-        mBinding.rvBudget.adapter = mAdapter
+        mBinding.rvBudget.adapter = mAdapter*/
     }
 
 
     private fun initListener() {
-        // 时间
+       /* // 时间
         mBinding.timeContainer.setOnClickListener {
             showTimePickerDialog()
         }
@@ -190,11 +170,11 @@ class IndexFragment : Fragment() {
                     value = value
                 }
             }
-        }
+        }*/
 
     }
 
-    private fun editRecord(record: Record) {
+   /* private fun editRecord(record: Record) {
         val action =
             IndexFragmentDirections.actionIndexFragmentToNewRecordActivity(record)
         findNavController().navigate(action)
@@ -255,5 +235,5 @@ class IndexFragment : Fragment() {
     private fun showEmptyHintView() {
         mBinding.ivIndexEmpty.visible()
         mBinding.tvIndexEmptyHint.visible()
-    }
+    }*/
 }
