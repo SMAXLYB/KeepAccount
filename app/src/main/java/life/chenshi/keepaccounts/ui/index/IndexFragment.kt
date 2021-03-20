@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 
 class IndexFragment : Fragment() {
-    // private lateinit var mBinding: FragmentIndexBinding
+    private lateinit var mBinding: FragmentIndexBinding
     private val mIndexViewModel by activityViewModels<IndexViewModel>()
 
     private var mAdapter: IndexRecordAdapter? = null
@@ -28,7 +30,7 @@ class IndexFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val mBinding = DataBindingUtil.inflate<FragmentIndexBinding>(
+        mBinding = DataBindingUtil.inflate<FragmentIndexBinding>(
             inflater, R.layout.fragment_index, container, false
         )
         return mBinding.root
@@ -42,6 +44,18 @@ class IndexFragment : Fragment() {
     }
 
     private fun initView() {
+        StatusBarUtil.init(requireActivity())
+            .addPaddingTop(mBinding.bar)
+
+        val behavior = BottomSheetBehavior.from(mBinding.drawer)
+        behavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+        })
         /*mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
         mAdapter = IndexRecordAdapter(emptyList())
         mAdapter!!.setOnClickListener { editRecord(it) }

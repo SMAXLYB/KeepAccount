@@ -11,8 +11,6 @@ import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.global.MyApplication
 
 object ToastUtil {
-    // private var mToast: Toast? = null
-    private var currentText: String = ""
 
     fun showSuccess(text: String) {
         show(ToastType.Success, text)
@@ -31,10 +29,6 @@ object ToastUtil {
     }
 
     fun show(type: ToastType, text: String, isShort: Boolean = true) {
-        if (currentText == text) {
-            return
-        }
-
         val context = MyApplication.getInstance().applicationContext
         val toastView = LayoutInflater.from(context).inflate(R.layout.layout_toast, null)
         toastView.findViewById<ImageView>(R.id.iv_toast_icon)
@@ -54,7 +48,6 @@ object ToastUtil {
             }
         mToast.show()
     }
-
 
     sealed class ToastType(@DrawableRes val src: Int) {
         object Warning : ToastType(R.drawable.toast_icon_warning)

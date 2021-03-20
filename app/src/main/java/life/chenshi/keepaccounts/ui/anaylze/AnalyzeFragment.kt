@@ -188,7 +188,6 @@ class AnalyzeFragment : Fragment() {
                             DateTimeConfig.MONTH
                         )
                     )
-                    // .setDefaultTime(mAnalyzeViewModel.queryDateLiveData.value!!)
                     .setThemeColor(Color.parseColor("#03A9F4"))
                     .setLabelText(year = "年", month = "月")
                     .setOnChoose { millisecond ->

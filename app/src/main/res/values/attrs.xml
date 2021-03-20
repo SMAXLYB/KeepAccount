@@ -52,4 +52,9 @@
         <attr name="rightTitle" format="string" />
         <attr name="rightIcon" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="UnderLineTextView">
+        <attr name="underline_color" format="color" />
+        <attr name="underline_stroke" format="dimension" />
+    </declare-styleable>
 </resources>
