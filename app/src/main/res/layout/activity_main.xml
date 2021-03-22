@@ -24,7 +24,6 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        app:itemIconSize="20dp"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

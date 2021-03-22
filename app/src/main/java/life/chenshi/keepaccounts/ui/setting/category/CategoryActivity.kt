@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.*
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
-import life.chenshi.keepaccounts.common.utils.ToastUtil
-import life.chenshi.keepaccounts.common.utils.inVisible
-import life.chenshi.keepaccounts.common.utils.isNull
-import life.chenshi.keepaccounts.common.utils.visible
+import life.chenshi.keepaccounts.common.utils.*
 import life.chenshi.keepaccounts.common.view.CustomDialog
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.database.entity.MajorCategory
@@ -41,6 +38,10 @@ class CategoryActivity : BaseActivity() {
     private val mMinorCategoryFooterAdapter: MinorCategoryFooterAdapter by lazy { MinorCategoryFooterAdapter() }
 
     override fun initView() {
+        StatusBarUtil.init(this)
+            .setColor(R.color.white)
+            .setDarkMode(true)
+
         // 主类
         mBinding.rvCategory.layoutManager = LinearLayoutManager(this)
         mBinding.rvCategory.adapter = ConcatAdapter(mCategoryAdapter, mMajorCategoryFooterAdapter)
@@ -52,6 +53,11 @@ class CategoryActivity : BaseActivity() {
     }
 
     override fun initListener() {
+        mBinding.bar.apply {
+            setLeftClickListener {
+                onBackPressed()
+            }
+        }
         mCategoryAdapter.apply {
             // 主类单击
             setOnItemClickListener { binding, category ->
@@ -186,6 +192,12 @@ class CategoryActivity : BaseActivity() {
             } ?: ToastUtil.showShort("请先退出删除模式")
         }
 
+        mBinding.bar.setRightClickListener {
+            mCategoryViewModel.isDeleteMode.apply {
+                value = !value!!
+            }
+        }
+
         // mBinding.tvSubCategory.setOnClickListener {
         //     mCategoryViewModel.isDeleteMode.value = false
         // }
@@ -244,6 +256,11 @@ class CategoryActivity : BaseActivity() {
 
         // 当前是否为删除模式
         mCategoryViewModel.isDeleteMode.observe(this) {
+            if (it) {
+                mBinding.bar.setRightTitle("完成")
+            }else{
+                mBinding.bar.setRightTitle("编辑")
+            }
             mCategoryAdapter.setDeleteMode(it)
             mMajorCategoryFooterAdapter.setFooterViewVisibility(!it)
             mSubCategoryAdapter.setDeleteMode(it)

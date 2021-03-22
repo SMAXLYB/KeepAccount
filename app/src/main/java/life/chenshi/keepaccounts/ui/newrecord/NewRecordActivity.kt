@@ -38,6 +38,10 @@ class NewRecordActivity : BaseActivity() {
     }
 
     override fun initView() {
+        StatusBarUtil.init(this)
+            .setColor(R.color.global_background_gray)
+            .setDarkMode(true)
+
         // 默认账本
         mNewRecordViewModel.hasDefaultBook({
             lifecycleScope.launch {
@@ -176,6 +180,9 @@ class NewRecordActivity : BaseActivity() {
             }
             "save" -> {
                 save()
+            }
+            "cancel"->{
+                onBackPressed()
             }
             "dot" -> {
                 mBinding.tvMoney.append(".")

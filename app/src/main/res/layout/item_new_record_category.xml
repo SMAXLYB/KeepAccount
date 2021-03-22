@@ -17,8 +17,8 @@
 
         <life.chenshi.keepaccounts.common.view.TextImageView
             android:id="@+id/tiv_category"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:radius="5dp"
             android:src="@drawable/item_new_record_more_category"
             android:textColor="@color/white"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="查看全部"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:layout_marginTop="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

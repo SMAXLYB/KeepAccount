@@ -12,16 +12,28 @@
         android:layout_height="match_parent"
         android:background="@color/global_background_gray">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_category"
-                tools:listitem="@layout/item_category"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintWidth_percent="0.25"/>
+        <life.chenshi.keepaccounts.common.view.CustomActionBar
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:leftIcon="@drawable/action_bar_back"
+            app:centerTitle="收支类别管理"
+            app:centerIcon="@drawable/action_bar_help"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_category"
+            android:layout_width="0dp"
+            android:paddingTop="5dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bar"
+            app:layout_constraintWidth_percent="0.25"
+            tools:listitem="@layout/item_category" />
 
 
         <androidx.constraintlayout.widget.Barrier
@@ -60,7 +72,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/barrier"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bar"
             tools:listitem="@layout/item_sub_category" />
 
         <androidx.constraintlayout.widget.Group

@@ -7,176 +7,317 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:background="#A4F1F1F1">
+        <!--标题栏-->
+        <RelativeLayout
+            android:id="@+id/bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#A4F1F1F1">
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:id="@+id/bar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <life.chenshi.keepaccounts.common.view.UnderLineTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="纯迹"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:underline_stroke="5dp" />
-
-            </RelativeLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/card"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+            <life.chenshi.keepaccounts.common.view.UnderLineTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_margin="10dp"
-                android:background="@drawable/corner_all_12dp_white_bg"
-                app:layout_constraintDimensionRatio="h,4:2.4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bar"
-                app:layout_constraintWidth_percent="0.83">
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="纯迹"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:underline_stroke="5dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:src="@drawable/credit_card_hide"
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/search_search_gray"
+                android:visibility="invisible"
+                tools:visibility="visible" />
+
+        </RelativeLayout>
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bar">
+
+            <!--内容-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <!--银行卡-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/corner_all_12dp_white_bg"
+                    app:layout_constraintDimensionRatio="h,4:2.4"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Credit Card"
-                    android:textAllCaps="true"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.83">
 
-                <View
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/credit_card_hide"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Credit Card"
+                        android:textAllCaps="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@color/switch_button_unchecked_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.3" />
+
+                    <TextView
+                        android:id="@+id/card_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6217  9999  9999  9999  999"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.55" />
+
+                    <TextView
+                        android:id="@+id/card_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="￥200,000,000.00"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="12/12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <HorizontalScrollView
+                    android:id="@+id/hsv"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:background="@color/switch_button_unchecked_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.3" />
+                    app:layout_constraintTop_toBottomOf="@id/card">
 
-                <TextView
-                    android:id="@+id/card_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="6217  9999  9999  9999  999"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.55" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/card_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="￥200,000,000.00"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/jiyibi"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/corner_all_12dp_blue_bg"
+                            android:foreground="?attr/selectableItemBackground">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="12/12"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="记一笔"
+                                android:textColor="@color/white"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/yusuan"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/corner_all_12dp_blue_bg"
+                            android:foreground="?attr/selectableItemBackground" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/chazhao"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/corner_all_12dp_blue_bg"
+
+                            android:foreground="?attr/selectableItemBackground">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="搜索"
+                                android:textColor="@color/white"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <HorizontalScrollView
+            <!--bottom sheet-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/drawer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card">
+                android:layout_height="match_parent"
+                android:background="@drawable/corner_top_25dp_white_bg"
+                app:behavior_hideable="false"
+                app:layout_behavior="@string/bottom_sheet_behavior">
 
-                <LinearLayout
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/corner_all_12dp_deep_gray_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_recent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+                    android:layout_margin="20dp"
+                    android:text="最近记录"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/jiyibi"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/corner_all_12dp_blue_bg" />
+                <TextView
+                    android:id="@+id/tv_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/corner_all_12dp_blue_bg"
+                    android:paddingStart="12dp"
+                    android:paddingTop="1dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="1dp"
+                    android:text="全部"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/yusuan"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/corner_all_12dp_blue_bg" />
+                <TextView
+                    android:id="@+id/tv_income"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="1dp"
+                    android:paddingEnd="12dp"
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/chazhao"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="20dp"
+                    android:paddingBottom="1dp"
+                    android:text="收入"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_all"
+                    app:layout_constraintStart_toEndOf="@id/tv_all"
+                    app:layout_constraintTop_toTopOf="@id/tv_all" />
 
-                        android:background="@drawable/corner_all_12dp_blue_bg" />
-                </LinearLayout>
-            </HorizontalScrollView>
+                <TextView
+                    android:id="@+id/tv_outcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="1dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="1dp"
+
+                    android:text="支出"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_all"
+                    app:layout_constraintStart_toEndOf="@id/tv_income"
+                    app:layout_constraintTop_toTopOf="@id/tv_all" />
+
+                <TextView
+                    android:id="@+id/tv_sort_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/corner_all_12dp_blue_bg"
+                    android:paddingStart="12dp"
+                    android:paddingTop="1dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="1dp"
+                    android:text="排序"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_all"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_all" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:id="@+id/drawer"
-            android:background="@drawable/corner_top_12dp_white_bg"
-            app:behavior_hideable="false"
-            app:behavior_peekHeight="220dp"
-            app:layout_behavior="@string/bottom_sheet_behavior"
-            android:layout_height="match_parent" >
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <!--<FrameLayout-->
     <!--    android:layout_width="match_parent"-->
     <!--    android:layout_height="match_parent"-->

@@ -36,9 +36,9 @@ class MinorCategory(
         other as MinorCategory
 
         if (id != other.id) return false
-        if (name != other.name) return false
-        if (state != other.state) return false
-        if (majorCategoryId != other.majorCategoryId) return false
+        // if (name != other.name) return false
+        // if (state != other.state) return false
+        // if (majorCategoryId != other.majorCategoryId) return false
 
         return true
     }

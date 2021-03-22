@@ -10,8 +10,14 @@ abstract class AbstractCategory(
     val id: Int? = null,
     var name: String,
     var state: Int = STATE_NORMAL,
+    /**
+     * 分类收支类型:收入/支出
+     */
     @ColumnInfo(name = "record_type")
     var recordType: Int,
+    /**
+     * 分类类型:主类/子类
+     */
     @Ignore
     val categoryType: String
 ) {

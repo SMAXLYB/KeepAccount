@@ -288,13 +288,13 @@
                 android:text="3" />
 
             <TextView
-                app:layout_constraintBottom_toTopOf="@id/tv_save"
+                app:layout_constraintBottom_toTopOf="@id/tv_cancel"
                 android:id="@+id/tv_append"
                 style="@style/CustomKeyBoard"
                 android:tag="append"
                 android:text="追记"
                 app:layout_constraintWidth_percent="0.25"
-                app:layout_constraintDimensionRatio="h,2:2.4"
+                app:layout_constraintDimensionRatio="h,2:1.2"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
@@ -371,9 +371,19 @@
                 android:tag="save"
                 android:text="保存"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_append"
                 app:layout_constraintDimensionRatio="h,2:2.4"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                style="@style/CustomKeyBoard"
+                android:tag="cancel"
+                android:text="取消"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="h,2:1.2"
+                app:layout_constraintEnd_toEndOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

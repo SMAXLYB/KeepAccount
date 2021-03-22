@@ -20,8 +20,8 @@ class MajorCategory(
         other as MajorCategory
 
         if (id != other.id) return false
-        if (name != other.name) return false
-        if (state != other.state) return false
+        // if (name != other.name) return false
+        // if (state != other.state) return false
 
         return true
     }

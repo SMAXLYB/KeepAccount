@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:centerTitle="账本管理"
+            app:centerIcon="@drawable/action_bar_help"
             app:leftIcon="@drawable/action_bar_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

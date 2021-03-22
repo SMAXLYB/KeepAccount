@@ -65,7 +65,7 @@ class NewRecordViewModel : ViewModel() {
      */
     fun getCommonCategory(): Flow<List<AbstractCategory>> {
         val defaultCommonCategoryStr = """
-            [{"id":1,"name":"你好啊","state":0,"type":"major_category"},{"id":1,"name":"你好啊啊啊","state":0,"type":"major_category"},{"majorCategoryId":1,"id":1,"name":"第二","state":1,"type":"minor_category"},{"id":1,"name":"你好","state":0,"type":"major_category"},{"id":1,"name":"你好","state":0,"type":"major_category"},{"id":1,"name":"你好","state":0,"type":"major_category"}]
+            [{"id":1,"name":"你好啊","state":0,"categoryType":"major_category"},{"id":1,"name":"你好啊啊","state":0,"categoryType":"major_category"},{"majorCategoryId":1,"id":1,"name":"第二","state":1,"categoryType":"minor_category"},{"id":1,"name":"你好","state":0,"categoryType":"major_category"},{"id":1,"name":"你好","state":0,"categoryType":"major_category"},{"id":1,"name":"你好","state":0,"categoryType":"major_category"}]
         """.trimIndent()
 
         return DataStoreUtil.readFromDataStore(COMMON_CATEGORY, defaultCommonCategoryStr)

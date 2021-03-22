@@ -21,7 +21,7 @@ object StatusBarUtil {
      * 全屏透明
      */
     fun setTransparent(): StatusBarUtil {
-        activity.get()?.window?.apply {
+        activity.get()!!.window!!.apply {
             // 由window绘制bar
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -36,7 +36,7 @@ object StatusBarUtil {
      * 黑暗模式 M以上有效
      */
     fun setDarkMode(darkMode: Boolean): StatusBarUtil {
-        StatusBarUtil.activity.get()?.window?.apply {
+        activity.get()!!.window!!.apply {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 var systemUiVisibility: Int = decorView.systemUiVisibility
@@ -57,8 +57,7 @@ object StatusBarUtil {
      * @param fullScreen 是否全屏
      */
     fun setColor(@ColorRes colorId: Int, fullScreen: Boolean = false): StatusBarUtil {
-        StatusBarUtil.activity.get()?.window?.apply {
-
+        activity.get()!!.window!!.apply {
             // 由window绘制bar
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -66,7 +65,7 @@ object StatusBarUtil {
                 decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
             }
-            statusBarColor = activity.get()?.getColorById(colorId) ?: Color.TRANSPARENT
+            statusBarColor = activity.get()!!.getColorById(colorId) ?: Color.TRANSPARENT
         }
         return this
     }
@@ -89,7 +88,7 @@ object StatusBarUtil {
      * 获取状态栏高度
      */
     private fun getStatusBarHeight(): Int {
-        activity.get()?.let {
+        activity.get()!!.let {
             val resId = it.resources.getIdentifier("status_bar_height", "dimen", "android")
             return it.resources.getDimensionPixelSize(resId)
         }
