@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseBottomSheetAdapter<T, V : ViewDataBinding>(private val date: List<T>) :
-    RecyclerView.Adapter<BaseBottomSheetAdapter<T, V>.Holder>() {
+abstract class BaseAdapter<T, V : ViewDataBinding>(private var data: List<T>) :
+    RecyclerView.Adapter<BaseAdapter<T, V>.Holder>() {
 
     private var listener: ((V, T, Int) -> Unit)? = null
 
@@ -23,15 +23,20 @@ abstract class BaseBottomSheetAdapter<T, V : ViewDataBinding>(private val date: 
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        onBindViewHolder(holder.binding, date[position])
+        onBindViewHolder(holder.binding, data[position])
     }
 
     abstract fun onBindViewHolder(binding: V, itemData: T)
 
-    override fun getItemCount(): Int = date.size
+    override fun getItemCount(): Int = data.size
 
     fun setOnItemClickListener(listener: (V, T, Int) -> Unit) {
         this.listener = listener
+    }
+
+    fun setData(data:List<T>){
+        this.data = data
+        notifyDataSetChanged()
     }
 
     @LayoutRes
@@ -41,7 +46,7 @@ abstract class BaseBottomSheetAdapter<T, V : ViewDataBinding>(private val date: 
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                listener?.invoke(binding, date[bindingAdapterPosition], bindingAdapterPosition)
+                listener?.invoke(binding, data[bindingAdapterPosition], bindingAdapterPosition)
             }
         }
     }

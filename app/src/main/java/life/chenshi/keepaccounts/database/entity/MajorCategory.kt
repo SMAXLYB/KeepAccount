@@ -4,8 +4,9 @@ import androidx.room.Entity
 import androidx.room.Index
 import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MAJOR
 import life.chenshi.keepaccounts.constant.STATE_NORMAL
+import life.chenshi.keepaccounts.constant.TB_MAJOR_CATEGORIES
 
-@Entity(tableName = "tb_major_categories", indices = [Index("name", unique = true)])
+@Entity(tableName = TB_MAJOR_CATEGORIES, indices = [Index("name","record_type", unique = true)])
 class MajorCategory(
     id: Int? = null,
     name: String,

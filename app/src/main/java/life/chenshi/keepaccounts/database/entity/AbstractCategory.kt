@@ -9,6 +9,7 @@ abstract class AbstractCategory(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     var name: String,
+    @ColumnInfo(defaultValue = "0")
     var state: Int = STATE_NORMAL,
     /**
      * 分类收支类型:收入/支出

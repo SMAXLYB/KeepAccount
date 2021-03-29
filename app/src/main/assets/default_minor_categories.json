@@ -1,0 +1,538 @@
+[
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 1,
+    "name": "早餐",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 2,
+    "name": "晚餐",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 3,
+    "name": "午餐",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 4,
+    "name": "夜宵",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 5,
+    "name": "零食",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 6,
+    "name": "公交",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 7,
+    "name": "地铁",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 8,
+    "name": "打车",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 9,
+    "name": "共享单车",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 10,
+    "name": "轻轨",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 11,
+    "name": "火车",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 12,
+    "name": "高铁",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 13,
+    "name": "轮船",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 14,
+    "name": "飞机",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 3,
+    "categoryType": "minor_category",
+    "id": 15,
+    "name": "客车",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 16,
+    "name": "外卖",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 17,
+    "name": "饮料",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 18,
+    "name": "水果",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 4,
+    "categoryType": "minor_category",
+    "id": 19,
+    "name": "培训",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 4,
+    "categoryType": "minor_category",
+    "id": 20,
+    "name": "书籍",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 5,
+    "categoryType": "minor_category",
+    "id": 21,
+    "name": "药品",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 5,
+    "categoryType": "minor_category",
+    "id": 22,
+    "name": "保健",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 5,
+    "categoryType": "minor_category",
+    "id": 23,
+    "name": "治疗",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 2,
+    "categoryType": "minor_category",
+    "id": 24,
+    "name": "服饰",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 2,
+    "categoryType": "minor_category",
+    "id": 25,
+    "name": "日用品",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 2,
+    "categoryType": "minor_category",
+    "id": 26,
+    "name": "鞋靴",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 6,
+    "categoryType": "minor_category",
+    "id": 27,
+    "name": "旅游",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 7,
+    "categoryType": "minor_category",
+    "id": 28,
+    "name": "房租",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 7,
+    "categoryType": "minor_category",
+    "id": 29,
+    "name": "水电",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 7,
+    "categoryType": "minor_category",
+    "id": 30,
+    "name": "燃气",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 31,
+    "name": "烟酒",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 2,
+    "categoryType": "minor_category",
+    "id": 32,
+    "name": "数码",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 2,
+    "categoryType": "minor_category",
+    "id": 33,
+    "name": "零食",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 7,
+    "categoryType": "minor_category",
+    "id": 34,
+    "name": "话费",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 2,
+    "categoryType": "minor_category",
+    "id": 35,
+    "name": "护肤",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 6,
+    "categoryType": "minor_category",
+    "id": 36,
+    "name": "游戏",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 6,
+    "categoryType": "minor_category",
+    "id": 37,
+    "name": "电影",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 6,
+    "categoryType": "minor_category",
+    "id": 38,
+    "name": "KTV",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 6,
+    "categoryType": "minor_category",
+    "id": 39,
+    "name": "酒吧",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 2,
+    "categoryType": "minor_category",
+    "id": 40,
+    "name": "母婴",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 2,
+    "categoryType": "minor_category",
+    "id": 41,
+    "name": "电器",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 42,
+    "name": "调料",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 7,
+    "categoryType": "minor_category",
+    "id": 43,
+    "name": "宽带",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 9,
+    "categoryType": "minor_category",
+    "id": 44,
+    "name": "基金",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 10,
+    "categoryType": "minor_category",
+    "id": 45,
+    "name": "红包",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 10,
+    "categoryType": "minor_category",
+    "id": 46,
+    "name": "礼物",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 10,
+    "categoryType": "minor_category",
+    "id": 47,
+    "name": "借出",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 7,
+    "categoryType": "minor_category",
+    "id": 48,
+    "name": "物业",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 6,
+    "categoryType": "minor_category",
+    "id": 49,
+    "name": "宠物",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 10,
+    "categoryType": "minor_category",
+    "id": 50,
+    "name": "长辈",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 10,
+    "categoryType": "minor_category",
+    "id": 51,
+    "name": "捐款",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 5,
+    "categoryType": "minor_category",
+    "id": 52,
+    "name": "美容",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 9,
+    "categoryType": "minor_category",
+    "id": 53,
+    "name": "税费",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 9,
+    "categoryType": "minor_category",
+    "id": 54,
+    "name": "利息",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 9,
+    "categoryType": "minor_category",
+    "id": 55,
+    "name": "罚款",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 11,
+    "categoryType": "minor_category",
+    "id": 56,
+    "name": "工资",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 11,
+    "categoryType": "minor_category",
+    "id": 57,
+    "name": "奖金",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 14,
+    "categoryType": "minor_category",
+    "id": 58,
+    "name": "基金",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 14,
+    "categoryType": "minor_category",
+    "id": 59,
+    "name": "股票",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 14,
+    "categoryType": "minor_category",
+    "id": 60,
+    "name": "分红",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 13,
+    "categoryType": "minor_category",
+    "id": 61,
+    "name": "刷单",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 13,
+    "categoryType": "minor_category",
+    "id": 62,
+    "name": "传单",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 9,
+    "categoryType": "minor_category",
+    "id": 63,
+    "name": "股票",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 16,
+    "categoryType": "minor_category",
+    "id": 64,
+    "name": "刷单",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 9,
+    "categoryType": "minor_category",
+    "id": 65,
+    "name": "彩票",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 16,
+    "categoryType": "minor_category",
+    "id": 66,
+    "name": "快递费",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "majorCategoryId": 1,
+    "categoryType": "minor_category",
+    "id": 67,
+    "name": "蔬菜",
+    "recordType": 0,
+    "state": 0
+  }
+]

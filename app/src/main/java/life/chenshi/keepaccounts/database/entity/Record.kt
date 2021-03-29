@@ -3,6 +3,7 @@ package life.chenshi.keepaccounts.database.entity
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.*
+import life.chenshi.keepaccounts.constant.TB_RECORDS
 import java.math.BigDecimal
 import java.util.*
 
@@ -12,7 +13,7 @@ import java.util.*
  * 当主类型被伪删除,当下记录不会删除,当主类被真的删除,当下所有记录会被删除
  */
 @Entity(
-    tableName = "tb_records",
+    tableName = TB_RECORDS,
     indices = [
         Index(value = ["id"]),
         Index(value = ["time"]),

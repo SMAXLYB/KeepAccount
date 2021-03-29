@@ -6,9 +6,10 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MINOR
 import life.chenshi.keepaccounts.constant.STATE_NORMAL
+import life.chenshi.keepaccounts.constant.TB_MINOR_CATEGORIES
 
 @Entity(
-    tableName = "tb_minor_categories",
+    tableName = TB_MINOR_CATEGORIES,
     indices = [
         Index(value = ["name", "major_category_id"], unique = true),
         Index(value = ["major_category_id"])],
@@ -25,7 +26,9 @@ class MinorCategory(
     state: Int = STATE_NORMAL,
     recordType: Int,
     @ColumnInfo(name = "major_category_id")
-    val majorCategoryId: Int
+    val majorCategoryId: Int,
+    @ColumnInfo(name = "use_rate", defaultValue = "0")
+    val useRate: Int = 0
 ) : AbstractCategory(id, name, state, recordType, CATEGORY_TYPE_MINOR) {
 
 

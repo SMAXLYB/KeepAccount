@@ -19,6 +19,7 @@ class NewRecordViewModel : ViewModel() {
 
     private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }
     private val mRecordDao by lazy { AppDatabase.getDatabase().getRecordDao() }
+    private val mMinorCategoryDao by lazy { AppDatabase.getDatabase().getMinorCategoryDao() }
 
     // 当前所有选中的配置
     val currentBook = MutableLiveData<Book>()
@@ -26,6 +27,7 @@ class NewRecordViewModel : ViewModel() {
     val currentDateTime = MutableLiveData<Long>(System.currentTimeMillis())
     val currentAbstractCategory = MutableLiveData<AbstractCategory>()
 
+    val commonMinorCategory = mMinorCategoryDao.getTop6MinorCategoryBy(STATE_NORMAL).asLiveData()
     val books = mBookDao.getAllBooks()
 
     fun insertRecord(record: Record) {

@@ -6,15 +6,22 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import life.chenshi.keepaccounts.constant.TB_BOOKS
+import life.chenshi.keepaccounts.constant.TB_MAJOR_CATEGORIES
+import life.chenshi.keepaccounts.constant.TB_MINOR_CATEGORIES
 import life.chenshi.keepaccounts.database.dao.BookDao
 import life.chenshi.keepaccounts.database.dao.MajorCategoryDao
-import life.chenshi.keepaccounts.database.dao.RecordDao
 import life.chenshi.keepaccounts.database.dao.MinorCategoryDao
+import life.chenshi.keepaccounts.database.dao.RecordDao
 import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.database.entity.MajorCategory
-import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.database.entity.MinorCategory
+import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.global.MyApplication
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 @Database(entities = [Record::class, Book::class, MajorCategory::class, MinorCategory::class], version = 1)
 @TypeConverters(Converters::class)
@@ -36,12 +43,63 @@ abstract class AppDatabase : RoomDatabase() {
                             DATABASE_NAME
                         )
                             // .addMigrations(MIGRATION_1_TO_2)
+                            .addCallback(object : Callback() {
+                                override fun onCreate(db: SupportSQLiteDatabase) {
+                                    // 第一次打开应用时预填充数据
+                                    // 开启事务
+                                    db.beginTransaction()
+                                    try {
+                                        // 默认账本
+                                        val bookSql = "insert into $TB_BOOKS (id,name,description) values(?,?,?)"
+                                        db.execSQL(bookSql, arrayOf("1","日常账本","记录日常开支"))
+                                        // 默认分类
+                                        val majorSql = "insert into $TB_MAJOR_CATEGORIES (id,name,record_type) values(?,?,?)"
+                                        val minorSql = "insert into $TB_MINOR_CATEGORIES (id,name,record_type,major_category_id) values(?,?,?,?)"
+                                        getDefaultMajorCategories().forEach {
+                                            db.execSQL(majorSql, arrayOf(it.id.toString(), it.name, it.recordType.toString()))
+                                        }
+                                        getDefaultMinorCategories().forEach {
+                                            db.execSQL(
+                                                minorSql,
+                                                arrayOf(it.id.toString(), it.name, it.recordType.toString(), it.majorCategoryId.toString())
+                                            )
+                                        }
+                                        // 提交事务
+                                        db.setTransactionSuccessful()
+                                    } finally {
+                                        // 关闭事务
+                                        db.endTransaction()
+                                    }
+                                }
+                            })
                             .build()
                     }
                 }
             }
 
             return INSTANCE as AppDatabase
+        }
+
+        fun getDefaultMajorCategories(): List<MajorCategory> {
+            val inputStream = MyApplication.getInstance().assets.open("default_major_categories.json")
+            BufferedReader(InputStreamReader(inputStream, "utf-8")).use { reader ->
+                val buffer = StringBuffer()
+                reader.forEachLine {
+                    buffer.append(it)
+                }
+                return Gson().fromJson(buffer.toString(), object : TypeToken<List<MajorCategory>>() {}.type)
+            }
+        }
+
+        fun getDefaultMinorCategories(): List<MinorCategory> {
+            val inputStream = MyApplication.getInstance().assets.open("default_minor_categories.json")
+            BufferedReader(InputStreamReader(inputStream, "utf-8")).use { reader ->
+                val buffer = StringBuffer()
+                reader.forEachLine {
+                    buffer.append(it)
+                }
+                return Gson().fromJson(buffer.toString(), object : TypeToken<List<MinorCategory>>() {}.type)
+            }
         }
 
         // 数据库升级, 新增账本id字段
@@ -99,7 +157,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getBookDao(): BookDao
 
-    abstract fun getCategoryDao(): MajorCategoryDao
+    abstract fun getMajorCategoryDao(): MajorCategoryDao
 
-    abstract fun getSubCategoryDao(): MinorCategoryDao
+    abstract fun getMinorCategoryDao(): MinorCategoryDao
 }

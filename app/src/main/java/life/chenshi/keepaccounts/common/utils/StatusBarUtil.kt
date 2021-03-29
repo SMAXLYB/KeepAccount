@@ -87,7 +87,7 @@ object StatusBarUtil {
     /**
      * 获取状态栏高度
      */
-    private fun getStatusBarHeight(): Int {
+    fun getStatusBarHeight(): Int {
         activity.get()!!.let {
             val resId = it.resources.getIdentifier("status_bar_height", "dimen", "android")
             return it.resources.getDimensionPixelSize(resId)

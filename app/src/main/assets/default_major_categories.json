@@ -1,0 +1,100 @@
+[
+  {
+    "categoryType": "major_category",
+    "id": 1,
+    "name": "餐饮美食",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 2,
+    "name": "网上购物",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 3,
+    "name": "交通出行",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 4,
+    "name": "文化教育",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 5,
+    "name": "医疗健康",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 6,
+    "name": "休闲娱乐",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 7,
+    "name": "生活缴费",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 9,
+    "name": "金融保险",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 10,
+    "name": "人情往来",
+    "recordType": 0,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 11,
+    "name": "职业收入",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 13,
+    "name": "兼职收入",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 14,
+    "name": "理财收入",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 15,
+    "name": "其他",
+    "recordType": 1,
+    "state": 0
+  },
+  {
+    "categoryType": "major_category",
+    "id": 16,
+    "name": "其他",
+    "recordType": 0,
+    "state": 0
+  }
+]

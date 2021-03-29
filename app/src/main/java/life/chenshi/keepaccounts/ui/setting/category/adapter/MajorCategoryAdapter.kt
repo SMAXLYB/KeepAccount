@@ -17,7 +17,7 @@ typealias ItemDeleteListener<T> = (T) -> Unit
 typealias ItemClickListener<VB, T> = (VB, T) -> Unit
 typealias ItemLongClickListener<T> = (ViewDataBinding, T) -> Boolean
 
-class CategoryAdapter : ListAdapter<MajorCategory, CategoryAdapter.CategoryViewHolder>(DIFF_CALLBACK) {
+class MajorCategoryAdapter : ListAdapter<MajorCategory, MajorCategoryAdapter.CategoryViewHolder>(DIFF_CALLBACK) {
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MajorCategory>() {
             override fun areItemsTheSame(oldItem: MajorCategory, newItem: MajorCategory): Boolean {
@@ -67,7 +67,7 @@ class CategoryAdapter : ListAdapter<MajorCategory, CategoryAdapter.CategoryViewH
         }
     }
 
-    fun setOnItemClickListener(listener: ItemClickListener<ItemCategoryBinding,MajorCategory>) {
+    fun setOnItemClickListener(listener: ItemClickListener<ItemCategoryBinding, MajorCategory>) {
         this.onItemClick = listener
     }
 
@@ -94,12 +94,12 @@ class CategoryAdapter : ListAdapter<MajorCategory, CategoryAdapter.CategoryViewH
 
                 // 样式修改
                 clItemCategory.isSelected =
-                    category.id == mCurrentMajorCategory?.id && !mIsDeleteMode
-                itemCategoryIndicator.setVisibility(category.id == mCurrentMajorCategory?.id && !mIsDeleteMode)
+                    category.id == mCurrentMajorCategory?.id
+                itemCategoryIndicator.setVisibility(category.id == mCurrentMajorCategory?.id)
                 tvItemCategory.isSelected =
-                    category.id == mCurrentMajorCategory?.id && !mIsDeleteMode
+                    category.id == mCurrentMajorCategory?.id
                 tvItemCategory.textSize =
-                    if (category.id == mCurrentMajorCategory?.id && !mIsDeleteMode) {
+                    if (category.id == mCurrentMajorCategory?.id) {
                         16f
                     } else {
                         14f

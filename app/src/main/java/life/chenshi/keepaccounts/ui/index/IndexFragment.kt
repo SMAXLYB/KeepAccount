@@ -51,7 +51,7 @@ class IndexFragment : Fragment() {
         StatusBarUtil.init(requireActivity())
             .addPaddingTop(mBinding.bar)
         mBinding.hsv.post {
-            val height = mBinding.rootView.bottom - mBinding.hsv.bottom - 75.dp2px()
+            val height = mBinding.rootView.bottom - mBinding.hsv.bottom - StatusBarUtil.getStatusBarHeight() - 50.dp2px()/*Tab栏高度*/
             behavior.peekHeight = height
         }
         /*mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)

@@ -17,13 +17,13 @@
 
         <life.chenshi.keepaccounts.common.view.TextImageView
             android:id="@+id/tiv_category"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:radius="5dp"
             android:src="@drawable/item_new_record_more_category"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:backgroundColor="@color/colorPrimary"
+            app:backgroundColor="#8A03A9F4"
             app:layout_constraintBottom_toTopOf="@id/tv_category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

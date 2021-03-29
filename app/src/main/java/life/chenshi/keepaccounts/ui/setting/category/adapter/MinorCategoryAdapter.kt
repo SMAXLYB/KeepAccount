@@ -12,8 +12,8 @@ import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.databinding.ItemSubCategoryAddBinding
 import life.chenshi.keepaccounts.databinding.ItemSubCategoryBinding
 
-class SubCategoryAdapter :
-    ListAdapter<MinorCategory, SubCategoryAdapter.SubCategoryViewHolder>(DIFF_CALLBACK) {
+class MinorCategoryAdapter :
+    ListAdapter<MinorCategory, MinorCategoryAdapter.SubCategoryViewHolder>(DIFF_CALLBACK) {
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MinorCategory>() {
             override fun areItemsTheSame(oldItem: MinorCategory, newItem: MinorCategory): Boolean {

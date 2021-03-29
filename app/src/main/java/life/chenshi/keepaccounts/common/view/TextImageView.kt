@@ -102,6 +102,10 @@ class TextImageView @JvmOverloads constructor(
     }
 
     private fun Bitmap.drawPic(canvas: Canvas) {
+        val matrix = Matrix()
+        val scale = this@TextImageView.width.toFloat() / this.width
+        matrix.setScale(scale,scale)
+        bitmapShader?.setLocalMatrix(matrix)
         mBitmapPaint.shader = bitmapShader
         canvas.drawRoundRect(0f, 0f, mWidth, mHeight, mRadius, mRadius, mBitmapPaint)
     }

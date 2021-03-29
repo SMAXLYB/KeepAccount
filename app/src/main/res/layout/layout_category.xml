@@ -16,70 +16,35 @@
             android:id="@+id/bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:leftIcon="@drawable/action_bar_back"
-            app:centerTitle="收支类别管理"
             app:centerIcon="@drawable/action_bar_help"
+            app:centerTitle="收支类别管理"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftIcon="@drawable/action_bar_back" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_category"
-            android:layout_width="0dp"
-            android:paddingTop="5dp"
-            android:layout_height="0dp"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab"
             android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:tabIndicatorHeight="3dp"
+            app:tabBackground="@color/white"
+            app:tabUnboundedRipple="true"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorAnimationMode="elastic"
+            android:layout_width="match_parent"
+            app:tabIndicatorColor="@color/colorPrimary"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bar"
-            app:layout_constraintWidth_percent="0.25"
-            tools:listitem="@layout/item_category" />
+            app:layout_constraintTop_toBottomOf="@id/bar" />
 
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="right"
-            app:constraint_referenced_ids="rv_category" />
-
-
-        <ImageView
-            android:id="@+id/iv_sub_category_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/category_empty"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/tab"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@id/barrier"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_sub_category_empty_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="当前主类下还没有子类~"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/barrier"
-            app:layout_constraintTop_toBottomOf="@id/iv_sub_category_empty" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_sub_category"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/barrier"
-            app:layout_constraintTop_toBottomOf="@id/bar"
-            tools:listitem="@layout/item_sub_category" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:constraint_referenced_ids="iv_sub_category_empty,tv_sub_category_empty_hint" />
+            android:layout_height="0dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

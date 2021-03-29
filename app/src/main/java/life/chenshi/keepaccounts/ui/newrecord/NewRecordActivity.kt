@@ -17,10 +17,11 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
-import life.chenshi.keepaccounts.common.base.BaseBottomSheetAdapter
+import life.chenshi.keepaccounts.common.base.BaseAdapter
 import life.chenshi.keepaccounts.common.utils.*
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewBinding
@@ -32,6 +33,7 @@ class NewRecordActivity : BaseActivity() {
     private val mRecordArgs by navArgs<NewRecordActivityArgs>()
     private val mBinding by bindingContentView<ActivityNewRecordBinding>(R.layout.activity_new_record)
     private val mNewRecordViewModel by viewModels<NewRecordViewModel>()
+    private val mCommonCategoryAdapter by lazy { CommonCategoryAdapter(emptyList()) }
 
     companion object {
         private const val TAG = "NewRecordActivity"
@@ -55,15 +57,17 @@ class NewRecordActivity : BaseActivity() {
         // 分类
         mBinding.rvCategory.apply {
             layoutManager = LinearLayoutManager(this@NewRecordActivity, RecyclerView.HORIZONTAL, false)
-            lifecycleScope.launch {
-                mNewRecordViewModel.getCommonCategory().collect {
-                    adapter = CommonCategoryAdapter(it)
-                }
-            }
+            adapter = mCommonCategoryAdapter
         }
     }
 
     override fun initListener() {
+        mCommonCategoryAdapter.setOnItemClickListener { binding, category, i ->
+            if (category.id == -1) {
+
+            }
+        }
+
         // 收支类型
         mBinding.tvRecordType.setOnClickListener {
             showBottomSheetDialog(
@@ -181,7 +185,7 @@ class NewRecordActivity : BaseActivity() {
             "save" -> {
                 save()
             }
-            "cancel"->{
+            "cancel" -> {
                 onBackPressed()
             }
             "dot" -> {
@@ -371,6 +375,10 @@ class NewRecordActivity : BaseActivity() {
             currentDateTime.observe(this@NewRecordActivity) {
                 mBinding.tvDatetime.text = DateUtil.date2String(Date(it), DateUtil.YEAR_MONTH_DAY_HOUR_MIN_FORMAT)
             }
+
+            commonMinorCategory.observe(this@NewRecordActivity) {
+                mCommonCategoryAdapter.setData(it + MinorCategory(-1, "全部类型", recordType = 0, majorCategoryId = -1))
+            }
         }
     }
 
@@ -386,7 +394,7 @@ class NewRecordActivity : BaseActivity() {
             val binding = BottomSheetRecyclerviewBinding.inflate(layoutInflater).apply {
                 rvContent.layoutManager = LinearLayoutManager(this@NewRecordActivity, RecyclerView.VERTICAL, false)
                 rvContent.adapter =
-                    object : BaseBottomSheetAdapter<T, BottomSheetRecyclerviewItemBinding>(
+                    object : BaseAdapter<T, BottomSheetRecyclerviewItemBinding>(
                         data
                     ) {
                         override fun getResLayoutId() = R.layout.bottom_sheet_recyclerview_item

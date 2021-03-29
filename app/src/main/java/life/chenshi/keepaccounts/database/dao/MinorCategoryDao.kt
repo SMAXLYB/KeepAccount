@@ -2,6 +2,7 @@ package life.chenshi.keepaccounts.database.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import life.chenshi.keepaccounts.constant.TB_MINOR_CATEGORIES
 import life.chenshi.keepaccounts.database.entity.MinorCategory
 
 @Dao
@@ -44,6 +45,13 @@ interface MinorCategoryDao {
      */
     @Query("SELECT * FROM tb_minor_categories WHERE state = :state")
     fun getAllMinorCategoryBy(state: Int): Flow<List<MinorCategory>>
+
+    /**
+     * 获取使用频率前6的子类
+     * @param state Int
+     */
+    @Query("SELECT * FROM $TB_MINOR_CATEGORIES WHERE state = :state ORDER BY use_rate DESC LIMIT 6")
+    fun getTop6MinorCategoryBy(state: Int): Flow<MutableList<MinorCategory>>
 
     /**
      * 根据主类和状态获取所有子类

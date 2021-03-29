@@ -3,8 +3,9 @@ package life.chenshi.keepaccounts.database.entity
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import life.chenshi.keepaccounts.constant.TB_BOOKS
 
-@Entity(tableName = "tb_books",
+@Entity(tableName = TB_BOOKS,
     indices = [
         Index("id"),
         Index("name", unique = true)])
