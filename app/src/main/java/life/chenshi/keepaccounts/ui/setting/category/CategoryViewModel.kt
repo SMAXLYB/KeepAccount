@@ -1,5 +1,6 @@
 package life.chenshi.keepaccounts.ui.setting.category
 
+import android.annotation.SuppressLint
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
 import androidx.fragment.app.FragmentActivity
@@ -37,12 +38,20 @@ class CategoryViewModel : ViewModel() {
     lateinit var majorCategories: LiveData<List<MajorCategory>>
 
     // 当前选中子类
-    val currentSubCategory = MutableLiveData<MinorCategory>()
+    val currentMinorCategory = MutableLiveData<MinorCategory>()
+
+    // 所有子类
     var minorCategories = MediatorLiveData<List<MinorCategory>>()
+
+    // 上一次选中子类
+    var lastMinorCategory = MutableLiveData<MinorCategory>()
     private var tempMinorCategories: LiveData<List<MinorCategory>>? = null
 
     // 当前删除模式
     val isDeleteMode = MutableLiveData<Boolean>(false)
+
+    // 是否从其他界面跳转而来
+    val business = MutableLiveData<String>()
 
     init {
         getAllMajorCategory()
@@ -62,6 +71,7 @@ class CategoryViewModel : ViewModel() {
     /**
      * 删除主类, 连带删除当下所有子类
      */
+    @SuppressLint("NullSafeMutableLiveData")
     fun deleteMajorCategory(majorCategory: MajorCategory) = viewModelScope.launch {
         withContext(Dispatchers.IO) {
             awaitAll(
@@ -78,11 +88,12 @@ class CategoryViewModel : ViewModel() {
                     // 连带删除当下所有子类
                     minorCategoryDao.deleteAllMinorCategoryBy(majorCategory.id!!)
                     // 如果包含选中子类,还要置空
-                    // currentSubCategory.value?.takeIf {
-                    //     it.majorCategoryId == majorCategory.id
-                    // }?.run {
-                    //     currentSubCategory.postValue(null)
-                    // }
+                    currentMinorCategory.value?.takeIf {
+                        it.majorCategoryId == majorCategory.id
+                    }?.run {
+                        currentMajorCategory.postValue(null)
+                        currentMinorCategory.postValue(null)
+                    }
                 }
             )
         }
@@ -96,11 +107,9 @@ class CategoryViewModel : ViewModel() {
             minorCategoryDao.deleteMinorCategoryBy(minorCategory.id!!)
         }
         // 如果删除了选中, 将选中清空
-        // currentSubCategory.value?.let {
-        //     if (it.id == minorCategory.id) {
-        //         currentSubCategory.value = null
-        //     }
-        // }
+        currentMinorCategory.value?.takeIf { it.id == minorCategory.id }?.run {
+            currentMinorCategory.value = null
+        }
     }
 
     /**
@@ -142,8 +151,9 @@ class CategoryViewModel : ViewModel() {
 
     /**
      * 获取主类在adapter中的位置
+     * @param recordType 主类类型, 收入/支出 需要考虑所在位置不一样
      */
-    suspend fun getCurrentCategoryInAdapterPosition(majorCategory: MajorCategory, recordType: Int) =
+    suspend fun getCurrentMajorCategoryInAdapterPosition(majorCategory: MajorCategory, recordType: Int) =
         withContext(Dispatchers.Default) {
             majorCategories.value?.asSequence()
                 ?.filter { it.recordType == recordType }
@@ -158,7 +168,7 @@ class CategoryViewModel : ViewModel() {
     /**
      * 获取子类在adapter中的位置
      */
-    suspend fun getCurrentSubCategoryInAdapterPosition(minorCategory: MinorCategory) =
+    suspend fun getCurrentMinorCategoryInAdapterPosition(minorCategory: MinorCategory) =
         withContext(Dispatchers.Default) {
             minorCategories.value?.asSequence()?.forEachIndexed { index, s ->
                 if (minorCategory.id == s.id) {

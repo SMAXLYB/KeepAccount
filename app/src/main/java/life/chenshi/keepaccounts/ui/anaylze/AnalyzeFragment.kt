@@ -37,7 +37,7 @@ class AnalyzeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = DataBindingUtil.inflate<FragmentAnaylzeBinding>(
             inflater,
             R.layout.fragment_anaylze,

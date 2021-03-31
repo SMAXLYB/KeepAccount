@@ -162,8 +162,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="20dp"
-                            android:background="@drawable/corner_all_12dp_blue_bg"
-                            android:foreground="?attr/selectableItemBackground">
+                            android:background="@drawable/ripple_80dp_bg_blue">
 
                             <TextView
                                 android:layout_width="wrap_content"

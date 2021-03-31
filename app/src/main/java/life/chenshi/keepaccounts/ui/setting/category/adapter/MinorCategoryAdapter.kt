@@ -13,7 +13,7 @@ import life.chenshi.keepaccounts.databinding.ItemSubCategoryAddBinding
 import life.chenshi.keepaccounts.databinding.ItemSubCategoryBinding
 
 class MinorCategoryAdapter :
-    ListAdapter<MinorCategory, MinorCategoryAdapter.SubCategoryViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<MinorCategory, MinorCategoryAdapter.MinorCategoryViewHolder>(DIFF_CALLBACK) {
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MinorCategory>() {
             override fun areItemsTheSame(oldItem: MinorCategory, newItem: MinorCategory): Boolean {
@@ -32,21 +32,21 @@ class MinorCategoryAdapter :
     private var mIsDeleteMode = false
     private var mCurrentMinorCategory: MinorCategory? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubCategoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MinorCategoryViewHolder {
         val binding = DataBindingUtil.inflate<ItemSubCategoryBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_sub_category,
             parent,
             false
         )
-        return SubCategoryViewHolder(binding)
+        return MinorCategoryViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: SubCategoryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MinorCategoryViewHolder, position: Int) {
         holder.bind(position)
     }
 
-    fun setCurrentSubCategory(category: MinorCategory?) {
+    fun setCurrentMinorCategory(category: MinorCategory?) {
         this.mCurrentMinorCategory = category
     }
 
@@ -71,7 +71,7 @@ class MinorCategoryAdapter :
         this.onItemDeleteClick = listener
     }
 
-    inner class SubCategoryViewHolder(val binding: ItemSubCategoryBinding) :
+    inner class MinorCategoryViewHolder(val binding: ItemSubCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val subCategory = getItem(position)

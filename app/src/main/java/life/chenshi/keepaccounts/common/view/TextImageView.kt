@@ -41,7 +41,7 @@ class TextImageView @JvmOverloads constructor(
         val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.TextImageView)
         mText = typedArray.getString(R.styleable.TextImageView_android_text)
         mRadius = typedArray.getDimension(R.styleable.TextImageView_android_radius, 0f)
-        mSrc = AppCompatResources.getDrawable(context,typedArray.getResourceId(R.styleable.TextImageView_android_src,0))?.toBitmap()
+        mSrc = AppCompatResources.getDrawable(context, typedArray.getResourceId(R.styleable.TextImageView_android_src, 0))?.toBitmap()
         mDrawable = typedArray.getDrawable(R.styleable.TextImageView_android_src)
         mBgColor = typedArray.getColor(R.styleable.TextImageView_backgroundColor, Color.WHITE)
         mTextColor = typedArray.getColor(R.styleable.TextImageView_android_textColor, Color.BLACK)
@@ -104,7 +104,7 @@ class TextImageView @JvmOverloads constructor(
     private fun Bitmap.drawPic(canvas: Canvas) {
         val matrix = Matrix()
         val scale = this@TextImageView.width.toFloat() / this.width
-        matrix.setScale(scale,scale)
+        matrix.setScale(scale, scale)
         bitmapShader?.setLocalMatrix(matrix)
         mBitmapPaint.shader = bitmapShader
         canvas.drawRoundRect(0f, 0f, mWidth, mHeight, mRadius, mRadius, mBitmapPaint)
@@ -117,7 +117,7 @@ class TextImageView @JvmOverloads constructor(
         val descent = mTextPaint.fontMetrics.descent
         val w = rect.left - rect.right
         val h = rect.bottom - rect.top
-        canvas.drawText(this, (mWidth - w) / 2, mHeight / 2 + h / 2 - descent, mTextPaint)
+        canvas.drawText(this, (mWidth - w) / 2, (mHeight + h - descent) / 2, mTextPaint)
     }
 
     fun setSrc(bitmap: Bitmap) {
@@ -137,6 +137,11 @@ class TextImageView @JvmOverloads constructor(
         if (text.length > 2) {
             mText = text.substring(0, 2)
         }
+        invalidate()
+    }
+
+    override fun setBackgroundColor(color: Int) {
+        mBgPaint.color = color
         invalidate()
     }
 }

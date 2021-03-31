@@ -151,7 +151,7 @@ class CustomActionBar @JvmOverloads constructor(
     }
 
     fun showRightIcon() {
-        mBinding.tvRight.visible()
+        mBinding.ivRight.visible()
     }
 
     /**
@@ -183,6 +183,18 @@ class CustomActionBar @JvmOverloads constructor(
             listener.invoke(it)
 
         }
+        mBinding.ivRight.setOnClickListener {
+            listener.invoke(it)
+
+        }
+    }
+
+    fun setRightTitleClickListener(listener: (View) -> Unit){
+        mBinding.tvRight.setOnClickListener {
+            listener.invoke(it)
+        }
+    }
+    fun setRightIconClickListener(listener: (View) -> Unit) {
         mBinding.ivRight.setOnClickListener {
             listener.invoke(it)
 

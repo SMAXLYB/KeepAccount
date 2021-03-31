@@ -27,7 +27,7 @@ class NewRecordViewModel : ViewModel() {
     val currentDateTime = MutableLiveData<Long>(System.currentTimeMillis())
     val currentAbstractCategory = MutableLiveData<AbstractCategory>()
 
-    val commonMinorCategory = mMinorCategoryDao.getTop6MinorCategoryBy(STATE_NORMAL).asLiveData()
+    val commonMinorCategory : MutableLiveData<AbstractCategory> = mMinorCategoryDao.getTop6MinorCategoryBy(STATE_NORMAL).asLiveData()
     val books = mBookDao.getAllBooks()
 
     fun insertRecord(record: Record) {

@@ -9,6 +9,7 @@ import androidx.navigation.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import kotlinx.coroutines.Dispatchers
@@ -19,13 +20,16 @@ import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
 import life.chenshi.keepaccounts.common.base.BaseAdapter
 import life.chenshi.keepaccounts.common.utils.*
+import life.chenshi.keepaccounts.constant.BUSINESS
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewItemBinding
+import life.chenshi.keepaccounts.ui.setting.category.CategoryActivity
 import java.math.BigDecimal
 import java.util.*
 
@@ -62,9 +66,14 @@ class NewRecordActivity : BaseActivity() {
     }
 
     override fun initListener() {
+        // 分类点击事件
         mCommonCategoryAdapter.setOnItemClickListener { binding, category, i ->
             if (category.id == -1) {
-
+                startActivity<CategoryActivity> {
+                    putExtra(BUSINESS, "new_record")
+                }
+            } else {
+                mNewRecordViewModel.currentAbstractCategory.value = category
             }
         }
 
@@ -376,10 +385,29 @@ class NewRecordActivity : BaseActivity() {
                 mBinding.tvDatetime.text = DateUtil.date2String(Date(it), DateUtil.YEAR_MONTH_DAY_HOUR_MIN_FORMAT)
             }
 
+            // 常用类型
             commonMinorCategory.observe(this@NewRecordActivity) {
                 mCommonCategoryAdapter.setData(it + MinorCategory(-1, "全部类型", recordType = 0, majorCategoryId = -1))
             }
+
+            // 当前选中类型
+            currentAbstractCategory.observe(this@NewRecordActivity) {
+                it?.let { abstractCategory ->
+                    mCommonCategoryAdapter.apply {
+                        setCurrentCategory(abstractCategory)
+                    }
+                }
+            }
         }
+
+        // 监听类型选中
+        LiveEventBus.get("category", AbstractCategory::class.java)
+            .observe(this) {
+                mNewRecordViewModel.commonMinorCategory.apply {
+                    value = value+it
+                }
+                mNewRecordViewModel.currentAbstractCategory.value = it
+            }
     }
 
     /**

@@ -1,7 +1,6 @@
 package life.chenshi.keepaccounts.ui.setting.category
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.lifecycle.map
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseFragment
@@ -60,9 +58,8 @@ class CategoryFragment constructor() : BaseFragment() {
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initData()
         initView()
         initListener()
@@ -92,8 +89,10 @@ class CategoryFragment constructor() : BaseFragment() {
             // 主类点击
             setOnItemClickListener { binding, category ->
                 // 如果已经被选中,直接返回,不做处理
-                if (mCategoryViewModel.currentMajorCategory.value!! == category) {
-                    return@setOnItemClickListener
+                mCategoryViewModel.currentMajorCategory.value?.run {
+                    if (this == category){
+                        return@setOnItemClickListener
+                    }
                 }
 
                 // 修改当前选中样式
@@ -130,6 +129,25 @@ class CategoryFragment constructor() : BaseFragment() {
         }
 
         mMinorCategoryAdapter.apply {
+            // 单击
+            setOnItemClickListener { binding, minorCategory ->
+                // 当前是新建页面来的,并且不是处于删除模式,点击事件才有效
+                takeIf { !mCategoryViewModel.isDeleteMode.value!! && !mCategoryViewModel.business.value.isNull() }?.run {
+                    // 如果已经选中,跳过
+                    if(mCategoryViewModel.currentMinorCategory.value == minorCategory){
+                        return@setOnItemClickListener
+                    }
+
+                    binding.apply {
+                        ivItemSubCategorySelected.visible()
+                    }
+                    mCategoryViewModel.currentMinorCategory.apply {
+                        mCategoryViewModel.lastMinorCategory.value = value
+                        value = minorCategory
+                    }
+                }
+            }
+
             // 长按
             setOnItemLongClickListener { _, _ ->
                 mCategoryViewModel.isDeleteMode.value = true
@@ -167,8 +185,6 @@ class CategoryFragment constructor() : BaseFragment() {
         mCategoryViewModel.apply {
             // 主类监听
             majorCategories.map { list ->
-                val toJson = Gson().toJson(list)
-                Log.d(TAG, "initObserver: $toJson")
                 list.filter { it.recordType == recordType }
             }.observe(viewLifecycleOwner) {
                 // 更新主类
@@ -192,14 +208,13 @@ class CategoryFragment constructor() : BaseFragment() {
                 // 如果上一次选中不为空,在屏幕内,直接修改样式,如果不在,通知更新
                 lifecycleScope.launch {
                     it?.let {
-                        val position =
-                            getCurrentCategoryInAdapterPosition(it, recordType)
+                        val position = getCurrentMajorCategoryInAdapterPosition(it, recordType)
                         position?.let {
                             val viewHolder =
                                 mBinding.rvMajorCategory.findViewHolderForLayoutPosition(position)
-                            viewHolder?.let {
-                                viewHolder as MajorCategoryAdapter.CategoryViewHolder
-                                viewHolder.binding.apply {
+                            viewHolder?.let { holder ->
+                                holder as MajorCategoryAdapter.CategoryViewHolder
+                                holder.binding.apply {
                                     clItemCategory.isSelected = false
                                     itemCategoryIndicator.inVisible()
                                     tvItemCategory.textSize = 14f
@@ -234,6 +249,40 @@ class CategoryFragment constructor() : BaseFragment() {
                 list.filter { it.recordType == recordType }
             }.observe(viewLifecycleOwner) {
                 mMinorCategoryAdapter.submitList(it)
+                // 从其他页面中进来才有选择
+                business.value?.run {
+                    currentMinorCategory.apply {
+                        if (value.isNull()) {
+                            if (!it.isNullOrEmpty()) {
+                                value = it.first()
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 上一次选中子类监听
+            lastMinorCategory.observe(viewLifecycleOwner) {
+                // 如果为空不做处理
+                lifecycleScope.launch {
+                    it?.let {
+                        // 如果在当前页,做处理
+                        val position = getCurrentMinorCategoryInAdapterPosition(it)
+                        position?.let {
+                            val viewHolder =
+                                mBinding.rvMinorCategory.findViewHolderForLayoutPosition(position)
+                            viewHolder?.let { holder ->
+                                holder as MinorCategoryAdapter.MinorCategoryViewHolder
+                                holder.binding.ivItemSubCategorySelected.inVisible()
+                            } ?: mMinorCategoryAdapter.notifyItemChanged(position)
+                        }
+                    }
+                }
+            }
+
+            // 当前选中子类监听
+            currentMinorCategory.observe(viewLifecycleOwner) {
+                mMinorCategoryAdapter.setCurrentMinorCategory(it)
             }
 
             // 当前是否为删除模式

@@ -23,7 +23,7 @@
             android:src="@drawable/item_new_record_more_category"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:backgroundColor="#8A03A9F4"
+            app:backgroundColor="#4D03A9F4"
             app:layout_constraintBottom_toTopOf="@id/tv_category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
