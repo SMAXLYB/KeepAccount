@@ -26,7 +26,8 @@ import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.databinding.LayoutCustomPopwindowBinding
 
 class IndexFragment : Fragment() {
-    private lateinit var mBinding: FragmentIndexBinding
+    private var _binding: FragmentIndexBinding? = null
+    private val mBinding get() = _binding!!
     private val behavior by lazy { BottomSheetBehavior.from(mBinding.drawer) }
     private val mIndexViewModel by activityViewModels<IndexViewModel>()
     private var mAdapter: IndexRecordAdapter? = null
@@ -40,7 +41,7 @@ class IndexFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        mBinding = DataBindingUtil.inflate<FragmentIndexBinding>(
+        _binding = DataBindingUtil.inflate<FragmentIndexBinding>(
             inflater, R.layout.fragment_index, container, false
         )
         return mBinding.root
@@ -209,7 +210,7 @@ class IndexFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mBinding.unbind()
+        _binding = null
     }
 }
 /*
