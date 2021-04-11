@@ -284,7 +284,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/voucher"
-            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintWidth_percent="0.87" />
 
         <!--自定义键盘-->

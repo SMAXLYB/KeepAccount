@@ -131,4 +131,18 @@ class NewRecordViewModel : ViewModel() {
             }
         }
     }
+
+    /**
+     * 是否要删除前确认
+     * @param callback Function1<Boolean, Unit>
+     */
+    fun confirmBeforeDelete(callback: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            DataStoreUtil.readFromDataStore(SWITCHER_CONFIRM_BEFORE_DELETE, true)
+                .take(1)
+                .collect {
+                    callback.invoke(it)
+                }
+        }
+    }
 }

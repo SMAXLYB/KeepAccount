@@ -21,6 +21,7 @@ import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
 import life.chenshi.keepaccounts.common.base.BaseAdapter
 import life.chenshi.keepaccounts.common.utils.*
+import life.chenshi.keepaccounts.common.view.CustomDialog
 import life.chenshi.keepaccounts.constant.BUSINESS
 import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MAJOR
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
@@ -31,6 +32,7 @@ import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewItemBinding
+import life.chenshi.keepaccounts.ui.index.IndexViewModel
 import life.chenshi.keepaccounts.ui.setting.category.CategoryActivity
 import java.math.BigDecimal
 import java.util.*
@@ -39,6 +41,7 @@ class NewRecordActivity : BaseActivity() {
     private val mRecordArgs by navArgs<NewRecordActivityArgs>()
     private val mBinding by bindingContentView<ActivityNewRecordBinding>(R.layout.activity_new_record)
     private val mNewRecordViewModel by viewModels<NewRecordViewModel>()
+    private val mIndexViewModel by viewModels<IndexViewModel>()
     private val mCommonCategoryAdapter by lazy { CommonCategoryAdapter(emptyList()) }
 
     companion object {
@@ -75,7 +78,17 @@ class NewRecordActivity : BaseActivity() {
 
     override fun initListener() {
         mBinding.bar.setLeftClickListener { onBackPressed() }
-        mBinding.bar.setRightClickListener { }
+        mBinding.bar.setRightClickListener {
+            mNewRecordViewModel.confirmBeforeDelete {
+                if (it) {
+                    showDeleteDialog(mNewRecordViewModel.record!!)
+                } else {
+                    mIndexViewModel.deleteRecord(mNewRecordViewModel.record!!)
+                    ToastUtil.showSuccess("删除成功")
+                    onBackPressed()
+                }
+            }
+        }
 
         // 分类点击事件
         mCommonCategoryAdapter.setOnItemClickListener { _, category, _ ->
@@ -505,5 +518,26 @@ class NewRecordActivity : BaseActivity() {
         }
 
         return true
+    }
+
+    /**
+     * 展示删除弹窗
+     * @param record Record
+     */
+    private fun showDeleteDialog(record: Record) {
+        CustomDialog.Builder(this)
+            .setTitle("删除记录")
+            .setPositiveButton("确定") { dialog, _ ->
+                mIndexViewModel.deleteRecord(record)
+                dialog.dismiss()
+                ToastUtil.showSuccess("删除成功")
+                onBackPressed()
+            }
+            .setNegativeButton("取消")
+            .setClosedButtonEnable(false)
+            .setMessage("\u3000\u3000您正在进行删除操作, 此操作不可逆, 确定继续吗")
+            .setCancelable(false)
+            .build()
+            .showNow()
     }
 }
