@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.PopupWindow
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -28,7 +29,7 @@ import life.chenshi.keepaccounts.databinding.LayoutCustomPopwindowBinding
 class IndexFragment : Fragment() {
     private var _binding: FragmentIndexBinding? = null
     private val mBinding get() = _binding!!
-    private val behavior by lazy { BottomSheetBehavior.from(mBinding.drawer) }
+    private var behavior: BottomSheetBehavior<ConstraintLayout>? = null
     private val mIndexViewModel by activityViewModels<IndexViewModel>()
     private var mAdapter: IndexRecordAdapter? = null
 
@@ -58,9 +59,10 @@ class IndexFragment : Fragment() {
         StatusBarUtil.init(requireActivity())
             .addPaddingTop(mBinding.bar)
         // 调整拖拽高度
+        behavior = BottomSheetBehavior.from(mBinding.drawer)
         mBinding.hsv.post {
             val height = mBinding.rootView.bottom - mBinding.hsv.bottom - StatusBarUtil.getStatusBarHeight() - 50.dp2px()/*Tab栏高度*/
-            behavior.peekHeight = height
+            behavior?.peekHeight = height
         }
         mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
         mAdapter = IndexRecordAdapter(emptyList())
@@ -78,7 +80,7 @@ class IndexFragment : Fragment() {
             }
         }
 
-        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        behavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 mBinding.ivSearch.setVisibility(newState == BottomSheetBehavior.STATE_EXPANDED)
             }
@@ -211,6 +213,8 @@ class IndexFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        behavior = null
+        mAdapter = null
     }
 }
 /*
