@@ -1,14 +1,11 @@
 package life.chenshi.keepaccounts.ui.newrecord
 
 import androidx.lifecycle.*
-import com.example.gson_extra.RuntimeTypeAdapterFactory
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.constant.*
 import life.chenshi.keepaccounts.database.AppDatabase
@@ -17,9 +14,16 @@ import java.util.*
 
 class NewRecordViewModel : ViewModel() {
 
+    //　record更新 控制数据
+    var record: Record? = null
+
+    // 当前是否为查看详情模式 控制界面
+    val detailMode = MutableLiveData<Boolean>(false)
+
     private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }
     private val mRecordDao by lazy { AppDatabase.getDatabase().getRecordDao() }
     private val mMinorCategoryDao by lazy { AppDatabase.getDatabase().getMinorCategoryDao() }
+    private val mMajorCategoryDao by lazy { AppDatabase.getDatabase().getMajorCategoryDao() }
 
     // 当前所有选中的配置
     val currentBook = MutableLiveData<Book>()
@@ -27,15 +31,39 @@ class NewRecordViewModel : ViewModel() {
     val currentDateTime = MutableLiveData<Long>(System.currentTimeMillis())
     val currentAbstractCategory = MutableLiveData<AbstractCategory>()
 
-    val commonMinorCategory : MutableLiveData<AbstractCategory> = mMinorCategoryDao.getTop6MinorCategoryBy(STATE_NORMAL).asLiveData()
+    // 常用类别
+    val commonMinorCategory = MutableLiveData<MutableList<AbstractCategory>>()
+
+    // 所有账本
     val books = mBookDao.getAllBooks()
 
-    fun insertRecord(record: Record) {
+    init {
         viewModelScope.launch {
-            mRecordDao.insertRecord(record)
+            // 只监听一次,后续不管是否删除,都继续使用
+            mMinorCategoryDao.getTop6MinorCategoryBy(STATE_NORMAL)
+                .take(1)
+                .collect {
+                    val list = mutableListOf<AbstractCategory>()
+                    list.addAll(it)
+                    commonMinorCategory.value = list
+                }
         }
     }
 
+    /**
+     * 新建记录
+     * @param record Record
+     */
+    fun insertRecord(record: Record) {
+        viewModelScope.launch {
+            mRecordDao.insertRecordAndUpdateUseRate(record)
+        }
+    }
+
+    /**
+     * 更新记录
+     * @param record Record
+     */
     fun updateRecord(record: Record) {
         viewModelScope.launch {
             mRecordDao.updateRecord(record)
@@ -63,24 +91,44 @@ class NewRecordViewModel : ViewModel() {
     }
 
     /**
-     * 获取常用类别
+     * 根据id查找账本
+     * @param id Int
+     * @return Book
      */
-    fun getCommonCategory(): Flow<List<AbstractCategory>> {
-        val defaultCommonCategoryStr = """
-            [{"id":1,"name":"你好啊","state":0,"categoryType":"major_category"},{"id":1,"name":"你好啊啊","state":0,"categoryType":"major_category"},{"majorCategoryId":1,"id":1,"name":"第二","state":1,"categoryType":"minor_category"},{"id":1,"name":"你好","state":0,"categoryType":"major_category"},{"id":1,"name":"你好","state":0,"categoryType":"major_category"},{"id":1,"name":"你好","state":0,"categoryType":"major_category"}]
-        """.trimIndent()
-
-        return DataStoreUtil.readFromDataStore(COMMON_CATEGORY, defaultCommonCategoryStr)
-            .take(1)
-            .map {
-                val typeFactory = RuntimeTypeAdapterFactory
-                    .of(AbstractCategory::class.java, "categoryType")
-                    .registerSubtype(MajorCategory::class.java, CATEGORY_TYPE_MAJOR)
-                    .registerSubtype(MinorCategory::class.java, CATEGORY_TYPE_MINOR)
-                val gson = GsonBuilder().registerTypeAdapterFactory(typeFactory).create()
-                gson.fromJson<List<AbstractCategory>>(it, object : TypeToken<List<AbstractCategory>>() {}.type)
-            }
-    }
-
     suspend fun getBookById(id: Int) = mBookDao.getBookById(id)
+
+    /**
+     * 根据id查找主类
+     * @param majorCategoryId Int
+     */
+    suspend fun getMajorCategoryById(majorCategoryId: Int) =
+        mMajorCategoryDao.getMajorCategoryBy(STATE_NORMAL, majorCategoryId)
+
+    /**
+     * 根据id查找子类
+     * @param minorCategoryId Int
+     * @return MinorCategory
+     */
+    suspend fun getMinorCategoryById(minorCategoryId: Int) =
+        mMinorCategoryDao.getMinorCategoryBy(STATE_NORMAL, minorCategoryId)
+
+    /**
+     * 如果常用类型不存在指定类型,则增加
+     * @param abstractCategory AbstractCategory
+     */
+    fun insertIfNotExistInCommonCategory(abstractCategory: AbstractCategory) {
+        viewModelScope.launch {
+            commonMinorCategory.apply {
+                // 取出原数据
+                val list = value
+                // 如果原数据没有,直接放入,如果已经存在,不做处理
+                // 判断是否有id相等,在判断类型是否一致
+                withContext(Dispatchers.Default) {
+                    list?.firstOrNull { it == abstractCategory } ?: run { list?.add(abstractCategory) }
+                }
+                // 更新
+                value = list!!
+            }
+        }
+    }
 }

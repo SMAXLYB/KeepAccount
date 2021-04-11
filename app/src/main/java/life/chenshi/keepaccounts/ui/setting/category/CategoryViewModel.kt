@@ -29,7 +29,7 @@ class CategoryViewModel : ViewModel() {
     private val minorCategoryDao = AppDatabase.getDatabase().getMinorCategoryDao()
 
     // 当前选中主类
-    val currentMajorCategory = MutableLiveData<MajorCategory>()
+    val currentMajorCategory = MutableLiveData<MajorCategory?>()
 
     // 上一次选中主类
     var lastMajorCategory = MutableLiveData<MajorCategory>()

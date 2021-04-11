@@ -80,4 +80,18 @@
         <item name="layout_constraintDimensionRatio">h,2:1.2</item>
         <item name="android:onClick">onKeyBoardClick</item>
     </style>
+
+    <style name="IndexShortcuts_ConstraintLayout">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/ripple_80dp_bg_blue</item>
+    </style>
+
+    <style name="MaterialButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:theme">@style/Theme.MaterialComponents.Light</item>
+    </style>
 </resources>

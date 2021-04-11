@@ -38,7 +38,7 @@ object ToastUtil {
         message.text = text
         val mToast = Toast(context)
             .apply {
-                setGravity(Gravity.CENTER, 0, 200)
+                setGravity(Gravity.CENTER, 0, 0)
                 duration = if (isShort) {
                     Toast.LENGTH_SHORT
                 } else {

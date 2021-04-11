@@ -57,4 +57,17 @@
         <attr name="underline_color" format="color" />
         <attr name="underline_stroke" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="CustomRadioButton">
+        <attr name="buttonText" format="string" />
+        <attr name="buttonSelectedBgColor" format="color" />
+        <attr name="buttonSelectedTextColor" format="color" />
+        <attr name="bgColor" format="color" />
+        <attr name="buttonTextColor" format="color" />
+        <attr name="buttonTextSize" format="dimension" />
+        <attr name="radius" format="dimension" />
+        <attr name="buttonHorizontalSpacing" format="dimension" />
+        <attr name="buttonVerticalSpacing" format="dimension" />
+        <attr name="buttonRadius" format="dimension" />
+    </declare-styleable>
 </resources>

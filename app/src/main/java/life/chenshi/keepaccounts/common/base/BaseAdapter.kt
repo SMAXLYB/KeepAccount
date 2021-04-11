@@ -34,6 +34,10 @@ abstract class BaseAdapter<T, V : ViewDataBinding>(private var data: List<T>) :
         this.listener = listener
     }
 
+    fun getData(): List<T> {
+        return data
+    }
+
     fun setData(data:List<T>){
         this.data = data
         notifyDataSetChanged()

@@ -81,7 +81,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         fun getDefaultMajorCategories(): List<MajorCategory> {
-            val inputStream = MyApplication.getInstance().assets.open("default_major_categories.json")
+            val inputStream = MyApplication.getInstance().assets.open("jsons/default_major_categories.json")
             BufferedReader(InputStreamReader(inputStream, "utf-8")).use { reader ->
                 val buffer = StringBuffer()
                 reader.forEachLine {
@@ -92,7 +92,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         fun getDefaultMinorCategories(): List<MinorCategory> {
-            val inputStream = MyApplication.getInstance().assets.open("default_minor_categories.json")
+            val inputStream = MyApplication.getInstance().assets.open("jsons/default_minor_categories.json")
             BufferedReader(InputStreamReader(inputStream, "utf-8")).use { reader ->
                 val buffer = StringBuffer()
                 reader.forEachLine {

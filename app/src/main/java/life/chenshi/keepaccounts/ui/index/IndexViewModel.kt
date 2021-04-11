@@ -2,15 +2,10 @@ package life.chenshi.keepaccounts.ui.index
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import life.chenshi.keepaccounts.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.common.utils.DateUtil
-import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
-import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
-import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.constant.*
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.database.entity.Record
@@ -22,12 +17,14 @@ class IndexViewModel : ViewModel() {
     private val bookDao by lazy { AppDatabase.getDatabase().getBookDao() }
     val recordsByDateRangeLiveData = MediatorLiveData<List<Record>>()
     private var mTempRecordsLiveData: LiveData<List<Record>>? = null
-    val currentShowType by lazy { MutableLiveData<Int>(IndexFragment.SHOW_TYPE_ALL) }
+    val currentShowType by lazy { MutableLiveData<Int>(SHOW_TYPE_ALL) }
+    val currentSortType by lazy { MutableLiveData<Int>(SORT_BY_DATE_DESC) }
     val queryDateLiveData by lazy { MutableLiveData<Long>(System.currentTimeMillis()) }
-    private val currentBookId =
-        DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
+
+    val confirmBeforeDelete = MutableLiveData<Boolean>(true)
 
     init {
+        // 默认查询本月的记录
         getRecordByDateRange(
             DateUtil.getCurrentMonthStart(),
             DateUtil.getCurrentMonthEnd()
@@ -41,14 +38,18 @@ class IndexViewModel : ViewModel() {
         if (mTempRecordsLiveData != null) {
             recordsByDateRangeLiveData.removeSource(mTempRecordsLiveData!!)
         }
-        viewModelScope.launch {
-            currentBookId.take(1)
-                .collect {
-                    mTempRecordsLiveData = recordDAO.getRecordByDateRange(from, to, it)
-                }
-            recordsByDateRangeLiveData.addSource(mTempRecordsLiveData!!) {
-                recordsByDateRangeLiveData.value = it
-            }
+        // viewModelScope.launch {
+        //     currentBookId.take(1)
+        //         .collect {
+        //             mTempRecordsLiveData = recordDAO.getRecordByDateRange(from, to, it)
+        //         }
+        //     recordsByDateRangeLiveData.addSource(mTempRecordsLiveData!!) {
+        //         recordsByDateRangeLiveData.value = it
+        //     }
+        // }
+        mTempRecordsLiveData = recordDAO.getRecordByDateRange(from, to)
+        recordsByDateRangeLiveData.addSource(mTempRecordsLiveData!!) {
+            recordsByDateRangeLiveData.value = it
         }
     }
 
@@ -70,27 +71,45 @@ class IndexViewModel : ViewModel() {
     }
 
     /**
-     * 将数据库的list<>转为list<list<>>，按同一天放在一个List中
+     * 将数据库的list<>转为list<list<>>，按同一天放在一个List中, 并排好序
      * @param originList 原始数据库数据
      */
-    fun convert2RecordListGroupByDay(originList: List<Record>): List<List<Record>> {
+    suspend fun convert2RecordListGroupByDay(originList: List<Record>): List<List<Record>> = withContext(Dispatchers.Default){
         // 首次使用应用时数据库无数据
         if (originList.isNullOrEmpty()) {
-            return Collections.emptyList()
+            return@withContext Collections.emptyList()
         }
         var listAfterFilter = originList
-        if (currentShowType.value == IndexFragment.SHOW_TYPE_INCOME) {
+        // 只看收入
+        if (currentShowType.value == SHOW_TYPE_INCOME) {
             listAfterFilter = originList.filter { it.recordType == RECORD_TYPE_INCOME }
         }
-
-        if (currentShowType.value == IndexFragment.SHOW_TYPE_OUTCOME) {
+        // 只看支出
+        if (currentShowType.value == SHOW_TYPE_OUTCOME) {
             listAfterFilter = originList.filter { it.recordType == RECORD_TYPE_OUTCOME }
         }
+
         val recordListGroupByDay: MutableList<MutableList<Record>> = mutableListOf()
         // 如果经过筛选后没有数据, 直接返回空数据
         if (listAfterFilter.isEmpty()) {
-            return recordListGroupByDay
+            return@withContext recordListGroupByDay
         }
+
+        // 排序
+        listAfterFilter = when (currentSortType.value) {
+            SORT_BY_MONEY_ASC -> {
+                listAfterFilter.sortedBy { it.money }
+            }
+            SORT_BY_MONEY_DESC -> {
+                listAfterFilter.sortedByDescending { it.money }
+            }
+            SORT_BY_DATE_ASC -> {
+                listAfterFilter.sortedBy { it.time }
+            }
+            else ->
+                listAfterFilter
+        }
+
         val records: MutableList<Record> = mutableListOf(listAfterFilter[0])
         recordListGroupByDay.add(records)
         // 对每条记录进行循环，以日期为单位，找出日期相同的记录，放在一起
@@ -105,7 +124,7 @@ class IndexViewModel : ViewModel() {
             }
         }
         recordListGroupByDay[0].removeAt(0)
-        return recordListGroupByDay
+        return@withContext recordListGroupByDay
     }
 
     /**

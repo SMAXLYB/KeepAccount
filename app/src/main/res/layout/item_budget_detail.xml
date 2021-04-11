@@ -8,87 +8,57 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:foreground="?attr/selectableItemBackground"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
-        <ImageView
+        <life.chenshi.keepaccounts.common.view.TextImageView
             android:id="@+id/item_budget_detail_icon"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:src="@drawable/item_budget_detail_icon_income"
-            app:layout_constraintBottom_toTopOf="@+id/item_budget_detail_remark"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:radius="5dp"
+            android:src="@drawable/index_item_icon_bill"
+            android:text="类型"
+            android:textColor="@color/white"
+            app:backgroundColor="#7903A9F4"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/guideline_left"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/item_budget_detail_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="吃饭"
-            app:layout_constraintBottom_toTopOf="@id/item_budget_detail_remark"
-            app:layout_constraintEnd_toStartOf="@+id/item_budget_detail_cost_time"
-            app:layout_constraintStart_toStartOf="@+id/guideline_left"
+            android:layout_marginStart="10dp"
+            android:text="收支类型"
+            app:layout_constraintBottom_toTopOf="@id/item_budget_detail_title"
+            app:layout_constraintStart_toEndOf="@id/item_budget_detail_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/item_budget_detail_cost_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="15:00"
-            android:gravity="end"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/item_budget_detail_remark"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-            app:layout_constraintStart_toEndOf="@id/item_budget_detail_title" />
-
-        <TextView
-            android:id="@+id/item_budget_detail_remark"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:paddingTop="5dp"
-            android:visibility="gone"
-            tools:visibility="visible"
-            tools:text="在食堂用餐在食堂用餐在食堂用餐在食堂用餐在食堂用餐在食堂用餐"
-            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-            app:layout_constraintStart_toStartOf="@+id/guideline_left" />
+            app:layout_constraintStart_toEndOf="@id/item_budget_detail_icon"
+            app:layout_constraintTop_toBottomOf="@id/item_budget_detail_title" />
 
         <TextView
             android:id="@+id/item_budget_detail_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:layout_marginEnd="10dp"
             android:text="-435.00"
             android:textColor="#E91E63"
-            app:layout_constraintBottom_toTopOf="@id/item_budget_detail_remark"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline_right"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.1" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.7" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

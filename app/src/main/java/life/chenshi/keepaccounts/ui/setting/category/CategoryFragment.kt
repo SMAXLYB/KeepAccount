@@ -234,7 +234,7 @@ class CategoryFragment constructor() : BaseFragment() {
                 }
                 // 切换收支分类,并且点击了类型,就全部清空可见
                 mMinorCategoryFooterAdapter.hideFooterView()
-                if (it.recordType == recordType && !mCategoryViewModel.isDeleteMode.value!!) {
+                if (it?.recordType == recordType && !mCategoryViewModel.isDeleteMode.value!!) {
                     mMinorCategoryFooterAdapter.showFooterView()
                 }
                 // 新的变更

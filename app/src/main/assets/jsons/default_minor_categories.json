@@ -40,7 +40,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 6,
     "name": "公交",
@@ -48,7 +48,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 7,
     "name": "地铁",
@@ -56,7 +56,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 8,
     "name": "打车",
@@ -64,7 +64,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 9,
     "name": "共享单车",
@@ -72,7 +72,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 10,
     "name": "轻轨",
@@ -80,7 +80,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 11,
     "name": "火车",
@@ -88,7 +88,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 12,
     "name": "高铁",
@@ -96,7 +96,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 13,
     "name": "轮船",
@@ -104,7 +104,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 14,
     "name": "飞机",
@@ -112,7 +112,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 3,
+    "majorCategoryId": 2,
     "categoryType": "minor_category",
     "id": 15,
     "name": "客车",
@@ -184,7 +184,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 2,
+    "majorCategoryId": 3,
     "categoryType": "minor_category",
     "id": 24,
     "name": "服饰",
@@ -192,7 +192,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 2,
+    "majorCategoryId": 3,
     "categoryType": "minor_category",
     "id": 25,
     "name": "日用品",
@@ -200,7 +200,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 2,
+    "majorCategoryId": 3,
     "categoryType": "minor_category",
     "id": 26,
     "name": "鞋靴",
@@ -248,7 +248,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 2,
+    "majorCategoryId": 3,
     "categoryType": "minor_category",
     "id": 32,
     "name": "数码",
@@ -256,7 +256,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 2,
+    "majorCategoryId": 3,
     "categoryType": "minor_category",
     "id": 33,
     "name": "零食",
@@ -272,7 +272,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 2,
+    "majorCategoryId": 3,
     "categoryType": "minor_category",
     "id": 35,
     "name": "护肤",
@@ -312,7 +312,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 2,
+    "majorCategoryId": 3,
     "categoryType": "minor_category",
     "id": 40,
     "name": "母婴",
@@ -320,7 +320,7 @@
     "state": 0
   },
   {
-    "majorCategoryId": 2,
+    "majorCategoryId": 3,
     "categoryType": "minor_category",
     "id": 41,
     "name": "电器",

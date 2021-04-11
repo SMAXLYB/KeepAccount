@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
 import life.chenshi.keepaccounts.common.utils.*
+import life.chenshi.keepaccounts.constant.*
 import life.chenshi.keepaccounts.databinding.ActivitySearchBinding
 import life.chenshi.keepaccounts.ui.index.IndexRecordAdapter
 
@@ -23,15 +24,6 @@ class SearchActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "SearchActivity"
-
-        const val FILTER_TYPE_ALL = -1
-        const val FILTER_TYPE_OUTCOME = 0
-        const val FILTER_TYPE_INCOME = 1
-
-        const val ORDER_TYPE_DATE_ASC = 1000;
-        const val ORDER_TYPE_DATE_DESC = 1001;
-        const val ORDER_TYPE_MONEY_ASC = 1002;
-        const val ORDER_TYPE_MONEY_DESC = 1003;
     }
 
     override fun initView() {
@@ -105,13 +97,13 @@ class SearchActivity : BaseActivity() {
                     mBinding.tvSearchFilterType.text = v.text
                     mSearchViewModel.filterType.value = when (v.id) {
                         R.id.ll_search_type_income -> {
-                            FILTER_TYPE_INCOME
+                            SHOW_TYPE_INCOME
                         }
                         R.id.ll_search_type_outcome -> {
-                            FILTER_TYPE_OUTCOME
+                            SHOW_TYPE_OUTCOME
                         }
                         else -> {
-                            FILTER_TYPE_ALL
+                            SHOW_TYPE_ALL
                         }
                     }
                     bottomSheetDialog.dismiss()
@@ -141,16 +133,16 @@ class SearchActivity : BaseActivity() {
                     mSearchViewModel.filterOrder.value =
                         when (v.id) {
                             R.id.ll_search_order_date_asc -> {
-                                ORDER_TYPE_DATE_ASC
+                                SORT_BY_DATE_ASC
                             }
                             R.id.ll_search_order_date_desc -> {
-                                ORDER_TYPE_DATE_DESC
+                                SORT_BY_DATE_DESC
                             }
                             R.id.ll_search_order_money_asc -> {
-                                ORDER_TYPE_MONEY_ASC
+                                SORT_BY_MONEY_ASC
                             }
                             else -> {
-                                ORDER_TYPE_MONEY_DESC
+                                SORT_BY_MONEY_DESC
                             }
                         }
                     bottomSheetDialog.dismiss()

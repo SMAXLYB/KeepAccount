@@ -15,9 +15,12 @@ class CommonCategoryAdapter(data: List<AbstractCategory>) : BaseAdapter<Abstract
         if (itemData.id != -1) {
             binding.tivCategory.setText(itemData.name)
         }
+        binding.tivCategory.setBackgroundColor(Color.parseColor("#4D03A9F4"))
         // 如果被选中
-        if(true){
-            binding.tivCategory.setBackgroundColor(Color.parseColor("#03A9F4"))
+        mCurrentCategory?.let {
+            if (itemData == it) {
+                binding.tivCategory.setBackgroundColor(Color.parseColor("#03A9F4"))
+            }
         }
     }
 

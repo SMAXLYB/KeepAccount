@@ -30,22 +30,6 @@ class MinorCategory(
     @ColumnInfo(name = "use_rate", defaultValue = "0")
     val useRate: Int = 0
 ) : AbstractCategory(id, name, state, recordType, CATEGORY_TYPE_MINOR) {
-
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as MinorCategory
-
-        if (id != other.id) return false
-        // if (name != other.name) return false
-        // if (state != other.state) return false
-        // if (majorCategoryId != other.majorCategoryId) return false
-
-        return true
-    }
-
     override fun hashCode(): Int {
         var result = id ?: 0
         result = 31 * result + name.hashCode()

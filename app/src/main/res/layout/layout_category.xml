@@ -15,6 +15,7 @@
         <life.chenshi.keepaccounts.common.view.CustomActionBar
             android:id="@+id/bar"
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="50dp"
             app:centerIcon="@drawable/action_bar_help"
             app:centerTitle="收支类别管理"
@@ -27,6 +28,7 @@
             android:id="@+id/tab"
             android:background="@color/white"
             app:tabIndicatorHeight="3dp"
+            app:tabSelectedTextColor="@color/colorPrimary"
             app:tabBackground="@color/white"
             app:tabUnboundedRipple="true"
             app:tabIndicatorFullWidth="false"

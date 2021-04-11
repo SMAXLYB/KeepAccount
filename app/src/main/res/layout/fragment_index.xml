@@ -38,12 +38,12 @@
                 android:id="@+id/iv_search"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
                 android:src="@drawable/search_search_gray"
                 android:visibility="invisible"
                 tools:visibility="visible" />
@@ -71,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_margin="10dp"
-                    android:background="@drawable/corner_all_12dp_white_bg"
+                    android:background="@drawable/corner_all_12dp_blue_gradient"
                     app:layout_constraintDimensionRatio="h,4:2.4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,61 +79,105 @@
                     app:layout_constraintWidth_percent="0.83">
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="55dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:src="@drawable/credit_card_hide"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:src="@drawable/index_credit_card"
+                        app:layout_constraintStart_toStartOf="@id/card_id"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="Credit Card"
-                        android:textAllCaps="true"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:includeFontPadding="false"
+                        android:text="VISA"
+                        android:textColor="#30FFFFFF"
+                        android:textSize="60sp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@color/switch_button_unchecked_gray"
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/corner_all_50dp_transparent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.3" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
-                    <TextView
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginBottom="50dp"
+                        android:src="@drawable/corner_all_50dp_transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/credit_card_hide"
+                        app:layout_constraintBottom_toBottomOf="@id/card_id"
+                        app:layout_constraintStart_toEndOf="@id/card_id"
+                        app:layout_constraintTop_toTopOf="@id/card_id" />
+
+                    <life.chenshi.keepaccounts.common.view.SansFontTextView
                         android:id="@+id/card_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="6217  9999  9999  9999  999"
-                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.1"
+                        android:layout_marginStart="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.55" />
+                        app:layout_constraintVertical_bias="0.5" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="balance"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@id/card_money"
+                        app:layout_constraintStart_toStartOf="@id/card_id" />
 
                     <TextView
                         android:id="@+id/card_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
                         android:text="￥200,000,000.00"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="@id/card_id" />
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:text="expires"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@id/card_expires"
+                        app:layout_constraintEnd_toEndOf="@id/card_expires"/>
+
+                    <TextView
+                        android:id="@+id/card_expires"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="20dp"
                         android:text="12/12"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -155,54 +199,72 @@
                         android:paddingEnd="10dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/jiyibi"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="20dp"
-                            android:background="@drawable/ripple_80dp_bg_blue">
+                            android:id="@+id/cl_new_record"
+                            style="@style/IndexShortcuts_ConstraintLayout">
+
+                            <life.chenshi.keepaccounts.common.view.CircleImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/index_icon_new_record"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="记一笔"
+                                android:layout_margin="10dp"
+                                android:text="立即记一笔"
                                 android:textColor="@color/white"
+                                android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/yusuan"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="20dp"
-                            android:background="@drawable/corner_all_12dp_blue_bg"
-                            android:foreground="?attr/selectableItemBackground" />
+                            android:id="@+id/cl_budget"
+                            style="@style/IndexShortcuts_ConstraintLayout">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/chazhao"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="20dp"
-                            android:background="@drawable/corner_all_12dp_blue_bg"
+                            <life.chenshi.keepaccounts.common.view.CircleImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
 
-                            android:foreground="?attr/selectableItemBackground">
+                                android:src="@drawable/index_icon_budget"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="搜索"
+                                android:layout_margin="10dp"
+                                android:text="设置每月预算"
                                 android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_search"
+                            style="@style/IndexShortcuts_ConstraintLayout">
+
+                            <life.chenshi.keepaccounts.common.view.CircleImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+
+                                android:src="@drawable/index_icon_search"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:text="快速搜索账单"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -242,287 +304,58 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <life.chenshi.keepaccounts.common.view.CustomRadioButton
+                    android:id="@+id/crb_record_type"
+                    android:layout_width="180dp"
+                    android:layout_height="32dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_all_12dp_blue_bg"
-                    android:paddingStart="12dp"
-                    android:paddingTop="1dp"
-                    android:paddingEnd="12dp"
-                    android:paddingBottom="1dp"
-                    android:text="全部"
-                    android:textColor="@color/white"
+                    app:bgColor="@color/white"
+                    app:buttonHorizontalSpacing="0dp"
+                    app:buttonRadius="15dp"
+                    app:buttonSelectedBgColor="@color/colorPrimary"
+                    app:buttonSelectedTextColor="@color/white"
+                    app:buttonText="全部,收入,支出"
+                    app:buttonTextColor="@color/colorTextGray"
+                    app:buttonTextSize="14sp"
+                    app:buttonVerticalSpacing="3dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_recent" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_recent"
+                    app:radius="16dp" />
 
-                <TextView
-                    android:id="@+id/tv_income"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="12dp"
-                    android:paddingTop="1dp"
-                    android:paddingEnd="12dp"
-
-                    android:paddingBottom="1dp"
-                    android:text="收入"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_all"
-                    app:layout_constraintStart_toEndOf="@id/tv_all"
-                    app:layout_constraintTop_toTopOf="@id/tv_all" />
-
-                <TextView
-                    android:id="@+id/tv_outcome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="12dp"
-                    android:paddingTop="1dp"
-                    android:paddingEnd="12dp"
-                    android:paddingBottom="1dp"
-
-                    android:text="支出"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_all"
-                    app:layout_constraintStart_toEndOf="@id/tv_income"
-                    app:layout_constraintTop_toTopOf="@id/tv_all" />
-
-                <TextView
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/tv_sort_by"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    style="@style/MaterialButton"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_all_12dp_blue_bg"
-                    android:paddingStart="12dp"
-                    android:paddingTop="1dp"
-                    android:paddingEnd="12dp"
-                    android:paddingBottom="1dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
                     android:text="排序"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_all"
+                    app:cornerRadius="15dp"
+                    app:layout_constraintBottom_toBottomOf="@id/crb_record_type"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_all" />
+                    app:layout_constraintTop_toTopOf="@id/crb_record_type"
+                     />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_budget"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sort_by"
+                    tools:listitem="@layout/item_budget" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--<FrameLayout-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    android:background="#A4F1F1F1">-->
-
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:orientation="vertical">-->
-
-
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginBottom="5dp"-->
-    <!--            android:background="@color/white"-->
-    <!--            android:orientation="horizontal"-->
-    <!--            android:paddingBottom="5dp">-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="20dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:orientation="vertical">-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/title_time"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginTop="5dp"-->
-    <!--                    android:layout_marginBottom="5dp"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:text="时间" />-->
-
-    <!--                <RelativeLayout-->
-    <!--                    android:id="@+id/time_container"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_gravity="center"-->
-    <!--                    android:background="@drawable/index_spinner"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:paddingStart="8dp"-->
-    <!--                    android:paddingEnd="8dp">-->
-
-    <!--                    <TextView-->
-    <!--                        android:id="@+id/index_time"-->
-    <!--                        android:layout_width="wrap_content"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:text="2020年12月"-->
-    <!--                        android:textColor="@color/white"-->
-    <!--                        android:textSize="14sp" />-->
-
-    <!--                    <ImageView-->
-    <!--                        android:layout_width="10dp"-->
-    <!--                        android:layout_height="10dp"-->
-    <!--                        android:layout_centerVertical="true"-->
-    <!--                        android:layout_toRightOf="@id/index_time"-->
-    <!--                        android:src="@drawable/index_arrow_down_white" />-->
-    <!--                </RelativeLayout>-->
-    <!--            </LinearLayout>-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:orientation="vertical">-->
-
-    <!--                <TextView-->
-
-    <!--                    android:id="@+id/title_budget"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginTop="5dp"-->
-    <!--                    android:layout_marginBottom="5dp"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:text="查看" />-->
-
-    <!--                <RelativeLayout-->
-
-    <!--                    android:id="@+id/type_container"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_gravity="center"-->
-    <!--                    android:background="@drawable/index_spinner"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:paddingStart="8dp"-->
-    <!--                    android:paddingEnd="8dp">-->
-
-    <!--                    <TextView-->
-    <!--                        android:id="@+id/tv_category"-->
-    <!--                        android:layout_width="wrap_content"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:text="全部"-->
-    <!--                        android:textColor="@color/white"-->
-    <!--                        android:textSize="14sp" />-->
-
-    <!--                    <ImageView-->
-    <!--                        android:layout_width="10dp"-->
-    <!--                        android:layout_height="10dp"-->
-    <!--                        android:layout_centerVertical="true"-->
-    <!--                        android:layout_toRightOf="@id/tv_category"-->
-    <!--                        android:src="@drawable/index_arrow_down_white" />-->
-    <!--                </RelativeLayout>-->
-    <!--            </LinearLayout>-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:orientation="vertical">-->
-
-    <!--                <TextView-->
-
-    <!--                    android:id="@+id/title_income_in_month"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginTop="5dp"-->
-    <!--                    android:layout_marginBottom="5dp"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:text="月收入" />-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/index_income_in_month"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:drawablePadding="2dp"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:text="+0.00"-->
-    <!--                    android:textColor="#8BC34A" />-->
-
-    <!--            </LinearLayout>-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:orientation="vertical">-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/title_outcome_in_month"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginTop="5dp"-->
-    <!--                    android:layout_marginBottom="5dp"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:text="月支出" />-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/index_outcome_in_month"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:drawablePadding="2dp"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:text="-0.00"-->
-    <!--                    android:textColor="#E91E63" />-->
-    <!--            </LinearLayout>-->
-
-    <!--        </LinearLayout>-->
-
-    <!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-    <!--            android:id="@+id/srl_index_refresh"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent">-->
-
-    <!--            <RelativeLayout-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="match_parent">-->
-
-    <!--                <ImageView-->
-    <!--                    android:id="@+id/iv_index_empty"-->
-    <!--                    android:layout_width="200dp"-->
-    <!--                    android:layout_height="150dp"-->
-    <!--                    android:layout_centerInParent="true"-->
-    <!--                    android:layout_marginBottom="10dp"-->
-    <!--                    android:src="@drawable/index_empty_record" />-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_index_empty_hint"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_below="@id/iv_index_empty"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:text="没有找到记录, 快记一笔吧~" />-->
-
-    <!--                <androidx.recyclerview.widget.RecyclerView-->
-    <!--                    android:id="@+id/rv_budget"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="match_parent"-->
-    <!--                    android:paddingStart="5dp"-->
-    <!--                    android:paddingEnd="5dp"-->
-    <!--                    tools:listitem="@layout/item_budget" />-->
-    <!--            </RelativeLayout>-->
-    <!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-    <!--    </LinearLayout>-->
-
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:id="@+id/fab_new_record"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="end|bottom"-->
-    <!--        android:layout_margin="15dp"-->
-    <!--        android:backgroundTint="#29B6F6"-->
-    <!--        android:src="@drawable/index_float_button_bg"-->
-    <!--        app:borderWidth="0dp"-->
-    <!--        app:fabSize="mini" />-->
-
-    <!--</FrameLayout>-->
 </layout>

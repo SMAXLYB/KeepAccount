@@ -52,7 +52,7 @@ data class Record constructor(
     var recordType: Int,
     // 账本id
     @ColumnInfo(name = "book_id")
-    var bookId: Int
+    var bookId: Int,
 ) : Parcelable {
 
     // 构造函数
@@ -97,6 +97,16 @@ data class Record constructor(
 
     override fun toString(): String {
         return "Record(bookId=${bookId}, id=$id, money=$money, remark=$remark, time=$time, majorCategoryId=$majorCategoryId, minorCategoryId=${minorCategoryId}, recordType=$recordType)"
+    }
+
+    fun setAllData(money: BigDecimal, remark: String?, date: Date, majorCategoryId: Int, minorCategoryId: Int, recordType: Int, bookId: Int) {
+        this.money = money
+        this.remark = remark
+        this.time = date
+        this.majorCategoryId = majorCategoryId
+        this.minorCategoryId = minorCategoryId
+        this.recordType = recordType
+        this.bookId = bookId
     }
 }
 

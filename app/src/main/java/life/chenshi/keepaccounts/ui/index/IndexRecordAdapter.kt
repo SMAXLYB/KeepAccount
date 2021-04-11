@@ -2,7 +2,6 @@ package life.chenshi.keepaccounts.ui.index
 
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -46,32 +45,18 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
             itemBudgetDetailBinding.apply {
                 // 支出主题
                 // itemBudgetDetailTitle.text = Category2.convert2String(it.category)
-                // 备注
-                if (!it.remark.isNullOrEmpty()) {
-                    with(itemBudgetDetailRemark) {
-                        text = it.remark
-                        visibility = View.VISIBLE
-                    }
-                }
                 // 时间
                 itemBudgetDetailCostTime.text = DateUtil.date2String(
                     it.time,
                     DateUtil.HOUR_MINUTE
                 )
                 if (it.recordType == RECORD_TYPE_OUTCOME) {
-                    // 圆点
-                    with(itemBudgetDetailIcon) {
-                        setImageResource(R.drawable.item_budget_detail_icon_outcome)
-                    }
                     // 金额
                     with(itemBudgetDetailMoney) {
                         text = "-${it.money}"
                         setTextColor(Color.parseColor("#E91E63"))
                     }
                 } else {
-                    with(itemBudgetDetailIcon) {
-                        setImageResource(R.drawable.item_budget_detail_icon_income)
-                    }
                     with(itemBudgetDetailMoney) {
                         text = "+${it.money}"
                         setTextColor(Color.parseColor("#8bc34a"))
@@ -93,8 +78,8 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
         holder.binding.apply {
             // 日期
             itemBudgetDate.text = DateUtil.date2MonthDay(recordList[0].time)
-            itemBudgetTotalIncome.text = ""
-            itemBudgetTotalOutcome.text = "金额"
+            // itemBudgetTotalIncome.text = ""
+            // itemBudgetTotalOutcome.text = "金额"
         }
     }
 

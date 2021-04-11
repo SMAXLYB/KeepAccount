@@ -3,9 +3,9 @@ package life.chenshi.keepaccounts.common.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.graphics.drawable.toBitmap
 import life.chenshi.keepaccounts.R
 import kotlin.math.ceil
 import kotlin.math.max
@@ -161,8 +161,8 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     private fun loadBitmap() {
-        val bitmapDrawable = drawable as BitmapDrawable?
-        mBitmap = bitmapDrawable?.bitmap
+        val bitmapDrawable = drawable
+        mBitmap = bitmapDrawable?.toBitmap()
     }
 
     /**

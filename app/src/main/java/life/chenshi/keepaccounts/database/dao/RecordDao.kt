@@ -2,6 +2,8 @@ package life.chenshi.keepaccounts.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import life.chenshi.keepaccounts.constant.TB_MINOR_CATEGORIES
+import life.chenshi.keepaccounts.constant.TB_RECORDS
 import life.chenshi.keepaccounts.database.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByMajorCategoryBean
@@ -14,6 +16,18 @@ interface RecordDao {
     @Insert
     suspend fun insertRecord(record: Record)
 
+    @Transaction
+    suspend fun insertRecordAndUpdateUseRate(record: Record){
+        insertRecord(record)
+        updateUseRate(record.minorCategoryId)
+    }
+
+    /**
+     * 更新频次
+     */
+    @Query("UPDATE $TB_MINOR_CATEGORIES SET use_rate = use_rate + 1 WHERE id = :id")
+    suspend fun updateUseRate(id: Int)
+
     // 删
     @Delete
     suspend fun deleteRecord(record: Record)
@@ -25,10 +39,19 @@ interface RecordDao {
     // // 查 设计多个表查询可以使用@Transaction
     // @Transaction
     /**
-     * 按日期范围查询记录
+     * 按日期范围 账本id查询记录
      */
     @Query("SELECT * FROM tb_records WHERE book_id = :bookId and time BETWEEN :from AND :to ORDER BY time DESC")
     fun getRecordByDateRange(from: Date, to: Date, bookId: Int): LiveData<List<Record>>
+
+    /**
+     * 根据日期范围查询记录 按日期倒序
+     * @param from Date
+     * @param to Date
+     * @return LiveData<List<Record>>
+     */
+    @Query("SELECT * FROM $TB_RECORDS WHERE time BETWEEN :from AND :to ORDER BY time DESC")
+    fun getRecordByDateRange(from:Date, to:Date):LiveData<List<Record>>
 
     /**
      * 按日期范围查询金额总和 分组为支出/收入
