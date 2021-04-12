@@ -122,7 +122,7 @@ class IndexFragment : Fragment() {
     private fun initObserver() {
         mIndexViewModel.apply {
             // 首页加载日期范围内的数据
-            recordsByDateRangeLiveData.observe(viewLifecycleOwner) {
+            recentRecordsLiveData.observe(viewLifecycleOwner) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     val list = convert2RecordListGroupByDay(it)
                     if (list.isNotEmpty()) {
@@ -136,7 +136,7 @@ class IndexFragment : Fragment() {
 
             // 收支类型选择
             currentShowType.observe(viewLifecycleOwner) {
-                mIndexViewModel.recordsByDateRangeLiveData.apply {
+                mIndexViewModel.recentRecordsLiveData.apply {
                     if (value != null) {
                         value = value
                     }
@@ -145,7 +145,7 @@ class IndexFragment : Fragment() {
 
             // 排序
             currentSortType.observe(viewLifecycleOwner) {
-                mIndexViewModel.recordsByDateRangeLiveData.apply {
+                mIndexViewModel.recentRecordsLiveData.apply {
                     if (value != null) {
                         value = value
                     }

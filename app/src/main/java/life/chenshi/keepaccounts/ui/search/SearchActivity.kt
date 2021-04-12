@@ -59,7 +59,7 @@ class SearchActivity : BaseActivity() {
         }
 
         // 键盘回车
-        mBinding.etSearchKeyword.setOnEditorActionListener { v, actionId, event ->
+        mBinding.etSearchKeyword.setOnEditorActionListener { _, actionId, _ ->
             // 如果是回车搜索
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchingWithKeyword()
@@ -181,7 +181,7 @@ class SearchActivity : BaseActivity() {
                 } else {
                     hideEmptyHintView()
                 }
-                mAdapter?.setData(it)
+                // mAdapter?.setData(it)
                 stopRefreshing()
             }
         }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import life.chenshi.keepaccounts.constant.TB_MINOR_CATEGORIES
 import life.chenshi.keepaccounts.constant.TB_RECORDS
+import life.chenshi.keepaccounts.database.bean.RecordWithCategoryBean
 import life.chenshi.keepaccounts.database.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByMajorCategoryBean
@@ -45,13 +46,12 @@ interface RecordDao {
     fun getRecordByDateRange(from: Date, to: Date, bookId: Int): LiveData<List<Record>>
 
     /**
-     * 根据日期范围查询记录 按日期倒序
-     * @param from Date
-     * @param to Date
+     * 获取最近30条记录
      * @return LiveData<List<Record>>
      */
-    @Query("SELECT * FROM $TB_RECORDS WHERE time BETWEEN :from AND :to ORDER BY time DESC")
-    fun getRecordByDateRange(from:Date, to:Date):LiveData<List<Record>>
+    @Transaction
+    @Query("SELECT * FROM $TB_RECORDS WHERE time ORDER BY time DESC LIMIT 30")
+    fun getRecentRecords():LiveData<List<RecordWithCategoryBean>>
 
     /**
      * 按日期范围查询金额总和 分组为支出/收入

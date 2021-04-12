@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.utils.DateUtil
 import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.database.bean.RecordWithCategoryBean
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.ItemBudgetBinding
 import life.chenshi.keepaccounts.databinding.ItemBudgetDetailBinding
 
-class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
+class IndexRecordAdapter(private var recordListGroupByDay: List<List<RecordWithCategoryBean>>) :
     RecyclerView.Adapter<IndexRecordAdapter.IndexRecordViewHolder>() {
     private var mLongClickListener: ((Record) -> Unit)? = null
     private var mClickListener: ((Record) -> Unit)? = null
@@ -32,7 +33,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
 
     override fun onBindViewHolder(holder: IndexRecordViewHolder, position: Int) {
 
-        var recordList = recordListGroupByDay[position]
+        val recordList = recordListGroupByDay[position]
         val itemBudgetDetailContainer = holder.binding.itemBudgetDetailContainer
         // viewHolder会被重复使用，所以要删除之前的view
         itemBudgetDetailContainer.removeAllViews()
@@ -44,30 +45,31 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
             )
             itemBudgetDetailBinding.apply {
                 // 支出主题
-                // itemBudgetDetailTitle.text = Category2.convert2String(it.category)
+                itemBudgetDetailIcon.setText(it.majorCategory.name)
+                itemBudgetDetailTitle.text = it.majorCategory.name
                 // 时间
                 itemBudgetDetailCostTime.text = DateUtil.date2String(
-                    it.time,
+                    it.record.time,
                     DateUtil.HOUR_MINUTE
                 )
-                if (it.recordType == RECORD_TYPE_OUTCOME) {
+                if (it.record.recordType == RECORD_TYPE_OUTCOME) {
                     // 金额
                     with(itemBudgetDetailMoney) {
-                        text = "-${it.money}"
+                        text = "-${it.record.money}"
                         setTextColor(Color.parseColor("#E91E63"))
                     }
                 } else {
                     with(itemBudgetDetailMoney) {
-                        text = "+${it.money}"
+                        text = "+${it.record.money}"
                         setTextColor(Color.parseColor("#8bc34a"))
                     }
                 }
                 mLongClickListener?.let { _ ->
                     root.setOnClickListener { _ ->
-                        mClickListener?.invoke(it)
+                        mClickListener?.invoke(it.record)
                     }
                     root.setOnLongClickListener { _ ->
-                        mLongClickListener?.invoke(it)
+                        mLongClickListener?.invoke(it.record)
                         true
                     }
                 }
@@ -77,7 +79,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
 
         holder.binding.apply {
             // 日期
-            itemBudgetDate.text = DateUtil.date2MonthDay(recordList[0].time)
+            itemBudgetDate.text = DateUtil.date2MonthDay(recordList[0].record.time)
             // itemBudgetTotalIncome.text = ""
             // itemBudgetTotalOutcome.text = "金额"
         }
@@ -87,7 +89,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<Record>>) :
         return recordListGroupByDay.size
     }
 
-    fun setData(data: List<List<Record>>) {
+    fun setData(data: List<List<RecordWithCategoryBean>>) {
         recordListGroupByDay = data
         notifyDataSetChanged()
     }
