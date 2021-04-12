@@ -3,6 +3,7 @@ package life.chenshi.keepaccounts.database.bean
 import androidx.room.Embedded
 import androidx.room.Relation
 import life.chenshi.keepaccounts.database.entity.MajorCategory
+import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.database.entity.Record
 
 /**
@@ -16,5 +17,10 @@ data class RecordWithCategoryBean(
         parentColumn = "major_category_id",
         entityColumn = "id"
     )
-    val majorCategory : MajorCategory
+    val majorCategory: MajorCategory,
+    @Relation(
+        parentColumn = "minor_category_id",
+        entityColumn = "id"
+    )
+    val minorCategory: MinorCategory?,
 )

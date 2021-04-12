@@ -45,7 +45,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<RecordWithC
             )
             itemBudgetDetailBinding.apply {
                 // 支出主题
-                itemBudgetDetailIcon.setText(it.majorCategory.name)
+                itemBudgetDetailIcon.setText(it.minorCategory?.name ?: it.majorCategory.name)
                 itemBudgetDetailTitle.text = it.majorCategory.name
                 // 时间
                 itemBudgetDetailCostTime.text = DateUtil.date2String(
