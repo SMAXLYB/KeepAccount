@@ -224,6 +224,8 @@ class CategoryFragment constructor() : BaseFragment() {
 
                         }
                     }
+                    // 置空子类
+                    currentMinorCategory.value = null
                 }
             }
             // 当前选中主类监听
@@ -232,16 +234,15 @@ class CategoryFragment constructor() : BaseFragment() {
                 if (it.isNull()) {
                     return@observe
                 }
-                // 切换收支分类,并且点击了类型,就全部清空可见
+                // 默认隐藏footer
                 mMinorCategoryFooterAdapter.hideFooterView()
-                if (it?.recordType == recordType && !mCategoryViewModel.isDeleteMode.value!!) {
+                // 如果当前选择类型还是一致,并且不是删除模式,就显示footer
+                if (it!!.recordType == recordType && !mCategoryViewModel.isDeleteMode.value!!) {
                     mMinorCategoryFooterAdapter.showFooterView()
                 }
                 // 新的变更
                 mMajorCategoryAdapter.setCurrentCategory(it)
-                it?.let {
-                    getAllMinorCategoryByMajorCategoryId(it.id!!)
-                }
+                getAllMinorCategoryByMajorCategoryId(it.id!!)
             }
 
             // 子类监听
@@ -282,6 +283,10 @@ class CategoryFragment constructor() : BaseFragment() {
 
             // 当前选中子类监听
             currentMinorCategory.observe(viewLifecycleOwner) {
+                if (it.isNull()) {
+                    return@observe
+                }
+
                 mMinorCategoryAdapter.setCurrentMinorCategory(it)
             }
 
