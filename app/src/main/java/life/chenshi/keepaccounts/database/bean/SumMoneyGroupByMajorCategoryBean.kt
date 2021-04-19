@@ -3,12 +3,12 @@ package life.chenshi.keepaccounts.database.bean
 import java.math.BigDecimal
 
 class SumMoneyGroupByMajorCategoryBean(
-    internal val majorCategory: Int,
+    internal val majorCategory: String,
     private val count: Int,
     private val sumMoney: BigDecimal) {
 
     fun getCategory(): String {
-        return "测试"
+        return majorCategory
     }
 
     fun getCount(): Int = count
