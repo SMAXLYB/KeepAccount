@@ -12,7 +12,7 @@ class MoreSettingActivity : BaseActivity() {
     override fun initView() {
         mBinding
         StatusBarUtil.init(this)
-            .setColor(R.color.white, false)
+            .setColor(R.color.white)
             .setDarkMode(true)
 
         mBinding.bar.apply {

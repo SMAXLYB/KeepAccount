@@ -181,7 +181,7 @@ class SearchActivity : BaseActivity() {
                 } else {
                     hideEmptyHintView()
                 }
-                // mAdapter?.setData(it)
+                mAdapter?.setData(it)
                 stopRefreshing()
             }
         }

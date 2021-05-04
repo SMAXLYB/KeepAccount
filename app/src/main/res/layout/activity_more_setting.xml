@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:centerTitle="全部设置"
+            android:background="@color/white"
             app:leftIcon="@drawable/action_bar_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -126,7 +126,7 @@
                         android:id="@+id/card_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="6217  9999  9999  9999  999"
+                        android:text="6217  ****  ****  ****  999"
                         android:textColor="@color/white"
                         android:textSize="22sp"
                         android:textStyle="bold"

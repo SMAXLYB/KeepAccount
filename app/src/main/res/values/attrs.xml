@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <attr name="backgroundColor" format="color" />
+
+
     <declare-styleable name="CircleImageView">
         <!--边框宽度-->
         <attr name="borderWidths" format="integer" />
@@ -29,6 +33,8 @@
         <attr name="dashWidth" format="dimension" />
         <attr name="dashHeight" format="dimension" />
         <attr name="dashInterval" format="dimension" />
+        <attr name="dashColor" format="color" />
+        <attr name="backgroundColor" />
     </declare-styleable>
 
     <declare-styleable name="VoucherView">
@@ -39,7 +45,7 @@
         <attr name="android:text" format="string" />
         <attr name="android:radius" format="dimension" />
         <attr name="android:src" format="reference" />
-        <attr name="backgroundColor" format="color" />
+        <attr name="backgroundColor" />
         <attr name="android:textColor" format="color" />
         <attr name="android:textSize" format="dimension" />
     </declare-styleable>

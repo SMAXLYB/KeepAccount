@@ -1,8 +1,9 @@
 package life.chenshi.keepaccounts.common.view
 
 import android.content.Context
-import android.graphics.*
-import android.graphics.drawable.ColorDrawable
+import android.graphics.Canvas
+import android.graphics.DashPathEffect
+import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import life.chenshi.keepaccounts.R
@@ -31,8 +32,8 @@ class TicketDivideLineView @JvmOverloads constructor(
     private var dashInterval: Float = 0f
 
     private var effect: DashPathEffect
-    private val mode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
-    private val path = Path()
+    private var dashColor = 0x00000000
+    private var bgColor = 0x00000000
 
     init {
         val typeArray =
@@ -40,6 +41,8 @@ class TicketDivideLineView @JvmOverloads constructor(
         dashWidth = typeArray.getDimension(R.styleable.TicketDivideLineView_dashWidth, 5f)
         dashHeight = typeArray.getDimension(R.styleable.TicketDivideLineView_dashHeight, 5f)
         dashInterval = typeArray.getDimension(R.styleable.TicketDivideLineView_dashInterval, 5f)
+        dashColor = typeArray.getColor(R.styleable.TicketDivideLineView_dashColor, 0x00000000)
+        bgColor = typeArray.getColor(R.styleable.TicketDivideLineView_backgroundColor,0x00000000)
         typeArray.recycle()
 
         initPaint()
@@ -51,13 +54,7 @@ class TicketDivideLineView @JvmOverloads constructor(
         mPaint.apply {
             isAntiAlias = true
             isDither = true
-            color = if (background is ColorDrawable) {
-                (background as ColorDrawable).color
-            } else {
-                0xfffffff
-            }
             style = Paint.Style.FILL
-            background = null
         }
     }
 
@@ -74,11 +71,7 @@ class TicketDivideLineView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-
-        // 新建图层
-        val savedLayer = canvas.saveLayer(0f, 0f, mWidth, mHeight, mPaint)
-
-        // 绘制背景
+        mPaint.color = bgColor
         canvas.drawRect(
             paddingLeft.toFloat(),
             paddingTop.toFloat(),
@@ -86,13 +79,9 @@ class TicketDivideLineView @JvmOverloads constructor(
             mHeight - paddingBottom,
             mPaint
         )
-
-        // 设置混合模式
-        mPaint.xfermode = mode
-
         // 绘制左半圆
         val r = (mHeight - paddingTop - paddingBottom) / 2
-        mPaint.color = 0xffff0000.toInt()
+        mPaint.color = dashColor
         canvas.drawArc(
             -r + paddingLeft,
             paddingTop.toFloat(),
@@ -103,7 +92,6 @@ class TicketDivideLineView @JvmOverloads constructor(
             true,
             mPaint
         )
-
         // 绘制右半圆
         canvas.drawArc(
             mWidth - paddingRight - r,
@@ -115,17 +103,13 @@ class TicketDivideLineView @JvmOverloads constructor(
             true,
             mPaint
         )
-
         // 绘制虚线
         mPaint.apply {
-            style = Paint.Style.STROKE
+            // style = Paint.Style.STROKE
             pathEffect = effect
             strokeWidth = dashHeight
         }
-        path.moveTo(r + paddingLeft.toFloat() + 2.dp2px(), mHeight / 2)
-        path.lineTo(mWidth - paddingRight - 2.dp2px(), mHeight / 2)
-        canvas.drawPath(path, mPaint)
-
-        canvas.restoreToCount(savedLayer)
+        canvas.translate(0f,mHeight/2)
+        canvas.drawLine(r + paddingLeft+ 2.dp2px(),0f,mWidth - paddingRight - 2.dp2px() -r,0f,mPaint)
     }
 }
