@@ -11,7 +11,7 @@
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A4F1F1F1">
+        android:background="@color/global_background_gray">
         <!--标题栏-->
         <RelativeLayout
             android:id="@+id/bar"

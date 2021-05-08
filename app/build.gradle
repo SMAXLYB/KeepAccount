@@ -5,16 +5,25 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+apply from: '../version.gradle'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    // 渠道默认使用的配置
     defaultConfig {
         applicationId "life.chenshi.keepaccounts"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 2
-        versionName "alpha-0.0.1"
+        versionCode appVersionCode
+        versionName appVersionName
+        // 声明多维度 对flavor进行分组
+        flavorDimensions "normal"
+        // ndk
+        ndk{
+            // abiFilters 'armeabi-v7a','x86'
+        }
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation":
@@ -23,14 +32,67 @@ android {
         }
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    // 签名配置
+    signingConfigs {
+        release {
+            storeFile file('../key/keepaccount.jks')
+            storePassword "xxxxxx"
+            keyAlias "keepaccount"
+            keyPassword 'xxxxxx'
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 签名配置
+            signingConfig signingConfigs.release
+            // 自动清理未使用资源 开启minifyEnabled有效
+            // shrinkResources true
+            // 对齐
+            // zipAlignEnabled true
+        }
+
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ".debug"
         }
     }
+
+    // 多渠道
+    productFlavors {
+        // 正常包
+        normal {
+            // 分类到normal组下
+            dimension 'normal'
+            // manifest占位
+            // manifestPlaceholders.put("CHANNEL","normal")
+            // buildConfig动态配置
+            // buildConfigField 'String','INDEX_URL','"http://chenshi.life"'
+            // 资源动态配置
+            // resValue 'string','app_name','Keep-Account'
+            // 包名
+            // applicationId 'com.example.keepaccount'
+            // 发布携带混淆规则
+            // consumerProguardFiles 'proguard-rules.pro','proguard-android.txt'
+        }
+    }
+
+    // productFlavors.all{ flavor ->
+    //     manifestPlaceholders.put("CHANNEL","normal")
+    // }
+
+    lintOptions{
+        abortOnError false
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -40,6 +102,22 @@ android {
     }
     buildFeatures {
         dataBinding = true
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            // 如果是apk文件
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+                def fileName
+                if (variant.buildType.name.equals('release')) {
+                    fileName = "Release_KeepAccount_${flavorName}_${variant.versionName}_${buildTime()}.apk"
+                    // 修改apk名称
+                    output.outputFileName = fileName
+                    // 修改生成路径
+                    variant.getPackageApplication().outputDirectory = new File("../apks")
+                }
+            }
+        }
     }
 }
 
@@ -52,7 +130,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /**-------------------module依赖---------------------**/
-    implementation project(path: ':gson_extra')
+    implementation project(':gson_extra')
 
     /**-------------------第三方库依赖--------------------**/
     // 基本库
@@ -97,4 +175,8 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
     // liveDataBus
     implementation 'com.jeremyliao:live-event-bus-x:1.7.3'
+}
+
+def buildTime() {
+    return new Date().format('yyyyMMdddHHmm')
 }

@@ -50,7 +50,7 @@ class NewRecordActivity : BaseActivity() {
 
     override fun initView() {
         StatusBarUtil.init(this)
-            .setColor(R.color.global_background_gray)
+            .setColor(R.color.status_bar_global_background_gray)
             .setDarkMode(true)
 
         // record更新

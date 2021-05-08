@@ -96,6 +96,7 @@ interface RecordDao {
     /**
      * 搜索符合关键字的全部记录
      */
+    @Transaction
     @Query("select * from $TB_RECORDS where book_id = :bookId and remark like '%'|| :keyword || '%' order by time desc")
     fun getRecordByKeyword(keyword: String, bookId: Int): LiveData<List<RecordWithCategoryBean>>
 }
