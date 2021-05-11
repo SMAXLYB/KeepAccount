@@ -1,4 +1,0 @@
-ext {
-    appVersionCode = 2
-    appVersionName = "alpha-0.0.1"
-}

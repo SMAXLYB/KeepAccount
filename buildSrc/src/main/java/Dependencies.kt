@@ -1,4 +1,5 @@
 object Version {
+    const val kotlin = "1.4.32"
     const val lifecycle = "2.3.0"
     const val room = "2.2.6"
     const val navigation = "2.3.1"
