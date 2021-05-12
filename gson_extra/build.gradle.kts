@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    id("maven-publish")
 }
 
 android {
@@ -31,37 +32,25 @@ dependencies {
     api(Libs.gson)
 }
 
-// task publishJar (type: Jar)
-//
-// task(type:Jar::class.java){}
-//
-// // 配置发布的构建类型为jar
-// artifacts {
-//     archives publishJar
-// }
-//
-// group "com.example.gson.extra"
-// version "1.0.0"
-//
-// uploadArchives {
-//     repositories {
-//         // 发布到本地文件夹
-//         flatDir {
-//             name("libs")
-//             dirs("$projectDir/libs")
-//         }
-//
-//         // 发布到本地maven库 路径c:/user/.m2/rep
-//         mavenLocal()
-//
-//         // 发布到线上maven私服
-//         // MavenDeployer{
-//         //     repositories(url){
-//         //
-//         //     }
-//         //     snapshotRepository(url){
-//         //
-//         //     }
-//         // }
-//     }
-// }
+val androidSourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets.getByName("main").java.srcDirs)
+}
+
+publishing {
+    repositories {
+        mavenLocal()
+        maven {
+            url = uri(layout.buildDirectory.dir("$projectDir/libs"))
+        }
+    }
+
+    publications {
+        create<MavenPublication>("jar") {
+            groupId = "life.chenshi"
+            artifactId = "gson_extra"
+            version = "1.0.0"
+            artifact(androidSourcesJar.get())
+        }
+    }
+}

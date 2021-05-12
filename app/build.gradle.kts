@@ -1,3 +1,6 @@
+import java.util.*
+import java.text.SimpleDateFormat as DateFormat
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -20,7 +23,7 @@ android {
         flavorDimensions("normal")
         javaCompileOptions {
             annotationProcessorOptions {
-                argument("room.schemaLocation","$projectDir/schemas")
+                argument("room.schemaLocation", "$projectDir/schemas")
             }
         }
 
@@ -32,9 +35,9 @@ android {
     signingConfigs {
         register("release") {
             storeFile = file("../key/keepaccount.jks")
-            storePassword = "xxxxxx"
+            storePassword = "19980909a"
             keyAlias = "keepaccount"
-            keyPassword = "xxxxxx"
+            keyPassword = "19980909a"
 
             isV1SigningEnabled = true
             isV2SigningEnabled = true
@@ -53,7 +56,7 @@ android {
             // zipAlignEnabled true
         }
 
-        getByName("debug"){
+        getByName("debug") {
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
         }
@@ -101,10 +104,11 @@ android {
         val buildType = this.buildType.name
         val versionName = this.versionName
         outputs.all {
+
             // 如果是apk文件
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
                 if (buildType == "release") {
-                    val fileName = "Release_KeepAccount_${flavorName}_${versionName}.apk"
+                    val fileName = "Release_KeepAccount_${flavorName}_${versionName}_${buildTime()}.apk"
                     // 修改apk名称
                     this.outputFileName = fileName
                     // 修改生成路径
@@ -166,4 +170,8 @@ dependencies {
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
     // liveDataBus
     implementation("com.jeremyliao:live-event-bus-x:1.7.3")
+}
+
+fun buildTime(): String {
+    return DateFormat("yyyy-MM-dd-HH-mm").format(Date())
 }

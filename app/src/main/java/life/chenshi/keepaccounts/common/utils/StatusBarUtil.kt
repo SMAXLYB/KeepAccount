@@ -92,6 +92,5 @@ object StatusBarUtil {
             val resId = it.resources.getIdentifier("status_bar_height", "dimen", "android")
             return it.resources.getDimensionPixelSize(resId)
         }
-        return 0
     }
 }
