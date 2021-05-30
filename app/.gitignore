@@ -11,4 +11,5 @@
 *.name
 *.log
 .idea/
-schemas
+schemas/
+build/intermediates/
