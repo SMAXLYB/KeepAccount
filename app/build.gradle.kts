@@ -96,9 +96,16 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        useIR = true
     }
     buildFeatures {
         dataBinding = true
+        compose = true
+    }
+
+    composeOptions{
+        kotlinCompilerVersion = Version.kotlin
+        kotlinCompilerExtensionVersion = Version.compose
     }
 
     applicationVariants.all {
@@ -137,16 +144,16 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
 
     // viewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.fragment:fragment-ktx:1.3.3")
     // navigation
     implementation(Libs.navigation_ui)
     implementation(Libs.navigation_fragment)
     // lifeCycle
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     //liveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     // room
     implementation(Libs.room_runtime)
     kapt(Libs.room_compiler)
@@ -157,7 +164,7 @@ dependencies {
     // implementation "com.github.bumptech.glide:glide:4.11.0"
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // kapt ("com.github.bumptech.glide:compiler:4.11.0"
-    implementation("io.coil-kt:coil:1.1.1")
+    implementation("io.coil-kt:coil:1.2.1")
 
     // 时间选择
     implementation("com.github.loperSeven:DateTimePicker:0.3.1")
@@ -171,6 +178,17 @@ dependencies {
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
     // liveDataBus
     implementation("com.jeremyliao:live-event-bus-x:1.7.3")
+    // compose
+    implementation(Libs.compose_ui)
+    implementation(Libs.compose_tools)
+    implementation(Libs.compose_foundation)
+    implementation(Libs.compose_material)
+    implementation(Libs.compose_compiler)
+    implementation(Libs.compose_runtime)
+    implementation(Libs.compose_livedata)
+    implementation(Libs.compose_activity)
+    implementation(Libs.compose_viewmodel)
+
 }
 
 fun buildTime(): String {
