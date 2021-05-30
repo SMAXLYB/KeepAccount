@@ -138,7 +138,7 @@ dependencies {
     // viewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.3.1")
+    implementation("androidx.fragment:fragment-ktx:1.3.3")
     // navigation
     implementation(Libs.navigation_ui)
     implementation(Libs.navigation_fragment)
@@ -151,7 +151,7 @@ dependencies {
     kapt(Libs.room_compiler)
     implementation(Libs.room)
     // 协程
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
     // 图片加载
     // implementation "com.github.bumptech.glide:glide:4.11.0"
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
