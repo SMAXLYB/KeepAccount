@@ -87,6 +87,7 @@ android {
 
     lintOptions {
         isAbortOnError = false
+        isCheckReleaseBuilds = false
     }
 
     compileOptions {
