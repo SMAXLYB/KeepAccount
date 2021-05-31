@@ -96,7 +96,8 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        useIR = true
+        // 集成环境关闭
+        // useIR = true
     }
     buildFeatures {
         dataBinding = true
