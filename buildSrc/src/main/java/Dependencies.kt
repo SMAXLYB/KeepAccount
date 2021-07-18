@@ -1,12 +1,18 @@
+/**
+ * 版本号统一管理
+ */
 object Version {
-    const val kotlin = "1.4.32"
+    const val kotlin = "1.5.10"
     const val lifecycle = "2.3.0"
     const val room = "2.2.6"
     const val navigation = "2.3.1"
     const val gson = "2.8.6"
-    const val compose = "1.0.0-beta07"
+    const val compose = "1.0.0-rc02"
 }
 
+/**
+ * 依赖库
+ */
 object Libs {
     const val room_runtime = "androidx.room:room-runtime:${Version.room}"
     const val room_compiler = "androidx.room:room-compiler:${Version.room}"

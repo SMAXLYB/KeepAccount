@@ -27,7 +27,7 @@ android {
             }
         }
 
-//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+       // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -172,9 +172,9 @@ dependencies {
     // 图表
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     // dataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha05")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha08")
     // recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.2.0-beta01")
+    implementation("androidx.recyclerview:recyclerview:1.2.0")
     // 内存泄漏
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
     // liveDataBus
