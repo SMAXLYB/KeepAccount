@@ -160,19 +160,19 @@ dependencies {
     kapt(Libs.room_compiler)
     implementation(Libs.room)
     // 协程
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
     // 图片加载
     // implementation "com.github.bumptech.glide:glide:4.11.0"
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // kapt ("com.github.bumptech.glide:compiler:4.11.0"
-    implementation("io.coil-kt:coil:1.2.1")
+    implementation("io.coil-kt:coil:1.3.0")
 
     // 时间选择
     implementation("com.github.loperSeven:DateTimePicker:0.3.1")
     // 图表
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     // dataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha08")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-rc01")
     // recyclerview
     implementation("androidx.recyclerview:recyclerview:1.2.0")
     // 内存泄漏
