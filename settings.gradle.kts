@@ -1,2 +1,3 @@
-include (":gson_extra",":app")
+include (":gson_extra",":app",":commonlib")
 rootProject.name = "KeepAccounts"
+
