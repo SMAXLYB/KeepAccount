@@ -9,16 +9,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(AppConfig.compileSdkVersion)
-    buildToolsVersion(AppConfig.buildToolsVersion)
 
     // 渠道默认使用的配置
     defaultConfig {
         applicationId = "life.chenshi.keepaccounts"
-        minSdkVersion(AppConfig.minSdkVersion)
-        targetSdkVersion(AppConfig.targetSdkVersion)
-        versionCode(AppConfig.versionCode)
-        versionName(AppConfig.versionName)
+
         // 声明多维度 对flavor进行分组
         flavorDimensions("normal")
         javaCompileOptions {
@@ -90,10 +85,6 @@ android {
         isCheckReleaseBuilds = false
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
     kotlinOptions {
         jvmTarget = "1.8"
         // 集成环境关闭

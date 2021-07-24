@@ -21,6 +21,48 @@ allprojects {
     }
 }
 
-task<Delete>("clean"){
+subprojects {
+    afterEvaluate {
+        if (extensions.getByName("android") is (com.android.build.gradle.LibraryExtension)) {
+            extensions.configure<com.android.build.gradle.LibraryExtension>(
+                "android"
+            ) {
+                buildToolsVersion(AppConfig.buildToolsVersion)
+                compileSdkVersion(AppConfig.compileSdkVersion)
+
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_1_8
+                    targetCompatibility = JavaVersion.VERSION_1_8
+                }
+                defaultConfig {
+                    minSdkVersion(AppConfig.minSdkVersion)
+                    targetSdkVersion(AppConfig.targetSdkVersion)
+                }
+            }
+        } else {
+            extensions.configure<com.android.build.gradle.internal.dsl.BaseAppModuleExtension>(
+                "android"
+            ) {
+                buildToolsVersion(AppConfig.buildToolsVersion)
+                compileSdkVersion(AppConfig.compileSdkVersion)
+
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_1_8
+                    targetCompatibility = JavaVersion.VERSION_1_8
+                }
+
+                defaultConfig {
+                    minSdkVersion(AppConfig.minSdkVersion)
+                    targetSdkVersion(AppConfig.targetSdkVersion)
+                    versionCode(AppConfig.versionCode)
+                    versionName(AppConfig.versionName)
+                }
+            }
+        }
+    }
+
+}
+
+task<Delete>("clean") {
     delete(rootProject.buildDir)
 }
