@@ -1,9 +1,6 @@
 buildscript {
     repositories {
-        maven("https://jitpack.io")
-        mavenCentral()
-        google()
-        jcenter()
+        addRepositories()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.2.1")
@@ -14,53 +11,34 @@ buildscript {
 
 allprojects {
     repositories {
-        maven("https://jitpack.io")
-        mavenCentral()
-        google()
-        jcenter()
+        addRepositories()
     }
 }
 
 subprojects {
     afterEvaluate {
-        if (extensions.getByName("android") is (com.android.build.gradle.LibraryExtension)) {
-            extensions.configure<com.android.build.gradle.LibraryExtension>(
-                "android"
-            ) {
-                buildToolsVersion(AppConfig.buildToolsVersion)
-                compileSdkVersion(AppConfig.compileSdkVersion)
+        extensions.configure<com.android.build.gradle.BaseExtension>(
+            "android"
+        ) {
+            buildToolsVersion(AppVersionConfig.buildToolsVersion)
+            compileSdkVersion(AppVersionConfig.compileSdkVersion)
 
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_1_8
-                    targetCompatibility = JavaVersion.VERSION_1_8
-                }
-                defaultConfig {
-                    minSdkVersion(AppConfig.minSdkVersion)
-                    targetSdkVersion(AppConfig.targetSdkVersion)
-                }
+            compileOptions {
+                sourceCompatibility = JavaVersion.VERSION_1_8
+                targetCompatibility = JavaVersion.VERSION_1_8
             }
-        } else {
-            extensions.configure<com.android.build.gradle.internal.dsl.BaseAppModuleExtension>(
-                "android"
-            ) {
-                buildToolsVersion(AppConfig.buildToolsVersion)
-                compileSdkVersion(AppConfig.compileSdkVersion)
 
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_1_8
-                    targetCompatibility = JavaVersion.VERSION_1_8
-                }
-
-                defaultConfig {
-                    minSdkVersion(AppConfig.minSdkVersion)
-                    targetSdkVersion(AppConfig.targetSdkVersion)
-                    versionCode(AppConfig.versionCode)
-                    versionName(AppConfig.versionName)
+            defaultConfig {
+                minSdkVersion(AppVersionConfig.minSdkVersion)
+                targetSdkVersion(AppVersionConfig.targetSdkVersion)
+                // 如果是app工程
+                if (extensions.getByName("android") is (com.android.build.gradle.internal.dsl.BaseAppModuleExtension)) {
+                    versionCode(AppVersionConfig.versionCode)
+                    versionName(AppVersionConfig.versionName)
                 }
             }
         }
     }
-
 }
 
 task<Delete>("clean") {
