@@ -25,6 +25,6 @@ fun Context.vibrate() {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
         vibrator.vibrate(30)
     } else {
-        vibrator.vibrate(VibrationEffect.createOneShot(30, 50))
+        vibrator.vibrate(VibrationEffect.createOneShot(30, 200))
     }
 }
