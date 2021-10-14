@@ -95,7 +95,7 @@ android {
         compose = true
     }
 
-    composeOptions{
+    composeOptions {
         kotlinCompilerVersion = Version.kotlin
         kotlinCompilerExtensionVersion = Version.compose
     }
@@ -129,34 +129,35 @@ dependencies {
 
     /**-------------------第三方库依赖--------------------**/
     // 基本库
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin}")
+    implementation(Libs.kotlin)
     implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
 
     // viewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation(Libs.lifecycle_viewmodel)
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.3.3")
+    implementation("androidx.fragment:fragment-ktx:1.3.5")
     // navigation
     implementation(Libs.navigation_ui)
     implementation(Libs.navigation_fragment)
     // lifeCycle
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation(Libs.lifecycle)
     //liveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation(Libs.lifecycle_livedata)
     // room
     implementation(Libs.room_runtime)
     kapt(Libs.room_compiler)
     implementation(Libs.room)
     // 协程
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
+    implementation(Libs.coroutines)
+    implementation(Libs.swiperefreshlayout)
     // 图片加载
     // implementation "com.github.bumptech.glide:glide:4.11.0"
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    // implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // kapt ("com.github.bumptech.glide:compiler:4.11.0"
-    implementation("io.coil-kt:coil:1.3.0")
+    implementation(Libs.coil)
 
     // 时间选择
     implementation("com.github.loperSeven:DateTimePicker:0.3.1")
@@ -165,9 +166,9 @@ dependencies {
     // dataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0-rc01")
     // recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.2.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
     // 内存泄漏
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+    debugImplementation(Libs.leakCanary)
     // liveDataBus
     implementation("com.jeremyliao:live-event-bus-x:1.7.3")
     // compose
