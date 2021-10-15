@@ -12,6 +12,8 @@ object Version {
     const val coroutines = "1.5.0"
     const val coil = "1.2.1"
     const val swiperefreshlayout = "1.1.0"
+    const val core_ktx = "1.6.0"
+    const val appcompat = "1.3.0"
 }
 
 /**
@@ -19,6 +21,9 @@ object Version {
  */
 object Libs {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin}"
+
+    const val core_ktx = "androidx.core:core-ktx:${Version.core_ktx}"
+    const val appcompat = "androidx.appcompat:appcompat:${Version.appcompat}"
 
     const val room_runtime = "androidx.room:room-runtime:${Version.room}"
     const val room_compiler = "androidx.room:room-compiler:${Version.room}"

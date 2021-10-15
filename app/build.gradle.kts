@@ -15,7 +15,7 @@ android {
         applicationId = "life.chenshi.keepaccounts"
 
         // 声明多维度 对flavor进行分组
-        flavorDimensions("normal")
+        flavorDimensions.add("normal")
         javaCompileOptions {
             annotationProcessorOptions {
                 argument("room.schemaLocation", "$projectDir/schemas")
@@ -34,8 +34,8 @@ android {
             keyAlias = "keepaccount"
             keyPassword = "19980909a"
 
-            isV1SigningEnabled = true
-            isV2SigningEnabled = true
+            enableV1Signing = true
+            enableV2Signing = true
         }
     }
 
@@ -80,13 +80,13 @@ android {
     //     manifestPlaceholders.put("CHANNEL","normal")
     // }
 
-    lintOptions {
+    lint {
         isAbortOnError = false
         isCheckReleaseBuilds = false
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         // 集成环境关闭
         // useIR = true
     }
@@ -130,8 +130,8 @@ dependencies {
     /**-------------------第三方库依赖--------------------**/
     // 基本库
     implementation(Libs.kotlin)
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation(Libs.core_ktx)
+    implementation(Libs.appcompat)
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
 
