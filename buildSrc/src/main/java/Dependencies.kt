@@ -14,6 +14,9 @@ object Version {
     const val swiperefreshlayout = "1.1.0"
     const val core_ktx = "1.6.0"
     const val appcompat = "1.3.0"
+    const val junit = "4.13.2"
+    const val junit_android = "1.1.3"
+    const val espresso = "3.4.0"
 }
 
 /**
@@ -55,4 +58,9 @@ object Libs {
     const val coil = "io.coil-kt:coil:${Version.coil}"
 
     const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Version.swiperefreshlayout}"
+
+   // 单元测试
+    const val junit = "junit:junit:${Version.junit}"
+    const val junit_android = "androidx.test.ext:junit:${Version.junit_android}"
+    const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
 }

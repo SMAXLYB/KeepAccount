@@ -4,9 +4,12 @@ plugins {
 }
 
 android {
+    compileSdk = 30
 
     defaultConfig {
-        // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 21
+        targetSdk = 30
+
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -15,6 +18,11 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
@@ -31,9 +39,7 @@ val androidSourcesJar by tasks.registering(Jar::class) {
 publishing {
     repositories {
         mavenLocal()
-        maven {
-            url = uri(layout.buildDirectory.dir("$projectDir/libs"))
-        }
+        maven(url = uri(layout.buildDirectory.dir("$projectDir/libs")))
     }
 
     publications {

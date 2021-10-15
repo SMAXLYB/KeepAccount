@@ -9,10 +9,15 @@ plugins {
 }
 
 android {
+    compileSdk = 30
 
     // 渠道默认使用的配置
     defaultConfig {
         applicationId = "life.chenshi.keepaccounts"
+        minSdk = 21
+        targetSdk = 30
+        versionCode = AppVersionConfig.versionCode
+        versionName = AppVersionConfig.versionName
 
         // 声明多维度 对flavor进行分组
         flavorDimensions.add("normal")
@@ -21,9 +26,6 @@ android {
                 argument("room.schemaLocation", "$projectDir/schemas")
             }
         }
-
-       // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     // 签名配置
@@ -85,6 +87,11 @@ android {
         isCheckReleaseBuilds = false
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
     kotlinOptions {
         jvmTarget = "11"
         // 集成环境关闭
@@ -96,7 +103,6 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerVersion = Version.kotlin
         kotlinCompilerExtensionVersion = Version.compose
     }
 

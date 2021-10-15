@@ -1,20 +1,20 @@
 plugins {
-    id ("com.android.library")
-    id ("kotlin-android")
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
-
 android {
     compileSdk = 30
 
     defaultConfig {
         minSdk = 21
         targetSdk = 30
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles ("consumer-rules.pro")
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
