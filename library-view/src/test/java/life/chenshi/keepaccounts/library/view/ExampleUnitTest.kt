@@ -1,4 +1,4 @@
-package life.chenhsi.commonlib
+package life.chenshi.keepaccounts.library.view
 
 import org.junit.Test
 

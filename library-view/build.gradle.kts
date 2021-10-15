@@ -17,13 +17,13 @@ android {
         }
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
 dependencies {
 
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin}")
-    implementation ("androidx.core:core-ktx:1.6.0")
-    implementation ("androidx.appcompat:appcompat:1.2.0")
+    implementation (Libs.kotlin)
+    implementation (Libs.core_ktx)
+    implementation (Libs.appcompat)
 }
