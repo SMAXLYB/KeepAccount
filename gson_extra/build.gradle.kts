@@ -4,14 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(AppConfig.compileSdkVersion)
-    buildToolsVersion(AppConfig.buildToolsVersion)
+    compileSdk = 30
 
     defaultConfig {
-        minSdkVersion(AppConfig.minSdkVersion)
-        targetSdkVersion(AppConfig.targetSdkVersion)
+        minSdk = 21
+        targetSdk = 30
 
-        // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -21,9 +19,10 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
@@ -40,9 +39,7 @@ val androidSourcesJar by tasks.registering(Jar::class) {
 publishing {
     repositories {
         mavenLocal()
-        maven {
-            url = uri(layout.buildDirectory.dir("$projectDir/libs"))
-        }
+        maven(url = uri(layout.buildDirectory.dir("$projectDir/libs")))
     }
 
     publications {

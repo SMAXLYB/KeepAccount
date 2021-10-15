@@ -80,33 +80,36 @@ class SearchActivity : BaseActivity() {
         }
 
         // 类型筛选
-        mBinding.tvSearchFilterType.setOnClickListener {
-            val view =
-                layoutInflater.inflate(R.layout.search_bottom_sheet_type, null) as ConstraintLayout
-            val bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
-                .apply {
-                    setContentView(view)
-                    setCancelable(true)
-                    setCanceledOnTouchOutside(true)
-                    show()
-                }
-            val children = view.children
-            children.forEach {
-                it.setOnClickListener { v ->
-                    v as TextView
-                    mBinding.tvSearchFilterType.text = v.text
-                    mSearchViewModel.filterType.value = when (v.id) {
-                        R.id.ll_search_type_income -> {
-                            SHOW_TYPE_INCOME
-                        }
-                        R.id.ll_search_type_outcome -> {
-                            SHOW_TYPE_OUTCOME
-                        }
-                        else -> {
-                            SHOW_TYPE_ALL
-                        }
+        mBinding.tvSearchFilterType.setNoDoubleClickListener {
+            share = true
+            listener = {
+                val view =
+                    layoutInflater.inflate(R.layout.search_bottom_sheet_type, null) as ConstraintLayout
+                val bottomSheetDialog = BottomSheetDialog(this@SearchActivity, R.style.BottomSheetDialog)
+                    .apply {
+                        setContentView(view)
+                        setCancelable(true)
+                        setCanceledOnTouchOutside(true)
+                        show()
                     }
-                    bottomSheetDialog.dismiss()
+                val children = view.children
+                children.forEach {
+                    it.setOnClickListener { v ->
+                        v as TextView
+                        mBinding.tvSearchFilterType.text = v.text
+                        mSearchViewModel.filterType.value = when (v.id) {
+                            R.id.ll_search_type_income -> {
+                                SHOW_TYPE_INCOME
+                            }
+                            R.id.ll_search_type_outcome -> {
+                                SHOW_TYPE_OUTCOME
+                            }
+                            else -> {
+                                SHOW_TYPE_ALL
+                            }
+                        }
+                        bottomSheetDialog.dismiss()
+                    }
                 }
             }
         }
@@ -115,37 +118,40 @@ class SearchActivity : BaseActivity() {
         mBinding.tvSearchFilterMoney.setOnClickListener {}
 
         // 排序
-        mBinding.tvSearchFilterOrder.setOnClickListener {
-            val view =
-                layoutInflater.inflate(R.layout.search_bottom_sheet_order, null) as ConstraintLayout
-            val bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
-                .apply {
-                    setContentView(view)
-                    setCancelable(true)
-                    setCanceledOnTouchOutside(true)
-                    show()
-                }
-            val children = view.children
-            children.forEach {
-                it.setOnClickListener { v ->
-                    v as TextView
-                    mBinding.tvSearchFilterOrder.text = v.text
-                    mSearchViewModel.filterOrder.value =
-                        when (v.id) {
-                            R.id.ll_search_order_date_asc -> {
-                                SORT_BY_DATE_ASC
+        mBinding.tvSearchFilterOrder.setNoDoubleClickListener{
+            share = true
+            listener = {
+                val view =
+                    layoutInflater.inflate(R.layout.search_bottom_sheet_order, null) as ConstraintLayout
+                val bottomSheetDialog = BottomSheetDialog(this@SearchActivity, R.style.BottomSheetDialog)
+                    .apply {
+                        setContentView(view)
+                        setCancelable(true)
+                        setCanceledOnTouchOutside(true)
+                        show()
+                    }
+                val children = view.children
+                children.forEach {
+                    it.setOnClickListener { v ->
+                        v as TextView
+                        mBinding.tvSearchFilterOrder.text = v.text
+                        mSearchViewModel.filterOrder.value =
+                            when (v.id) {
+                                R.id.ll_search_order_date_asc -> {
+                                    SORT_BY_DATE_ASC
+                                }
+                                R.id.ll_search_order_date_desc -> {
+                                    SORT_BY_DATE_DESC
+                                }
+                                R.id.ll_search_order_money_asc -> {
+                                    SORT_BY_MONEY_ASC
+                                }
+                                else -> {
+                                    SORT_BY_MONEY_DESC
+                                }
                             }
-                            R.id.ll_search_order_date_desc -> {
-                                SORT_BY_DATE_DESC
-                            }
-                            R.id.ll_search_order_money_asc -> {
-                                SORT_BY_MONEY_ASC
-                            }
-                            else -> {
-                                SORT_BY_MONEY_DESC
-                            }
-                        }
-                    bottomSheetDialog.dismiss()
+                        bottomSheetDialog.dismiss()
+                    }
                 }
             }
         }

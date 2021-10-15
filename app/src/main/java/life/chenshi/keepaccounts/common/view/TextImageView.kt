@@ -2,7 +2,6 @@ package life.chenshi.keepaccounts.common.view
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
@@ -26,7 +25,7 @@ class TextImageView @JvmOverloads constructor(
     private var mRadius = 0f
     private var mText: String? = null
     private var mSrc: Bitmap? = null
-    private var mDrawable: Drawable? = null
+    // private var mDrawable: Drawable? = null
     private var mBgColor = Color.WHITE
     private var mTextColor = Color.BLACK
     private var mTextSize = 14.sp2px()
@@ -42,7 +41,7 @@ class TextImageView @JvmOverloads constructor(
         mText = typedArray.getString(R.styleable.TextImageView_android_text)
         mRadius = typedArray.getDimension(R.styleable.TextImageView_android_radius, 0f)
         mSrc = AppCompatResources.getDrawable(context, typedArray.getResourceId(R.styleable.TextImageView_android_src, 0))?.toBitmap()
-        mDrawable = typedArray.getDrawable(R.styleable.TextImageView_android_src)
+        // mDrawable = typedArray.getDrawable(R.styleable.TextImageView_android_src)
         mBgColor = typedArray.getColor(R.styleable.TextImageView_backgroundColor, Color.WHITE)
         mTextColor = typedArray.getColor(R.styleable.TextImageView_android_textColor, Color.BLACK)
         mTextSize = typedArray.getDimension(R.styleable.TextImageView_android_textSize, 14.sp2px())

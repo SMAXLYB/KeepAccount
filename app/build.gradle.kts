@@ -9,26 +9,23 @@ plugins {
 }
 
 android {
-    compileSdkVersion(AppConfig.compileSdkVersion)
-    buildToolsVersion(AppConfig.buildToolsVersion)
+    compileSdk = 30
 
     // 渠道默认使用的配置
     defaultConfig {
         applicationId = "life.chenshi.keepaccounts"
-        minSdkVersion(AppConfig.minSdkVersion)
-        targetSdkVersion(AppConfig.targetSdkVersion)
-        versionCode(AppConfig.versionCode)
-        versionName(AppConfig.versionName)
+        minSdk = 21
+        targetSdk = 30
+        versionCode = AppVersionConfig.versionCode
+        versionName = AppVersionConfig.versionName
+
         // 声明多维度 对flavor进行分组
-        flavorDimensions("normal")
+        flavorDimensions.add("normal")
         javaCompileOptions {
             annotationProcessorOptions {
                 argument("room.schemaLocation", "$projectDir/schemas")
             }
         }
-
-//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     // 签名配置
@@ -39,8 +36,8 @@ android {
             keyAlias = "keepaccount"
             keyPassword = "19980909a"
 
-            isV1SigningEnabled = true
-            isV2SigningEnabled = true
+            enableV1Signing = true
+            enableV2Signing = true
         }
     }
 
@@ -85,17 +82,18 @@ android {
     //     manifestPlaceholders.put("CHANNEL","normal")
     // }
 
-    lintOptions {
+    lint {
         isAbortOnError = false
         isCheckReleaseBuilds = false
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
         // 集成环境关闭
         // useIR = true
     }
@@ -104,8 +102,7 @@ android {
         compose = true
     }
 
-    composeOptions{
-        kotlinCompilerVersion = Version.kotlin
+    composeOptions {
         kotlinCompilerExtensionVersion = Version.compose
     }
 
@@ -138,45 +135,46 @@ dependencies {
 
     /**-------------------第三方库依赖--------------------**/
     // 基本库
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin}")
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.3.0")
+    implementation(Libs.kotlin)
+    implementation(Libs.core_ktx)
+    implementation(Libs.appcompat)
+    implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
 
     // viewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation(Libs.lifecycle_viewmodel)
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.3.3")
+    implementation("androidx.fragment:fragment-ktx:1.3.5")
     // navigation
     implementation(Libs.navigation_ui)
     implementation(Libs.navigation_fragment)
     // lifeCycle
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation(Libs.lifecycle)
     //liveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation(Libs.lifecycle_livedata)
     // room
     implementation(Libs.room_runtime)
     kapt(Libs.room_compiler)
     implementation(Libs.room)
     // 协程
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
+    implementation(Libs.coroutines)
+    implementation(Libs.swiperefreshlayout)
     // 图片加载
     // implementation "com.github.bumptech.glide:glide:4.11.0"
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    // implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // kapt ("com.github.bumptech.glide:compiler:4.11.0"
-    implementation("io.coil-kt:coil:1.2.1")
+    implementation(Libs.coil)
 
     // 时间选择
     implementation("com.github.loperSeven:DateTimePicker:0.3.1")
     // 图表
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     // dataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha05")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-rc01")
     // recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.2.0-beta01")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
     // 内存泄漏
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+    debugImplementation(Libs.leakCanary)
     // liveDataBus
     implementation("com.jeremyliao:live-event-bus-x:1.7.3")
     // compose
