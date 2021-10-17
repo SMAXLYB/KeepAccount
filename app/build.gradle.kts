@@ -6,24 +6,27 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("life.chenshi.keepaccounts.plugin.app")
 }
 
 android {
-    compileSdk = 30
+    compileSdk = Sdk.compile_sdk_version
 
     // 渠道默认使用的配置
     defaultConfig {
         applicationId = "life.chenshi.keepaccounts"
-        minSdk = 21
-        targetSdk = 30
-        versionCode = AppVersionConfig.versionCode
-        versionName = AppVersionConfig.versionName
+        minSdk = Sdk.mini_sdk_version
+        targetSdk = Sdk.target_sdk_version
+        versionCode = Sdk.version_code
+        versionName = Sdk.version_name
 
         // 声明多维度 对flavor进行分组
         flavorDimensions.add("normal")
-        javaCompileOptions {
-            annotationProcessorOptions {
-                argument("room.schemaLocation", "$projectDir/schemas")
+
+        // room配置
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
     }

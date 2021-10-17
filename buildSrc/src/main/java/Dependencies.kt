@@ -1,3 +1,11 @@
+object Sdk {
+    const val compile_sdk_version = 30
+    const val mini_sdk_version = 21
+    const val target_sdk_version = 30
+    const val version_code = 2
+    const val version_name = "alpha-0.0.1"
+}
+
 /**
  * 版本号统一管理
  */
@@ -17,26 +25,35 @@ object Version {
     const val junit = "4.13.2"
     const val junit_android = "1.1.3"
     const val espresso = "3.4.0"
+    const val arouter = "1.5.2"
 }
 
 /**
  * 依赖库
  */
 object Libs {
+    // base
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin}"
-
     const val core_ktx = "androidx.core:core-ktx:${Version.core_ktx}"
     const val appcompat = "androidx.appcompat:appcompat:${Version.appcompat}"
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
 
+    // test
+    const val junit = "junit:junit:${Version.junit}"
+    const val junit_android = "androidx.test.ext:junit:${Version.junit_android}"
+    const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
+
+    // room
     const val room_runtime = "androidx.room:room-runtime:${Version.room}"
     const val room_compiler = "androidx.room:room-compiler:${Version.room}"
     const val room = "androidx.room:room-ktx:${Version.room}"
 
-    const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
+    // navigation
+    const val navigation_fragment =
+        "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
     const val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
 
-    const val gson = "com.google.code.gson:gson:${Version.gson}"
-
+    // compose
     const val compose_ui = "androidx.compose.ui:ui:${Version.compose}"
     const val compose_tools = "androidx.compose.ui:ui-tooling:${Version.compose}"
     const val compose_foundation = "androidx.compose.foundation:foundation:${Version.compose}"
@@ -47,20 +64,23 @@ object Libs {
     const val compose_activity = "androidx.activity:activity-compose:1.3.1"
     const val compose_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
 
+    // lifecycle
     const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycle}"
     const val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
-    const val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
+    const val lifecycle_viewmodel =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
 
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Version.leakCanary}"
 
-    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
-
     const val coil = "io.coil-kt:coil:${Version.coil}"
 
-    const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Version.swiperefreshlayout}"
+    const val gson = "com.google.code.gson:gson:${Version.gson}"
 
-   // 单元测试
-    const val junit = "junit:junit:${Version.junit}"
-    const val junit_android = "androidx.test.ext:junit:${Version.junit_android}"
-    const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
+    const val swiperefreshlayout =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${Version.swiperefreshlayout}"
+
+    // arouter
+    const val arouter = "com.alibaba:arouter-api:${Version.arouter}"
+    const val arouter_compiler = "com.alibaba:arouter-compiler:${Version.arouter}"
 }
+

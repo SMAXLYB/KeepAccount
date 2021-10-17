@@ -11,7 +11,7 @@ KeepAccounts目前是一款个人练手项目，功能以记账为主。主开�
 
 - module-common
 
-  公共模块
+  公共模块, 包含base/util
 
 - module-home
 
@@ -23,7 +23,7 @@ KeepAccounts目前是一款个人练手项目，功能以记账为主。主开�
 
 - library-view
 
-  自定view库
+  自定view或者第三方控件
 
 ### 二、第三方库以及资料
 
