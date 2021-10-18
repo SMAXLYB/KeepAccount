@@ -8,6 +8,10 @@ import org.gradle.api.Project
  */
 class AppConfigPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        project.applyPluginsBlock(true)
+        project.run {
+            applyPluginsBlock(true)
+            applyAndroidBlock(true)
+            applyDependenciesBlock()
+        }
     }
 }

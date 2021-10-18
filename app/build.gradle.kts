@@ -7,55 +7,19 @@ plugins {
 }
 
 android {
-    compileSdk = Sdk.compile_sdk_version
 
     // 渠道默认使用的配置
     defaultConfig {
         applicationId = "life.chenshi.keepaccounts"
-        minSdk = Sdk.mini_sdk_version
-        targetSdk = Sdk.target_sdk_version
-        versionCode = Sdk.version_code
-        versionName = Sdk.version_name
 
         // 声明多维度 对flavor进行分组
         flavorDimensions.add("normal")
 
-        // room配置
+        // room配置, 需要则配，不需要不配
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas")
             }
-        }
-    }
-
-    // 签名配置
-    signingConfigs {
-        register("release") {
-            storeFile = file("../key/keepaccount.jks")
-            storePassword = "19980909a"
-            keyAlias = "keepaccount"
-            keyPassword = "19980909a"
-
-            enableV1Signing = true
-            enableV2Signing = true
-        }
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            // 签名配置
-            signingConfig = signingConfigs.getByName("release")
-            // 自动清理未使用资源 开启minifyEnabled有效
-            // shrinkResources true
-            // 对齐
-            // zipAlignEnabled true
-        }
-
-        getByName("debug") {
-            isMinifyEnabled = false
-            applicationIdSuffix = ".debug"
         }
     }
 
@@ -82,18 +46,7 @@ android {
     //     manifestPlaceholders.put("CHANNEL","normal")
     // }
 
-    lint {
-        isAbortOnError = false
-        isCheckReleaseBuilds = false
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     kotlinOptions {
-        jvmTarget = "11"
         // 集成环境关闭
         // useIR = true
     }
@@ -101,7 +54,6 @@ android {
         dataBinding = true
         compose = true
     }
-
     composeOptions {
         kotlinCompilerExtensionVersion = Version.compose
     }
@@ -160,9 +112,6 @@ dependencies {
     implementation(Libs.coroutines)
     implementation(Libs.swiperefreshlayout)
     // 图片加载
-    // implementation "com.github.bumptech.glide:glide:4.11.0"
-    // implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    // kapt ("com.github.bumptech.glide:compiler:4.11.0"
     implementation(Libs.coil)
 
     // 时间选择
@@ -187,7 +136,6 @@ dependencies {
     implementation(Libs.compose_livedata)
     implementation(Libs.compose_activity)
     implementation(Libs.compose_viewmodel)
-
 }
 
 fun buildTime(): String {

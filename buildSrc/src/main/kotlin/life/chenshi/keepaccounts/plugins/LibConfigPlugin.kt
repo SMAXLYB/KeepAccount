@@ -11,6 +11,10 @@ const val isIntegrationMode = true
  */
 class LibConfigPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        project.applyPluginsBlock(!isIntegrationMode)
+        project.run {
+            applyPluginsBlock(!isIntegrationMode)
+            applyAndroidBlock(!isIntegrationMode)
+            applyDependenciesBlock()
+        }
     }
 }
