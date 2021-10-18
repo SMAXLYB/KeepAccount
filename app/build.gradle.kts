@@ -2,11 +2,8 @@ import java.util.*
 import java.text.SimpleDateFormat as DateFormat
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
+    id("app-config-plugin")
     id("androidx.navigation.safeargs.kotlin")
-    id("life.chenshi.keepaccounts.plugin.app")
 }
 
 android {

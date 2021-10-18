@@ -1,6 +1,5 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("lib-config-plugin")
 }
 android {
     compileSdk = 30
@@ -10,7 +9,7 @@ android {
         targetSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        // consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {

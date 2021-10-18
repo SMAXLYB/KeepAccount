@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.library")
+    id("lib-config-plugin")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
 }
@@ -12,7 +12,7 @@ android {
         targetSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        // consumerProguardFiles("consumer-rules.pro")
 
         // 每个模块都要
         kapt {

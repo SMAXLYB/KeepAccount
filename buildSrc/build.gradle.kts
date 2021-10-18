@@ -1,6 +1,18 @@
 plugins {
     `kotlin-dsl`
 }
+gradlePlugin {
+    plugins {
+        create("AppConfigPlugin") {
+            id = "app-config-plugin"
+            implementationClass = "life.chenshi.keepaccounts.plugins.AppConfigPlugin"
+        }
+        create("LibConfigPlugin") {
+            id = "lib-config-plugin"
+            implementationClass = "life.chenshi.keepaccounts.plugins.LibConfigPlugin"
+        }
+    }
+}
 repositories{
     maven("https://jitpack.io")
     mavenCentral()

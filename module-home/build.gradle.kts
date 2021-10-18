@@ -1,7 +1,7 @@
+val isIntegrationMode: String by project
+
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("life.chenshi.keepaccounts.plugin.lib")
+    id("lib-config-plugin")
 }
 
 android {
@@ -12,7 +12,8 @@ android {
         targetSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        // arr包混淆
+        // consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -33,9 +34,9 @@ android {
 }
 
 dependencies {
-    implementation (Libs.kotlin)
-    implementation (Libs.core_ktx)
-    implementation (Libs.appcompat)
+    implementation(Libs.kotlin)
+    implementation(Libs.core_ktx)
+    implementation(Libs.appcompat)
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.junit_android)
     androidTestImplementation(Libs.espresso)

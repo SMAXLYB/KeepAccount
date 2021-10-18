@@ -1,6 +1,5 @@
 plugins {
-    id ("com.android.library")
-    id ("kotlin-android")
+    id ("lib-config-plugin")
 }
 
 android {
@@ -10,7 +9,7 @@ android {
         minSdk = 21
         targetSdk = 30
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles ("consumer-rules.pro")
+        // consumerProguardFiles ("consumer-rules.pro")
     }
 
     buildTypes {
