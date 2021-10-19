@@ -6,8 +6,8 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.dp2px
-import life.chenshi.keepaccounts.common.utils.getColorById
+import life.chenshi.keepaccounts.module.common.utils.dp2px
+import life.chenshi.keepaccounts.module.common.utils.getColorById
 
 class UnderLineTextView @JvmOverloads constructor(
     context: Context,

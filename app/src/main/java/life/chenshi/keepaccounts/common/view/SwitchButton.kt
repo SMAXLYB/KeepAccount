@@ -15,8 +15,8 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.Checkable
 import androidx.core.animation.addListener
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.dp2px
-import life.chenshi.keepaccounts.common.utils.getColorById
+import life.chenshi.keepaccounts.module.common.utils.dp2px
+import life.chenshi.keepaccounts.module.common.utils.getColorById
 
 typealias CheckChangedListener = (Boolean) -> Unit
 

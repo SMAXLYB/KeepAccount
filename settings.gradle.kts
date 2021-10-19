@@ -4,6 +4,6 @@ include(
     ":library_view",
     ":module_common",
     ":module_home",
-    ":module-search"
+    ":module_search"
 )
 rootProject.name = "KeepAccounts"

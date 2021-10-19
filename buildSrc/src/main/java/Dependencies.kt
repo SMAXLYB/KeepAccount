@@ -19,13 +19,15 @@ object Version {
     const val leakCanary = "2.7"
     const val coroutines = "1.5.0"
     const val coil = "1.2.1"
-    const val swiperefreshlayout = "1.1.0"
+    const val swipeRefreshLayout = "1.1.0"
     const val core_ktx = "1.6.0"
     const val appcompat = "1.3.0"
     const val junit = "4.13.2"
     const val junit_android = "1.1.3"
     const val espresso = "3.4.0"
     const val arouter = "1.5.2"
+    const val recyclerview = "1.2.1"
+    const val constraintLayout = "2.0.4"
 }
 
 /**
@@ -37,6 +39,13 @@ object Libs {
     const val core_ktx = "androidx.core:core-ktx:${Version.core_ktx}"
     const val appcompat = "androidx.appcompat:appcompat:${Version.appcompat}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
+    const val recyclerview = "androidx.recyclerview:recyclerview:${Version.recyclerview}"
+    const val coil = "io.coil-kt:coil:${Version.coil}"
+    const val gson = "com.google.code.gson:gson:${Version.gson}"
+    const val swipeRefreshLayout =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${Version.swipeRefreshLayout}"
+    const val constraintLayout =
+        "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
 
     // test
     const val junit = "junit:junit:${Version.junit}"
@@ -62,12 +71,12 @@ object Libs {
     const val compose_runtime = "androidx.compose.runtime:runtime:${Version.compose}"
     const val compose_livedata = "androidx.compose.runtime:runtime-livedata:${Version.compose}"
     const val compose_activity = "androidx.activity:activity-compose:1.3.1"
-    const val compose_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+    const val compose_viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
 
     // lifecycle
     const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycle}"
     const val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
-    const val lifecycle_viewmodel =
+    const val lifecycle_viewModel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
 
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Version.leakCanary}"

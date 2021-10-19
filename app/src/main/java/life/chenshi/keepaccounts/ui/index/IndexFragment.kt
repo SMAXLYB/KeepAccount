@@ -25,6 +25,9 @@ import life.chenshi.keepaccounts.constant.SWITCHER_CONFIRM_BEFORE_DELETE
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.databinding.LayoutCustomPopwindowBinding
+import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 
 class IndexFragment : Fragment() {
     private var _binding: FragmentIndexBinding? = null

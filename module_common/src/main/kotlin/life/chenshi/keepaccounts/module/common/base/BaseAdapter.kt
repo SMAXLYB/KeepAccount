@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.base
+package life.chenshi.keepaccounts.module.common.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

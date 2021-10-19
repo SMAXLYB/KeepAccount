@@ -3,7 +3,7 @@ package life.chenshi.keepaccounts.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import life.chenshi.keepaccounts.common.utils.isNull
+import life.chenshi.keepaccounts.module.common.utils.isNull
 import life.chenshi.keepaccounts.constant.STATE_NORMAL
 
 abstract class AbstractCategory(

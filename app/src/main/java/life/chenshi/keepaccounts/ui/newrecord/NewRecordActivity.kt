@@ -32,6 +32,8 @@ import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewItemBinding
+import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.ui.index.IndexViewModel
 import life.chenshi.keepaccounts.ui.setting.category.CategoryActivity
 import java.math.BigDecimal

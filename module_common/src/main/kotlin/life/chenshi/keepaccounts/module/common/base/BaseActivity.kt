@@ -1,16 +1,15 @@
-package life.chenshi.keepaccounts.common.base
+package life.chenshi.keepaccounts.module.common.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import life.chenshi.keepaccounts.R
 
 abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_KeepAccounts)
+        // setTheme(R.style.Theme_KeepAccounts)
         super.onCreate(savedInstanceState)
         initView()
         initListener()

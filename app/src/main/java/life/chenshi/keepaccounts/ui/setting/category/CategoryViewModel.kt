@@ -8,8 +8,8 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
-import life.chenshi.keepaccounts.common.utils.DataStoreUtil
-import life.chenshi.keepaccounts.common.utils.ToastUtil
+import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.common.view.CustomDialog
 import life.chenshi.keepaccounts.constant.STATE_DELETE
 import life.chenshi.keepaccounts.constant.STATE_NORMAL

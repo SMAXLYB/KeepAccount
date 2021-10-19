@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.utils
+package life.chenshi.keepaccounts.module.common.utils
 
 import android.app.Activity
 import android.graphics.Color
@@ -6,7 +6,6 @@ import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.ColorRes
-import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import java.lang.ref.WeakReference
 
 object StatusBarUtil {
@@ -14,7 +13,7 @@ object StatusBarUtil {
     private lateinit var activity: WeakReference<Activity>
 
     fun init(activity: Activity): StatusBarUtil {
-        this.activity = WeakReference(activity)
+        StatusBarUtil.activity = WeakReference(activity)
         return this
     }
 

@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.dp2px
+import life.chenshi.keepaccounts.module.common.utils.dp2px
 
 /**
  * 票券分割线效果

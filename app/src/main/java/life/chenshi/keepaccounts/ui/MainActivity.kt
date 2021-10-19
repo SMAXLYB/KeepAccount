@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
-import life.chenshi.keepaccounts.common.utils.DataStoreUtil
-import life.chenshi.keepaccounts.common.utils.StatusBarUtil
-import life.chenshi.keepaccounts.common.utils.ToastUtil
+import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.constant.SWITCHER_EXIT_APP
 
 class MainActivity : BaseActivity() {

@@ -10,9 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.ToastUtil
-import life.chenshi.keepaccounts.common.utils.inVisible
-import life.chenshi.keepaccounts.common.utils.visible
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
+import life.chenshi.keepaccounts.module.common.utils.inVisible
+import life.chenshi.keepaccounts.module.common.utils.visible
 import life.chenshi.keepaccounts.common.view.CustomDialog
 import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.databinding.FragmentBookBinding

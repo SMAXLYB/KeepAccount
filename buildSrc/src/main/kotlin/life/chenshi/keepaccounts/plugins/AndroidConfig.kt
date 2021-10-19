@@ -43,8 +43,14 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
             if (!project.name.contains("_")) {
                 manifest.srcFile("src/main/AndroidManifest.xml")
             } else {
+                val manifestFile =
+                    File("${project.projectDir}/src/main/kotlin/run_as_app/AndroidManifest.xml")
                 // 如果是模块, 不能直接使用main
-                manifest.srcFile("src/main/kotlin/run_as_app/AndroidManifest.xml")
+                if (manifestFile.exists()) {
+                    manifest.srcFile("src/main/kotlin/run_as_app/AndroidManifest.xml")
+                } else {
+                    manifest.srcFile("src/main/AndroidManifest.xml")
+                }
             }
         }
     }
@@ -65,7 +71,8 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
         val versionName = this.versionName
         outputs.all {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
-                this.outputFileName = "${this.outputFileName.substringBefore(".")}_${buildTime()}_${versionName}.apk"
+                this.outputFileName =
+                    "${this.outputFileName.substringBefore(".")}_${buildTime()}_${versionName}.apk"
             }
         }
     }
@@ -171,7 +178,8 @@ internal fun LibraryExtension.applyConfig(project: Project) {
     libraryVariants.all {
         outputs.all {
             if (this is com.android.build.gradle.internal.api.LibraryVariantOutputImpl) {
-                this.outputFileName = "${this.outputFileName.substringBefore(".")}_${buildTime()}.aar"
+                this.outputFileName =
+                    "${this.outputFileName.substringBefore(".")}_${buildTime()}.aar"
             }
         }
     }

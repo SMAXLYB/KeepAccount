@@ -7,8 +7,8 @@ import android.content.Intent
 import android.os.Process
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.common.base.BaseActivity
-import life.chenshi.keepaccounts.common.utils.StatusBarUtil
-import life.chenshi.keepaccounts.common.utils.ToastUtil
+import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.databinding.ActivityCrashBinding
 import kotlin.system.exitProcess
 

@@ -10,8 +10,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import life.chenshi.keepaccounts.common.utils.gone
-import life.chenshi.keepaccounts.common.utils.setVisibility
+import life.chenshi.keepaccounts.module.common.utils.gone
+import life.chenshi.keepaccounts.module.common.utils.setVisibility
 import life.chenshi.keepaccounts.databinding.DialogCustomBinding
 
 typealias Listener = (DialogFragment, ViewDataBinding?) -> Unit

@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toBitmap
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.sp2px
+import life.chenshi.keepaccounts.module.common.utils.sp2px
 
 class TextImageView @JvmOverloads constructor(
     context: Context,

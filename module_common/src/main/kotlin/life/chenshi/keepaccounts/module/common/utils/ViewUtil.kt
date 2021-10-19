@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.utils
+package life.chenshi.keepaccounts.module.common.utils
 
 import android.app.Activity
 import android.content.ContextWrapper
@@ -10,8 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.module.common.utils.NoDoubleClickHelper
+import life.chenshi.keepaccounts.module.common.R
 
 /*------------------属性-------------------------*/
 
@@ -47,9 +46,9 @@ fun View.setNoDoubleClickListener(
         val tempHelper = NoDoubleClickHelper().apply(helper)
         val thisViewOrDecorView = if (tempHelper.share)
             getActivity()?.window?.decorView ?: this else this
-        val millis = thisViewOrDecorView.getTag(R.id.no_double_click_millis) as? Long ?: 0
+        val millis = thisViewOrDecorView.getTag(R.id.common_no_double_click_millis) as? Long ?: 0
         if (SystemClock.uptimeMillis() - millis >= tempHelper.interval) {
-            thisViewOrDecorView.setTag(R.id.no_double_click_millis, SystemClock.uptimeMillis())
+            thisViewOrDecorView.setTag(R.id.common_no_double_click_millis, SystemClock.uptimeMillis())
             tempHelper.listener?.invoke(this)
         }
     }
