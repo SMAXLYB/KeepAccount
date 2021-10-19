@@ -1,6 +1,3 @@
-import java.util.*
-import java.text.SimpleDateFormat as DateFormat
-
 plugins {
     id("app-config-plugin")
     id("androidx.navigation.safeargs.kotlin")
@@ -10,10 +7,6 @@ android {
 
     // 渠道默认使用的配置
     defaultConfig {
-        applicationId = "life.chenshi.keepaccounts"
-
-        // 声明多维度 对flavor进行分组
-        flavorDimensions.add("normal")
 
         // room配置, 需要则配，不需要不配
         kapt {
@@ -22,29 +15,6 @@ android {
             }
         }
     }
-
-    // 多渠道
-    productFlavors {
-        // 正常包
-        create("normal") {
-            // 分类到normal组下
-            dimension = "normal"
-            // manifest占位
-            // manifestPlaceholders.put("CHANNEL","normal")
-            // buildConfig动态配置
-            // buildConfigField "String","INDEX_URL",""http://chenshi.life""
-            // 资源动态配置
-            // resValue "string","app_name","Keep-Account"
-            // 包名
-            // applicationId "com.example.keepaccount"
-            // 发布携带混淆规则
-            // consumerProguardFiles "proguard-rules.pro","proguard-android.txt"
-        }
-    }
-
-    // productFlavors.all{ flavor ->
-    //     manifestPlaceholders.put("CHANNEL","normal")
-    // }
 
     kotlinOptions {
         // 集成环境关闭
@@ -56,24 +26,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Version.compose
-    }
-
-    applicationVariants.all {
-        val buildType = this.buildType.name
-        val versionName = this.versionName
-        outputs.all {
-
-            // 如果是apk文件
-            if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
-                if (buildType == "release") {
-                    val fileName = "Release_KeepAccount_${flavorName}_${versionName}_${buildTime()}.apk"
-                    // 修改apk名称
-                    this.outputFileName = fileName
-                    // 修改生成路径
-                    // this.getPackageApplication().outputDirectory = new File ("../apks")
-                }
-            }
-        }
     }
 }
 
@@ -136,8 +88,4 @@ dependencies {
     implementation(Libs.compose_livedata)
     implementation(Libs.compose_activity)
     implementation(Libs.compose_viewmodel)
-}
-
-fun buildTime(): String {
-    return DateFormat("yyyy-MM-dd-HH-mm").format(Date())
 }
