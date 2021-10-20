@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.base.BaseFragment
 import life.chenshi.keepaccounts.constant.SWITCHER_CONFIRM_BEFORE_DELETE
 import life.chenshi.keepaccounts.constant.SWITCHER_EXIT_APP
 import life.chenshi.keepaccounts.databinding.FragmentMoreSettingBinding
+import life.chenshi.keepaccounts.module.common.base.BaseFragment
 
 class MoreSettingFragment : BaseFragment() {
 

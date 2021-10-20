@@ -1,9 +1,9 @@
 package life.chenshi.keepaccounts.ui.setting.moresetting
 
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.base.BaseActivity
-import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.databinding.ActivityMoreSettingBinding
+import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 
 class MoreSettingActivity : BaseActivity() {
 

@@ -8,14 +8,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jeremyliao.liveeventbus.LiveEventBus
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.base.BaseActivity
+import life.chenshi.keepaccounts.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
-import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.getValueFromIntent
 import life.chenshi.keepaccounts.module.common.utils.isNull
 import life.chenshi.keepaccounts.constant.BUSINESS
 import life.chenshi.keepaccounts.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.databinding.LayoutCategoryBinding
+import life.chenshi.keepaccounts.module.common.base.BaseActivity
 
 class CategoryActivity : BaseActivity() {
     companion object {

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import life.chenshi.keepaccounts.common.utils.ViewUtilKt;
+import life.chenshi.keepaccounts.module.common.utils.ViewUtilKt;
 
 /**
  * @author smaxlyb

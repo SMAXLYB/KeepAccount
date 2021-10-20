@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.plugins
+ package life.chenshi.keepaccounts.plugins
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

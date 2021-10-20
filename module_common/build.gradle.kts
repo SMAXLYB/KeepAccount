@@ -12,4 +12,5 @@ dependencies {
     api(Libs.core_ktx)
     api(Libs.appcompat)
     api(Libs.recyclerview)
+    api(Libs.datastore)
 }

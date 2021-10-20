@@ -2,9 +2,9 @@ package life.chenshi.keepaccounts.ui.newrecord
 
 import android.graphics.Color
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.base.BaseAdapter
 import life.chenshi.keepaccounts.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.databinding.ItemNewRecordCategoryBinding
+import life.chenshi.keepaccounts.module.common.base.BaseAdapter
 
 class CommonCategoryAdapter(data: List<AbstractCategory>) : BaseAdapter<AbstractCategory, ItemNewRecordCategoryBinding>(data) {
     private var mCurrentCategory: AbstractCategory? = null

@@ -61,8 +61,6 @@ dependencies {
     implementation("com.github.loperSeven:DateTimePicker:0.4.1")
     // 图表
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
-    // dataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
     // 内存泄漏
     debugImplementation(Libs.leakCanary)
     // liveDataBus

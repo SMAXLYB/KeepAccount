@@ -18,9 +18,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.base.BaseActivity
-import life.chenshi.keepaccounts.common.base.BaseAdapter
-import life.chenshi.keepaccounts.common.utils.*
+import life.chenshi.keepaccounts.common.utils.ToastUtil
 import life.chenshi.keepaccounts.common.view.CustomDialog
 import life.chenshi.keepaccounts.constant.BUSINESS
 import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MAJOR
@@ -32,8 +30,9 @@ import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.ActivityNewRecordBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewItemBinding
-import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
-import life.chenshi.keepaccounts.module.common.utils.ToastUtil
+import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import life.chenshi.keepaccounts.module.common.base.BaseAdapter
+import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.ui.index.IndexViewModel
 import life.chenshi.keepaccounts.ui.setting.category.CategoryActivity
 import java.math.BigDecimal
