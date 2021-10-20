@@ -1,10 +1,10 @@
- package life.chenshi.keepaccounts.plugins
+package life.chenshi.keepaccounts.plugins
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 // false means every module can run as an app
-const val isIntegrationMode = true
+const val isIntegrationMode = false
 
 /**
  * 给Library模块进行配置
@@ -12,8 +12,15 @@ const val isIntegrationMode = true
 class LibConfigPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.run {
-            applyPluginsBlock(!isIntegrationMode)
-            applyAndroidBlock(!isIntegrationMode)
+            // 集成模式下, common模块和library组件都只能是library, 否则其他模块没法依赖运行
+            if (project.name.contains("common") || project.name.contains("library")) {
+                applyPluginsBlock(false)
+                applyAndroidBlock(false)
+            } else {
+                // 其他模块可以任意切换
+                applyPluginsBlock(!isIntegrationMode)
+                applyAndroidBlock(!isIntegrationMode)
+            }
             applyDependenciesBlock()
         }
     }
