@@ -32,6 +32,7 @@ object Version {
     const val lifecycle_ext = "2.2.0"
     const val material = "1.4.0"
     const val datastore = "1.0.0"
+    const val autoService = "1.0"
 }
 
 /**
@@ -94,5 +95,10 @@ object Libs {
 
     // datastore
     const val datastore = "androidx.datastore:datastore-preferences:${Version.datastore}"
+
+    // auto service
+    const val auto_service = "com.google.auto.service:auto-service:${Version.autoService}"
+    const val auto_service_annotations =
+        "com.google.auto.service:auto-service-annotations:${Version.autoService}"
 }
 

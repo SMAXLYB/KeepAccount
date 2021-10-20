@@ -26,7 +26,9 @@ KeepAccounts目前是一款个人练手项目，功能以记账为主。主开�
   自定view或者第三方控件
 
 ### 二、第三方库以及资料
+- [AndroidBaseFrameMVVM](https://github.com/Quyunshuo/AndroidBaseFrameMVVM)
 
+  在组件化中application生命周期分发的处理上，参考了此库的的方法，使用SPI来暴露服务，用autoService自动完成一些模版工作，比起手动扫描然后收集来的方便的多，感谢作者提供了一个非常好的思路。
 
 ### 三、代码提交类型
 - [feat]增加新功能

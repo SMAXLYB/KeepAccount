@@ -45,6 +45,7 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
             } else {
                 val manifestFile =
                     File("${project.projectDir}/src/main/kotlin/run_as_app/AndroidManifest.xml")
+                println("    --->  ${project.name} >> run_as_app/manifest.xml是否存在：${manifestFile.exists()}")
                 // 如果是模块, 不能直接使用main
                 if (manifestFile.exists()) {
                     manifest.srcFile("src/main/kotlin/run_as_app/AndroidManifest.xml")

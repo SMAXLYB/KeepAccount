@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 // false means every module can run as an app
-const val isIntegrationMode = false
+const val isIntegrationMode = true
 
 /**
  * 给Library模块进行配置

@@ -13,4 +13,5 @@ dependencies {
     api(Libs.appcompat)
     api(Libs.recyclerview)
     api(Libs.datastore)
+    api(Libs.auto_service)
 }

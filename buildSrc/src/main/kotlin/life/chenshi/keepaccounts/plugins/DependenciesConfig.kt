@@ -14,6 +14,7 @@ internal fun Project.applyDependenciesBlock() {
 
         add("implementation", Libs.arouter)
         add("kapt", Libs.arouter_compiler)
+        add("kapt", Libs.auto_service_annotations)
 
         // 项目依赖
         // common模块不依赖其他业务模块
