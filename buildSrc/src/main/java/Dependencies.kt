@@ -14,20 +14,24 @@ object Version {
     const val lifecycle = "2.3.1"
     const val room = "2.3.0"
     const val navigation = "2.3.5"
-    const val gson = "2.8.6"
+    const val gson = "2.8.8"
     const val compose = "1.0.4"
     const val leakCanary = "2.7"
-    const val coroutines = "1.5.0"
-    const val coil = "1.2.1"
+    const val coroutines = "1.5.2"
+    const val coil = "1.4.0"
     const val swipeRefreshLayout = "1.1.0"
     const val core_ktx = "1.6.0"
-    const val appcompat = "1.3.0"
+    const val appcompat = "1.3.1"
     const val junit = "4.13.2"
     const val junit_android = "1.1.3"
     const val espresso = "3.4.0"
     const val arouter = "1.5.2"
     const val recyclerview = "1.2.1"
-    const val constraintLayout = "2.0.4"
+    const val constraintLayout = "2.1.1"
+    const val fragment_ktx = "1.3.6"
+    const val lifecycle_ext = "2.2.0"
+    const val material = "1.4.0"
+    const val datastore = "1.0.0"
 }
 
 /**
@@ -46,6 +50,9 @@ object Libs {
         "androidx.swiperefreshlayout:swiperefreshlayout:${Version.swipeRefreshLayout}"
     const val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
+    const val fragment_ktx = "androidx.fragment:fragment-ktx:${Version.fragment_ktx}"
+    const val lifecycle_ext = "androidx.lifecycle:lifecycle-extensions:${Version.lifecycle_ext}"
+    const val material = "com.google.android.material:material:${Version.material}"
 
     // test
     const val junit = "junit:junit:${Version.junit}"
@@ -81,15 +88,11 @@ object Libs {
 
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Version.leakCanary}"
 
-    const val coil = "io.coil-kt:coil:${Version.coil}"
-
-    const val gson = "com.google.code.gson:gson:${Version.gson}"
-
-    const val swiperefreshlayout =
-        "androidx.swiperefreshlayout:swiperefreshlayout:${Version.swiperefreshlayout}"
-
     // arouter
     const val arouter = "com.alibaba:arouter-api:${Version.arouter}"
     const val arouter_compiler = "com.alibaba:arouter-compiler:${Version.arouter}"
+
+    // datastore
+    const val datastore = "androidx.datastore:datastore-preferences:${Version.datastore}"
 }
 

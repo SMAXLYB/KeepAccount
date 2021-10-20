@@ -39,13 +39,13 @@ dependencies {
     /**-------------------第三方库依赖--------------------**/
     // 基本库
     implementation(Libs.kotlin)
-    implementation("com.google.android.material:material:1.4.0")
+    implementation(Libs.material)
     implementation(Libs.constraintLayout)
 
     // viewModel
     implementation(Libs.lifecycle_viewModel)
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.3.5")
+    implementation(Libs.lifecycle_ext)
+    implementation(Libs.fragment_ktx)
     implementation(Libs.navigation_ui)
     implementation(Libs.navigation_fragment)
     implementation(Libs.lifecycle)
@@ -58,11 +58,11 @@ dependencies {
     implementation(Libs.coil)
 
     // 时间选择
-    implementation("com.github.loperSeven:DateTimePicker:0.3.1")
+    implementation("com.github.loperSeven:DateTimePicker:0.4.1")
     // 图表
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
     // dataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0-rc01")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
     // 内存泄漏
     debugImplementation(Libs.leakCanary)
     // liveDataBus

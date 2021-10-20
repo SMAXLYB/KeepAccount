@@ -20,6 +20,8 @@ repositories{
     jcenter()
 }
 dependencies{
+    implementation("com.github.ben-manes:gradle-versions-plugin:0.38.0")
+
     /* Depend on the android gradle plugin, since we want to access it in our plugin */
     implementation("com.android.tools.build:gradle:7.0.0")
 
