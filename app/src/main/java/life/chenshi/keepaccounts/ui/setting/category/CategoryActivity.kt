@@ -8,14 +8,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jeremyliao.liveeventbus.LiveEventBus
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.ToastUtil
-import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
-import life.chenshi.keepaccounts.module.common.utils.getValueFromIntent
-import life.chenshi.keepaccounts.module.common.utils.isNull
-import life.chenshi.keepaccounts.constant.BUSINESS
 import life.chenshi.keepaccounts.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.databinding.LayoutCategoryBinding
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import life.chenshi.keepaccounts.module.common.constant.BUSINESS
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
+import life.chenshi.keepaccounts.module.common.utils.getValueFromIntent
+import life.chenshi.keepaccounts.module.common.utils.isNull
 
 class CategoryActivity : BaseActivity() {
     companion object {
@@ -26,10 +25,6 @@ class CategoryActivity : BaseActivity() {
     private val mBinding by bindingContentView<LayoutCategoryBinding>(R.layout.layout_category)
 
     override fun initView() {
-        StatusBarUtil.init(this)
-            .setColor(R.color.white)
-            .setDarkMode(true)
-
         // viewPager设置
         mBinding.pager.adapter = CategoryPagerAdapter(this)
         TabLayoutMediator(mBinding.tab, mBinding.pager) { tab, position ->

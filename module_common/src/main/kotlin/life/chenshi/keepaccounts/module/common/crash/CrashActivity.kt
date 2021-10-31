@@ -1,26 +1,29 @@
-package life.chenshi.keepaccounts.ui
+package life.chenshi.keepaccounts.module.common.crash
 
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Process
-import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.ToastUtil
-import life.chenshi.keepaccounts.databinding.ActivityCrashBinding
+import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import life.chenshi.keepaccounts.module.common.databinding.CommonActivityCrashBinding
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import kotlin.system.exitProcess
 
 class CrashActivity : BaseActivity() {
-    private val mBinding by bindingContentView<ActivityCrashBinding>(R.layout.activity_crash)
+    private val mBinding by bindingContentView<CommonActivityCrashBinding>(R.layout.common_activity_crash)
     private var exceptionInfo: String = "应用崩溃了"
 
-    override fun initView() {
+    override fun configureDefaultStatusBar(): Boolean {
         StatusBarUtil.init(this)
-            .setColor(R.color.global_background_gray, false)
+            .setColor(R.color.common_global_background_gray, false)
             .setDarkMode(true)
+        return false
+    }
 
+    override fun initView() {
         intent.getStringExtra("exception_info")?.let {
             exceptionInfo = it
         }

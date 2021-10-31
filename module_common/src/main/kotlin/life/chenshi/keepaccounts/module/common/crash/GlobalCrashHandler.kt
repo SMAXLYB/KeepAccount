@@ -1,10 +1,9 @@
-package life.chenshi.keepaccounts.global
+package life.chenshi.keepaccounts.module.common.crash
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Process
-import life.chenshi.keepaccounts.ui.CrashActivity
 import java.io.PrintWriter
 import java.io.StringWriter
 import kotlin.system.exitProcess

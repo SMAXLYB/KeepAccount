@@ -3,7 +3,7 @@ package life.chenshi.keepaccounts.database.entity
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import life.chenshi.keepaccounts.constant.TB_BOOKS
+import life.chenshi.keepaccounts.module.common.constant.TB_BOOKS
 
 @Entity(tableName = TB_BOOKS,
     indices = [

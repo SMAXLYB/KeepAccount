@@ -2,9 +2,9 @@ package life.chenshi.keepaccounts.database.entity
 
 import androidx.room.Entity
 import androidx.room.Index
-import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MAJOR
-import life.chenshi.keepaccounts.constant.STATE_NORMAL
-import life.chenshi.keepaccounts.constant.TB_MAJOR_CATEGORIES
+import life.chenshi.keepaccounts.module.common.constant.CATEGORY_TYPE_MAJOR
+import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
+import life.chenshi.keepaccounts.module.common.constant.TB_MAJOR_CATEGORIES
 
 @Entity(tableName = TB_MAJOR_CATEGORIES, indices = [Index("name","record_type", unique = true)])
 class MajorCategory(

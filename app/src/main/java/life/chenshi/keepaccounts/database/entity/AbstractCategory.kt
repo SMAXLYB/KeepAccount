@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import life.chenshi.keepaccounts.module.common.utils.isNull
-import life.chenshi.keepaccounts.constant.STATE_NORMAL
+import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
 
 abstract class AbstractCategory(
     @PrimaryKey(autoGenerate = true)

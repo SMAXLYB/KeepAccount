@@ -3,7 +3,7 @@ package life.chenshi.keepaccounts.database.entity
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.*
-import life.chenshi.keepaccounts.constant.TB_RECORDS
+import life.chenshi.keepaccounts.module.common.constant.TB_RECORDS
 import java.math.BigDecimal
 import java.util.*
 

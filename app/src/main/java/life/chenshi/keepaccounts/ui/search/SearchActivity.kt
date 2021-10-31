@@ -10,10 +10,9 @@ import androidx.lifecycle.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.ToastUtil
-import life.chenshi.keepaccounts.constant.*
 import life.chenshi.keepaccounts.databinding.ActivitySearchBinding
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.ui.index.IndexRecordAdapter
 
@@ -28,9 +27,6 @@ class SearchActivity : BaseActivity() {
     }
 
     override fun initView() {
-        StatusBarUtil.init(this)
-            .setColor(R.color.white)
-            .setDarkMode(true)
         mBinding.rvSearchRecords.layoutManager = LinearLayoutManager(this)
         mAdapter = IndexRecordAdapter(emptyList())
         mBinding.rvSearchRecords.adapter = mAdapter

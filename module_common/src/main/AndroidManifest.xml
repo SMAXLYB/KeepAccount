@@ -3,4 +3,10 @@
     package="life.chenshi.keepaccounts.module.common">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application>
+        <activity
+            android:name=".crash.CrashActivity"
+            android:exported="false" />
+    </application>
 </manifest>

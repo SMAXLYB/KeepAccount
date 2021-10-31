@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.ToastUtil
-import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.databinding.FragmentCategoryBinding
 import life.chenshi.keepaccounts.module.common.base.BaseFragment
+import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.inVisible
 import life.chenshi.keepaccounts.module.common.utils.isNull
 import life.chenshi.keepaccounts.module.common.utils.visible

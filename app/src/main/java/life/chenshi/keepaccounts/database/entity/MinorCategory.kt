@@ -4,9 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
-import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MINOR
-import life.chenshi.keepaccounts.constant.STATE_NORMAL
-import life.chenshi.keepaccounts.constant.TB_MINOR_CATEGORIES
+import life.chenshi.keepaccounts.module.common.constant.CATEGORY_TYPE_MINOR
+import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
+import life.chenshi.keepaccounts.module.common.constant.TB_MINOR_CATEGORIES
 
 @Entity(
     tableName = TB_MINOR_CATEGORIES,

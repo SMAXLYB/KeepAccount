@@ -1,6 +1,7 @@
 plugins {
     id("app-config-plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -52,6 +53,9 @@ dependencies {
     implementation(Libs.lifecycle_livedata)
     implementation(Libs.room_runtime)
     implementation(Libs.room)
+    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     kapt(Libs.room_compiler)
     implementation(Libs.coroutines)
     implementation(Libs.swipeRefreshLayout)
@@ -74,4 +78,9 @@ dependencies {
     implementation(Libs.compose_livedata)
     implementation(Libs.compose_activity)
     implementation(Libs.compose_viewModel)
+
+
+    // hilt
+    implementation(Libs.hilt)
+    kapt(Libs.hilt_compiler)
 }

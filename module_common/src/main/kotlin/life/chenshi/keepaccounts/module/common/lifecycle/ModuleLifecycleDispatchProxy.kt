@@ -7,7 +7,7 @@ import java.util.*
 /**
  * 分发application生命周期
  */
-class LoadModuleProxy : ApplicationLifecycle {
+class ModuleLifecycleDispatchProxy : ApplicationLifecycle {
 
     private var mLoader: ServiceLoader<ApplicationLifecycle> =
         ServiceLoader.load(ApplicationLifecycle::class.java)
@@ -42,16 +42,14 @@ class LoadModuleProxy : ApplicationLifecycle {
      * 主线程前台初始化
      * @return MutableList<() -> String> 初始化方法集合
      */
-    override fun initByFrontDesk(): MutableList<() -> String> {
-        val list: MutableList<() -> String> = mutableListOf()
-        mLoader.forEach { list.addAll(it.initByFrontDesk()) }
-        return list
+    override fun initInForeground(application: Application) {
+        mLoader.forEach { it.initInForeground(application) }
     }
 
     /**
      * 不需要立即初始化的放在这里进行后台初始化
      */
-    override fun initByBackstage() {
-        mLoader.forEach { it.initByBackstage() }
+    override fun initInBackground(application: Application) {
+        mLoader.forEach { it.initInBackground(application) }
     }
 }

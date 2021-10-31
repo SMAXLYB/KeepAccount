@@ -25,7 +25,7 @@
         android:gravity="center"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="15dp"
-        android:textColor="@color/white"
+        android:textColor="@color/common_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_toast_icon"

@@ -8,22 +8,17 @@ import life.chenshi.keepaccounts.module.common.lifecycle.ApplicationLifecycle
 @AutoService(ApplicationLifecycle::class)
 class SearchLifecycle : ApplicationLifecycle {
     override fun onAttachBaseContext(context: Context) {
-        TODO("Not yet implemented")
     }
 
     override fun onCreate(application: Application) {
-        TODO("Not yet implemented")
     }
 
     override fun onTerminate(application: Application) {
-        TODO("Not yet implemented")
     }
 
-    override fun initByFrontDesk(): MutableList<() -> String> {
-        TODO("Not yet implemented")
+    override fun initInForeground(application: Application) {
     }
 
-    override fun initByBackstage() {
-        TODO("Not yet implemented")
+    override fun initInBackground(application: Application) {
     }
 }

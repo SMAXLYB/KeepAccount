@@ -131,6 +131,8 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
             // buildConfigField "String","INDEX_URL",""http://chenshi.life""
             // 资源动态配置
             resValue("string", "app_name", "${project.appName}_开发版")
+            // dev版本加个后缀，防止覆盖
+            applicationId = "${project.applicationId}.dev"
         }
     }
     // manifest文件变量占位

@@ -18,12 +18,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.ToastUtil
 import life.chenshi.keepaccounts.common.view.CustomDialog
-import life.chenshi.keepaccounts.constant.BUSINESS
-import life.chenshi.keepaccounts.constant.CATEGORY_TYPE_MAJOR
-import life.chenshi.keepaccounts.constant.RECORD_TYPE_INCOME
-import life.chenshi.keepaccounts.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.database.entity.Record
@@ -32,6 +27,10 @@ import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.databinding.BottomSheetRecyclerviewItemBinding
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
 import life.chenshi.keepaccounts.module.common.base.BaseAdapter
+import life.chenshi.keepaccounts.module.common.constant.BUSINESS
+import life.chenshi.keepaccounts.module.common.constant.CATEGORY_TYPE_MAJOR
+import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_INCOME
+import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.ui.index.IndexViewModel
 import life.chenshi.keepaccounts.ui.setting.category.CategoryActivity
@@ -49,11 +48,14 @@ class NewRecordActivity : BaseActivity() {
         private const val TAG = "NewRecordActivity"
     }
 
-    override fun initView() {
+    override fun configureDefaultStatusBar(): Boolean {
         StatusBarUtil.init(this)
             .setColor(R.color.status_bar_global_background_gray)
             .setDarkMode(true)
+        return false
+    }
 
+    override fun initView() {
         // record更新
         mRecordArgs.record?.let {
             mNewRecordViewModel.record = it
@@ -72,7 +74,8 @@ class NewRecordActivity : BaseActivity() {
 
         // 分类
         mBinding.rvCategory.apply {
-            layoutManager = LinearLayoutManager(this@NewRecordActivity, RecyclerView.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(this@NewRecordActivity, RecyclerView.HORIZONTAL, false)
             adapter = mCommonCategoryAdapter
         }
     }
@@ -120,7 +123,14 @@ class NewRecordActivity : BaseActivity() {
 
         // 金额
         mBinding.tvMoney.filters = arrayOf(object : InputFilter {
-            override fun filter(source: CharSequence?, start: Int, end: Int, dest: Spanned?, dstart: Int, dend: Int): CharSequence? {
+            override fun filter(
+                source: CharSequence?,
+                start: Int,
+                end: Int,
+                dest: Spanned?,
+                dstart: Int,
+                dend: Int
+            ): CharSequence? {
                 source?.let { c ->
                     // 限制第一个不为"."
                     dest?.takeIf { (it.isEmpty() || it.contains(".")) && c == "." }?.run {
@@ -186,7 +196,13 @@ class NewRecordActivity : BaseActivity() {
                 .setThemeColor(getColorById(R.color.colorPrimary))
                 .setDefaultTime(mNewRecordViewModel.currentDateTime.value!!)
                 .showBackNow(false)
-                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH, DateTimeConfig.DAY, DateTimeConfig.HOUR, DateTimeConfig.MIN)
+                .setDisplayType(
+                    DateTimeConfig.YEAR,
+                    DateTimeConfig.MONTH,
+                    DateTimeConfig.DAY,
+                    DateTimeConfig.HOUR,
+                    DateTimeConfig.MIN
+                )
                 .setLabelText("年", "月", "日", "时", "分")
                 .setOnChoose {
                     mNewRecordViewModel.currentDateTime.value = it
@@ -267,12 +283,20 @@ class NewRecordActivity : BaseActivity() {
 
             // 时间
             currentDateTime.observe(this@NewRecordActivity) {
-                mBinding.tvDatetime.text = DateUtil.date2String(Date(it), DateUtil.YEAR_MONTH_DAY_HOUR_MIN_FORMAT)
+                mBinding.tvDatetime.text =
+                    DateUtil.date2String(Date(it), DateUtil.YEAR_MONTH_DAY_HOUR_MIN_FORMAT)
             }
 
             // 常用类型
             commonMinorCategory.observe(this@NewRecordActivity) {
-                mCommonCategoryAdapter.setData(it + MinorCategory(-1, "全部类型", recordType = 0, majorCategoryId = -1))
+                mCommonCategoryAdapter.setData(
+                    it + MinorCategory(
+                        -1,
+                        "全部类型",
+                        recordType = 0,
+                        majorCategoryId = -1
+                    )
+                )
             }
 
             // 当前选中类型
@@ -380,7 +404,8 @@ class NewRecordActivity : BaseActivity() {
     ) {
         val dialog = BottomSheetDialog(this, R.style.BottomSheetDialog).apply {
             val binding = BottomSheetRecyclerviewBinding.inflate(layoutInflater).apply {
-                rvContent.layoutManager = LinearLayoutManager(this@NewRecordActivity, RecyclerView.VERTICAL, false)
+                rvContent.layoutManager =
+                    LinearLayoutManager(this@NewRecordActivity, RecyclerView.VERTICAL, false)
                 rvContent.adapter =
                     object : BaseAdapter<T, BottomSheetRecyclerviewItemBinding>(
                         data
@@ -484,11 +509,28 @@ class NewRecordActivity : BaseActivity() {
             }
             // 更新赋值
             record?.run {
-                setAllData(money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId)
+                setAllData(
+                    money,
+                    remark,
+                    date,
+                    majorCategoryId,
+                    minorCategoryId,
+                    recordType,
+                    bookId
+                )
                 return this
             }
             //新建赋值
-            return Record(null, money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId)
+            return Record(
+                null,
+                money,
+                remark,
+                date,
+                majorCategoryId,
+                minorCategoryId,
+                recordType,
+                bookId
+            )
         }
     }
 

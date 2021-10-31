@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.constant
+package life.chenshi.keepaccounts.module.common.constant
 
 /**
  * @description: 与Intent相关的常量

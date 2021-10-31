@@ -5,16 +5,25 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import life.chenshi.keepaccounts.module.common.R
+import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 
 abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // setTheme(R.style.Theme_KeepAccounts)
+        setTheme(R.style.common_Theme_KeepAccounts)
         super.onCreate(savedInstanceState)
+        if(configureDefaultStatusBar()){
+            StatusBarUtil.init(this)
+                .setColor(R.color.common_white)
+                .setDarkMode(true)
+        }
         initView()
         initListener()
         initObserver()
     }
+
+    protected open fun configureDefaultStatusBar() = true
 
     protected abstract fun initView()
 

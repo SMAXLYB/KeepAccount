@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.constant
+package life.chenshi.keepaccounts.module.common.constant
 
 /**
  * 应用加载常量

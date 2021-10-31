@@ -1,15 +1,22 @@
 package life.chenshi.keepaccounts.ui.newrecord
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
-import life.chenshi.keepaccounts.constant.*
 import life.chenshi.keepaccounts.database.AppDatabase
-import life.chenshi.keepaccounts.database.entity.*
+import life.chenshi.keepaccounts.database.entity.AbstractCategory
+import life.chenshi.keepaccounts.database.entity.Book
+import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.module.common.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
+import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
+import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
 
 class NewRecordViewModel : ViewModel() {
 

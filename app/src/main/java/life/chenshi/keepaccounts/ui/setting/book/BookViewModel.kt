@@ -2,10 +2,10 @@ package life.chenshi.keepaccounts.ui.setting.book
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
-import life.chenshi.keepaccounts.constant.DB_CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.database.AppDatabase
 import life.chenshi.keepaccounts.database.entity.Book
+import life.chenshi.keepaccounts.module.common.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
 
 class BookViewModel : ViewModel() {
     companion object{

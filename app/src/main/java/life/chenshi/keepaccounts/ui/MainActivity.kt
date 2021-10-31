@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.utils.ToastUtil
-import life.chenshi.keepaccounts.constant.SWITCHER_EXIT_APP
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import life.chenshi.keepaccounts.module.common.constant.SWITCHER_EXIT_APP
 import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 
 class MainActivity : BaseActivity() {
     private lateinit var mNavController: NavController
@@ -28,13 +28,15 @@ class MainActivity : BaseActivity() {
     override fun initListener() {
     }
 
-    override fun initView() {
-        setContentView(R.layout.activity_main)
-
+    override fun configureDefaultStatusBar(): Boolean {
         StatusBarUtil.init(this)
             .setTransparent()
             .setDarkMode(true)
+        return false
+    }
 
+    override fun initView() {
+        setContentView(R.layout.activity_main)
         // 初始化controller，绑定navMenu
         mNavController = findNavController(R.id.index_nav_host_fragment_container)
         findViewById<BottomNavigationView>(R.id.bottom_navigation_view).setupWithNavController(

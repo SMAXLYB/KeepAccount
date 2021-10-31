@@ -33,6 +33,8 @@ object Version {
     const val material = "1.4.0"
     const val datastore = "1.0.0"
     const val autoService = "1.0"
+    const val startup = "1.1.0"
+    const val hilt = "2.28-alpha"
 }
 
 /**
@@ -100,5 +102,12 @@ object Libs {
     const val auto_service = "com.google.auto.service:auto-service:${Version.autoService}"
     const val auto_service_annotations =
         "com.google.auto.service:auto-service-annotations:${Version.autoService}"
+
+    // startup
+    const val startup = "androidx.startup:startup-runtime:${Version.startup}"
+
+    // hilt
+    const val hilt = "com.google.dagger:hilt-android:${Version.hilt}"
+    const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${Version.hilt}"
 }
 

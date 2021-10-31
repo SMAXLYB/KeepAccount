@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.constant
+package life.chenshi.keepaccounts.module.common.constant
 
 // 表名
 const val TB_MAJOR_CATEGORIES = "tb_major_categories"

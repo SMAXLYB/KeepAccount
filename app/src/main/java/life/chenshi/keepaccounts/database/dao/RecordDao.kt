@@ -2,9 +2,9 @@ package life.chenshi.keepaccounts.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import life.chenshi.keepaccounts.constant.TB_MAJOR_CATEGORIES
-import life.chenshi.keepaccounts.constant.TB_MINOR_CATEGORIES
-import life.chenshi.keepaccounts.constant.TB_RECORDS
+import life.chenshi.keepaccounts.module.common.constant.TB_MAJOR_CATEGORIES
+import life.chenshi.keepaccounts.module.common.constant.TB_MINOR_CATEGORIES
+import life.chenshi.keepaccounts.module.common.constant.TB_RECORDS
 import life.chenshi.keepaccounts.database.bean.RecordWithCategoryBean
 import life.chenshi.keepaccounts.database.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByDateBean

@@ -10,9 +10,6 @@ class BookActivity : BaseActivity() {
     private val mBinding by bindingContentView<ActivityBookBinding>(R.layout.activity_book)
 
     override fun initView() {
-        StatusBarUtil.init(this)
-            .setColor(R.color.white)
-            .setDarkMode(true)
         mBinding.bar.apply {
             setLeftClickListener {
                 onBackPressed()

@@ -8,9 +8,6 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import life.chenshi.keepaccounts.constant.TB_BOOKS
-import life.chenshi.keepaccounts.constant.TB_MAJOR_CATEGORIES
-import life.chenshi.keepaccounts.constant.TB_MINOR_CATEGORIES
 import life.chenshi.keepaccounts.database.dao.BookDao
 import life.chenshi.keepaccounts.database.dao.MajorCategoryDao
 import life.chenshi.keepaccounts.database.dao.MinorCategoryDao
@@ -19,7 +16,10 @@ import life.chenshi.keepaccounts.database.entity.Book
 import life.chenshi.keepaccounts.database.entity.MajorCategory
 import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.database.entity.Record
-import life.chenshi.keepaccounts.global.MyApplication
+import life.chenshi.keepaccounts.module.common.base.BaseApplication
+import life.chenshi.keepaccounts.module.common.constant.TB_BOOKS
+import life.chenshi.keepaccounts.module.common.constant.TB_MAJOR_CATEGORIES
+import life.chenshi.keepaccounts.module.common.constant.TB_MINOR_CATEGORIES
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
@@ -38,7 +38,7 @@ abstract class AppDatabase : RoomDatabase() {
                 synchronized(this) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
-                            MyApplication.getInstance(),
+                            BaseApplication.application,
                             AppDatabase::class.java,
                             DATABASE_NAME
                         )
@@ -81,7 +81,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         fun getDefaultMajorCategories(): List<MajorCategory> {
-            val inputStream = MyApplication.getInstance().assets.open("jsons/default_major_categories.json")
+            val inputStream = BaseApplication.application.assets.open("jsons/default_major_categories.json")
             BufferedReader(InputStreamReader(inputStream, "utf-8")).use { reader ->
                 val buffer = StringBuffer()
                 reader.forEachLine {
@@ -92,7 +92,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         fun getDefaultMinorCategories(): List<MinorCategory> {
-            val inputStream = MyApplication.getInstance().assets.open("jsons/default_minor_categories.json")
+            val inputStream = BaseApplication.application.assets.open("jsons/default_minor_categories.json")
             BufferedReader(InputStreamReader(inputStream, "utf-8")).use { reader ->
                 val buffer = StringBuffer()
                 reader.forEachLine {
