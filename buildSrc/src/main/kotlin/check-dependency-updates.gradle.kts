@@ -11,7 +11,6 @@ fun String.isNonStable(): Boolean {
 
 tasks.withType<DependencyUpdatesTask> {
 
-    // Example 3: using the full syntax
     resolutionStrategy {
         componentSelection {
             all {

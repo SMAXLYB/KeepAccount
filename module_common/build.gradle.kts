@@ -15,5 +15,6 @@ dependencies {
     api(Libs.recyclerview)
     api(Libs.datastore)
     api(Libs.auto_service)
+    api(Libs.autoSize)
     implementation(Libs.material)
 }

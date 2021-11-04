@@ -1,7 +1,7 @@
 object Sdk {
-    const val compile_sdk_version = 30
+    const val compile_sdk_version = 31
     const val mini_sdk_version = 21
-    const val target_sdk_version = 30
+    const val target_sdk_version = 31
     const val version_code = 2
     const val version_name = "alpha-0.0.1"
 }
@@ -11,16 +11,16 @@ object Sdk {
  */
 object Version {
     const val kotlin = "1.5.31"
-    const val lifecycle = "2.3.1"
+    const val lifecycle = "2.4.0"
     const val room = "2.3.0"
     const val navigation = "2.3.5"
-    const val gson = "2.8.8"
+    const val gson = "2.8.9"
     const val compose = "1.0.4"
     const val leakCanary = "2.7"
     const val coroutines = "1.5.2"
     const val coil = "1.4.0"
     const val swipeRefreshLayout = "1.1.0"
-    const val core_ktx = "1.6.0"
+    const val core_ktx = "1.7.0"
     const val appcompat = "1.3.1"
     const val junit = "4.13.2"
     const val junit_android = "1.1.3"
@@ -34,7 +34,8 @@ object Version {
     const val datastore = "1.0.0"
     const val autoService = "1.0"
     const val startup = "1.1.0"
-    const val hilt = "2.28-alpha"
+    const val hilt = "2.40"
+    const val autoSize = "1.2.1"
 }
 
 /**
@@ -80,7 +81,7 @@ object Libs {
     const val compose_compiler = "androidx.compose.compiler:compiler:${Version.compose}"
     const val compose_runtime = "androidx.compose.runtime:runtime:${Version.compose}"
     const val compose_livedata = "androidx.compose.runtime:runtime-livedata:${Version.compose}"
-    const val compose_activity = "androidx.activity:activity-compose:1.3.1"
+    const val compose_activity = "androidx.activity:activity-compose:1.4.0"
     const val compose_viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
 
     // lifecycle
@@ -109,5 +110,8 @@ object Libs {
     // hilt
     const val hilt = "com.google.dagger:hilt-android:${Version.hilt}"
     const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${Version.hilt}"
+
+    // autoSize
+    const val autoSize = "com.github.JessYanCoding:AndroidAutoSize:${Version.autoSize}"
 }
 

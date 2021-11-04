@@ -20,6 +20,7 @@ repositories{
     jcenter()
 }
 dependencies{
+    // 0.39.0有问题, 不要升级
     implementation("com.github.ben-manes:gradle-versions-plugin:0.38.0")
 
     /* Depend on the android gradle plugin, since we want to access it in our plugin */
