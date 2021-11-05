@@ -4,6 +4,8 @@ import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.annotation.ColorRes
 import java.lang.ref.WeakReference
@@ -15,6 +17,22 @@ object StatusBarUtil {
     fun init(activity: Activity): StatusBarUtil {
         StatusBarUtil.activity = WeakReference(activity)
         return this
+    }
+
+    fun setFullScreen() {
+        // 设置为全屏模式
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val controller = activity.get()?.window?.insetsController
+            controller?.apply {
+                hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            activity.get()?.window?.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 
     /**
