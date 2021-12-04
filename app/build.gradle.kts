@@ -43,10 +43,9 @@ dependencies {
     implementation(Libs.material)
     implementation(Libs.constraintLayout)
 
-    // viewModel
-    implementation(Libs.lifecycle_viewModel)
+
     implementation(Libs.lifecycle_ext)
-    implementation(Libs.fragment_ktx)
+
     implementation(Libs.navigation_ui)
     implementation(Libs.navigation_fragment)
     implementation(Libs.lifecycle)

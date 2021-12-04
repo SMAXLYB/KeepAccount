@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -15,15 +17,17 @@ import life.chenshi.keepaccounts.module.common.utils.ActivityStackManager
 /**
  * 集成模式下使用的全局application
  */
-open class BaseApplication : Application(), Application.ActivityLifecycleCallbacks {
+open class BaseApplication : Application(), ViewModelStoreOwner,
+    Application.ActivityLifecycleCallbacks {
 
     private val mCoroutineScope by lazy(mode = LazyThreadSafetyMode.NONE) { MainScope() }
     private val mModuleLifecycleDispatchProxy by lazy(mode = LazyThreadSafetyMode.NONE) { ModuleLifecycleDispatchProxy() }
+    private lateinit var mViewModelStore: ViewModelStore
 
     companion object {
         // 全局application
         @SuppressLint("StaticFieldLeak")
-        lateinit var application: Application
+        lateinit var application: BaseApplication
     }
 
     override fun attachBaseContext(base: Context) {
@@ -34,6 +38,7 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
 
     override fun onCreate() {
         super.onCreate()
+        mViewModelStore = ViewModelStore()
         registerActivityLifecycleCallbacks(this)
         mModuleLifecycleDispatchProxy.onCreate(this)
 
@@ -76,5 +81,9 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
 
     override fun onActivityDestroyed(activity: Activity) {
         ActivityStackManager.popActivityToStack(activity)
+    }
+
+    override fun getViewModelStore(): ViewModelStore {
+        return mViewModelStore
     }
 }
