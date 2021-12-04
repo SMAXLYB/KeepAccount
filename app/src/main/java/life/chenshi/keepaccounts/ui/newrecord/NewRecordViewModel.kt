@@ -16,7 +16,7 @@ import life.chenshi.keepaccounts.module.common.constant.DB_CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
-import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 
 class NewRecordViewModel : ViewModel() {
 

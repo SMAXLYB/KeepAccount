@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 
 class MoreSettingViewModel : ViewModel() {
 

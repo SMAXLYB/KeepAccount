@@ -9,6 +9,9 @@ android {
 }
 
 dependencies {
+    // viewModel
+    api(Libs.lifecycle_viewModel)
+    api(Libs.fragment_ktx)
     api(Libs.core_ktx)
     api(Libs.appcompat)
     api(Libs.constraintLayout)
@@ -16,5 +19,6 @@ dependencies {
     api(Libs.datastore)
     api(Libs.auto_service)
     api(Libs.autoSize)
+    api(Libs.mmkv)
     implementation(Libs.material)
 }

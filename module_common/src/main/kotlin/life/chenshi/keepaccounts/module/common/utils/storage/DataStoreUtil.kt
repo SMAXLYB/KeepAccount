@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.module.common.utils
+package life.chenshi.keepaccounts.module.common.utils.storage
 
 import android.content.Context
 import androidx.datastore.core.DataStore

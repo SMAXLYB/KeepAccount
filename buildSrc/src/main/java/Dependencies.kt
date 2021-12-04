@@ -36,6 +36,7 @@ object Version {
     const val startup = "1.1.0"
     const val hilt = "2.40"
     const val autoSize = "1.2.1"
+    const val mmkv = "1.2.11"
 }
 
 /**
@@ -113,5 +114,8 @@ object Libs {
 
     // autoSize
     const val autoSize = "com.github.JessYanCoding:AndroidAutoSize:${Version.autoSize}"
+
+    // mmkv
+    const val mmkv = "com.tencent:mmkv:${Version.mmkv}"
 }
 

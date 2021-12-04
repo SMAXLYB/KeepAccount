@@ -16,8 +16,8 @@ import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByMajorCategoryBean
 import life.chenshi.keepaccounts.module.common.constant.DB_CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_INCOME
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
-import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.module.common.utils.DateUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 
 class AnalyzeViewModel : ViewModel() {
     private val recordDAO by lazy { AppDatabase.getDatabase().getRecordDao() }

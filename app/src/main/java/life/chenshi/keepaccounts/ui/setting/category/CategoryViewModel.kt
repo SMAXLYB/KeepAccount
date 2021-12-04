@@ -8,7 +8,6 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
-import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
 import life.chenshi.keepaccounts.common.view.CustomDialog
 import life.chenshi.keepaccounts.module.common.constant.STATE_DELETE
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
@@ -19,6 +18,7 @@ import life.chenshi.keepaccounts.database.entity.MinorCategory
 import life.chenshi.keepaccounts.databinding.LayoutAddCategoryBinding
 import life.chenshi.keepaccounts.databinding.LayoutAddSubCategoryBinding
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 
 class CategoryViewModel : ViewModel() {
     companion object {

@@ -3,6 +3,7 @@ package life.chenshi.keepaccounts.module.common
 import android.app.Application
 import android.content.Context
 import com.google.auto.service.AutoService
+import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
@@ -11,7 +12,8 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_LOADED
 import life.chenshi.keepaccounts.module.common.crash.GlobalCrashHandler
 import life.chenshi.keepaccounts.module.common.lifecycle.ApplicationLifecycle
-import life.chenshi.keepaccounts.module.common.utils.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 
 /**
  * 继承模式时需要和宿主的生命周期同步
@@ -31,6 +33,8 @@ class CommonLifecycle : ApplicationLifecycle {
     }
 
     override fun initInForeground(application: Application) {
+        MMKV.initialize(application)
+        initDayNightMode()
         DataStoreUtil.init(application)
         setFirstLoadedState()
     }
