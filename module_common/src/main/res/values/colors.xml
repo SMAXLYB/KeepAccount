@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="common_blue_500">#03A9F4</color>
+    <color name="common_blue_300">#81D4FA</color>
+
+    <color name="common_gray_900">#212121</color>
+    <color name="common_gray_850">#313131</color>
+    <color name="common_gray_800">#424242</color>
+    <color name="common_gray_100">#f5f5f5</color>
+
+    <color name="common_pink_200">#F48FB1</color>
+    <color name="common_pink_100">#F8BBD0</color>
+
+    <color name="common_green_500">#57C368</color>
+    <color name="common_green_300">#81C784</color>
+
+    <color name="common_black">#000000</color>
+
+    <color name="common_red">#eb536f</color>
+
+    <color name="common_white">#FFFFFF</color>
+
     <color name="common_colorPrimary">#03A9F4</color>
     <color name="common_purple_200">#FFBB86FC</color>
     <color name="common_purple_500">#FF6200EE</color>
     <color name="common_purple_700">#FF3700B3</color>
     <color name="common_teal_200">#FF03DAC5</color>
     <color name="common_teal_700">#FF018786</color>
-    <color name="common_black">#FF000000</color>
-    <color name="common_white">#FFFFFFFF</color>
     <color name="common_list_view_pressed_gray">#ffe6e6e6</color>
     <color name="common_global_background_gray">#A4F1F1F1</color>
     <color name="common_status_bar_global_background_gray">#c4F1F1F1</color>

@@ -11,7 +11,7 @@
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/global_background_gray">
+        android:background="?android:colorBackground">
         <!--标题栏-->
         <RelativeLayout
             android:id="@+id/bar"
@@ -30,6 +30,8 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="纯迹"
+                android:textColor="?colorOnSurface"
+                app:underline_color="?colorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:underline_stroke="5dp" />
@@ -107,8 +109,8 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_marginStart="50dp"
-                        android:layout_marginBottom="50dp"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginBottom="40dp"
                         android:src="@drawable/common_corner_all_50dp_transparent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -126,12 +128,12 @@
                         android:id="@+id/card_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
                         android:text="6217  ****  ****  ****  999"
                         android:textColor="@color/white"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginStart="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.5" />
@@ -151,10 +153,10 @@
                         android:id="@+id/card_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:text="￥200,000,000.00"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@id/card_id" />
 
@@ -167,17 +169,17 @@
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toTopOf="@id/card_expires"
-                        app:layout_constraintEnd_toEndOf="@id/card_expires"/>
+                        app:layout_constraintEnd_toEndOf="@id/card_expires" />
 
                     <TextView
                         android:id="@+id/card_expires"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
                         android:text="12/12"
-                        android:textSize="16sp"
                         android:textColor="@color/white"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -310,10 +312,9 @@
                     android:layout_height="32dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
-                    app:bgColor="@color/white"
                     app:buttonHorizontalSpacing="0dp"
                     app:buttonRadius="15dp"
-                    app:buttonSelectedBgColor="@color/colorPrimary"
+                    app:buttonSelectedBgColor="?colorPrimary"
                     app:buttonSelectedTextColor="@color/white"
                     app:buttonText="全部,收入,支出"
                     app:buttonTextColor="@color/colorTextGray"
@@ -325,11 +326,11 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/tv_sort_by"
-                    style="@style/MaterialButton"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:backgroundTint="?colorPrimary"
                     android:layout_width="60dp"
                     android:layout_height="26dp"
                     android:layout_marginEnd="20dp"
-                    android:backgroundTint="@color/colorPrimary"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:paddingStart="2dp"
@@ -338,21 +339,61 @@
                     app:cornerRadius="15dp"
                     app:layout_constraintBottom_toBottomOf="@id/crb_record_type"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/crb_record_type"
-                     />
+                    app:layout_constraintTop_toTopOf="@id/crb_record_type" />
+
+                <life.chenshi.keepaccounts.common.view.SwitchButton
+                    android:id="@+id/switcher"
+                    android:layout_width="45dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_sort_by"
+                    app:layout_constraintEnd_toStartOf="@id/tv_sort_by"
+                    app:layout_constraintTop_toTopOf="@id/tv_sort_by"
+                    app:strokeWidth="3dp"
+                    app:uncheckedBackgroundColor="#DDDDDD" />
+
+                <life.chenshi.keepaccounts.common.view.SwitchButton
+                    android:id="@+id/switcher1"
+                    android:layout_width="45dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintEnd_toEndOf="@id/switcher"
+                    app:layout_constraintStart_toStartOf="@id/switcher"
+                    app:layout_constraintTop_toBottomOf="@id/switcher"
+                    app:strokeWidth="3dp"
+                    app:uncheckedBackgroundColor="#DDDDDD" />
+
+                <life.chenshi.keepaccounts.common.view.SwitchButton
+                    android:id="@+id/switcher2"
+                    android:layout_width="45dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintEnd_toEndOf="@id/switcher1"
+                    app:layout_constraintStart_toStartOf="@id/switcher1"
+                    app:layout_constraintTop_toBottomOf="@id/switcher1"
+                    app:strokeWidth="3dp"
+                    app:uncheckedBackgroundColor="#DDDDDD" />
+
+                <life.chenshi.keepaccounts.common.view.SwitchButton
+                    android:id="@+id/switcher3"
+                    android:layout_width="45dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintEnd_toEndOf="@id/switcher2"
+                    app:layout_constraintStart_toStartOf="@id/switcher2"
+                    app:layout_constraintTop_toBottomOf="@id/switcher2"
+                    app:strokeWidth="3dp"
+                    app:uncheckedBackgroundColor="#DDDDDD" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_budget"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="5dp"
+                    android:overScrollMode="never"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:overScrollMode="never"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sort_by"
+                    app:layout_constraintTop_toBottomOf="@id/switcher3"
                     tools:listitem="@layout/item_budget" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

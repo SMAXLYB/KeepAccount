@@ -10,9 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A4F1F1F1"
-        android:paddingTop="30dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="30dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -45,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="@color/white"
+            app:cardBackgroundColor="?colorSurface"
             app:cardCornerRadius="10dp"
             app:cardElevation="1dp"
             app:cardMaxElevation="2dp">
@@ -110,6 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         app:cardCornerRadius="10dp"
+                        app:cardBackgroundColor="?colorSurface"
                         app:cardElevation="1dp"
                         app:cardMaxElevation="2dp">
 
@@ -188,6 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         app:cardCornerRadius="10dp"
+                        app:cardBackgroundColor="?colorSurface"
                         app:cardElevation="1dp"
                         app:cardMaxElevation="2dp">
 
@@ -246,9 +247,9 @@
                             <com.github.mikephil.charting.charts.PieChart
                                 android:id="@+id/pie_chart"
                                 android:layout_width="match_parent"
+                                android:layout_height="200dp"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
-                                android:layout_height="200dp"
                                 app:layout_constraintBottom_toTopOf="@id/lv_analyze_proportion_detail"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"

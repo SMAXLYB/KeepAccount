@@ -52,6 +52,7 @@ object StatusBarUtil {
 
     /**
      * 黑暗模式 M以上有效
+     * @param darkMode true 显示亮色字体  false 显示深色字体
      */
     fun setDarkMode(darkMode: Boolean): StatusBarUtil {
         activity.get()!!.window!!.apply {
@@ -59,9 +60,12 @@ object StatusBarUtil {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 var systemUiVisibility: Int = decorView.systemUiVisibility
                 systemUiVisibility = if (darkMode) {
-                    systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    // todo--在非全屏下可能有bug
+                    // systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    systemUiVisibility
                 } else {
-                    systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    // SYSTEM_UI_FLAG_LIGHT_STATUS_BAR 浅色模式下字体深色
+                    systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                 }
                 decorView.systemUiVisibility = systemUiVisibility
             }

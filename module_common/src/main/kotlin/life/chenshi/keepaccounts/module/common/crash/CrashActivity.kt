@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Process
 import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
@@ -17,9 +18,18 @@ class CrashActivity : BaseActivity() {
     private var exceptionInfo: String = "应用崩溃了"
 
     override fun configureDefaultStatusBar(): Boolean {
-        StatusBarUtil.init(this)
-            .setColor(R.color.common_global_background_gray, false)
-            .setDarkMode(true)
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                StatusBarUtil.init(this)
+                    .setColor(R.color.common_gray_900, false)
+                    .setDarkMode(true)
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                StatusBarUtil.init(this)
+                    .setColor(R.color.common_gray_100,false)
+                    .setDarkMode(false)
+            }
+        }
         return false
     }
 

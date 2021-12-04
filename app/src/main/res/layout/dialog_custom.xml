@@ -73,7 +73,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_dialog_cancel"
-            style="@style/MaterialButton"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -92,7 +92,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_dialog_confirm"
-            style="@style/MaterialButton"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"

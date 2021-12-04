@@ -28,6 +28,7 @@
     <!--   ================Setting================== -->
     <style name="SettingCardView">
         <item name="contentPaddingTop">5dp</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
         <item name="contentPaddingBottom">5dp</item>
         <item name="android:layout_margin">10dp</item>
         <item name="cardCornerRadius">10dp</item>
@@ -90,8 +91,5 @@
         <item name="android:layout_marginBottom">20dp</item>
         <item name="android:background">@drawable/ripple_80dp_bg_blue</item>
     </style>
-
-    <style name="MaterialButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-        <item name="android:theme">@style/Theme.MaterialComponents.Light</item>
-    </style>
+    
 </resources>

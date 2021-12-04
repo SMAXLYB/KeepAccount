@@ -10,8 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="30dp"
-        android:background="#A4F1F1F1">
+        android:paddingTop="30dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/setting_header"
@@ -33,6 +32,7 @@
                 app:cardCornerRadius="10dp"
                 app:cardElevation="1dp"
                 app:cardMaxElevation="2dp"
+                app:cardBackgroundColor="?colorSurface"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

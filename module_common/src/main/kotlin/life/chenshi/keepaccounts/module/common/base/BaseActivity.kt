@@ -6,17 +6,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import life.chenshi.keepaccounts.module.common.R
+import life.chenshi.keepaccounts.module.common.constant.CURRENT_THEME
+import life.chenshi.keepaccounts.module.common.constant.Theme
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 
 abstract class BaseActivity : AppCompatActivity() {
+    protected val TAG = this::class.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.common_Theme_KeepAccounts)
+        val theme = Theme.getThemeFromName(KVStoreHelper.read(CURRENT_THEME, Theme.Default.name))
+        setTheme(theme.styRes)
         super.onCreate(savedInstanceState)
-        if(configureDefaultStatusBar()){
+        if (configureDefaultStatusBar()) {
             StatusBarUtil.init(this)
                 .setColor(R.color.common_white)
-                .setDarkMode(true)
+                .setDarkMode(false)
         }
         initView()
         initListener()

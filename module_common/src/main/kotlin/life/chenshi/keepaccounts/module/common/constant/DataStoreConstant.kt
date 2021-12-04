@@ -16,6 +16,10 @@ const val DB_CURRENT_BOOK_ID = "current_book_id"
 const val SWITCHER_CONFIRM_BEFORE_DELETE = "confirm_before_delete"
 const val SWITCHER_EXIT_APP = "exit_app"
 
+const val DAY_NIGHT_MODE = "day_night_mode"
+const val CURRENT_THEME = "current_theme"
+
+
 /**
  * 序列化类别常量
  */

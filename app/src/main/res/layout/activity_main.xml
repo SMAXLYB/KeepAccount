@@ -9,21 +9,23 @@
     <fragment
         android:id="@+id/index_nav_host_fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:defaultNavHost="false"
-        app:navGraph="@navigation/index_nav_graph"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:defaultNavHost="false"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"/>
+        app:navGraph="@navigation/index_nav_graph" />
 
+    <!--elevation需要设置成0dp, 否则会有阴影覆盖-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="?colorSurface"
+        app:elevation="0dp"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

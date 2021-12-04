@@ -2,6 +2,7 @@ package life.chenshi.keepaccounts.module.common
 
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.auto.service.AutoService
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.MainScope
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_LOADED
+import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
 import life.chenshi.keepaccounts.module.common.crash.GlobalCrashHandler
 import life.chenshi.keepaccounts.module.common.lifecycle.ApplicationLifecycle
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
@@ -37,6 +39,12 @@ class CommonLifecycle : ApplicationLifecycle {
         initDayNightMode()
         DataStoreUtil.init(application)
         setFirstLoadedState()
+    }
+
+    private fun initDayNightMode() {
+        // 如果没有设置默认跟随系统
+        val mode = KVStoreHelper.read(DAY_NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        AppCompatDelegate.setDefaultNightMode(mode)
     }
 
     private fun setFirstLoadedState() {

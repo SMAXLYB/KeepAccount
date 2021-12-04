@@ -24,7 +24,11 @@ import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.databinding.LayoutCustomPopwindowBinding
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
-import life.chenshi.keepaccounts.module.common.utils.*
+import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.ToastUtil
+import life.chenshi.keepaccounts.module.common.utils.dp2px
+import life.chenshi.keepaccounts.module.common.utils.setVisibility
+import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 
 class IndexFragment : Fragment() {
     private var _binding: FragmentIndexBinding? = null
@@ -42,7 +46,7 @@ class IndexFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = DataBindingUtil.inflate<FragmentIndexBinding>(
+        _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_index, container, false
         )
         return mBinding.root
