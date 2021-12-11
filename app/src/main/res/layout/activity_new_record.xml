@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/global_background_gray">
 
-        <life.chenshi.keepaccounts.common.view.CustomActionBar
+        <life.chenshi.keepaccounts.module.common.view.CustomActionBar
             android:id="@+id/bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -103,7 +103,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--分割线-->
-        <life.chenshi.keepaccounts.common.view.TicketDivideLineView
+        <life.chenshi.keepaccounts.module.common.view.TicketDivideLineView
             android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="15dp"
@@ -217,7 +217,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <life.chenshi.keepaccounts.common.view.TicketDivideLineView
+        <life.chenshi.keepaccounts.module.common.view.TicketDivideLineView
             android:id="@+id/divider1"
             android:layout_width="0dp"
             android:layout_height="15dp"
@@ -231,7 +231,7 @@
             app:layout_constraintTop_toBottomOf="@id/cl_content2" />
 
         <!--最后内容-->
-        <life.chenshi.keepaccounts.common.view.VoucherView
+        <life.chenshi.keepaccounts.module.common.view.VoucherView
             android:id="@+id/voucher"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -267,7 +267,7 @@
                 android:padding="5dp"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent" />
-        </life.chenshi.keepaccounts.common.view.VoucherView>
+        </life.chenshi.keepaccounts.module.common.view.VoucherView>
 
         <!--编辑按钮-->
         <com.google.android.material.button.MaterialButton

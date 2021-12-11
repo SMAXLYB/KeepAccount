@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.view;
+package life.chenshi.keepaccounts.module.common.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

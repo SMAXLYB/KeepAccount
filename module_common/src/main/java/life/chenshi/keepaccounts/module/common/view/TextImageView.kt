@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.content.Context
 import android.graphics.*
@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toBitmap
-import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.utils.sp2px
 
 class TextImageView @JvmOverloads constructor(

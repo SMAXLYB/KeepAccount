@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,7 +6,7 @@ import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.utils.dp2px
 
 /**

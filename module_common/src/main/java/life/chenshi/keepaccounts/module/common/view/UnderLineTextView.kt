@@ -1,13 +1,13 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import life.chenshi.keepaccounts.R
+import com.google.android.material.color.MaterialColors
+import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.utils.dp2px
-import life.chenshi.keepaccounts.module.common.utils.getColorById
 
 class UnderLineTextView @JvmOverloads constructor(
     context: Context,
@@ -25,7 +25,7 @@ class UnderLineTextView @JvmOverloads constructor(
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.UnderLineTextView)
 
-        val color = typedArray.getColor(R.styleable.UnderLineTextView_underline_color, context.getColorById(R.color.colorPrimary))
+        val color = typedArray.getColor(R.styleable.UnderLineTextView_underline_color, MaterialColors.getColor(context, R.attr.colorPrimary, "未找到主题色"))
         val strokeWidth = typedArray.getDimension(R.styleable.UnderLineTextView_underline_stroke, 10f)
 
         mTextPaint.apply {

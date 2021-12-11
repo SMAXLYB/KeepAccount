@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,9 +10,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import life.chenshi.keepaccounts.module.common.databinding.DialogCustomBinding
 import life.chenshi.keepaccounts.module.common.utils.gone
 import life.chenshi.keepaccounts.module.common.utils.setVisibility
-import life.chenshi.keepaccounts.databinding.DialogCustomBinding
 
 typealias Listener = (DialogFragment, ViewDataBinding?) -> Unit
 
@@ -163,7 +163,7 @@ class CustomDialog constructor() : DialogFragment() {
             return dialog
         }
 
-        fun doAfterShow(work: (ViewDataBinding?) -> Unit) : Builder{
+        fun doAfterShow(work: (ViewDataBinding?) -> Unit) : Builder {
             params.doAfterShow = work
             return this
         }

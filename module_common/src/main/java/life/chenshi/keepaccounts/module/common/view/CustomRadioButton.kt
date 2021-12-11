@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,7 +12,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.os.bundleOf
-import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.utils.dp2px
 import life.chenshi.keepaccounts.module.common.utils.sp2px
 

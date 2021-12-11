@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.animation.AnimatorSet
 import android.animation.ArgbEvaluator
@@ -14,7 +14,8 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.Checkable
 import androidx.core.animation.addListener
-import life.chenshi.keepaccounts.R
+import com.google.android.material.color.MaterialColors
+import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.utils.dp2px
 import life.chenshi.keepaccounts.module.common.utils.getColorById
 
@@ -28,15 +29,15 @@ class SwitchButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr, defStyleRes), Checkable {
 
     companion object {
-        private const val TAG = "life.chenshi.keepaccounts.common.view.SwitchButton"
+        private const val TAG = "life.chenshi.keepaccounts.module.common.view.SwitchButton"
         private val DEFAULT_HEIGHT = 40.dp2px()
         private val DEFAULT_WIDTH = 84.dp2px()
     }
 
     // xml读取
-    private var uncheckedBackgroundColor = context.getColorById(R.color.list_view_pressed_gray)
-    private var uncheckedCircleColor = context.getColorById(R.color.white)
-    private var checkedBackgroundColor = context.getColorById(R.color.colorPrimary)
+    private var uncheckedBackgroundColor = context.getColorById(R.color.common_list_view_pressed_gray)
+    private var uncheckedCircleColor = context.getColorById(R.color.common_white)
+    private var checkedBackgroundColor = MaterialColors.getColor(context, R.attr.colorPrimary, "未找到主题色")
 
     // private var checkedCircleColor = resources.getColor(R.color.white, null)
     private var strokeWidth: Float = 0f

@@ -15,7 +15,7 @@
         android:paddingEnd="5dp"
         android:paddingBottom="3dp">
 
-        <life.chenshi.keepaccounts.common.view.TextImageView
+        <life.chenshi.keepaccounts.module.common.view.TextImageView
             android:id="@+id/tiv_category"
             android:layout_width="48dp"
             android:layout_height="48dp"

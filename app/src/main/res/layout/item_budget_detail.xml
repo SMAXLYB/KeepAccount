@@ -15,7 +15,7 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
-        <life.chenshi.keepaccounts.common.view.TextImageView
+        <life.chenshi.keepaccounts.module.common.view.TextImageView
             android:id="@+id/item_budget_detail_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"

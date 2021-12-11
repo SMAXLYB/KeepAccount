@@ -38,7 +38,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <life.chenshi.keepaccounts.common.view.CircleImageView
+            <life.chenshi.keepaccounts.module.common.view.CircleImageView
                 android:id="@+id/setting_user_avatar"
                 android:layout_width="900dp"
                 android:layout_height="90dp"

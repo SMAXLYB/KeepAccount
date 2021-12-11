@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <life.chenshi.keepaccounts.common.view.UnderLineTextView
+            <life.chenshi.keepaccounts.module.common.view.UnderLineTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -124,7 +124,7 @@
                         app:layout_constraintStart_toEndOf="@id/card_id"
                         app:layout_constraintTop_toTopOf="@id/card_id" />
 
-                    <life.chenshi.keepaccounts.common.view.SansFontTextView
+                    <life.chenshi.keepaccounts.module.common.view.SansFontTextView
                         android:id="@+id/card_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                             android:id="@+id/cl_new_record"
                             style="@style/IndexShortcuts_ConstraintLayout">
 
-                            <life.chenshi.keepaccounts.common.view.CircleImageView
+                            <life.chenshi.keepaccounts.module.common.view.CircleImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -227,7 +227,7 @@
                             android:id="@+id/cl_budget"
                             style="@style/IndexShortcuts_ConstraintLayout">
 
-                            <life.chenshi.keepaccounts.common.view.CircleImageView
+                            <life.chenshi.keepaccounts.module.common.view.CircleImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -251,7 +251,7 @@
                             android:id="@+id/cl_search"
                             style="@style/IndexShortcuts_ConstraintLayout">
 
-                            <life.chenshi.keepaccounts.common.view.CircleImageView
+                            <life.chenshi.keepaccounts.module.common.view.CircleImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -306,7 +306,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <life.chenshi.keepaccounts.common.view.CustomRadioButton
+                <life.chenshi.keepaccounts.module.common.view.CustomRadioButton
                     android:id="@+id/crb_record_type"
                     android:layout_width="180dp"
                     android:layout_height="32dp"
@@ -341,7 +341,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/crb_record_type" />
 
-                <life.chenshi.keepaccounts.common.view.SwitchButton
+                <life.chenshi.keepaccounts.module.common.view.SwitchButton
                     android:id="@+id/switcher"
                     android:layout_width="45dp"
                     android:layout_height="25dp"
@@ -351,7 +351,7 @@
                     app:strokeWidth="3dp"
                     app:uncheckedBackgroundColor="#DDDDDD" />
 
-                <life.chenshi.keepaccounts.common.view.SwitchButton
+                <life.chenshi.keepaccounts.module.common.view.SwitchButton
                     android:id="@+id/switcher1"
                     android:layout_width="45dp"
                     android:layout_height="25dp"
@@ -361,7 +361,7 @@
                     app:strokeWidth="3dp"
                     app:uncheckedBackgroundColor="#DDDDDD" />
 
-                <life.chenshi.keepaccounts.common.view.SwitchButton
+                <life.chenshi.keepaccounts.module.common.view.SwitchButton
                     android:id="@+id/switcher2"
                     android:layout_width="45dp"
                     android:layout_height="25dp"
@@ -371,7 +371,7 @@
                     app:strokeWidth="3dp"
                     app:uncheckedBackgroundColor="#DDDDDD" />
 
-                <life.chenshi.keepaccounts.common.view.SwitchButton
+                <life.chenshi.keepaccounts.module.common.view.SwitchButton
                     android:id="@+id/switcher3"
                     android:layout_width="45dp"
                     android:layout_height="25dp"

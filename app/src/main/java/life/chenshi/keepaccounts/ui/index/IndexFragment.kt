@@ -19,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.common.view.CustomDialog
+import life.chenshi.keepaccounts.module.common.view.CustomDialog
 import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.databinding.LayoutCustomPopwindowBinding

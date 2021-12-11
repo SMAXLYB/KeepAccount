@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -8,8 +8,8 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
-import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.databinding.LayoutActionBarBinding
+import life.chenshi.keepaccounts.module.common.R
+import life.chenshi.keepaccounts.module.common.databinding.LayoutActionBarBinding
 import life.chenshi.keepaccounts.module.common.utils.*
 
 class CustomActionBar @JvmOverloads constructor(

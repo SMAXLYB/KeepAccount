@@ -1,11 +1,11 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.widget.LinearLayout
-import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.module.common.R
 
 /**
  * 票据锯齿效果

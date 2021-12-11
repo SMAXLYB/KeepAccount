@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.common.view
+package life.chenshi.keepaccounts.module.common.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,7 +6,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.toBitmap
-import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.module.common.R
 import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
