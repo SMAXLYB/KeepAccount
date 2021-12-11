@@ -8,7 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jeremyliao.liveeventbus.LiveEventBus
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.entity.AbstractCategory
+import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.databinding.LayoutCategoryBinding
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
 import life.chenshi.keepaccounts.module.common.constant.BUSINESS

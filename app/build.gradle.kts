@@ -6,16 +6,7 @@ plugins {
 
 android {
 
-    // 渠道默认使用的配置
-    defaultConfig {
 
-        // room配置, 需要则配，不需要不配
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
-        }
-    }
 
     kotlinOptions {
         // 集成环境关闭
@@ -52,8 +43,9 @@ dependencies {
     implementation(Libs.lifecycle_livedata)
     implementation(Libs.room_runtime)
     implementation(Libs.room)
-    implementation("com.google.android.material:material:1.4.0")
     kapt(Libs.room_compiler)
+
+    implementation("com.google.android.material:material:1.4.0")
     implementation(Libs.coroutines)
     implementation(Libs.swipeRefreshLayout)
     implementation(Libs.coil)

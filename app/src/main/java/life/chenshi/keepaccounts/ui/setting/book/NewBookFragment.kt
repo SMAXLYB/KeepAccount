@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.database.entity.Book
+import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.databinding.DialogNewBookBinding
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.module.common.utils.setVisibility
-import life.chenshi.keepaccounts.database.entity.MinorCategory
+import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 import life.chenshi.keepaccounts.databinding.ItemSubCategoryAddBinding
 import life.chenshi.keepaccounts.databinding.ItemSubCategoryBinding
 
@@ -26,7 +26,7 @@ class MinorCategoryAdapter :
         }
     }
 
-    private var onItemClick: ItemClickListener<ItemSubCategoryBinding,MinorCategory>? = null
+    private var onItemClick: ItemClickListener<ItemSubCategoryBinding, MinorCategory>? = null
     private var onItemLongClick: ItemLongClickListener<MinorCategory>? = null
     private var onItemDeleteClick: ItemDeleteListener<MinorCategory>? = null
     private var mIsDeleteMode = false
@@ -59,7 +59,7 @@ class MinorCategoryAdapter :
         }
     }
 
-    fun setOnItemClickListener(listener: ItemClickListener<ItemSubCategoryBinding,MinorCategory>) {
+    fun setOnItemClickListener(listener: ItemClickListener<ItemSubCategoryBinding, MinorCategory>) {
         this.onItemClick = listener
     }
 

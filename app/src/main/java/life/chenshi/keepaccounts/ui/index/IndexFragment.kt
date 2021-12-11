@@ -19,16 +19,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.module.common.view.CustomDialog
-import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.databinding.FragmentIndexBinding
 import life.chenshi.keepaccounts.databinding.LayoutCustomPopwindowBinding
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
+import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.dp2px
 import life.chenshi.keepaccounts.module.common.utils.setVisibility
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.view.CustomDialog
 
 class IndexFragment : Fragment() {
     private var _binding: FragmentIndexBinding? = null

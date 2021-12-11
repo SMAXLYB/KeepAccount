@@ -2,7 +2,7 @@ package life.chenshi.keepaccounts.ui.newrecord
 
 import android.graphics.Color
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.entity.AbstractCategory
+import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.databinding.ItemNewRecordCategoryBinding
 import life.chenshi.keepaccounts.module.common.base.BaseAdapter
 

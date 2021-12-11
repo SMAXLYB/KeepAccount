@@ -1,9 +1,9 @@
-package life.chenshi.keepaccounts.database.dao
+package life.chenshi.keepaccounts.module.common.database.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import life.chenshi.keepaccounts.module.common.constant.TB_MINOR_CATEGORIES
-import life.chenshi.keepaccounts.database.entity.MinorCategory
+import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 
 @Dao
 interface MinorCategoryDao {

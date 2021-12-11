@@ -1,10 +1,10 @@
-package life.chenshi.keepaccounts.database.bean
+package life.chenshi.keepaccounts.module.common.database.bean
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import life.chenshi.keepaccounts.database.entity.MajorCategory
-import life.chenshi.keepaccounts.database.entity.MinorCategory
-import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.module.common.database.entity.MajorCategory
+import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
+import life.chenshi.keepaccounts.module.common.database.entity.Record
 
 /**
  * @description:

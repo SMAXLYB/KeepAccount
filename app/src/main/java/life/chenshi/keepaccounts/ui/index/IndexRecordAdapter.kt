@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.bean.RecordWithCategoryBean
-import life.chenshi.keepaccounts.database.entity.Record
+import life.chenshi.keepaccounts.module.common.database.bean.RecordWithCategoryBean
+import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.databinding.ItemBudgetBinding
 import life.chenshi.keepaccounts.databinding.ItemBudgetDetailBinding
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME

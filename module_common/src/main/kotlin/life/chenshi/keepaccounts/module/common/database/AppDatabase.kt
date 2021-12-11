@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.database
+package life.chenshi.keepaccounts.module.common.database
 
 import androidx.room.Database
 import androidx.room.Room
@@ -8,18 +8,18 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import life.chenshi.keepaccounts.database.dao.BookDao
-import life.chenshi.keepaccounts.database.dao.MajorCategoryDao
-import life.chenshi.keepaccounts.database.dao.MinorCategoryDao
-import life.chenshi.keepaccounts.database.dao.RecordDao
-import life.chenshi.keepaccounts.database.entity.Book
-import life.chenshi.keepaccounts.database.entity.MajorCategory
-import life.chenshi.keepaccounts.database.entity.MinorCategory
-import life.chenshi.keepaccounts.database.entity.Record
 import life.chenshi.keepaccounts.module.common.base.BaseApplication
 import life.chenshi.keepaccounts.module.common.constant.TB_BOOKS
 import life.chenshi.keepaccounts.module.common.constant.TB_MAJOR_CATEGORIES
 import life.chenshi.keepaccounts.module.common.constant.TB_MINOR_CATEGORIES
+import life.chenshi.keepaccounts.module.common.database.dao.BookDao
+import life.chenshi.keepaccounts.module.common.database.dao.MajorCategoryDao
+import life.chenshi.keepaccounts.module.common.database.dao.MinorCategoryDao
+import life.chenshi.keepaccounts.module.common.database.dao.RecordDao
+import life.chenshi.keepaccounts.module.common.database.entity.Book
+import life.chenshi.keepaccounts.module.common.database.entity.MajorCategory
+import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
+import life.chenshi.keepaccounts.module.common.database.entity.Record
 import java.io.BufferedReader
 import java.io.InputStreamReader
 

@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.database
+package life.chenshi.keepaccounts.module.common.database
 
 import androidx.room.TypeConverter
 import java.math.BigDecimal

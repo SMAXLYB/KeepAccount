@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.database.bean
+package life.chenshi.keepaccounts.module.common.database.bean
 
 import java.math.BigDecimal
 

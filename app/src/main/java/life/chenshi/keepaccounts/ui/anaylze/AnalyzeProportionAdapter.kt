@@ -8,7 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.bean.SumMoneyGroupByMajorCategoryBean
+import life.chenshi.keepaccounts.module.common.database.bean.SumMoneyGroupByMajorCategoryBean
 
 class AnalyzeProportionAdapter(private var records: List<SumMoneyGroupByMajorCategoryBean>) : BaseAdapter() {
 

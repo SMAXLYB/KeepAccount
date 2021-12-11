@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import life.chenshi.keepaccounts.R
-import life.chenshi.keepaccounts.database.entity.Book
+import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.utils.gone
 import life.chenshi.keepaccounts.module.common.utils.visible
 

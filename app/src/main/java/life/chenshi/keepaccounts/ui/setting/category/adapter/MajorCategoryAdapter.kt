@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.module.common.utils.setVisibility
-import life.chenshi.keepaccounts.database.entity.MajorCategory
+import life.chenshi.keepaccounts.module.common.database.entity.MajorCategory
 import life.chenshi.keepaccounts.databinding.ItemCategoryAddBinding
 import life.chenshi.keepaccounts.databinding.ItemCategoryBinding
 

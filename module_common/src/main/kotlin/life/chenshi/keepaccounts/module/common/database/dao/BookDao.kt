@@ -1,8 +1,8 @@
-package life.chenshi.keepaccounts.database.dao
+package life.chenshi.keepaccounts.module.common.database.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import life.chenshi.keepaccounts.database.entity.Book
+import life.chenshi.keepaccounts.module.common.database.entity.Book
 
 @Dao
 interface BookDao {

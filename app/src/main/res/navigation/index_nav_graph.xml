@@ -52,7 +52,7 @@
         <argument
             android:name="record"
             android:defaultValue="@null"
-            app:argType="life.chenshi.keepaccounts.database.entity.Record"
+            app:argType="life.chenshi.keepaccounts.module.common.database.entity.Record"
             app:nullable="true" />
     </activity>
 

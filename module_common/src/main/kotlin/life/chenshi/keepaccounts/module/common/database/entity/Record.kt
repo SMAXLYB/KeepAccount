@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.database.entity
+package life.chenshi.keepaccounts.module.common.database.entity
 
 import android.os.Parcel
 import android.os.Parcelable
