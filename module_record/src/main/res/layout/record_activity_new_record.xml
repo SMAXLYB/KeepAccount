@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rootView"
+        android:background="@color/common_global_background_gray">
+
+        <life.chenshi.keepaccounts.module.common.view.CustomActionBar
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/common_global_background_gray"
+            app:centerTitle="添加账单"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftIcon="@drawable/common_action_bar_back"
+            app:rightIcon="@drawable/record_icon_delete" />
+
+        <View
+            android:id="@+id/bg"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/common_corner_all_25dp_blue_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bar" />
+
+        <!--内容1-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/common_white"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintEnd_toEndOf="@id/bg"
+            app:layout_constraintStart_toStartOf="@id/bg"
+            app:layout_constraintTop_toTopOf="@id/bg">
+
+
+            <TextView
+                android:id="@+id/tv_record_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支出"
+                android:textColor="@color/common_black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/slash"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.592" />
+
+            <TextView
+                android:id="@+id/slash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:text="/"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_record_type"
+                app:layout_constraintEnd_toStartOf="@id/tv_asset"
+                app:layout_constraintStart_toEndOf="@id/tv_record_type" />
+
+            <TextView
+                android:id="@+id/tv_asset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不计入资产"
+                android:textColor="@color/common_black"
+                app:layout_constraintBottom_toBottomOf="@id/slash"
+                app:layout_constraintStart_toEndOf="@id/slash" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_corner_all_5dp_record_stroke"
+                android:gravity="end"
+                android:hint="￥00.00"
+                android:padding="5dp"
+                android:textColor="@color/common_outcome"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--分割线-->
+        <life.chenshi.keepaccounts.module.common.view.TicketDivideLineView
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            app:backgroundColor="@color/common_white"
+            app:dashColor="@color/common_global_background_gray"
+            app:dashHeight="1.5dp"
+            app:dashInterval="4dp"
+            app:dashWidth="4dp"
+            app:layout_constraintEnd_toEndOf="@id/cl_content1"
+            app:layout_constraintStart_toStartOf="@id/cl_content1"
+            app:layout_constraintTop_toBottomOf="@id/cl_content1" />
+
+        <!--内容2-->
+
+        <!--分割-线-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/common_white"
+            android:paddingStart="20dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintEnd_toEndOf="@id/cl_content1"
+            app:layout_constraintStart_toStartOf="@id/cl_content1"
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <TextView
+                android:id="@+id/tv_datetime_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="时间"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_datetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_corner_all_5dp_gray_bg"
+                android:padding="5dp"
+                android:text="2020/02/31 - 08:10"
+                android:textColor="@color/common_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_datetime_title" />
+
+            <TextView
+                android:id="@+id/tv_book_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="账本"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_corner_all_5dp_gray_bg"
+                android:padding="5dp"
+                android:text="默认账本"
+                android:textColor="@color/common_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_book_title" />
+
+            <TextView
+                android:id="@+id/tv_category_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="类型"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_datetime" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category"
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:background="@drawable/common_corner_all_5dp_gray_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_category_title"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/record_item_new_record_category"
+                tools:orientation="horizontal"
+                tools:spanCount="4" />
+
+
+            <TextView
+                android:id="@+id/tv_attachment_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="附件"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_category" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/common_corner_all_5dp_gray_bg"
+                android:paddingBottom="5dp"
+                android:src="@drawable/record_index_float_button_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_attachment_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <life.chenshi.keepaccounts.module.common.view.TicketDivideLineView
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            app:backgroundColor="@color/common_white"
+            app:dashColor="@color/common_global_background_gray"
+            app:dashHeight="1.5dp"
+            app:dashInterval="4dp"
+            app:dashWidth="4dp"
+            app:layout_constraintEnd_toEndOf="@id/cl_content2"
+            app:layout_constraintStart_toStartOf="@id/cl_content2"
+            app:layout_constraintTop_toBottomOf="@id/cl_content2" />
+
+        <!--最后内容-->
+        <life.chenshi.keepaccounts.module.common.view.VoucherView
+            android:id="@+id/voucher"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/common_white"
+            android:paddingStart="20dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="15dp"
+            app:layout_constraintEnd_toEndOf="@id/divider1"
+            app:layout_constraintStart_toStartOf="@id/divider1"
+            app:layout_constraintTop_toBottomOf="@id/divider1"
+            app:triangleRadius="6dp">
+
+            <TextView
+                android:id="@+id/tv_remark_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingTop="5dp"
+                android:text="备注" />
+
+            <EditText
+                android:id="@+id/et_remark"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/common_corner_all_5dp_gray_bg"
+                android:gravity="start|top"
+                android:hint="无备注"
+                android:lines="2"
+                android:maxLength="100"
+                android:padding="5dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </life.chenshi.keepaccounts.module.common.view.VoucherView>
+
+        <!--编辑按钮-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbtn_edit"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="?colorPrimary"
+            android:padding="10dp"
+            android:text="编辑记录"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/record_icon_edit"
+            app:iconGravity="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/voucher"
+            app:layout_constraintWidth_percent="0.87" />
+
+        <!--自定义键盘-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tv_1,tv_2,tv_3,tv_5,tv_6,tv_7,tv_9,tv_10,tv_11,tv_13,tv_14,iv_delete"
+                app:flow_horizontalGap="0dp"
+                app:flow_maxElementsWrap="3"
+                app:flow_verticalGap="0dp"
+                app:flow_wrapMode="aligned"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_save"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintWidth_percent="0.75" />
+
+            <TextView
+                android:id="@+id/tv_1"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="1"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/tv_2"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="2"
+                android:text="2" />
+
+            <TextView
+                android:id="@+id/tv_3"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="3"
+                android:text="3" />
+
+            <TextView
+                android:id="@+id/tv_append"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="append"
+                android:text="追记"
+                app:layout_constraintBottom_toTopOf="@id/tv_cancel"
+                app:layout_constraintDimensionRatio="h,2:1.2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <TextView
+                android:id="@+id/tv_5"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="4"
+                android:text="4" />
+
+            <TextView
+                android:id="@+id/tv_6"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="5"
+                android:text="5" />
+
+            <TextView
+                android:id="@+id/tv_7"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="6"
+                android:text="6" />
+
+            <!--       <TextView
+                       android:id="@+id/tv_8"
+                       style="@style/CustomKeyBoard"
+                       android:tag="add"
+                       android:text="+" />-->
+
+            <TextView
+                android:id="@+id/tv_9"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="7"
+                android:text="7" />
+
+            <TextView
+                android:id="@+id/tv_10"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="8"
+                android:text="8" />
+
+            <TextView
+                android:id="@+id/tv_11"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="9"
+                android:text="9" />
+
+            <!-- <TextView
+                 android:id="@+id/tv_12"
+                 style="@style/CustomKeyBoard"
+                 android:tag="minus"
+                 android:text="-" />-->
+
+            <TextView
+                android:id="@+id/tv_13"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="dot"
+                android:text="." />
+
+            <TextView
+                android:id="@+id/tv_14"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="0"
+                android:text="0" />
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                style="@style/RecordCustomKeyBoard"
+                android:padding="15dp"
+                android:src="@drawable/record_keyboard_delete"
+                android:tag="delete" />
+
+            <TextView
+                android:id="@+id/tv_save"
+                style="@style/RecordCustomKeyBoard"
+                android:background="?colorPrimary"
+                android:tag="save"
+                android:text="保存"
+                android:textColor="@color/common_white"
+                app:layout_constraintBottom_toTopOf="@id/tv_append"
+                app:layout_constraintDimensionRatio="h,2:2.4"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                style="@style/RecordCustomKeyBoard"
+                android:tag="cancel"
+                android:text="取消"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="h,2:1.2"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#A4F1F1F1"
+            android:padding="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_all_12dp_white_bg"
+                    android:padding="5dp">
+
+                    &lt;!&ndash;收支&ndash;&gt;
+                    <TextView
+                        android:id="@+id/tv_record_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:text="收支"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/required"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RadioGroup
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center|start"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_record_type"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_record_type"
+                        app:layout_constraintTop_toTopOf="@id/tv_record_type">
+
+                        <RadioButton
+                            android:id="@+id/rb_income"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:button="@null"
+                            android:drawableStart="@drawable/radio_button_bg"
+                            android:drawablePadding="5dp"
+                            android:text="收入" />
+
+                        <RadioButton
+                            android:id="@+id/rb_outcome"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:button="@null"
+                            android:drawableStart="@drawable/radio_button_bg"
+                            android:drawablePadding="5dp"
+                            android:text="支出" />
+                    </RadioGroup>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/item_budget_divider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_record_type" />
+
+                    &lt;!&ndash;金额&ndash;&gt;
+                    <TextView
+                        android:id="@+id/tv_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:text="金额"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/required"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_record_type" />
+
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/corner_all_12dp_gray_bg"
+                        android:hint="请输入金额(最多2位小数)"
+                        android:inputType="number|numberDecimal"
+                        android:paddingStart="5dp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_money"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_money"
+                        app:layout_constraintTop_toTopOf="@id/tv_money" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/item_budget_divider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_money" />
+                    &lt;!&ndash;账本&ndash;&gt;
+                    <TextView
+                        android:id="@+id/tv_book"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:text="账本"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/required"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_money" />
+
+                    <TextView
+                        android:id="@+id/tv_choose_book"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center|start"
+                        android:paddingStart="20dp"
+                        android:text="请选择账本"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_book"
+                        app:layout_constraintEnd_toStartOf="@id/arrow1"
+                        app:layout_constraintStart_toEndOf="@id/tv_book"
+                        app:layout_constraintTop_toTopOf="@id/tv_book" />
+
+                    <ImageView
+                        android:id="@+id/arrow1"
+                        style="@style/NewRecordArrow"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_book"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_book" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/item_budget_divider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_book" />
+                    &lt;!&ndash;类别&ndash;&gt;
+                    <TextView
+                        android:id="@+id/tv_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:text="类别"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/required"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_book" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center|start"
+                        android:paddingStart="20dp"
+                        android:text="请选择类别"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_category"
+                        app:layout_constraintEnd_toStartOf="@id/arrow2"
+                        app:layout_constraintStart_toEndOf="@id/tv_category"
+                        app:layout_constraintTop_toTopOf="@id/tv_category" />
+
+                    <ImageView
+                        android:id="@+id/arrow2"
+                        style="@style/NewRecordArrow"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_category"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_category" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/item_budget_divider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_category" />
+                    &lt;!&ndash;时间&ndash;&gt;
+                    <TextView
+                        android:id="@+id/tv_datetime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:text="时间"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/required"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_category" />
+
+                    <TextView
+                        android:id="@+id/tv_date_time"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center|start"
+                        android:paddingStart="20dp"
+                        android:text="请选择时间"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_datetime"
+                        app:layout_constraintEnd_toStartOf="@id/arrow3"
+                        app:layout_constraintStart_toEndOf="@id/tv_datetime"
+                        app:layout_constraintTop_toTopOf="@id/tv_datetime" />
+
+                    <ImageView
+                        android:id="@+id/arrow3"
+                        style="@style/NewRecordArrow"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_datetime"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_datetime" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/corner_all_12dp_white_bg"
+                    android:padding="5dp">
+
+
+                    &lt;!&ndash;资产&ndash;&gt;
+                    <TextView
+                        android:id="@+id/tv_asset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:paddingStart="21dp"
+                        android:text="资产"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center|start"
+                        android:paddingStart="20dp"
+                        android:text="未选择资产"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_asset"
+                        app:layout_constraintEnd_toStartOf="@+id/arrow4"
+                        app:layout_constraintStart_toEndOf="@id/tv_asset"
+                        app:layout_constraintTop_toTopOf="@id/tv_asset" />
+
+                    <ImageView
+                        android:id="@+id/arrow4"
+                        style="@style/NewRecordArrow"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_asset"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_asset" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/item_budget_divider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_asset" />
+                    &lt;!&ndash;标签&ndash;&gt;
+                    <TextView
+                        android:id="@+id/tv_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:paddingStart="21dp"
+                        android:text="标签"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_asset" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/item_budget_divider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_label" />
+                    &lt;!&ndash;地点&ndash;&gt;
+                    <TextView
+                        android:id="@+id/tv_addr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:paddingStart="21dp"
+                        android:text="地点"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_label" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/corner_all_12dp_white_bg"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_remark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:paddingStart="21dp"
+                        android:text="备注"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/corner_all_12dp_gray_bg"
+                        android:gravity="top|start"
+                        android:hint="请输入备注(最多200字)"
+                        android:padding="5dp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_remark"
+                        app:layout_constraintTop_toTopOf="@id/tv_remark" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/corner_all_12dp_white_bg"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_attachment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:padding="10dp"
+                        android:paddingStart="21dp"
+                        android:text="附件"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/corner_all_12dp_gray_bg"
+                        android:src="@drawable/index_float_botton_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_attachment"
+                        app:layout_constraintTop_toTopOf="@id/tv_attachment" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/corner_all_25dp_blue_bg"
+                    android:text="提 交"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </ScrollView>-->
+</layout>

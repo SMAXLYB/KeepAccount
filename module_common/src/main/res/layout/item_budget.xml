@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+
+        <!--cardView上部分-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_budget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toTopOf="@id/item_budget_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/item_budget_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="01-01"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--<TextView-->
+            <!--    android:id="@+id/item_budget_total_income"-->
+
+            <!--    android:layout_width="wrap_content"-->
+            <!--    android:layout_height="wrap_content"-->
+            <!--    android:text="+15512.00"-->
+            <!--    android:textStyle="bold"-->
+            <!--    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--    app:layout_constraintEnd_toStartOf="@+id/item_budget_total_outcome"-->
+            <!--    app:layout_constraintStart_toEndOf="@+id/item_budget_date"-->
+            <!--    app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--<TextView-->
+            <!--    android:id="@+id/item_budget_total_outcome"-->
+            <!--    android:layout_width="wrap_content"-->
+            <!--    android:layout_height="wrap_content"-->
+            <!--    android:layout_marginStart="10dp"-->
+            <!--    android:layout_marginEnd="10dp"-->
+            <!--    android:text="-1231.00"-->
+            <!--    android:textStyle="bold"-->
+            <!--    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--    app:layout_constraintStart_toEndOf="@id/item_budget_total_income"-->
+            <!--    app:layout_constraintTop_toTopOf="parent" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/item_budget_divider"
+            layout="@layout/common_item_divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toTopOf="@id/item_budget_detail_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_budget" />
+
+        <!--cardView下部分-->
+        <LinearLayout
+            android:id="@+id/item_budget_detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_budget_divider" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

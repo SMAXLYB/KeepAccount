@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import life.chenshi.keepaccounts.module.common.databinding.DialogCustomBinding
+import life.chenshi.keepaccounts.module.common.databinding.CommonDialogCustomBinding
 import life.chenshi.keepaccounts.module.common.utils.gone
 import life.chenshi.keepaccounts.module.common.utils.setVisibility
 
@@ -24,7 +24,7 @@ class CustomDialog constructor() : DialogFragment() {
         private const val TAG = "CustomDialog"
     }
 
-    private lateinit var mBinding: DialogCustomBinding
+    private lateinit var mBinding: CommonDialogCustomBinding
     // private val mBookViewModel by activityViewModels<BookViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class CustomDialog constructor() : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        mBinding = DialogCustomBinding.inflate(layoutInflater, container, false)
+        mBinding = CommonDialogCustomBinding.inflate(layoutInflater, container, false)
         // 内容
         params.message?.let {
             mBinding.tvDialogMessage.text = it

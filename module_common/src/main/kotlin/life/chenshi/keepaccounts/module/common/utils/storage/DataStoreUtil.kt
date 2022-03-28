@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.map
 
 val Context.dataStore by preferencesDataStore("settings")
 
+@Deprecated("使用mmkv")
 object DataStoreUtil {
     @PublishedApi
     internal lateinit var dataStore: DataStore<Preferences>

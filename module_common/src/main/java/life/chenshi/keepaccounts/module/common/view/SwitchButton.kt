@@ -29,7 +29,7 @@ class SwitchButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr, defStyleRes), Checkable {
 
     companion object {
-        private const val TAG = "life.chenshi.keepaccounts.module.common.view.SwitchButton"
+        private const val TAG = "SwitchButton"
         private val DEFAULT_HEIGHT = 40.dp2px()
         private val DEFAULT_WIDTH = 84.dp2px()
     }

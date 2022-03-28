@@ -32,9 +32,15 @@ dependencies {
     api(Libs.autoSize)
     api(Libs.mmkv)
     api(Libs.gson)
+    api(Libs.material)
+    api(Libs.lifecycle)
+    api(Libs.lifecycle_livedata)
+    api(Libs.navigation_ui)
+    api(Libs.navigation_fragment)
+    api(Libs.liveEventBus)
+
     implementation(project(":gson_extra"))
-    implementation(Libs.room_runtime)
+    api(Libs.room_runtime)
     implementation(Libs.room)
     kapt(Libs.room_compiler)
-    implementation(Libs.material)
 }

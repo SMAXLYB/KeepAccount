@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/more_setting_nav_graph"
+    app:startDestination="@id/settingFragment">
+
+    <fragment
+        android:id="@+id/moreSettingFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.moresetting.MoreSettingFragment"
+        android:label="MoreSettingFragment"
+        tools:layout="@layout/setting_fragment_more_setting" />
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/setting_fragment_setting">
+        <action
+            android:id="@+id/action_settingFragment_to_bookActivity"
+            app:destination="@id/bookActivity" />
+        <action
+            android:id="@+id/action_settingFragment_to_categoryActivity"
+            app:destination="@id/categoryActivity" />
+        <action
+            android:id="@+id/setting_action_settingfragment_to_moresettingfragment"
+            app:destination="@id/moreSettingFragment" />
+        <!--<action-->
+        <!--    android:id="@+id/action_settingFragment_to_moreSettingActivity"-->
+        <!--    app:destination="@id/moreSettingActivity" />-->
+    </fragment>
+
+    <activity
+        android:id="@+id/bookActivity"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.book.BookActivity"
+        android:label="BookActivity"
+        tools:layout="@layout/setting_activity_book" />
+    <activity
+        android:id="@+id/categoryActivity"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.category.CategoryActivity"
+        android:label="CategoryActivity"
+        tools:layout="@layout/setting_fragment_category">
+        <deepLink app:uri="keepAccounts://categoryActivity" />
+    </activity>
+    <!--<activity-->
+    <!--    android:id="@+id/moreSettingActivity"-->
+    <!--    android:name="life.chenshi.keepaccounts.module.setting.ui.moresetting.MoreSettingActivity"-->
+    <!--    android:label="MoreSettingActivity"-->
+    <!--    tools:layout="@layout/setting_activity_more_setting" />-->
+</navigation>

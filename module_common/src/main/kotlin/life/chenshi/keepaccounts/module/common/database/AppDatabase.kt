@@ -1,5 +1,6 @@
 package life.chenshi.keepaccounts.module.common.database
 
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -11,7 +12,6 @@ import com.google.gson.reflect.TypeToken
 import life.chenshi.keepaccounts.module.common.base.BaseApplication
 import life.chenshi.keepaccounts.module.common.constant.TB_BOOKS
 import life.chenshi.keepaccounts.module.common.constant.TB_MAJOR_CATEGORIES
-import life.chenshi.keepaccounts.module.common.constant.TB_MINOR_CATEGORIES
 import life.chenshi.keepaccounts.module.common.database.dao.BookDao
 import life.chenshi.keepaccounts.module.common.database.dao.MajorCategoryDao
 import life.chenshi.keepaccounts.module.common.database.dao.MinorCategoryDao
@@ -49,21 +49,22 @@ abstract class AppDatabase : RoomDatabase() {
                                     // 开启事务
                                     db.beginTransaction()
                                     try {
-                                        // 默认账本
+                                        // 默认账本ls
                                         val bookSql = "insert into $TB_BOOKS (id,name,description) values(?,?,?)"
                                         db.execSQL(bookSql, arrayOf("1","日常账本","记录日常开支"))
                                         // 默认分类
                                         val majorSql = "insert into $TB_MAJOR_CATEGORIES (id,name,record_type) values(?,?,?)"
-                                        val minorSql = "insert into $TB_MINOR_CATEGORIES (id,name,record_type,major_category_id) values(?,?,?,?)"
+                                        // val minorSql = "insert into $TB_MINOR_CATEGORIES (id,name,record_type,major_category_id) values(?,?,?,?)"
                                         getDefaultMajorCategories().forEach {
-                                            db.execSQL(majorSql, arrayOf(it.id.toString(), it.name, it.recordType.toString()))
+                                            Log.w("sql-lyb", "onCreate: id=${it.id}, name=${it.name}, type=${it.recordType}", )
+                                            db.execSQL(majorSql, arrayOf(it.id, it.name, it.recordType))
                                         }
-                                        getDefaultMinorCategories().forEach {
-                                            db.execSQL(
-                                                minorSql,
-                                                arrayOf(it.id.toString(), it.name, it.recordType.toString(), it.majorCategoryId.toString())
-                                            )
-                                        }
+                                        // getDefaultMinorCategories().forEach {
+                                        //     db.execSQL(
+                                        //         minorSql,
+                                        //         arrayOf(it.id, it.name, it.recordType, it.majorCategoryId)
+                                        //     )
+                                        // }
                                         // 提交事务
                                         db.setTransactionSuccessful()
                                     } finally {
@@ -82,11 +83,13 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getDefaultMajorCategories(): List<MajorCategory> {
             val inputStream = BaseApplication.application.assets.open("jsons/default_major_categories.json")
+            Log.w("sql-lyb", "getDefaultMajorCategories: $inputStream")
             BufferedReader(InputStreamReader(inputStream, "utf-8")).use { reader ->
                 val buffer = StringBuffer()
                 reader.forEachLine {
                     buffer.append(it)
                 }
+                Log.w("sql-lyb", "getDefaultMajorCategories: ${buffer.toString()}")
                 return Gson().fromJson(buffer.toString(), object : TypeToken<List<MajorCategory>>() {}.type)
             }
         }

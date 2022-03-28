@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/analysis_marker_bg"
+    android:id="@+id/tv_marker_content"
+    tools:text="654.00元"
+    android:layout_width="wrap_content"
+    android:textColor="@color/common_white"
+    android:paddingTop="1dp"
+    android:textSize="10sp"
+    android:paddingBottom="1dp"
+    android:paddingStart="6dp"
+    android:paddingEnd="6dp"
+    android:layout_height="wrap_content" />

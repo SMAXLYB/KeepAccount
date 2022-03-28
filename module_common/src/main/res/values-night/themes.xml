@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--标准activity-->
-    <style name="common_Theme.KeepAccounts" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="CommonTheme.KeepAccounts" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- 主色调 -->
         <item name="colorPrimary">@color/common_blue_500</item>
         <!-- 主色调的深色、浅色 -->
@@ -36,6 +36,6 @@
         <item name="android:windowLightStatusBar">false</item>
 
         <!-- activity切换动画-->
-        <item name="android:windowAnimationStyle">@style/common_WindowAnimationTransition</item>
+        <item name="android:windowAnimationStyle">@style/CommonWindowAnimationTransition</item>
     </style>
 </resources>

@@ -93,6 +93,7 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
 
     buildTypes {
         release {
+            isDebuggable  = true
             isMinifyEnabled = true
             // 自动清理未使用资源 开启minifyEnabled有效
             isShrinkResources = true

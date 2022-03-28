@@ -37,6 +37,9 @@ object Version {
     const val hilt = "2.40"
     const val autoSize = "1.2.1"
     const val mmkv = "1.2.11"
+    const val bus = "1.7.3"
+    const val chart = "3.1.0"
+    const val dateTimePicker = "0.4.1"
 }
 
 /**
@@ -117,5 +120,14 @@ object Libs {
 
     // mmkv
     const val mmkv = "com.tencent:mmkv:${Version.mmkv}"
+
+    // liveEventBus
+    const val liveEventBus = "com.jeremyliao:live-event-bus-x:${Version.bus}"
+
+    // MPAndroidChart
+    const val mPAndroidChart = "com.github.PhilJay:MPAndroidChart:${Version.chart}"
+
+    // DateTimePicker
+    const val dateTimePicker = "com.github.loperSeven:DateTimePicker:${Version.dateTimePicker}"
 }
 

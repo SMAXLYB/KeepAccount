@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/analysis_nav_main"
+    app:startDestination="@id/analysisFragment">
+
+    <fragment
+        android:id="@+id/analysisFragment"
+        android:name="life.chenshi.keepaccounts.module.analysis.ui.AnalysisFragment"
+        tools:layout="@layout/analysis_fragment_anaylze"
+        android:label="AnalysisFragment" />
+
+</navigation>
