@@ -12,12 +12,12 @@ internal fun Project.applyDependenciesBlock() {
     println("--->  ${project.name}配置dependencies ")
     dependencies {
 
+        // 所有模块的必备通用依赖
         add("implementation", Libs.arouter)
         add("kapt", Libs.arouter_compiler)
         add("kapt", Libs.auto_service_annotations)
 
-        // 项目依赖
-        // common模块不依赖其他业务模块
+        // common模块不依赖其他业务模块, 只依赖library
         if (project.name.contains("common")) {
             parent?.subprojects?.filter { it.name.contains("library") }?.forEach {
                 println("   --->  common依赖了${it.name}")

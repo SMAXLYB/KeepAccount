@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/index_nav_graph"
+    app:startDestination="@id/indexFragment">
+
+    <fragment
+        android:id="@+id/indexFragment"
+        android:name="life.chenshi.keepaccounts.module.record.ui.IndexFragment"
+        android:label="IndexFragment"
+        tools:layout="@layout/record_fragment_index">
+        <action
+            android:id="@+id/action_indexFragment_to_newRecordActivity"
+            app:destination="@id/newRecordActivity">
+            <!--<argument-->
+            <!--    android:name="record"-->
+            <!--    android:defaultValue="@null"-->
+            <!--    app:argType="string"-->
+            <!--    app:nullable="true" />-->
+        </action>
+
+        <!--<action-->
+        <!--    android:id="@+id/action_indexFragment_to_searchFragment"-->
+        <!--    app:destination="@id/searchFragment" />-->
+    </fragment>
+
+    <!--<fragment-->
+    <!--    android:id="@+id/analyzeFragment"-->
+    <!--    android:name="life.chenshi.keepaccounts.module.analysis.ui.AnalyzeFragment"-->
+    <!--    android:label="AnalyzeFragment"-->
+    <!--    tools:layout="@layout/analysis_fragment_anaylze" />-->
+
+    <activity
+        android:id="@+id/newRecordActivity"
+        android:name="life.chenshi.keepaccounts.module.record.ui.NewRecordActivity"
+        android:label="NewRecordActivity"
+        tools:layout="@layout/record_activity_new_record">
+        <argument
+            android:name="record"
+            android:defaultValue="@null"
+            app:argType="life.chenshi.keepaccounts.module.common.database.entity.Record"
+            app:nullable="true" />
+    </activity>
+
+    <!--<activity-->
+    <!--    android:id="@+id/searchFragment"-->
+    <!--    android:name="life.chenshi.keepaccounts.module.search.ui.SearchActivity"-->
+    <!--    android:label="SearchFragment"-->
+    <!--    tools:layout="@layout/search_activity_search" />-->
+
+</navigation>
