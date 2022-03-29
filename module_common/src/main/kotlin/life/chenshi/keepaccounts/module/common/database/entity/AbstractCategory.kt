@@ -5,6 +5,7 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import life.chenshi.keepaccounts.module.common.utils.isNull
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
+import java.io.Serializable
 
 abstract class AbstractCategory(
     @PrimaryKey(autoGenerate = true)
@@ -22,7 +23,7 @@ abstract class AbstractCategory(
      */
     @Ignore
     val categoryType: String
-) {
+) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (other.isNull()) {
             return false
