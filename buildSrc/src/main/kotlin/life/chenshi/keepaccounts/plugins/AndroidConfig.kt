@@ -81,7 +81,7 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
     // 签名配置
     signingConfigs {
         register("release") {
-            storeFile = File("../key/keepaccount.jks")
+            storeFile = File("${project.rootDir}/key/keepaccount.jks")
             storePassword = "19980909a"
             keyAlias = "keepaccount"
             keyPassword = "19980909a"
@@ -93,7 +93,7 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
 
     buildTypes {
         release {
-            isDebuggable  = true
+            isDebuggable = true
             isMinifyEnabled = true
             // 自动清理未使用资源 开启minifyEnabled有效
             isShrinkResources = true
