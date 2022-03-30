@@ -3,7 +3,7 @@
     package="life.chenshi.keepaccounts.module.search">
 
     <application
-        android:name="run_as_app.SearchApplication"
+        android:name="run_as_app.RecordApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

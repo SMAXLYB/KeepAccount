@@ -9,6 +9,7 @@ import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.constant.CURRENT_THEME
 import life.chenshi.keepaccounts.module.common.constant.Theme
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.nightMode
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (configureDefaultStatusBar()) {
             StatusBarUtil.init(this)
                 .setColor(R.color.common_white)
-                .setDarkMode(false)
+                .setDarkMode(nightMode())
         }
         initView()
         initListener()

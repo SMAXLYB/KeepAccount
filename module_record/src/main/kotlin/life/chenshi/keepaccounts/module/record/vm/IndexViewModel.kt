@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.module.record.ui
+package life.chenshi.keepaccounts.module.record.vm
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers

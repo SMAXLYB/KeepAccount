@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--提供给跨模块用-->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,7 +12,7 @@
         tools:layout="@layout/record_fragment_index">
         <action
             android:id="@+id/action_indexFragment_to_newRecordActivity"
-            app:destination="@id/newRecordActivity">
+            app:destination="@id/mainActivity">
             <!--<argument-->
             <!--    android:name="record"-->
             <!--    android:defaultValue="@null"-->
@@ -32,10 +32,9 @@
     <!--    tools:layout="@layout/analysis_fragment_anaylze" />-->
 
     <activity
-        android:id="@+id/newRecordActivity"
-        android:name="life.chenshi.keepaccounts.module.record.ui.NewRecordActivity"
-        android:label="NewRecordActivity"
-        tools:layout="@layout/record_activity_new_record">
+        android:id="@+id/mainActivity"
+        android:name="life.chenshi.keepaccounts.module.record.ui.MainActivity"
+        android:label="MainActivity">
         <argument
             android:name="record"
             android:defaultValue="@null"

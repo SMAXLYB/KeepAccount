@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <!--defaultNavHost设置为false，否则在首页会有回退栈效果-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/index_nav_host_fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:defaultNavHost="false"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

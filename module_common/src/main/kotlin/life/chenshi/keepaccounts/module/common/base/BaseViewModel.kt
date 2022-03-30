@@ -6,7 +6,7 @@ import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelLazy
 
-class BaseViewModel : ViewModel() {
+open class BaseViewModel : ViewModel() {
 }
 
 inline fun <reified VM : ViewModel> ComponentActivity.appViewModels(): Lazy<VM> {

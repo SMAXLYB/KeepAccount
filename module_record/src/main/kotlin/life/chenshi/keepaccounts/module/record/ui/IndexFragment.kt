@@ -32,6 +32,7 @@ import life.chenshi.keepaccounts.module.common.view.CustomDialog
 import life.chenshi.keepaccounts.module.record.R
 import life.chenshi.keepaccounts.module.record.databinding.RecordFragmentIndexBinding
 import life.chenshi.keepaccounts.module.record.databinding.RecordLayoutCustomPopwindowBinding
+import life.chenshi.keepaccounts.module.record.vm.IndexViewModel
 
 class IndexFragment : Fragment() {
     private var _binding: RecordFragmentIndexBinding? = null
@@ -49,9 +50,7 @@ class IndexFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = DataBindingUtil.inflate(
-            inflater, R.layout.record_fragment_index, container, false
-        )
+        _binding = DataBindingUtil.inflate(inflater, R.layout.record_fragment_index, container, false)
         return mBinding.root
     }
 

@@ -12,11 +12,8 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_EXIT_APP
-import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
-import life.chenshi.keepaccounts.module.common.utils.ToastUtil
-import life.chenshi.keepaccounts.module.common.utils.gone
+import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
-import life.chenshi.keepaccounts.module.common.utils.visible
 
 class MainActivity : BaseActivity() {
     private lateinit var mNavController: NavController
@@ -28,18 +25,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun configureDefaultStatusBar(): Boolean {
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> {
-                StatusBarUtil.init(this)
-                    .setTransparent()
-                    .setDarkMode(true)
-            }
-            Configuration.UI_MODE_NIGHT_NO -> {
-                StatusBarUtil.init(this)
-                    .setTransparent()
-                    .setDarkMode(false)
-            }
-        }
+        StatusBarUtil.init(this)
+            .setTransparent()
+            .setDarkMode(nightMode())
         return false
     }
 
