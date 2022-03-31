@@ -10,7 +10,8 @@
         <item name="android:textSize">16sp</item>
         <item name="layout_constraintWidth_percent">0.25</item>
         <item name="layout_constraintDimensionRatio">h,2:1.2</item>
-        <item name="android:onClick">onKeyBoardClick</item>
+        <!--不能在fragment的xml中直接设置监听, fragment不是context-->
+        <!--<item name="android:onClick">onKeyBoardClick</item>-->
     </style>
 
 
