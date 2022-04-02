@@ -63,7 +63,7 @@ class IndexFragment : Fragment() {
 
     private fun initView() {
         StatusBarUtil.init(requireActivity())
-            .addPaddingTop(mBinding.bar)
+            .addStatusBatHeightTo(mBinding.bar)
         // 调整拖拽高度
         behavior = BottomSheetBehavior.from(mBinding.drawer)
         mBinding.hsv.post {
@@ -201,9 +201,8 @@ class IndexFragment : Fragment() {
      * @param record Record
      */
     private fun editRecord(record: Record) {
-        val action =
-            IndexFragmentDirections.actionIndexFragmentToNewRecordActivity(record)
-        findNavController().navigate(action)
+        // val action = IndexFragmentDirections.actionIndexFragmentToNewRecordActivity(record)
+        // findNavController().navigate(action)
     }
 
     /**

@@ -8,6 +8,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -43,7 +44,7 @@ import java.util.*
  * 新建、查看、修改记录
  */
 class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>() {
-    // private val mRecordArgs by navArgs<NewRecordActivityArgs>()
+    private val mRecordArgs by navArgs<EditRecordFragmentArgs>()
     private val mNewRecordViewModel by viewModels<NewRecordViewModel>()
     private val mIndexViewModel by viewModels<IndexViewModel>()
     private val mCommonCategoryAdapter by lazy { CommonCategoryAdapter(emptyList()) }
@@ -62,6 +63,8 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
     // }
 
     override fun initView() {
+        StatusBarUtil.init(requireActivity())
+            .addStatusBatHeightTo(binding.bar)
         // 默认隐藏
         binding.bar.hideRightIcon()
 

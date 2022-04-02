@@ -15,7 +15,7 @@
             android:id="@+id/rv_major_category"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/common_white"
+            android:background="?colorSurface"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/rv_minor_category"
             app:layout_constraintStart_toStartOf="parent"

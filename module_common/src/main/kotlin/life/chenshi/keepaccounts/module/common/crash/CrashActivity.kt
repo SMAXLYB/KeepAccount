@@ -21,12 +21,12 @@ class CrashActivity : BaseActivity() {
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_YES -> {
                 StatusBarUtil.init(this)
-                    .setColor(R.color.common_gray_900, false)
+                    .setColorByResId(R.color.common_gray_900, false)
                     .setDarkMode(true)
             }
             Configuration.UI_MODE_NIGHT_NO -> {
                 StatusBarUtil.init(this)
-                    .setColor(R.color.common_gray_100,false)
+                    .setColorByResId(R.color.common_gray_100,false)
                     .setDarkMode(false)
             }
         }

@@ -34,13 +34,7 @@
     <activity
         android:id="@+id/mainActivity"
         android:name="life.chenshi.keepaccounts.module.record.ui.MainActivity"
-        android:label="MainActivity">
-        <argument
-            android:name="record"
-            android:defaultValue="@null"
-            app:argType="life.chenshi.keepaccounts.module.common.database.entity.Record"
-            app:nullable="true" />
-    </activity>
+        android:label="MainActivity" />
 
     <!--<activity-->
     <!--    android:id="@+id/searchFragment"-->

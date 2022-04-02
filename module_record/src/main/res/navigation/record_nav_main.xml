@@ -9,5 +9,11 @@
         android:id="@+id/newRecordFragment"
         android:name="life.chenshi.keepaccounts.module.record.ui.EditRecordFragment"
         android:label="NewRecordFragment"
-        tools:layout="@layout/record_fragment_edit_record" />
+        tools:layout="@layout/record_fragment_edit_record">
+        <argument
+            android:name="record"
+            android:defaultValue="@null"
+            app:argType="life.chenshi.keepaccounts.module.common.database.entity.Record"
+            app:nullable="true" />
+    </fragment>
 </navigation>

@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="不计入资产"
-                android:textColor="@color/common_black"
+                android:textColor="?colorOnSurface"
                 app:layout_constraintBottom_toBottomOf="@id/slash"
                 app:layout_constraintStart_toEndOf="@id/slash" />
 
@@ -108,7 +108,7 @@
             android:layout_width="0dp"
             android:layout_height="15dp"
             app:backgroundColor="?attr/colorSurface"
-            app:dashColor="@color/common_global_background_gray"
+            app:dashColor="?android:colorBackground"
             app:dashHeight="1.5dp"
             app:dashInterval="4dp"
             app:dashWidth="4dp"
@@ -148,7 +148,7 @@
                 android:background="@drawable/common_corner_all_5dp_gray_bg"
                 android:padding="5dp"
                 android:text="2020/02/31 - 08:10"
-                android:textColor="@color/common_black"
+                android:textColor="?colorOnBackground"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_datetime_title" />
 
@@ -168,7 +168,7 @@
                 android:background="@drawable/common_corner_all_5dp_gray_bg"
                 android:padding="5dp"
                 android:text="默认账本"
-                android:textColor="@color/common_black"
+                android:textColor="?colorOnBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_book_title" />
 
@@ -222,7 +222,7 @@
             android:layout_width="0dp"
             android:layout_height="15dp"
             app:backgroundColor="?attr/colorSurface"
-            app:dashColor="@color/common_global_background_gray"
+            app:dashColor="?android:colorBackground"
             app:dashHeight="1.5dp"
             app:dashInterval="4dp"
             app:dashWidth="4dp"

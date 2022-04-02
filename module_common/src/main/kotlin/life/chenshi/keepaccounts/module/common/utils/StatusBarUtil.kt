@@ -7,15 +7,19 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import java.lang.ref.WeakReference
 
 object StatusBarUtil {
 
-    private lateinit var activity: WeakReference<Activity>
+    private var activity: WeakReference<Activity> = WeakReference(null)
 
     fun init(activity: Activity): StatusBarUtil {
-        StatusBarUtil.activity = WeakReference(activity)
+        if (this.activity.get() != null && this.activity.get() == activity) {
+            return this
+        }
+        this.activity = WeakReference(activity)
         return this
     }
 
@@ -78,7 +82,11 @@ object StatusBarUtil {
      * @param colorId 颜色id
      * @param fullScreen 是否全屏
      */
-    fun setColor(@ColorRes colorId: Int, fullScreen: Boolean = false): StatusBarUtil {
+    fun setColorByResId(@ColorRes colorId: Int, fullScreen: Boolean = false): StatusBarUtil {
+        return setColorByValue(activity.get()!!.getColorById(colorId), fullScreen)
+    }
+
+    fun setColorByValue(@ColorInt color: Int?, fullScreen: Boolean = false): StatusBarUtil {
         activity.get()!!.window!!.apply {
             // 由window绘制bar
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -87,7 +95,7 @@ object StatusBarUtil {
                 decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
             }
-            statusBarColor = activity.get()!!.getColorById(colorId) ?: Color.TRANSPARENT
+            statusBarColor = color ?: Color.TRANSPARENT
         }
         return this
     }
@@ -95,7 +103,7 @@ object StatusBarUtil {
     /**
      * 增大PaddingTop
      */
-    fun addPaddingTop(view: View): StatusBarUtil {
+    fun addStatusBatHeightTo(view: View): StatusBarUtil {
         val layoutParams = view.layoutParams
         if (layoutParams != null && layoutParams.height > 0 && view.paddingTop == 0) {
             val statusBarHeight = getStatusBarHeight()

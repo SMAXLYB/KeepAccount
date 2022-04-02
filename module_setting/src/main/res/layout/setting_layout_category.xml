@@ -10,12 +10,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/common_global_background_gray">
+        android:background="?android:colorBackground">
 
         <life.chenshi.keepaccounts.module.common.view.CustomActionBar
             android:id="@+id/bar"
             android:layout_width="match_parent"
-            android:background="@color/common_white"
+            android:background="?colorSurface"
             android:layout_height="50dp"
             app:centerIcon="@drawable/common_action_bar_help"
             app:centerTitle="收支类别管理"
@@ -26,10 +26,10 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
-            android:background="@color/common_white"
+            android:background="?colorSurface"
             app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="?colorPrimary"
-            app:tabBackground="@color/common_white"
+            app:tabBackground="?colorSurface"
             app:tabUnboundedRipple="true"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorAnimationMode="elastic"
