@@ -69,10 +69,10 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         binding.bar.hideRightIcon()
 
         // record更新
-        // mRecordArgs.record?.let {
-        //     mNewRecordViewModel.record = it
-        //     mNewRecordViewModel.detailMode.value = true
-        // }
+        mRecordArgs.record?.let {
+            mNewRecordViewModel.record = it
+            mNewRecordViewModel.detailMode.value = true
+        }
 
         // 默认账本
         mNewRecordViewModel.hasDefaultBook({
@@ -380,35 +380,35 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
     private fun setUpViewWhenDetail() {
         lifecycleScope.launch {
             // 更新记录
-            // mRecordArgs.record?.let {
-            //     // 编辑按钮
-            //     binding.mbtnEdit.visible()
-            //     // 金额
-            //     binding.tvMoney.text = String.format(it.money.toString())
-            //     // 时间
-            //     mNewRecordViewModel.currentDateTime.value = it.time.time
-            //     // 备注
-            //     binding.etRemark.setText(it.remark)
-            //     binding.etRemark.isEnabled = false
-            //     // 账本
-            //     mNewRecordViewModel.currentBook.value = mNewRecordViewModel.getBookById(it.bookId)
-            //     // 类型 如果有子类,优先使用子类,否则使用主类
-            //     val abstractCategory = if (it.minorCategoryId != 0) {
-            //         // 有可能子类被删除了
-            //         mNewRecordViewModel.getMinorCategoryById(it.minorCategoryId)
-            //     } else {
-            //         // 有可能主类被删除了
-            //         mNewRecordViewModel.getMajorCategoryById(it.majorCategoryId)
-            //     }
-            //     // 如果被删除了,使用记录的状态
-            //     if (abstractCategory.isNull()) {
-            //         mNewRecordViewModel.currentRecordType.value = it.recordType
-            //     } else {
-            //         // 有TOP6可能并不包含,需要手动添加
-            //         mNewRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory!!)
-            //         mNewRecordViewModel.currentAbstractCategory.value = abstractCategory
-            //     }
-            // }
+            mRecordArgs.record?.let {
+                // 编辑按钮
+                binding.mbtnEdit.visible()
+                // 金额
+                binding.tvMoney.text = String.format(it.money.toString())
+                // 时间
+                mNewRecordViewModel.currentDateTime.value = it.time.time
+                // 备注
+                binding.etRemark.setText(it.remark)
+                binding.etRemark.isEnabled = false
+                // 账本
+                mNewRecordViewModel.currentBook.value = mNewRecordViewModel.getBookById(it.bookId)
+                // 类型 如果有子类,优先使用子类,否则使用主类
+                val abstractCategory = if (it.minorCategoryId != 0) {
+                    // 有可能子类被删除了
+                    mNewRecordViewModel.getMinorCategoryById(it.minorCategoryId)
+                } else {
+                    // 有可能主类被删除了
+                    mNewRecordViewModel.getMajorCategoryById(it.majorCategoryId)
+                }
+                // 如果被删除了,使用记录的状态
+                if (abstractCategory.isNull()) {
+                    mNewRecordViewModel.currentRecordType.value = it.recordType
+                } else {
+                    // 有TOP6可能并不包含,需要手动添加
+                    mNewRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory!!)
+                    mNewRecordViewModel.currentAbstractCategory.value = abstractCategory
+                }
+            }
         }
     }
 

@@ -11,13 +11,13 @@
         android:label="IndexFragment"
         tools:layout="@layout/record_fragment_index">
         <action
-            android:id="@+id/action_indexFragment_to_newRecordActivity"
+            android:id="@+id/action_indexFragment_to_mainActivity"
             app:destination="@id/mainActivity">
-            <!--<argument-->
-            <!--    android:name="record"-->
-            <!--    android:defaultValue="@null"-->
-            <!--    app:argType="string"-->
-            <!--    app:nullable="true" />-->
+            <argument
+                android:name="record"
+                android:defaultValue="@null"
+                app:argType="life.chenshi.keepaccounts.module.common.database.entity.Record"
+                app:nullable="true" />
         </action>
 
         <!--<action-->
@@ -34,7 +34,14 @@
     <activity
         android:id="@+id/mainActivity"
         android:name="life.chenshi.keepaccounts.module.record.ui.MainActivity"
-        android:label="MainActivity" />
+        android:label="MainActivity"
+        tools:layout="@layout/record_fragment_edit_record">
+        <argument
+            android:name="startDestination"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </activity>
 
     <!--<activity-->
     <!--    android:id="@+id/searchFragment"-->

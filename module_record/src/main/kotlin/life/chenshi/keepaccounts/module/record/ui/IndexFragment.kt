@@ -99,7 +99,8 @@ class IndexFragment : Fragment() {
         // 新建记录
         mBinding.clNewRecord.setOnClickListener {
             mIndexViewModel.hasBook({
-                findNavController().navigate(R.id.action_indexFragment_to_newRecordActivity, null)
+                val action = IndexFragmentDirections.actionIndexFragmentToMainActivity()
+                findNavController().navigate(action)
             }, {
                 ToastUtil.showShort(resources.getString(R.string.record_no_book_tip))
             })
@@ -201,8 +202,8 @@ class IndexFragment : Fragment() {
      * @param record Record
      */
     private fun editRecord(record: Record) {
-        // val action = IndexFragmentDirections.actionIndexFragmentToNewRecordActivity(record)
-        // findNavController().navigate(action)
+        val action = IndexFragmentDirections.actionIndexFragmentToMainActivity(record)
+        findNavController().navigate(action)
     }
 
     /**
