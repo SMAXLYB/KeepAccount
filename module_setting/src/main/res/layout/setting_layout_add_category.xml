@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginStart="10dp"
-            android:background="#A4F1F1F1"
+            android:background="?android:colorBackground"
             android:hint="(必填)2~4字"
             android:lines="1"
             android:padding="5dp"
