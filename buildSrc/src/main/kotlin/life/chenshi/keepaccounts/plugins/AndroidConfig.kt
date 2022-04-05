@@ -265,7 +265,7 @@ internal val Project.appName: String
     get() {
         // 如果是主工程, 直接返回应用名称, 如果不是, 返回模块名称
         if (!this.name.contains("_")) {
-            return "KeepAccounts"
+            return "钱途无量"
         }
         return this.name
     }
