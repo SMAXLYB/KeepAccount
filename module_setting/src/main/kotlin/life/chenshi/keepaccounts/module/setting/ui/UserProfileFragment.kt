@@ -15,12 +15,12 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.setting.R
-import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentSettingBinding
-import life.chenshi.keepaccounts.module.setting.vm.SettingViewModel
+import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentUserProfileBinding
+import life.chenshi.keepaccounts.module.setting.vm.UserProfileViewModel
 
-class SettingFragment : Fragment() {
-    private lateinit var mBinding: SettingFragmentSettingBinding
-    private val mSettingViewModel by viewModels<SettingViewModel>()
+class UserProfileFragment : Fragment() {
+    private lateinit var mBinding: SettingFragmentUserProfileBinding
+    private val mUserProfileViewModel by viewModels<UserProfileViewModel>()
 
     companion object {
         private const val TAG = "SettingFragment"
@@ -32,7 +32,7 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.setting_fragment_setting, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.setting_fragment_user_profile, container, false)
         return mBinding.root
     }
 
@@ -44,9 +44,9 @@ class SettingFragment : Fragment() {
 
     private fun initView() {
         mBinding.tvSettingCurrentBook.apply {
-            mSettingViewModel.hasDefaultBook({
+            mUserProfileViewModel.hasDefaultBook({
                 lifecycleScope.launch {
-                    val book = mSettingViewModel.getBookNameById(it)
+                    val book = mUserProfileViewModel.getBookNameById(it)
                     mBinding.tvSettingCurrentBook.text = book.name
                 }
             }, {
@@ -54,7 +54,7 @@ class SettingFragment : Fragment() {
             })
         }
 
-        mBinding.settingUserName.text = mSettingViewModel.getGreetContent()
+        mBinding.settingUserName.text = mUserProfileViewModel.getGreetContent()
 
         when (KVStoreHelper.read(DAY_NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)) {
             MODE_NIGHT_YES -> {
@@ -88,7 +88,7 @@ class SettingFragment : Fragment() {
         )
 
         mBinding.llSettingItemMoreSetting.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.setting_action_settingfragment_to_moresettingfragment)
+            Navigation.createNavigateOnClickListener(R.id.setting_action_settingfragment_to_mainactivity)
         )
     }
 }

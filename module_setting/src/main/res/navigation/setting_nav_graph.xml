@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="life.chenshi.keepaccounts.module.setting.ui.SettingFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.UserProfileFragment"
         android:label="SettingFragment"
-        tools:layout="@layout/setting_fragment_setting">
+        tools:layout="@layout/setting_fragment_user_profile">
         <action
             android:id="@+id/action_settingFragment_to_bookActivity"
             app:destination="@id/bookActivity" />
