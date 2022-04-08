@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setting_nav_main"
+    app:startDestination="@id/allSettingFragment">
+
+    <fragment
+        android:id="@+id/allSettingFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.AllSettingFragment"
+        android:label="AllSettingFragment"
+        tools:layout="@layout/setting_fragment_all_setting">
+        <action
+            android:id="@+id/setting_action_allsettingfragment_to_themesettingfragment"
+            app:destination="@id/themeSettingFragment"
+            app:enterAnim="@anim/common_slide_in_right"
+            app:exitAnim="@anim/common_slide_out_left"
+            app:popEnterAnim="@anim/common_slide_in_left"
+            app:popExitAnim="@anim/common_slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/themeSettingFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.ThemeSettingFragment"
+        android:label="ThemeSettingFragment"
+        tools:layout="@layout/setting_fragment_theme_setting" />
+</navigation>

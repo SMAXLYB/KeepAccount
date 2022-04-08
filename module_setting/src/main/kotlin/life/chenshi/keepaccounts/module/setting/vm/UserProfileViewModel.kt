@@ -10,7 +10,7 @@ import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 import java.util.*
 
-class SettingViewModel : ViewModel() {
+class UserProfileViewModel : ViewModel() {
     private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }
 
     fun hasDefaultBook(doIfHas: (Int) -> Unit, doIfNot: (() -> Unit)? = null) {

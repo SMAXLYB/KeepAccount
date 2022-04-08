@@ -18,7 +18,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.adapter.IndexRecordAdapter
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
@@ -27,7 +26,7 @@ import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.dp2px
 import life.chenshi.keepaccounts.module.common.utils.setVisibility
-import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
 import life.chenshi.keepaccounts.module.record.R
 import life.chenshi.keepaccounts.module.record.databinding.RecordFragmentIndexBinding
@@ -166,10 +165,8 @@ class IndexFragment : Fragment() {
             }
 
             // 删除确认
-            lifecycleScope.launch {
-                DataStoreUtil.readFromDataStore(SWITCHER_CONFIRM_BEFORE_DELETE, true).collect {
-                    confirmBeforeDelete.value = it
-                }
+            KVStoreHelper.read(SWITCHER_CONFIRM_BEFORE_DELETE, true).apply {
+                confirmBeforeDelete.value = this
             }
         }
     }

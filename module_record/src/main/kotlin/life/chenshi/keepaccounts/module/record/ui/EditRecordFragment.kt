@@ -55,13 +55,6 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
     override fun setLayoutId(): Int = R.layout.record_fragment_edit_record
 
-    // override fun configureDefaultStatusBar(): Boolean {
-    //     StatusBarUtil.init(requireActivity())
-    //         .setColor(R.color.common_status_bar_global_background_gray)
-    //         .setDarkMode(false)
-    //     return false
-    // }
-
     override fun initView() {
         StatusBarUtil.init(requireActivity())
             .addStatusBatHeightTo(binding.bar)
@@ -422,18 +415,14 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
     ) {
         val dialog = BottomSheetDialog(requireContext(), R.style.CommonBottomSheetDialog).apply {
             val binding = CommonBottomSheetRecyclerviewBinding.inflate(layoutInflater).apply {
-                rvContent.layoutManager =
-                    LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                rvContent.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 rvContent.adapter =
-                    object : BaseAdapter<T, CommonBottomSheetRecyclerviewItemBinding>(
-                        data
-                    ) {
+                    object : BaseAdapter<T, CommonBottomSheetRecyclerviewItemBinding>(data) {
                         override fun getResLayoutId() =
                             R.layout.common_bottom_sheet_recyclerview_item
 
                         override fun onBindViewHolder(
-                            binding: CommonBottomSheetRecyclerviewItemBinding,
-                            itemData: T,
+                            binding: CommonBottomSheetRecyclerviewItemBinding, itemData: T,
                         ) {
                             bindView.invoke(binding, itemData)
                         }

@@ -17,6 +17,7 @@ import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 
 class NewRecordViewModel : ViewModel() {
 
@@ -143,12 +144,8 @@ class NewRecordViewModel : ViewModel() {
      * @param callback Function1<Boolean, Unit>
      */
     fun confirmBeforeDelete(callback: (Boolean) -> Unit) {
-        viewModelScope.launch {
-            DataStoreUtil.readFromDataStore(SWITCHER_CONFIRM_BEFORE_DELETE, true)
-                .take(1)
-                .collect {
-                    callback.invoke(it)
-                }
+        KVStoreHelper.read(SWITCHER_CONFIRM_BEFORE_DELETE, true).apply {
+            callback.invoke(this)
         }
     }
 }

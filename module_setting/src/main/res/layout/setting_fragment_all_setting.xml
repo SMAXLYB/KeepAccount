@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="界面显示"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/common_corner_all_5dp_white_bg"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/setting_theme"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"主题风格"}' />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="操作设置"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/common_corner_all_5dp_white_bg"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/setting_exit"
+                    layout="@layout/setting_item_setting_switch"
+                    app:description='@{"打开后, 连续按2次返回键才可退出应用"}'
+                    app:name='@{"退出应用二次确认"}' />
+
+
+                <include
+                    android:id="@+id/setting_delete"
+                    layout="@layout/setting_item_setting_switch"
+                    app:description='@{"打开后, 删除操作会进行弹窗确认, 建议打开, 避免误触操作"}'
+                    app:name='@{"删除操作二次确认"}' />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="应用信息"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/common_corner_all_5dp_white_bg"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/setting_agreement"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"用户协议"}' />
+
+                <include
+                    android:id="@+id/setting_privacy"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"隐私政策"}' />
+
+
+                <include
+                    android:id="@+id/setting_update"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"版本更新"}' />
+
+                <include
+                    android:id="@+id/setting_opensource"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"开源技术"}' />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

@@ -5,11 +5,23 @@
     android:id="@+id/setting_nav_graph"
     app:startDestination="@id/userProfileFragment">
 
-    <fragment
-        android:id="@+id/moreSettingFragment"
-        android:name="life.chenshi.keepaccounts.module.setting.ui.moresetting.MoreSettingFragment"
-        android:label="MoreSettingFragment"
-        tools:layout="@layout/setting_fragment_more_setting" />
+    <!--<fragment-->
+    <!--    android:id="@+id/moreSettingFragment"-->
+    <!--    android:name="life.chenshi.keepaccounts.module.setting.ui.moresetting.MoreSettingFragment"-->
+    <!--    android:label="MoreSettingFragment"-->
+    <!--    tools:layout="@layout/setting_fragment_more_setting" />-->
+
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.MainActivity"
+        android:label="MainActivity">
+        <argument
+            android:name="startDestination"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </activity>
 
     <fragment
         android:id="@+id/userProfileFragment"
@@ -23,8 +35,11 @@
             android:id="@+id/action_settingFragment_to_categoryActivity"
             app:destination="@id/categoryActivity" />
         <action
-            android:id="@+id/setting_action_settingfragment_to_moresettingfragment"
-            app:destination="@id/moreSettingFragment" />
+            android:id="@+id/setting_action_userprofilefragment_to_mainactivity"
+            app:destination="@id/mainActivity" />
+        <!--<action-->
+        <!--    android:id="@+id/setting_action_settingfragment_to_moresettingfragment"-->
+        <!--    app:destination="@id/moreSettingFragment" />-->
         <!--<action-->
         <!--    android:id="@+id/action_settingFragment_to_moreSettingActivity"-->
         <!--    app:destination="@id/moreSettingActivity" />-->

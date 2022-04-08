@@ -1,19 +1,14 @@
 package life.chenshi.keepaccounts.ui
 
-import android.content.res.Configuration
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_EXIT_APP
 import life.chenshi.keepaccounts.module.common.utils.*
-import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 
 class MainActivity : BaseActivity() {
     private lateinit var mNavController: NavController
@@ -59,22 +54,18 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        lifecycleScope.launch {
-            DataStoreUtil.readFromDataStore(SWITCHER_EXIT_APP, true)
-                .take(1)
-                .collect {
-                    if (it) {
-                        val currentTime = System.currentTimeMillis()
-                        if (currentTime - lastTime > EXIT_INTERVAL_TIME) {
-                            ToastUtil.showShort("再按一次退出应用")
-                            lastTime = currentTime
-                        } else {
-                            super.onBackPressed()
-                        }
-                    } else {
-                        super.onBackPressed()
-                    }
+        KVStoreHelper.read(SWITCHER_EXIT_APP, true).apply {
+            if (this) {
+                val currentTime = System.currentTimeMillis()
+                if (currentTime - lastTime > EXIT_INTERVAL_TIME) {
+                    ToastUtil.showShort("再按一次退出应用")
+                    lastTime = currentTime
+                } else {
+                    super.onBackPressed()
                 }
+            } else {
+                super.onBackPressed()
+            }
         }
     }
 }

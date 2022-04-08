@@ -3,6 +3,11 @@
     package="life.chenshi.keepaccounts.module.setting">
 
     <application>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.moresetting.MoreSettingActivity"
             android:exported="false" />

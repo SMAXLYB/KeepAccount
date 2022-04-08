@@ -6,8 +6,6 @@ import android.graphics.Color
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
 import life.chenshi.keepaccounts.module.common.constant.STATE_DELETE
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
@@ -15,7 +13,7 @@ import life.chenshi.keepaccounts.module.common.database.AppDatabase
 import life.chenshi.keepaccounts.module.common.database.entity.MajorCategory
 import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
-import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
 import life.chenshi.keepaccounts.module.setting.databinding.SettingLayoutAddCategoryBinding
 import life.chenshi.keepaccounts.module.setting.databinding.SettingLayoutAddSubCategoryBinding
@@ -184,12 +182,8 @@ class CategoryViewModel : ViewModel() {
      * @param callback Function1<Boolean, Unit>
      */
     fun confirmBeforeDelete(callback: (Boolean) -> Unit) {
-        viewModelScope.launch {
-            DataStoreUtil.readFromDataStore(SWITCHER_CONFIRM_BEFORE_DELETE, true)
-                .take(1)
-                .collect {
-                    callback.invoke(it)
-                }
+        KVStoreHelper.read(SWITCHER_CONFIRM_BEFORE_DELETE, true).apply {
+            callback.invoke(this)
         }
     }
 
@@ -254,7 +248,12 @@ class CategoryViewModel : ViewModel() {
                 }
                 viewModelScope.launch {
                     kotlin.runCatching {
-                        insertCategory(MajorCategory(name = binding.etCategoryName.text.toString(), recordType = recordType))
+                        insertCategory(
+                            MajorCategory(
+                                name = binding.etCategoryName.text.toString(),
+                                recordType = recordType
+                            )
+                        )
                     }.onSuccess {
                         ToastUtil.showSuccess("添加成功")
                         dialog.dismiss()
