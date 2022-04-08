@@ -9,3 +9,4 @@ include(
     ":module_book"
 )
 rootProject.name = "KeepAccounts"
+include(":module_category")
