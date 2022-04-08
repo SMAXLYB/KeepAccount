@@ -11,7 +11,7 @@
         android:icon="@drawable/record_index_nav_analyze"
         android:title="分析" />
     <item
-        android:id="@id/more_setting_nav_graph"
+        android:id="@id/setting_nav_graph"
         android:icon="@drawable/record_index_nav_setting"
         android:title="设置" />
 

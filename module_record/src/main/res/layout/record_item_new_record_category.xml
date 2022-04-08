@@ -21,7 +21,7 @@
             android:layout_height="48dp"
             android:radius="5dp"
             android:src="@drawable/record_item_new_record_more_category"
-            android:textColor="@color/common_white"
+            android:textColor="?colorOnPrimary"
             android:textSize="16sp"
             app:backgroundColor="#4D03A9F4"
             app:layout_constraintBottom_toTopOf="@id/tv_category"

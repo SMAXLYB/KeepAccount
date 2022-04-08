@@ -1,8 +1,8 @@
 package life.chenshi.keepaccounts.module.record.adapter
 
-import android.graphics.Color
 import life.chenshi.keepaccounts.module.common.base.BaseAdapter
 import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
+import life.chenshi.keepaccounts.module.common.utils.getColorFromAttr
 import life.chenshi.keepaccounts.module.record.R
 import life.chenshi.keepaccounts.module.record.databinding.RecordItemNewRecordCategoryBinding
 
@@ -15,11 +15,11 @@ class CommonCategoryAdapter(data: List<AbstractCategory>) : BaseAdapter<Abstract
         if (itemData.id != -1) {
             binding.tivCategory.setText(itemData.name)
         }
-        binding.tivCategory.setBackgroundColor(Color.parseColor("#4D03A9F4"))
+        binding.tivCategory.setBackgroundColor(binding.root.context.getColorFromAttr(R.attr.colorPrimaryVariant))
         // 如果被选中
         mCurrentCategory?.let {
             if (itemData == it) {
-                binding.tivCategory.setBackgroundColor(Color.parseColor("#03A9F4"))
+                binding.tivCategory.setBackgroundColor(binding.root.context.getColorFromAttr(R.attr.colorPrimary))
             }
         }
     }
