@@ -202,7 +202,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
             CardDatePickerDialog.builder(requireContext())
                 .setBackGroundModel(CardDatePickerDialog.STACK)
-                .setThemeColor(requireContext().getColorById(R.color.colorPrimary))
+                .setThemeColor(requireContext().getColorFromRes(R.color.colorPrimary))
                 .setDefaultTime(mNewRecordViewModel.currentDateTime.value!!)
                 .showBackNow(false)
                 .setDisplayType(
@@ -284,10 +284,10 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             // 收支类型
             currentRecordType.observe(this@EditRecordFragment) {
                 binding.tvRecordType.text = if (it == RECORD_TYPE_INCOME) {
-                    binding.tvMoney.setTextColor(requireContext().getColorById(R.color.common_income))
+                    binding.tvMoney.setTextColor(requireContext().getColorFromRes(R.color.common_income))
                     "收入"
                 } else {
-                    binding.tvMoney.setTextColor(requireContext().getColorById(R.color.common_outcome))
+                    binding.tvMoney.setTextColor(requireContext().getColorFromRes(R.color.common_outcome))
                     "支出"
                 }
                 binding.tvMoney.isSelected = it == RECORD_TYPE_OUTCOME
@@ -347,7 +347,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                     binding.clKeyboard.visible()
                     // 如果有空间可见,否则不可见
                     binding.clKeyboard.post {
-                        val diff = 70.dp2px()
+                        val diff = 50.dp2px()
                         if (binding.clKeyboard.top - binding.voucher.bottom < diff) {
                             binding.bar.gone()
                         } else {

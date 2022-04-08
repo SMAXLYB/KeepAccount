@@ -17,7 +17,7 @@ import androidx.core.animation.addListener
 import com.google.android.material.color.MaterialColors
 import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.utils.dp2px
-import life.chenshi.keepaccounts.module.common.utils.getColorById
+import life.chenshi.keepaccounts.module.common.utils.getColorFromRes
 
 typealias CheckChangedListener = (Boolean) -> Unit
 
@@ -35,8 +35,8 @@ class SwitchButton @JvmOverloads constructor(
     }
 
     // xml读取
-    private var uncheckedBackgroundColor = context.getColorById(R.color.common_list_view_pressed_gray)
-    private var uncheckedCircleColor = context.getColorById(R.color.common_white)
+    private var uncheckedBackgroundColor = context.getColorFromRes(R.color.common_list_view_pressed_gray)
+    private var uncheckedCircleColor = context.getColorFromRes(R.color.common_white)
     private var checkedBackgroundColor = MaterialColors.getColor(context, R.attr.colorPrimary, "未找到主题色")
 
     // private var checkedCircleColor = resources.getColor(R.color.white, null)

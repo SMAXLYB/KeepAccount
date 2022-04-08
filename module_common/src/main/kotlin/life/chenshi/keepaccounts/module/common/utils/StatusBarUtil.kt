@@ -83,7 +83,7 @@ object StatusBarUtil {
      * @param fullScreen 是否全屏
      */
     fun setColorByResId(@ColorRes colorId: Int, fullScreen: Boolean = false): StatusBarUtil {
-        return setColorByValue(activity.get()!!.getColorById(colorId), fullScreen)
+        return setColorByValue(activity.get()!!.getColorFromRes(colorId), fullScreen)
     }
 
     fun setColorByValue(@ColorInt color: Int?, fullScreen: Boolean = false): StatusBarUtil {
@@ -105,12 +105,13 @@ object StatusBarUtil {
      */
     fun addStatusBatHeightTo(view: View): StatusBarUtil {
         val layoutParams = view.layoutParams
-        if (layoutParams != null && layoutParams.height > 0 && view.paddingTop == 0) {
+        layoutParams?.takeUnless { view.paddingTop != 0 }?.let {
             val statusBarHeight = getStatusBarHeight()
-            layoutParams.height += statusBarHeight
+            if (it.height >= 0) {
+                layoutParams.height += statusBarHeight
+            }
             view.setPadding(view.paddingLeft, view.paddingTop + statusBarHeight, view.paddingRight, view.paddingBottom)
         }
-
         return this
     }
 

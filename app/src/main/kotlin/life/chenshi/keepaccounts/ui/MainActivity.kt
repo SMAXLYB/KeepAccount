@@ -48,7 +48,7 @@ class MainActivity : BaseActivity() {
     override fun initListener() {
         mNavController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.indexFragment, R.id.analysisFragment, R.id.settingFragment -> {
+                R.id.indexFragment, R.id.analysisFragment, R.id.userProfileFragment -> {
                     mBottomNavView.visible()
                 }
                 else -> {

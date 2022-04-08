@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/more_setting_nav_graph"
-    app:startDestination="@id/settingFragment">
+    android:id="@+id/setting_nav_graph"
+    app:startDestination="@id/userProfileFragment">
 
     <fragment
         android:id="@+id/moreSettingFragment"
@@ -12,7 +12,7 @@
         tools:layout="@layout/setting_fragment_more_setting" />
 
     <fragment
-        android:id="@+id/settingFragment"
+        android:id="@+id/userProfileFragment"
         android:name="life.chenshi.keepaccounts.module.setting.ui.UserProfileFragment"
         android:label="SettingFragment"
         tools:layout="@layout/setting_fragment_user_profile">

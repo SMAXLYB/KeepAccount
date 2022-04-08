@@ -1,6 +1,5 @@
 package life.chenshi.keepaccounts.module.common.base
 
-import android.content.res.TypedArray
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +9,7 @@ import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.constant.CURRENT_THEME
 import life.chenshi.keepaccounts.module.common.constant.Theme
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.getColorFromAttr
 import life.chenshi.keepaccounts.module.common.utils.nightMode
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 
@@ -22,9 +22,7 @@ abstract class BaseActivity : AppCompatActivity() {
         setTheme(theme.styRes)
         super.onCreate(savedInstanceState)
         if (configureDefaultStatusBar()) {
-            val array: TypedArray = getTheme().obtainStyledAttributes(intArrayOf(R.attr.colorSurface))
-            val backgroundColor = array.getColor(0, 0)
-            array.recycle()
+            val backgroundColor = getColorFromAttr(R.attr.colorSurface)
             StatusBarUtil.init(this)
                 .setColorByValue(backgroundColor)
                 .setDarkMode(nightMode())
