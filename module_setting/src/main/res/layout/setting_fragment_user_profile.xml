@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@drawable/common_corner_all_5dp_white_bg"
+                android:background="@drawable/common_ripple_medium_bg_surface"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +152,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/common_ripple_12dp_bg_surface"
+                android:background="@drawable/common_ripple_medium_bg_surface"
                 app:layout_constraintDimensionRatio="2:1.2"
                 app:layout_constraintEnd_toStartOf="@id/cl_part_2"
                 app:layout_constraintHorizontal_weight="1"
@@ -163,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="账本管理"
+                    android:textColor="?colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -175,81 +176,75 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/common_ripple_12dp_bg_surface"
-                android:padding="15dp"
-                app:layout_constraintDimensionRatio="2:.8"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                app:layout_constraintDimensionRatio="2:0.8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@id/cl_part_1"
                 app:layout_constraintTop_toTopOf="@id/cl_part_1">
 
-                <ImageView
-                    android:id="@+id/iv_night_mode"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:src="@drawable/setting_icon_night"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="类别管理"
+                    android:textColor="?colorOnSurface"
+
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toStartOf="@id/tv_night_mode"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_night_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_night_mode"
-                    app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_part_3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/common_ripple_12dp_bg_surface"
-                app:layout_constraintDimensionRatio="2:1.2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cl_part_1"
-                app:layout_constraintTop_toBottomOf="@id/cl_part_2">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="类别管理"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_part_4"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/common_ripple_12dp_bg_surface"
-                app:layout_constraintDimensionRatio="2:0.81"
-                app:layout_constraintEnd_toStartOf="@id/cl_part_3"
-                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintDimensionRatio="2:0.8"
+                app:layout_constraintEnd_toEndOf="@+id/cl_part_1"
+                app:layout_constraintStart_toStartOf="@+id/cl_part_1"
                 app:layout_constraintTop_toBottomOf="@id/cl_part_1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="标签管理"
+                    android:textColor="?colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_part_4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                app:layout_constraintBottom_toBottomOf="@+id/cl_part_3"
+                app:layout_constraintEnd_toStartOf="@id/cl_part_5"
+                app:layout_constraintStart_toStartOf="@+id/cl_part_2"
+                app:layout_constraintTop_toBottomOf="@id/cl_part_2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="主题"
+                    android:textColor="?colorOnSurface"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_part_5"
@@ -257,18 +252,61 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cl_part_3"
+                app:layout_constraintEnd_toEndOf="@+id/cl_part_2"
+                app:layout_constraintStart_toEndOf="@id/cl_part_4"
+                app:layout_constraintTop_toBottomOf="@id/cl_part_2">
+
+
+                <ImageView
+                    android:id="@+id/iv_night_mode"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/setting_icon_night"
+                    app:layout_constraintBottom_toTopOf="@id/tv_night_mode"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_night_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@id/iv_night_mode" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_part_6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/common_corner_all_12dp_white_bg"
+                android:background="@drawable/common_ripple_medium_bg_surface"
                 app:layout_constraintDimensionRatio="2:0.6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_part_4">
+                app:layout_constraintTop_toBottomOf="@id/cl_part_3">
 
                 <TextView
                     android:id="@+id/tv_content_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="记账提醒"
+                    android:textColor="?colorOnSurface"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_content_2"
                     app:layout_constraintHorizontal_weight="1"
@@ -280,6 +318,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="周期记账"
+
+                    android:textColor="?colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_content_3"
                     app:layout_constraintHorizontal_weight="1"
@@ -291,6 +331,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="同步备份"
+
+                    android:textColor="?colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_content_4"
                     app:layout_constraintHorizontal_weight="1"
@@ -302,8 +344,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="回收站"
+                    android:textColor="?colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintStart_toEndOf="@id/tv_content_3"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -318,11 +362,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@drawable/common_corner_all_5dp_white_bg"
+                android:background="@drawable/common_ripple_medium_bg_surface"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_part_5">
+                app:layout_constraintTop_toBottomOf="@id/cl_part_6">
 
                 <include
                     android:id="@+id/setting_privacy"

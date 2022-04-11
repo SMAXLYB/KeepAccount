@@ -32,10 +32,10 @@
         <item name="colorOnError">@color/common_gray_100</item>
 
         <!-- 状态栏 -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">false</item>
 
         <!-- activity切换动画-->
-        <item name="android:windowAnimationStyle">@style/CommonWindowAnimationTransition</item>
+        <!--<item name="android:windowAnimationStyle">@style/CommonWindowAnimationTransition</item>-->
     </style>
 </resources>

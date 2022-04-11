@@ -358,6 +358,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         }
 
         // 监听类型选中
+        // td--抽到常量里去
         LiveEventBus.get("category", AbstractCategory::class.java)
             .observe(this) { abstractCategory ->
                 // 先更新集合
@@ -418,7 +419,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 rvContent.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 rvContent.adapter =
                     object : BaseAdapter<T, CommonBottomSheetRecyclerviewItemBinding>(data) {
-                        override fun getResLayoutId() =
+                        override fun setResLayoutId() =
                             R.layout.common_bottom_sheet_recyclerview_item
 
                         override fun onBindViewHolder(

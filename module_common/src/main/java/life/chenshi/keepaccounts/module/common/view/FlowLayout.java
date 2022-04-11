@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import life.chenshi.keepaccounts.module.common.utils.ViewUtilKt;
+import life.chenshi.keepaccounts.module.common.utils.ViewExtKt;
 
 /**
  * @author smaxlyb
@@ -38,9 +38,9 @@ public class FlowLayout extends ViewGroup {
     private void initData() {
         mChildrenBounds = new ArrayList<>();
         // item之间的间隔
-        itemSpacing = ViewUtilKt.dp2px(20);
+        itemSpacing = ViewExtKt.dp2px(20);
         // 行与行之间的间隔
-        lineSpacing = ViewUtilKt.dp2px(10);
+        lineSpacing = ViewExtKt.dp2px(10);
     }
 
     @SuppressLint("DrawAllocation")

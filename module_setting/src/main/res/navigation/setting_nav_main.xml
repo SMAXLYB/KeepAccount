@@ -12,11 +12,7 @@
         tools:layout="@layout/setting_fragment_all_setting">
         <action
             android:id="@+id/setting_action_allsettingfragment_to_themesettingfragment"
-            app:destination="@id/themeSettingFragment"
-            app:enterAnim="@anim/common_slide_in_right"
-            app:exitAnim="@anim/common_slide_out_left"
-            app:popEnterAnim="@anim/common_slide_in_left"
-            app:popExitAnim="@anim/common_slide_out_right" />
+            app:destination="@id/themeSettingFragment" />
     </fragment>
 
     <fragment

@@ -44,7 +44,7 @@ class MainActivity : BaseActivity() {
         val navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.record_nav_main)
         mainArgs.startDestination?.let { path ->
-            getStartDestination(path).takeUnless { it != 0 }?.let {
+            getStartDestination(path).takeIf { it != 0 }?.let {
                 navGraph.startDestination = it
             }
         }

@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
 import life.chenshi.keepaccounts.module.common.constant.SETTING_ALL_SETTING
+import life.chenshi.keepaccounts.module.common.constant.SETTING_THEME
 import life.chenshi.keepaccounts.module.common.view.CustomActionBar
 import life.chenshi.keepaccounts.module.setting.R
 import life.chenshi.keepaccounts.module.setting.vm.AllSettingViewModel
@@ -44,7 +45,7 @@ class MainActivity : BaseActivity() {
         mNavController = navHostFragment.navController
         val navGraph = mNavController.navInflater.inflate(R.navigation.setting_nav_main)
         mainArgs.startDestination?.let { path ->
-            getStartDestination(path).takeUnless { it != 0 }?.let {
+            getStartDestination(path).takeIf { it != 0 }?.let {
                 navGraph.startDestination = it
             }
         }
@@ -54,6 +55,7 @@ class MainActivity : BaseActivity() {
     private fun getStartDestination(path: String): Int {
         return when (path) {
             SETTING_ALL_SETTING -> R.id.allSettingFragment
+            SETTING_THEME -> R.id.themeSettingFragment
             else -> 0
         }
     }

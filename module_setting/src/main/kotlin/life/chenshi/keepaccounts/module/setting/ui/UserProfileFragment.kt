@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
+import life.chenshi.keepaccounts.module.common.constant.SETTING_THEME
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.module.common.utils.nightMode
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
@@ -55,18 +56,26 @@ class UserProfileFragment : Fragment() {
         //
         mBinding.tvNightMode.text = when (context?.nightMode()) {
             true -> {
-                mBinding.ivNightMode.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.setting_icon_day))
-                "日间模式"
+                mBinding.ivNightMode.setImageDrawable(
+                    ContextCompat.getDrawable(requireContext(), R.drawable.setting_icon_day)
+                )
+                "日间"
             }
             else -> {
-                mBinding.ivNightMode.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.setting_icon_night))
-                "夜间模式"
+                mBinding.ivNightMode.setImageDrawable(
+                    ContextCompat.getDrawable(requireContext(), R.drawable.setting_icon_night)
+                )
+                "夜间"
             }
         }
     }
 
     private fun initListener() {
-        mBinding.clPart2.setOnClickListener {
+        mBinding.clPart4.setOnClickListener {
+            val directions = UserProfileFragmentDirections.settingActionUserprofilefragmentToMainactivity(SETTING_THEME)
+            findNavController().navigate(directions)
+        }
+        mBinding.clPart5.setOnClickListener {
             if (false == context?.nightMode()) {
                 KVStoreHelper.write(DAY_NIGHT_MODE, MODE_NIGHT_YES)
                 setDefaultNightMode(MODE_NIGHT_YES)
@@ -78,15 +87,6 @@ class UserProfileFragment : Fragment() {
         mBinding.allSetting.rlSetting.setOnClickListener {
             findNavController().navigate(R.id.setting_action_userprofilefragment_to_mainactivity)
         }
-        // mBinding.switcherNightMode.setOnCheckChangedListener {
-        //     if (it) {
-        //         KVStoreHelper.write(DAY_NIGHT_MODE, MODE_NIGHT_YES)
-        //         setDefaultNightMode(MODE_NIGHT_YES)
-        //     } else {
-        //         KVStoreHelper.write(DAY_NIGHT_MODE, MODE_NIGHT_NO)
-        //         setDefaultNightMode(MODE_NIGHT_NO)
-        //     }
-        // }
         // mBinding.llSettingItemCurrentBook.setOnClickListener(
         //     Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_bookActivity)
         // )

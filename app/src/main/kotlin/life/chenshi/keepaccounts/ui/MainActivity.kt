@@ -1,10 +1,11 @@
 package life.chenshi.keepaccounts.ui
 
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import life.chenshi.keepaccounts.R
+import life.chenshi.keepaccounts.databinding.AppActivityMainBinding
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_EXIT_APP
 import life.chenshi.keepaccounts.module.common.utils.*
@@ -12,7 +13,7 @@ import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 
 class MainActivity : BaseActivity() {
     private lateinit var mNavController: NavController
-    private lateinit var mBottomNavView: BottomNavigationView
+    private lateinit var mBinding: AppActivityMainBinding
     private var lastTime = 0L
 
     companion object {
@@ -27,27 +28,26 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
-        setContentView(R.layout.app_activity_main)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_main)
         // 初始化controller，绑定navMenu
         mNavController =
             (supportFragmentManager.findFragmentById(R.id.index_nav_host_fragment_container) as NavHostFragment).navController
-        mBottomNavView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view).apply {
-            setupWithNavController(mNavController)
-        }
+        mBinding.bottomNavigationView.setupWithNavController(mNavController)
 
     }
 
     override fun initObserver() {
+
     }
 
     override fun initListener() {
         mNavController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.indexFragment, R.id.analysisFragment, R.id.userProfileFragment -> {
-                    mBottomNavView.visible()
+                    mBinding.bottomNavigationView.visible()
                 }
                 else -> {
-                    mBottomNavView.gone()
+                    mBinding.bottomNavigationView.gone()
                 }
             }
         }

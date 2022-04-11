@@ -6,23 +6,11 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_theme"
         android:layout_width="match_parent"
-        android:transitionName="allSettingToThemeSetting"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include
-            android:id="@+id/blue"
-            layout="@layout/setting_item_setting_switch"
-            app:description='@{"默认"}'
-            app:name='@{"默认颜色"}' />
-
-        <include
-            android:id="@+id/pink"
-            layout="@layout/setting_item_setting_switch"
-            app:description='@{"粉色主题"}'
-            app:name='@{"换成粉色"}' />
-
-    </LinearLayout>
+        android:overScrollMode="never"
+        android:padding="10dp"
+        android:scrollbars="none" />
 </layout>

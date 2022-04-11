@@ -12,7 +12,7 @@
         android:id="@+id/rl_setting"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@drawable/common_ripple_5dp_bg_surface"
+        android:background="@drawable/common_ripple_medium_bg_surface"
         android:transitionName="@{name}"
         android:padding="12dp">
 

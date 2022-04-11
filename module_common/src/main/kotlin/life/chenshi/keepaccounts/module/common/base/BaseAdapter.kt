@@ -15,7 +15,7 @@ abstract class BaseAdapter<T, V : ViewDataBinding>(private var data: List<T>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = DataBindingUtil.inflate<V>(
             LayoutInflater.from(parent.context),
-            getResLayoutId(),
+            setResLayoutId(),
             parent,
             false
         )
@@ -44,7 +44,7 @@ abstract class BaseAdapter<T, V : ViewDataBinding>(private var data: List<T>) :
     }
 
     @LayoutRes
-    abstract fun getResLayoutId(): Int
+    abstract fun setResLayoutId(): Int
 
     inner class Holder(val binding: V) :
         RecyclerView.ViewHolder(binding.root) {

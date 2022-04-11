@@ -4,7 +4,7 @@
     <!--   ================BottomSheet================== -->
     <style name="CommonBottomSheet" parent="Widget.Design.BottomSheet.Modal">
         <!--背景，顶部两个圆角-->
-        <item name="android:background">@drawable/common_corner_top_12dp_white_bg</item>
+        <item name="android:background">@drawable/common_corner_top_large_white_bg</item>
     </style>
 
     <style name="CommonBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">

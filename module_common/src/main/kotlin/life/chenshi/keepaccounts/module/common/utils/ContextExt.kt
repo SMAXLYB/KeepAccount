@@ -11,8 +11,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.use
+import com.google.android.material.color.MaterialColors
 
 /**
  * 获取颜色
@@ -21,11 +22,11 @@ import androidx.core.content.res.use
 fun Context.getColorFromRes(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 @ColorInt
-fun Context.getColorFromAttr(@AttrRes attr: Int): Int {
-    return obtainStyledAttributes(intArrayOf(attr)).use {
-        it.getColor(0, 0)
-    }
-}
+fun Context.getColorFromAttr(@AttrRes attr: Int) = MaterialColors.getColor(this, attr, 0)
+
+@ColorInt
+fun Context.getColorFromTheme(@StyleRes themeResId: Int, @AttrRes attr: Int) =
+    MaterialColors.getColor(ContextThemeWrapper(this, themeResId), attr, 0)
 
 @StyleRes
 fun Context.getStyleFromAttr(@AttrRes attr: Int): Int {

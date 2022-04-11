@@ -29,7 +29,7 @@ class CommonCategoryAdapter(data: List<AbstractCategory>) : BaseAdapter<Abstract
         notifyDataSetChanged()
     }
 
-    override fun getResLayoutId(): Int {
+    override fun setResLayoutId(): Int {
         return R.layout.record_item_new_record_category
     }
 }

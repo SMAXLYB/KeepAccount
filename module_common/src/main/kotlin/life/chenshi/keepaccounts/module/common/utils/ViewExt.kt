@@ -2,14 +2,20 @@ package life.chenshi.keepaccounts.module.common.utils
 
 import android.app.Activity
 import android.content.ContextWrapper
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.RippleDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RoundRectShape
 import android.os.SystemClock
 import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import life.chenshi.keepaccounts.module.common.R
 
 /*------------------属性-------------------------*/
@@ -53,6 +59,7 @@ fun View.setNoDoubleClickListener(
         }
     }
 }
+
 data class NoDoubleClickHelper(
     var interval: Int = 500,
     var share: Boolean = false,
@@ -71,6 +78,45 @@ fun TextView.setVisibilityWithText(text: String) {
 fun ImageView.setVisibleWithDrawable(drawable: Drawable? = null) {
     visibility = View.VISIBLE
     setImageDrawable(drawable)
+}
+
+fun View.setShapeWithRippleBackground(
+    cornerSize: Float,
+    @ColorInt backgroundColor: Int,
+    @ColorInt rippleColor: Int
+) {
+    val stateList = arrayOf(
+        intArrayOf(android.R.attr.state_pressed),
+        intArrayOf(android.R.attr.state_focused),
+        intArrayOf(android.R.attr.state_activated),
+        intArrayOf()
+    )
+
+    val stateColorList = intArrayOf(
+        rippleColor,
+        rippleColor,
+        rippleColor,
+        backgroundColor
+    )
+    val colorStateList = ColorStateList(stateList, stateColorList)
+
+    // 四个角的弧度
+    val outRadius =
+        floatArrayOf(cornerSize, cornerSize, cornerSize, cornerSize, cornerSize, cornerSize, cornerSize, cornerSize)
+    val roundRectShape = RoundRectShape(outRadius, null, null)
+    // 蒙层
+    // val maskDrawable = ShapeDrawable()
+    // maskDrawable.shape = roundRectShape
+    // maskDrawable.paint.color = Color.BLACK
+    // maskDrawable.paint.style = Paint.Style.FILL
+
+    // 内容
+    val contentDrawable = ShapeDrawable()
+    contentDrawable.shape = roundRectShape
+    contentDrawable.paint.color = backgroundColor
+    contentDrawable.paint.style = Paint.Style.FILL
+
+    this.background = RippleDrawable(colorStateList, contentDrawable, null)
 }
 
 fun Int.dp2px(): Int {
