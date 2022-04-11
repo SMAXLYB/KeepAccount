@@ -3,8 +3,8 @@
     android:color="#27707070">
     <item>
         <shape>
-            <corners android:radius="12dp" />
-            <solid android:color="?colorSurface" />
+            <corners android:radius="@dimen/common_large_corner_size" />
+            <solid android:color="?colorPrimary" />
         </shape>
     </item>
 </ripple>
