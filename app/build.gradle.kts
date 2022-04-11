@@ -5,9 +5,6 @@ plugins {
 }
 
 android {
-
-
-
     kotlinOptions {
         // 集成环境关闭
         // useIR = true
