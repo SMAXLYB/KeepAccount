@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="life.chenshi.keepaccounts.module.setting">
+
+    <application>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.moresetting.MoreSettingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.book.BookActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.category.CategoryActivity"
+            android:exported="false" />
+    </application>
+</manifest>

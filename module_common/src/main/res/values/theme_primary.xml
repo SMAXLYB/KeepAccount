@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="CommonThemeOverlay.KeepAccounts.Blue" parent="CommonTheme.KeepAccounts">
+        <item name="colorPrimary">@color/common_blue_500</item>
+        <item name="colorPrimaryVariant">@color/common_blue_300</item>
+        <item name="colorOnPrimary">@color/common_gray_100</item>
+    </style>
+
+    <style name="CommonThemeOverlay.KeepAccounts.Pink" parent="CommonTheme.KeepAccounts">
+        <item name="colorPrimary">@color/common_pink_200</item>
+        <item name="colorPrimaryVariant">@color/common_pink_100</item>
+        <item name="colorOnPrimary">@color/common_gray_100</item>
+    </style>
+
+    <style name="CommonThemeOverlay.KeepAccounts.Green" parent="CommonTheme.KeepAccounts">
+        <item name="colorPrimary">@color/common_green_500</item>
+        <item name="colorPrimaryVariant">@color/common_green_300</item>
+        <item name="colorOnPrimary">@color/common_gray_100</item>
+    </style>
+
+</resources>

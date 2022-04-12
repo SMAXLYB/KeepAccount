@@ -1,0 +1,48 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--标准activity-->
+    <style name="CommonTheme.KeepAccounts" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- 主色调 -->
+        <item name="colorPrimary">@color/common_blue_500</item>
+        <!-- 主色调的深色、浅色 -->
+        <item name="colorPrimaryVariant">@color/common_blue_300</item>
+        <!-- 主色调的前景色 -->
+        <item name="colorOnPrimary">@color/common_white</item>
+
+        <!-- 次色调 -->
+        <item name="colorSecondary">@color/common_teal_200</item>
+        <!-- 次色调的深色、浅色-->
+        <item name="colorSecondaryVariant">@color/common_teal_700</item>
+        <!-- 次色调的前景色 -->
+        <item name="colorOnSecondary">@color/common_black</item>
+
+        <!-- 卡片色调 -->
+        <item name="colorSurface">@color/common_white</item>
+        <!-- 卡片前景色 -->
+        <item name="colorOnSurface">@color/common_black</item>
+
+        <!-- 屏幕背景色 -->
+        <item name="android:colorBackground">@color/common_gray_100</item>
+        <!-- 屏幕前景色 -->
+        <item name="colorOnBackground">@color/common_gray_800</item>
+
+        <!-- 错误色调 -->
+        <item name="colorError">@color/common_red</item>
+        <!-- 错误色调上的前景色 -->
+        <item name="colorOnError">@color/common_white</item>
+
+        <!-- 状态栏 -->
+        <item name="android:statusBarColor" >?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- activity切换动画-->
+        <!--<item name="android:windowAnimationStyle">@style/CommonWindowAnimationTransition</item>-->
+    </style>
+
+    <!--app启动页-->
+    <style name="CommonLaunchTheme" parent="CommonTheme.KeepAccounts">
+        <item name="android:windowBackground">@drawable/common_launch_layout</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>

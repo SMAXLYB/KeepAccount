@@ -1,9 +1,12 @@
 include(
     ":gson_extra",
     ":app",
-    ":library-view",
-    ":module-home",
-    ":module-search",
-    ":module-common"
+    ":module_common",
+    ":module_search",
+    ":module_setting",
+    ":module_record",
+    ":module_analysis",
+    ":module_book"
 )
 rootProject.name = "KeepAccounts"
+include(":module_category")

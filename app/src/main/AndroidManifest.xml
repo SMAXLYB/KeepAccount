@@ -2,36 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="life.chenshi.keepaccounts">
 
-    <!--键盘点击时震动-->
-    <uses-permission android:name="android.permission.VIBRATE" />
-
     <application
-        android:name=".global.MyApplication"
+        android:name=".AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/LaunchTheme">
-        <!--<meta-data android:name="CHANNEL" android:value="${CHANNEL}"/>-->
-        <activity android:name=".ui.MainActivity">
+        android:theme="@style/CommonLaunchTheme">
+        <activity
+            android:name=".ui.SplashActivity"
+
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.search.SearchActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ui.newrecord.NewRecordActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.setting.book.BookActivity" />
-        <activity android:name=".ui.setting.category.CategoryActivity" />
-        <activity android:name=".ui.CrashActivity" />
-        <activity android:name=".ui.setting.moresetting.MoreSettingActivity" />
+        <activity android:name=".ui.MainActivity" />
     </application>
-
 </manifest>

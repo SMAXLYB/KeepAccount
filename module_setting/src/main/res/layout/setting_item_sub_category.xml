@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="70dp"
+        android:foreground="?selectableItemBackground"
+        android:background="?colorSurface"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_gravity="center"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/iv_item_sub_category_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:padding="1dp"
+            android:src="@drawable/setting_item_category_delete_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_item_sub_category_selected"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:padding="1dp"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:src="@drawable/setting_item_category_selected"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_item_sub_category_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/common_index_item_icon_bill"
+            app:layout_constraintBottom_toTopOf="@id/tv_item_sub_category_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_item_sub_category_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="二级分类"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="5dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

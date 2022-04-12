@@ -1,97 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--   ================BottomSheet================== -->
-    <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
-        <!--背景，顶部两个圆角-->
-        <item name="android:background">@drawable/corner_top_12dp_white_bg</item>
-    </style>
 
-    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <!--底部弹出条的样式（相当于背景）-->
-        <item name="bottomSheetStyle">@style/BottomSheet</item>
-        <!--状态栏颜色-->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <!--导航条颜色-->
-        <item name="android:navigationBarColor">@color/white</item>
-    </style>
 
-    <!--   ================Divider================== -->
-    <style name="IncludeDivider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">2dp</item>
-        <item name="android:layout_marginStart">15dp</item>
-        <item name="android:layout_marginEnd">15dp</item>
-    </style>
 
-    <!--   ================Setting================== -->
-    <style name="SettingCardView">
-        <item name="contentPaddingTop">5dp</item>
-        <item name="contentPaddingBottom">5dp</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="cardCornerRadius">10dp</item>
-        <item name="cardElevation">1dp</item>
-        <item name="cardMaxElevation">2dp</item>
-    </style>
 
-    <style name="SettingItemLinearLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:paddingStart">15dp</item>
-        <item name="android:paddingEnd">15dp</item>
-        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
-    </style>
 
-    <style name="SettingItemContentTextView">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginStart">15dp</item>
-        <item name="android:layout_weight">2</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
 
-    <style name="SettingArrow">
-        <item name="android:layout_width">10dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:src">@drawable/analyze_arrow_more</item>
-    </style>
+    <!--<style name="NewRecordArrow">-->
+    <!--    <item name="android:layout_width">10dp</item>-->
+    <!--    <item name="android:layout_height">0dp</item>-->
+    <!--    <item name="android:layout_marginEnd">10dp</item>-->
+    <!--    <item name="android:src">@drawable/common_arrow_more</item>-->
+    <!--</style>-->
 
-    <style name="NewRecordArrow">
-        <item name="android:layout_width">10dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
-        <item name="android:src">@drawable/analyze_arrow_more</item>
-    </style>
-
-    <style name="CustomKeyBoard">
-        <item name="android:foreground">?selectableItemBackground</item>
-        <item name="android:background">@color/white</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">16sp</item>
-        <item name="layout_constraintWidth_percent">0.25</item>
-        <item name="layout_constraintDimensionRatio">h,2:1.2</item>
-        <item name="android:onClick">onKeyBoardClick</item>
-    </style>
-
-    <style name="IndexShortcuts_ConstraintLayout">
-        <item name="android:layout_width">120dp</item>
-        <item name="android:layout_height">120dp</item>
-        <item name="android:layout_marginStart">10dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:background">@drawable/ripple_80dp_bg_blue</item>
-    </style>
-
-    <style name="MaterialButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-        <item name="android:theme">@style/Theme.MaterialComponents.Light</item>
-    </style>
 </resources>

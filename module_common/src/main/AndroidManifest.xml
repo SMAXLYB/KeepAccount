@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="life.chenshi.keepaccounts.module.common">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application>
+        <!--dpi:单位尺寸上的像素数量-->
+        <!--屏幕对角线是尺寸，假设固定，但是长宽是可变的，即使长宽相同，单位尺寸上的像素数量也可以不同-->
+        <!--以宽度适配-->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="392" />
+
+        <activity
+            android:name=".crash.CrashActivity"
+            android:exported="false" />
+    </application>
+</manifest>

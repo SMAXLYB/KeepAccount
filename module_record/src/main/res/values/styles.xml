@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RecordCustomKeyBoard">
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="layout_constraintWidth_percent">0.25</item>
+        <item name="layout_constraintDimensionRatio">h,2:1.2</item>
+        <!--不能在fragment的xml中直接设置监听, fragment不是context-->
+        <!--<item name="android:onClick">onKeyBoardClick</item>-->
+    </style>
+
+
+    <style name="Record_IndexShortcuts_ConstraintLayout">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/common_ripple_large_bg_primary</item>
+    </style>
+
+</resources>

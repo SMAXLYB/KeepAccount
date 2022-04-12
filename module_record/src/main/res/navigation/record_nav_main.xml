@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--主模块路径，单独运行也可以用-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/record_nav_main"
+    app:startDestination="@id/editRecordFragment">
+
+    <fragment
+        android:id="@+id/editRecordFragment"
+        android:name="life.chenshi.keepaccounts.module.record.ui.EditRecordFragment"
+        android:label="NewRecordFragment"
+        tools:layout="@layout/record_fragment_edit_record">
+        <argument
+            android:name="record"
+            android:defaultValue="@null"
+            app:argType="life.chenshi.keepaccounts.module.common.database.entity.Record"
+            app:nullable="true" />
+    </fragment>
+</navigation>

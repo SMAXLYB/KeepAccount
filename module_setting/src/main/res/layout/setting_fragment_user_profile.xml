@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
+
+
+            <life.chenshi.keepaccounts.module.common.view.CircleImageView
+                android:id="@+id/civ_user_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/setting_category_empty"
+                app:borderColor="?colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shadowColor="#BCBCBC"
+                app:shadowRadius="15"
+                app:showShadow="false" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Hi, 钱途无量"
+                android:textColor="?colorOnBackground"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tv_user_description"
+                app:layout_constraintStart_toEndOf="@id/civ_user_avatar"
+                app:layout_constraintTop_toTopOf="@id/civ_user_avatar" />
+
+            <TextView
+                android:id="@+id/tv_user_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="这个人很懒, 还没有签名哦"
+                app:layout_constraintBottom_toBottomOf="@id/civ_user_avatar"
+                app:layout_constraintStart_toEndOf="@id/civ_user_avatar"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/civ_user_avatar">
+
+                <TextView
+                    android:id="@+id/tv_days_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="365"
+                    android:textColor="?colorOnSurface"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_deals_num"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_deals_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="365"
+                    android:textColor="?colorOnSurface"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_books_num"
+                    app:layout_constraintStart_toEndOf="@id/tv_days_num"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_books_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="365"
+                    android:textColor="?colorOnSurface"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_deals_num"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_days"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="记账天数"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_days_num"
+                    app:layout_constraintStart_toStartOf="@id/tv_days_num"
+                    app:layout_constraintTop_toBottomOf="@id/tv_days_num" />
+
+                <TextView
+                    android:id="@+id/tv_deals"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+
+                    android:text="交易笔数"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_deals_num"
+                    app:layout_constraintStart_toStartOf="@id/tv_deals_num"
+                    app:layout_constraintTop_toBottomOf="@id/tv_deals_num" />
+
+                <TextView
+                    android:id="@+id/tv_books"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+
+                    android:text="账本数目"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_books_num"
+                    app:layout_constraintStart_toStartOf="@id/tv_books_num"
+                    app:layout_constraintTop_toBottomOf="@id/tv_books_num" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_part_1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                app:layout_constraintDimensionRatio="2:1.2"
+                app:layout_constraintEnd_toStartOf="@id/cl_part_2"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_count">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="账本管理"
+                    android:textColor="?colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_part_2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                app:layout_constraintDimensionRatio="2:0.8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/cl_part_1"
+                app:layout_constraintTop_toTopOf="@id/cl_part_1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="类别管理"
+                    android:textColor="?colorOnSurface"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_part_3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintDimensionRatio="2:0.8"
+                app:layout_constraintEnd_toEndOf="@+id/cl_part_1"
+                app:layout_constraintStart_toStartOf="@+id/cl_part_1"
+                app:layout_constraintTop_toBottomOf="@id/cl_part_1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="标签管理"
+                    android:textColor="?colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_part_4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                app:layout_constraintBottom_toBottomOf="@+id/cl_part_3"
+                app:layout_constraintEnd_toStartOf="@id/cl_part_5"
+                app:layout_constraintStart_toStartOf="@+id/cl_part_2"
+                app:layout_constraintTop_toBottomOf="@id/cl_part_2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="主题"
+                    android:textColor="?colorOnSurface"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_part_5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cl_part_3"
+                app:layout_constraintEnd_toEndOf="@+id/cl_part_2"
+                app:layout_constraintStart_toEndOf="@id/cl_part_4"
+                app:layout_constraintTop_toBottomOf="@id/cl_part_2">
+
+
+                <ImageView
+                    android:id="@+id/iv_night_mode"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/setting_icon_night"
+                    app:layout_constraintBottom_toTopOf="@id/tv_night_mode"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_night_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@id/iv_night_mode" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_part_6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                app:layout_constraintDimensionRatio="2:0.6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_part_3">
+
+                <TextView
+                    android:id="@+id/tv_content_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="记账提醒"
+                    android:textColor="?colorOnSurface"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_content_2"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_content_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="周期记账"
+
+                    android:textColor="?colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_content_3"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/tv_content_1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_content_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="同步备份"
+
+                    android:textColor="?colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_content_4"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/tv_content_2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_content_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="回收站"
+                    android:textColor="?colorOnSurface"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/tv_content_3"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <!--    记账提醒-->
+                <!--    周期记账-->
+                <!--    同步备份-->
+                <!--    导入导出(不常用, 放进设置)-->
+                <!--    回收站-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_part_6">
+
+                <include
+                    android:id="@+id/setting_privacy"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"使用帮助"}' />
+
+                <include
+                    android:id="@+id/setting_feedback"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"投诉反馈"}' />
+
+                <include
+                    android:id="@+id/setting_update"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"关于我们"}' />
+
+                <include
+                    android:id="@+id/all_setting"
+                    layout="@layout/setting_item_setting_next"
+                    app:name='@{"全部设置"}' />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

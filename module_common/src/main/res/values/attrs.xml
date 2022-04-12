@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
+
+    <attr name="backgroundColor" format="color" />
+
+
+    <declare-styleable name="CircleImageView">
+        <!--边框宽度-->
+        <attr name="borderWidths" format="integer" />
+        <!--边框颜色-->
+        <attr name="borderColor" format="color" />
+        <!--是否有阴影-->
+        <attr name="showShadow" format="boolean" />
+        <!--阴影颜色-->
+        <attr name="shadowColor" format="color" />
+        <!--阴影模糊半径-->
+        <attr name="shadowRadius" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchButton">
+        <!--未选中的背景颜色-->
+        <attr name="uncheckedBackgroundColor" format="color" />
+        <!--未选中的圆形颜色-->
+        <attr name="uncheckedCircleColor" format="color" />
+        <!--选中的背景颜色-->
+        <attr name="checkedBackgroundColor" format="color" />
+        <!--选中的圆形颜色-->
+        <attr name="checkedCircleColor" format="color" />
+        <attr name="strokeWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TicketDivideLineView">
+        <attr name="dashWidth" format="dimension" />
+        <attr name="dashHeight" format="dimension" />
+        <attr name="dashInterval" format="dimension" />
+        <attr name="dashColor" format="color" />
+        <attr name="backgroundColor" />
+    </declare-styleable>
+
+    <declare-styleable name="VoucherView">
+        <attr name="triangleRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TextImageView">
+        <attr name="android:text" format="string" />
+        <attr name="android:radius" format="dimension" />
+        <attr name="android:src" format="reference" />
+        <attr name="backgroundColor" />
+        <attr name="android:textColor" format="color" />
+        <attr name="android:textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomActionBar">
+        <attr name="leftIcon" format="reference" />
+        <attr name="leftTitle" format="string" />
+        <attr name="centerTitle" format="string" />
+        <attr name="centerIcon" format="reference" />
+        <attr name="rightTitle" format="string" />
+        <attr name="rightIcon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="UnderLineTextView">
+        <attr name="underline_color" format="color" />
+        <attr name="underline_stroke" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomRadioButton">
+        <attr name="buttonText" format="string" />
+        <attr name="buttonSelectedBgColor" format="color" />
+        <attr name="buttonSelectedTextColor" format="color" />
+        <attr name="bgColor" format="color" />
+        <attr name="buttonTextColor" format="color" />
+        <attr name="buttonTextSize" format="dimension" />
+        <attr name="radius" format="dimension" />
+        <attr name="buttonHorizontalSpacing" format="dimension" />
+        <attr name="buttonVerticalSpacing" format="dimension" />
+        <attr name="buttonRadius" format="dimension" />
+    </declare-styleable>
+</resources>
