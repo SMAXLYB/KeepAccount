@@ -64,5 +64,6 @@ KeepAccounts目前是一款个人练手项目，功能以记账为主。主开�
 - [build]构建工具相关
 - [refactor]重构
 - [revert]git revert时自动生成
+- [test]测试
   
 - [命名规范](https://cloud.tencent.com/developer/article/1408620)
