@@ -212,7 +212,7 @@ internal fun LibraryExtension.applyConfig(project: Project) {
             // buildConfig动态配置
             // buildConfigField "String","INDEX_URL",""http://chenshi.life""
             // 资源动态配置
-            resValue("string", "app_name", "Keep-Accounts")
+            resValue("string", "app_name", project.appName)
         }
 
         // 同理测试环境
@@ -223,7 +223,7 @@ internal fun LibraryExtension.applyConfig(project: Project) {
             // buildConfig动态配置
             // buildConfigField "String","INDEX_URL",""http://chenshi.life""
             // 资源动态配置
-            resValue("string", "app_name", "Keep-Accounts测试版")
+            resValue("string", "app_name", "${project.appName}_开发版")
         }
     }
     // manifest文件变量占位

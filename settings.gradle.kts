@@ -6,7 +6,7 @@ include(
     ":module_setting",
     ":module_record",
     ":module_analysis",
-    ":module_book"
+    ":module_book",
+    "module_category"
 )
 rootProject.name = "KeepAccounts"
-include(":module_category")
