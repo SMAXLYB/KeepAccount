@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.module.setting.ui.category
+package life.chenshi.keepaccounts.module.category.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,55 +6,55 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.map
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
+import life.chenshi.keepaccounts.module.category.R
+import life.chenshi.keepaccounts.module.category.adapter.MajorCategoryAdapter
+import life.chenshi.keepaccounts.module.category.adapter.MajorCategoryFooterAdapter
+import life.chenshi.keepaccounts.module.category.adapter.MinorCategoryAdapter
+import life.chenshi.keepaccounts.module.category.adapter.MinorCategoryFooterAdapter
+import life.chenshi.keepaccounts.module.category.databinding.CategoryFragmentPageCategoryBinding
+import life.chenshi.keepaccounts.module.category.vm.AllCategoryViewModel
 import life.chenshi.keepaccounts.module.common.base.BaseFragment
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.inVisible
 import life.chenshi.keepaccounts.module.common.utils.isNull
 import life.chenshi.keepaccounts.module.common.utils.visible
-import life.chenshi.keepaccounts.module.setting.R
-import life.chenshi.keepaccounts.module.setting.adapter.MajorCategoryAdapter
-import life.chenshi.keepaccounts.module.setting.adapter.MajorCategoryFooterAdapter
-import life.chenshi.keepaccounts.module.setting.adapter.MinorCategoryAdapter
-import life.chenshi.keepaccounts.module.setting.adapter.MinorCategoryFooterAdapter
-import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentCategoryBinding
-import life.chenshi.keepaccounts.module.setting.vm.CategoryViewModel
 
 /**
  * @description: 分类fragment, 收入支出共用一个fragment
  * @author smaxlyb
  * @date 2021年03月27日 13:05
  */
-class CategoryFragment : BaseFragment() {
+class CategoryPageFragment : BaseFragment() {
 
-    private lateinit var mBinding: SettingFragmentCategoryBinding
+    private lateinit var mBinding: CategoryFragmentPageCategoryBinding
     private var recordType = RECORD_TYPE_OUTCOME
-    private val mCategoryViewModel by activityViewModels<CategoryViewModel>()
+    private val mAllCategoryViewModel by viewModels<AllCategoryViewModel>(ownerProducer = { requireParentFragment() })
     private val mMajorCategoryAdapter: MajorCategoryAdapter by lazy { MajorCategoryAdapter() }
     private val mMajorCategoryFooterAdapter: MajorCategoryFooterAdapter by lazy { MajorCategoryFooterAdapter() }
     private val mMinorCategoryAdapter: MinorCategoryAdapter by lazy { MinorCategoryAdapter() }
     private val mMinorCategoryFooterAdapter: MinorCategoryFooterAdapter by lazy { MinorCategoryFooterAdapter() }
 
     companion object {
-        private const val TAG = "CategoryFragment"
+        private const val TAG = "CategoryPageFragment"
         private const val RECORD_TYPE = "record_type"
 
-        fun newInstance(categoryType: Int): CategoryFragment {
-            return CategoryFragment().apply {
+        fun newInstance(categoryType: Int): CategoryPageFragment {
+            return CategoryPageFragment().apply {
                 arguments = bundleOf(RECORD_TYPE to categoryType)
             }
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.setting_fragment_category, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.category_fragment_page_category, container, false)
         return mBinding.root
 
     }
@@ -90,8 +90,8 @@ class CategoryFragment : BaseFragment() {
             // 主类点击
             setOnItemClickListener { binding, category ->
                 // 如果已经被选中,直接返回,不做处理
-                mCategoryViewModel.currentMajorCategory.value?.run {
-                    if (this == category){
+                mAllCategoryViewModel.currentMajorCategory.value?.run {
+                    if (this == category) {
                         return@setOnItemClickListener
                     }
                 }
@@ -105,25 +105,25 @@ class CategoryFragment : BaseFragment() {
                 }
 
                 // 修改选中
-                mCategoryViewModel.currentMajorCategory.apply {
-                    mCategoryViewModel.lastMajorCategory.value = this.value
+                mAllCategoryViewModel.currentMajorCategory.apply {
+                    mAllCategoryViewModel.lastMajorCategory.value = this.value
                     this.value = category
                 }
             }
 
             // 主类长按
             setOnItemLongClickListener { _, _ ->
-                mCategoryViewModel.isDeleteMode.value = true
+                mAllCategoryViewModel.isDeleteMode.value = true
                 true
             }
 
             // 删除主类
             setOnItemDeleteClickListener { category ->
-                mCategoryViewModel.confirmBeforeDelete {
+                mAllCategoryViewModel.confirmBeforeDelete {
                     if (it) {
-                        mCategoryViewModel.deleteMajorCategoryWithDialog(requireActivity(), category)
+                        mAllCategoryViewModel.deleteMajorCategoryWithDialog(requireActivity(), category)
                     } else {
-                        mCategoryViewModel.deleteMajorCategory(category)
+                        mAllCategoryViewModel.deleteMajorCategory(category)
                     }
                 }
             }
@@ -133,17 +133,17 @@ class CategoryFragment : BaseFragment() {
             // 单击
             setOnItemClickListener { binding, minorCategory ->
                 // 当前是新建页面来的,并且不是处于删除模式,点击事件才有效
-                takeIf { !mCategoryViewModel.isDeleteMode.value!! && !mCategoryViewModel.business.value.isNull() }?.run {
+                takeIf { !mAllCategoryViewModel.isDeleteMode.value!! && !mAllCategoryViewModel.business.value.isNull() }?.run {
                     // 如果已经选中,跳过
-                    if(mCategoryViewModel.currentMinorCategory.value == minorCategory){
+                    if (mAllCategoryViewModel.currentMinorCategory.value == minorCategory) {
                         return@setOnItemClickListener
                     }
 
                     binding.apply {
                         ivItemSubCategorySelected.visible()
                     }
-                    mCategoryViewModel.currentMinorCategory.apply {
-                        mCategoryViewModel.lastMinorCategory.value = value
+                    mAllCategoryViewModel.currentMinorCategory.apply {
+                        mAllCategoryViewModel.lastMinorCategory.value = value
                         value = minorCategory
                     }
                 }
@@ -151,16 +151,16 @@ class CategoryFragment : BaseFragment() {
 
             // 长按
             setOnItemLongClickListener { _, _ ->
-                mCategoryViewModel.isDeleteMode.value = true
+                mAllCategoryViewModel.isDeleteMode.value = true
                 true
             }
             // 删除
             setOnItemDeleteClickListener { subCategory ->
-                mCategoryViewModel.confirmBeforeDelete {
+                mAllCategoryViewModel.confirmBeforeDelete {
                     if (it) {
-                        mCategoryViewModel.deleteMinorCategoryWithDialog(requireActivity(), subCategory)
+                        mAllCategoryViewModel.deleteMinorCategoryWithDialog(requireActivity(), subCategory)
                     } else {
-                        mCategoryViewModel.deleteMinorCategory(subCategory)
+                        mAllCategoryViewModel.deleteMinorCategory(subCategory)
                     }
                 }
             }
@@ -168,22 +168,22 @@ class CategoryFragment : BaseFragment() {
 
         // 添加主类
         mMajorCategoryFooterAdapter.setOnItemClickListener {
-            takeUnless { mCategoryViewModel.isDeleteMode.value!! }?.run {
-                mCategoryViewModel.addCategory(requireActivity(), recordType)
+            takeUnless { mAllCategoryViewModel.isDeleteMode.value!! }?.run {
+                mAllCategoryViewModel.addCategory(requireActivity(), recordType)
             } ?: ToastUtil.showShort("请先退出删除模式")
         }
 
         // 添加子类
         mMinorCategoryFooterAdapter.setOnItemClickListener {
-            takeUnless { mCategoryViewModel.isDeleteMode.value!! }?.run {
-                mCategoryViewModel.addSubCategory(requireActivity(), recordType)
+            takeUnless { mAllCategoryViewModel.isDeleteMode.value!! }?.run {
+                mAllCategoryViewModel.addSubCategory(requireActivity(), recordType)
             } ?: ToastUtil.showShort("请先退出删除模式")
         }
     }
 
     private fun initObserver() {
 
-        mCategoryViewModel.apply {
+        mAllCategoryViewModel.apply {
             // 主类监听
             majorCategories.map { list ->
                 list.filter { it.recordType == recordType }
@@ -238,7 +238,7 @@ class CategoryFragment : BaseFragment() {
                 // 默认隐藏footer
                 mMinorCategoryFooterAdapter.hideFooterView()
                 // 如果当前选择类型还是一致,并且不是删除模式,就显示footer
-                if (it!!.recordType == recordType && !mCategoryViewModel.isDeleteMode.value!!) {
+                if (it!!.recordType == recordType && !mAllCategoryViewModel.isDeleteMode.value!!) {
                     mMinorCategoryFooterAdapter.showFooterView()
                 }
                 // 新的变更

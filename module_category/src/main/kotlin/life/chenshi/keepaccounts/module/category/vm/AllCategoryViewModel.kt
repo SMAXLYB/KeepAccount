@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.module.setting.vm
+package life.chenshi.keepaccounts.module.category.vm
 
 import android.annotation.SuppressLint
 import android.database.sqlite.SQLiteConstraintException
@@ -6,6 +6,8 @@ import android.graphics.Color
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
+import life.chenshi.keepaccounts.module.category.databinding.CategoryLayoutAddCategoryBinding
+import life.chenshi.keepaccounts.module.category.databinding.CategoryLayoutAddSubCategoryBinding
 import life.chenshi.keepaccounts.module.common.constant.STATE_DELETE
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
@@ -15,10 +17,8 @@ import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
-import life.chenshi.keepaccounts.module.setting.databinding.SettingLayoutAddCategoryBinding
-import life.chenshi.keepaccounts.module.setting.databinding.SettingLayoutAddSubCategoryBinding
 
-class CategoryViewModel : ViewModel() {
+class AllCategoryViewModel : ViewModel() {
     companion object {
         private const val TAG = "CategoryViewModel"
     }
@@ -237,10 +237,10 @@ class CategoryViewModel : ViewModel() {
             .setCancelable(false)
             .setTitle("添加主类")
             .setContentView {
-                SettingLayoutAddCategoryBinding.inflate(activity.layoutInflater)
+                CategoryLayoutAddCategoryBinding.inflate(activity.layoutInflater)
             }
             .setPositiveButton("确定") { dialog, binding ->
-                binding as SettingLayoutAddCategoryBinding
+                binding as CategoryLayoutAddCategoryBinding
                 val text = binding.etCategoryName.text?.toString()?.trim()
                 if (text.isNullOrEmpty()) {
                     binding.etCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))
@@ -280,12 +280,12 @@ class CategoryViewModel : ViewModel() {
             .setCancelable(false)
             .setTitle("添加子类")
             .setContentView {
-                SettingLayoutAddSubCategoryBinding.inflate(activity.layoutInflater).apply {
+                CategoryLayoutAddSubCategoryBinding.inflate(activity.layoutInflater).apply {
                     tvCategoryName.text = currentMajorCategory.value!!.name
                 }
             }
             .setPositiveButton("确定") { dialog, binding ->
-                binding as SettingLayoutAddSubCategoryBinding
+                binding as CategoryLayoutAddSubCategoryBinding
                 val text = binding.etSubCategoryName.text?.toString()?.trim()
                 if (text.isNullOrEmpty()) {
                     binding.etSubCategoryName.setBackgroundColor(Color.parseColor("#A4FFD1D1"))

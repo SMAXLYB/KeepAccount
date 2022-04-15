@@ -8,9 +8,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rootView"
         android:background="?android:colorBackground">
 
         <life.chenshi.keepaccounts.module.common.view.CustomActionBar
@@ -138,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="时间"
+                android:textColor="?colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -158,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="账本"
+                android:textColor="?colorOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -179,6 +181,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp"
                 android:text="类型"
+                android:textColor="?colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_datetime" />
 
@@ -203,6 +206,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp"
                 android:text="附件"
+                android:textColor="?colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rv_category" />
 
@@ -251,7 +255,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:paddingTop="5dp"
-                android:text="备注" />
+                android:text="备注"
+                android:textColor="?colorOnSurface" />
 
             <EditText
                 android:id="@+id/et_remark"
@@ -261,6 +266,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/common_corner_all_small_gray_bg"
                 android:gravity="start|top"
+
                 android:hint="无备注"
                 android:lines="2"
                 android:maxLength="100"

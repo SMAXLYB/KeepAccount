@@ -107,6 +107,7 @@ class IndexFragment : Fragment() {
 
         // 搜索
         mBinding.clSearch.setOnClickListener {
+            // td--使用arouter
             val request = NavDeepLinkRequest.Builder
                 .fromUri("keepAccounts://searchActivity".toUri())
                 .build()

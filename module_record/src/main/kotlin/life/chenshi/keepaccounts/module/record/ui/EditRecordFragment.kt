@@ -4,13 +4,12 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.view.View
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.loper7.date_time_picker.DateTimeConfig
@@ -22,14 +21,13 @@ import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.base.BaseAdapter
 import life.chenshi.keepaccounts.module.common.base.NavBindingFragment
 import life.chenshi.keepaccounts.module.common.base.onBackPressed
-import life.chenshi.keepaccounts.module.common.constant.CATEGORY_TYPE_MAJOR
-import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_INCOME
-import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecyclerviewItemBinding
+import life.chenshi.keepaccounts.module.common.service.ICategoryService
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
 import life.chenshi.keepaccounts.module.record.R
@@ -104,11 +102,10 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 return@setOnItemClickListener
             }
             if (category.id == -1) {
-                val request = NavDeepLinkRequest.Builder
-                    .fromUri("keepAccounts://categoryActivity".toUri())
-                    .build()
-                // Navigation.findNavController(this, R.id.rootView).navigate(request)
-                // Navigation.findNavController(binding.root).navigate(request)
+                ARouter.getInstance().navigation(ICategoryService::class.java)
+                    .navTo(requireContext()) {
+                        putString(BUSINESS, this@EditRecordFragment.javaClass.name)
+                    }
             } else {
                 mNewRecordViewModel.currentAbstractCategory.value = category
             }
@@ -359,7 +356,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // 监听类型选中
         // td--抽到常量里去
-        LiveEventBus.get("category", AbstractCategory::class.java)
+        LiveEventBus.get(CATEGORY, AbstractCategory::class.java)
             .observe(this) { abstractCategory ->
                 // 先更新集合
                 mNewRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory)

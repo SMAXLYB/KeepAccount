@@ -8,13 +8,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="70dp"
-        android:foreground="?selectableItemBackground"
-        android:background="?colorSurface"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_width="65dp"
+        android:background="@drawable/common_ripple_small_bg_surface"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center"
-        android:layout_height="80dp">
+        android:layout_height="75dp">
 
         <ImageView
             android:id="@+id/iv_item_sub_category_delete"
@@ -23,7 +22,7 @@
             android:visibility="invisible"
             tools:visibility="visible"
             android:padding="1dp"
-            android:src="@drawable/setting_item_category_delete_bg"
+            android:src="@drawable/category_item_category_delete_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +33,7 @@
             android:padding="1dp"
             android:visibility="invisible"
             tools:visibility="visible"
-            android:src="@drawable/setting_item_category_selected"
+            android:src="@drawable/category_item_category_selected"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

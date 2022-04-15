@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.module.setting.adapter
+package life.chenshi.keepaccounts.module.category.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import life.chenshi.keepaccounts.module.category.R
+import life.chenshi.keepaccounts.module.category.databinding.CategoryItemSubCategoryAddBinding
+import life.chenshi.keepaccounts.module.category.databinding.CategoryItemSubCategoryBinding
 import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 import life.chenshi.keepaccounts.module.common.utils.setVisibility
-import life.chenshi.keepaccounts.module.setting.R
-import life.chenshi.keepaccounts.module.setting.databinding.SettingItemSubCategoryAddBinding
-import life.chenshi.keepaccounts.module.setting.databinding.SettingItemSubCategoryBinding
 
 class MinorCategoryAdapter :
     ListAdapter<MinorCategory, MinorCategoryAdapter.MinorCategoryViewHolder>(DIFF_CALLBACK) {
@@ -26,16 +26,16 @@ class MinorCategoryAdapter :
         }
     }
 
-    private var onItemClick: ItemClickListener<SettingItemSubCategoryBinding, MinorCategory>? = null
+    private var onItemClick: ItemClickListener<CategoryItemSubCategoryBinding, MinorCategory>? = null
     private var onItemLongClick: ItemLongClickListener<MinorCategory>? = null
     private var onItemDeleteClick: ItemDeleteListener<MinorCategory>? = null
     private var mIsDeleteMode = false
     private var mCurrentMinorCategory: MinorCategory? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MinorCategoryViewHolder {
-        val binding = DataBindingUtil.inflate<SettingItemSubCategoryBinding>(
+        val binding = DataBindingUtil.inflate<CategoryItemSubCategoryBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.setting_item_sub_category,
+            R.layout.category_item_sub_category,
             parent,
             false
         )
@@ -59,7 +59,7 @@ class MinorCategoryAdapter :
         }
     }
 
-    fun setOnItemClickListener(listener: ItemClickListener<SettingItemSubCategoryBinding, MinorCategory>) {
+    fun setOnItemClickListener(listener: ItemClickListener<CategoryItemSubCategoryBinding, MinorCategory>) {
         this.onItemClick = listener
     }
 
@@ -71,7 +71,7 @@ class MinorCategoryAdapter :
         this.onItemDeleteClick = listener
     }
 
-    inner class MinorCategoryViewHolder(val binding: SettingItemSubCategoryBinding) :
+    inner class MinorCategoryViewHolder(val binding: CategoryItemSubCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             val subCategory = getItem(position)
@@ -105,7 +105,7 @@ class MinorCategoryFooterAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubCategoryFooterViewHolder {
         val binding =
-            SettingItemSubCategoryAddBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CategoryItemSubCategoryAddBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SubCategoryFooterViewHolder(binding)
     }
 
@@ -115,7 +115,7 @@ class MinorCategoryFooterAdapter :
 
     override fun getItemCount() = mItemCount
 
-    inner class SubCategoryFooterViewHolder(private val binding: SettingItemSubCategoryAddBinding) :
+    inner class SubCategoryFooterViewHolder(private val binding: CategoryItemSubCategoryAddBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.root.setOnClickListener {

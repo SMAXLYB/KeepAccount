@@ -5,8 +5,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
-import life.chenshi.keepaccounts.module.common.constant.SETTING_ALL_SETTING
-import life.chenshi.keepaccounts.module.common.constant.SETTING_THEME
+import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_ALL_SETTING
+import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_THEME
 import life.chenshi.keepaccounts.module.common.view.CustomActionBar
 import life.chenshi.keepaccounts.module.setting.R
 import life.chenshi.keepaccounts.module.setting.vm.AllSettingViewModel
@@ -54,8 +54,8 @@ class MainActivity : BaseActivity() {
 
     private fun getStartDestination(path: String): Int {
         return when (path) {
-            SETTING_ALL_SETTING -> R.id.allSettingFragment
-            SETTING_THEME -> R.id.themeSettingFragment
+            PATH_SETTING_ALL_SETTING -> R.id.allSettingFragment
+            PATH_SETTING_THEME -> R.id.themeSettingFragment
             else -> 0
         }
     }

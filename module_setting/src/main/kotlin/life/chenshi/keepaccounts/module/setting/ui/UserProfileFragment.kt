@@ -10,8 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.alibaba.android.arouter.launcher.ARouter
 import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
-import life.chenshi.keepaccounts.module.common.constant.SETTING_THEME
+import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_THEME
+import life.chenshi.keepaccounts.module.common.service.ICategoryService
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.module.common.utils.nightMode
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
@@ -71,8 +73,13 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun initListener() {
+        mBinding.clPart2.setOnClickListener {
+            ARouter.getInstance().navigation(ICategoryService::class.java)
+                .navTo(requireContext())
+        }
+
         mBinding.clPart4.setOnClickListener {
-            val directions = UserProfileFragmentDirections.settingActionUserprofilefragmentToMainactivity(SETTING_THEME)
+            val directions = UserProfileFragmentDirections.settingActionUserprofilefragmentToMainactivity(PATH_SETTING_THEME)
             findNavController().navigate(directions)
         }
         mBinding.clPart5.setOnClickListener {

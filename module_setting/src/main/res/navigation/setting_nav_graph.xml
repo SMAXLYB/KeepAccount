@@ -31,9 +31,9 @@
         <action
             android:id="@+id/action_settingFragment_to_bookActivity"
             app:destination="@id/bookActivity" />
-        <action
-            android:id="@+id/action_settingFragment_to_categoryActivity"
-            app:destination="@id/categoryActivity" />
+        <!--<action-->
+        <!--    android:id="@+id/action_settingFragment_to_categoryActivity"-->
+        <!--    app:destination="@id/categoryActivity" />-->
         <action
             android:id="@+id/setting_action_userprofilefragment_to_mainactivity"
             app:destination="@id/mainActivity" />
@@ -50,13 +50,13 @@
         android:name="life.chenshi.keepaccounts.module.setting.ui.book.BookActivity"
         android:label="BookActivity"
         tools:layout="@layout/setting_activity_book" />
-    <activity
-        android:id="@+id/categoryActivity"
-        android:name="life.chenshi.keepaccounts.module.setting.ui.category.CategoryActivity"
-        android:label="CategoryActivity"
-        tools:layout="@layout/setting_fragment_category">
-        <deepLink app:uri="keepAccounts://categoryActivity" />
-    </activity>
+    <!--<activity-->
+    <!--    android:id="@+id/categoryActivity"-->
+    <!--    android:name="life.chenshi.keepaccounts.module.setting.ui.category.CategoryActivity"-->
+    <!--    android:label="CategoryActivity"-->
+    <!--    tools:layout="@layout/setting_fragment_category">-->
+    <!--    <deepLink app:uri="keepAccounts://categoryActivity" />-->
+    <!--</activity>-->
     <!--<activity-->
     <!--    android:id="@+id/moreSettingActivity"-->
     <!--    android:name="life.chenshi.keepaccounts.module.setting.ui.moresetting.MoreSettingActivity"-->

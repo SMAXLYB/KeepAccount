@@ -6,3 +6,5 @@ package life.chenshi.keepaccounts.module.common.constant
  * @date 2021年03月31日 14:20
  */
 const val BUSINESS = "business"
+
+const val START_DESTINATION = "startDestination"

@@ -241,6 +241,7 @@ class AnalysisFragment : Fragment() {
 
             // 当前按年查看还是按月查看
             currentTypeLiveData.observe(viewLifecycleOwner) {
+                it
                 val date = Date(mAnalyzeViewModel.queryDateLiveData.value!!)
 
                 if (it == TYPE_YEAR) {

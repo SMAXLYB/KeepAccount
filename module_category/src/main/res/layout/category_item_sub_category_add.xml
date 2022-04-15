@@ -7,16 +7,18 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:background="?colorSurface">
+        android:layout_width="65dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/common_ripple_small_bg_surface">
 
         <ImageView
-            android:id="@+id/tv_item_category"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:src="@drawable/setting_item_add"
+            android:id="@+id/iv_sub_category_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/category_item_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

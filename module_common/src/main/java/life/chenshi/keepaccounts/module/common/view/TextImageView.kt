@@ -25,6 +25,7 @@ class TextImageView @JvmOverloads constructor(
     private var mRadius = 0f
     private var mText: String? = null
     private var mSrc: Bitmap? = null
+
     // private var mDrawable: Drawable? = null
     private var mBgColor = Color.WHITE
     private var mTextColor = Color.BLACK
@@ -40,7 +41,9 @@ class TextImageView @JvmOverloads constructor(
         val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.TextImageView)
         mText = typedArray.getString(R.styleable.TextImageView_android_text)
         mRadius = typedArray.getDimension(R.styleable.TextImageView_android_radius, 0f)
-        mSrc = AppCompatResources.getDrawable(context, typedArray.getResourceId(R.styleable.TextImageView_android_src, 0))?.toBitmap()
+        mSrc =
+            AppCompatResources.getDrawable(context, typedArray.getResourceId(R.styleable.TextImageView_android_src, 0))
+                ?.toBitmap()
         // mDrawable = typedArray.getDrawable(R.styleable.TextImageView_android_src)
         mBgColor = typedArray.getColor(R.styleable.TextImageView_backgroundColor, Color.WHITE)
         mTextColor = typedArray.getColor(R.styleable.TextImageView_android_textColor, Color.BLACK)
@@ -141,6 +144,11 @@ class TextImageView @JvmOverloads constructor(
 
     override fun setBackgroundColor(color: Int) {
         mBgPaint.color = color
+        invalidate()
+    }
+
+    fun setTextColor(color: Int) {
+        mTextPaint.color = color
         invalidate()
     }
 }
