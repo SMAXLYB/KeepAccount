@@ -1,4 +1,4 @@
-package run_as_app
+package life.chenshi.keepaccounts.module.search
 
 import android.app.Application
 import android.content.Context
