@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 
 abstract class NavBindingFragment<T : ViewDataBinding> : BaseFragment() {
     private var _binding: T? = null
@@ -56,16 +54,5 @@ abstract class NavBindingFragment<T : ViewDataBinding> : BaseFragment() {
         super.onDestroy()
         _binding?.unbind()
         _binding = null
-    }
-}
-
-val NavBindingFragment<*>.navController: NavController
-    get() = NavHostFragment.findNavController(this)
-
-fun NavBindingFragment<*>.onBackPressed() {
-    if (navController.previousBackStackEntry == null) {
-        requireActivity().finish()
-    } else {
-        navController.navigateUp()
     }
 }
