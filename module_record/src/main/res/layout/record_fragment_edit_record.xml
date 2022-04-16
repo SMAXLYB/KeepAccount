@@ -17,7 +17,7 @@
             android:id="@+id/bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="?android:colorBackground"
+            android:background="?colorSurface"
             app:centerTitle="添加账单"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

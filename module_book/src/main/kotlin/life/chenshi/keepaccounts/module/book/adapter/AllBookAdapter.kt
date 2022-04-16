@@ -1,16 +1,16 @@
-package life.chenshi.keepaccounts.module.setting.adapter
+package life.chenshi.keepaccounts.module.book.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import life.chenshi.keepaccounts.module.book.R
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.utils.gone
 import life.chenshi.keepaccounts.module.common.utils.visible
-import life.chenshi.keepaccounts.module.setting.R
 
-class BookAdapter(private var books: List<Book>) : BaseAdapter() {
+class AllBookAdapter(private var books: List<Book>) : BaseAdapter() {
     private var mSelectedPosition = -1
 
     override fun getCount(): Int {
@@ -30,13 +30,13 @@ class BookAdapter(private var books: List<Book>) : BaseAdapter() {
         val view: View
         if (book.id == -1) {
             view =
-                LayoutInflater.from(parent.context).inflate(R.layout.setting_item_book_empty, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.book_item_book_empty, parent, false)
             return view
         }
         val viewHolder: BookViewHolder
         // 如果没有view可以复用或者复用的view是最后一个Item,则新建View
         if (convertView == null || convertView.tag == null) {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.setting_item_book, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.book_item_book, parent, false)
             viewHolder = BookViewHolder()
             viewHolder.bookName = view.findViewById(R.id.tv_item_book_name)
             viewHolder.bookDescription = view.findViewById(R.id.tv_item_book_description)

@@ -4,8 +4,7 @@
     android:layout_width="110dp"
     android:layout_height="160dp"
     android:layout_margin="5dp"
-    android:background="@drawable/setting_item_book_bg"
-    android:elevation="5dp">
+    android:background="@drawable/book_item_book_bg">
 
     <TextView
         android:id="@+id/tv_item_book_name"
@@ -42,7 +41,7 @@
         android:id="@+id/tv_item_current_book"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:background="@drawable/setting_item_book_current_bg"
+        android:background="@drawable/book_item_book_current_bg"
         android:gravity="center"
         android:text="默认账本"
         android:textColor="@color/common_white"

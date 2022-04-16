@@ -4,17 +4,16 @@
     android:layout_width="110dp"
     android:layout_height="160dp"
     android:layout_margin="5dp"
-    android:background="@drawable/setting_item_book_empty_bg"
-    android:elevation="5dp">
+    android:background="@drawable/book_item_book_empty_bg">
 
     <ImageView
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/book_item_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/setting_item_add"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

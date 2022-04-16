@@ -12,6 +12,18 @@
         android:background="?android:colorBackground"
         android:layout_height="match_parent">
 
+        <life.chenshi.keepaccounts.module.common.view.CustomActionBar
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:background="?attr/colorSurface"
+            android:layout_height="50dp"
+            app:centerTitle="账本管理"
+            app:centerIcon="@drawable/common_action_bar_help"
+            app:leftIcon="@drawable/common_action_bar_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.Group
             android:id="@+id/gp_book_empty"
             android:layout_width="wrap_content"
@@ -23,7 +35,7 @@
             android:id="@+id/iv_book_empty"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:src="@drawable/setting_book_empty"
+            android:src="@drawable/book_bg_empty"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/setting_item_book" />
+            app:layout_constraintTop_toBottomOf="@id/bar"
+            tools:listitem="@layout/book_item_book" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

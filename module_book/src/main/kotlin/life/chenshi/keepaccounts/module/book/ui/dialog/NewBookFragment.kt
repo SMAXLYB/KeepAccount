@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.module.setting.ui.book
+package life.chenshi.keepaccounts.module.book.ui.dialog
 
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
@@ -8,21 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import life.chenshi.keepaccounts.module.book.databinding.BookDialogNewBookBinding
+import life.chenshi.keepaccounts.module.book.vm.AllBookViewModel
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
-import life.chenshi.keepaccounts.module.setting.databinding.SettingDialogNewBookBinding
-import life.chenshi.keepaccounts.module.setting.vm.BookViewModel
 
 class NewBookFragment : DialogFragment() {
     companion object {
         private const val TAG = "NewBookFragment"
     }
 
-    private lateinit var mBinding: SettingDialogNewBookBinding
-    private val mBookViewModel by activityViewModels<BookViewModel>()
+    private lateinit var mBinding: BookDialogNewBookBinding
+    private val mBookViewModel by viewModels<AllBookViewModel>(ownerProducer = { requireParentFragment() })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class NewBookFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        mBinding = SettingDialogNewBookBinding.inflate(layoutInflater, container, false)
+        mBinding = BookDialogNewBookBinding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
 

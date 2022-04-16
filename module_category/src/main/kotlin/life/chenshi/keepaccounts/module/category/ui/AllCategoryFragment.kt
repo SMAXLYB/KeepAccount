@@ -10,13 +10,13 @@ import life.chenshi.keepaccounts.module.category.R
 import life.chenshi.keepaccounts.module.category.databinding.CategoryFragmentAllCategoryBinding
 import life.chenshi.keepaccounts.module.category.vm.AllCategoryViewModel
 import life.chenshi.keepaccounts.module.common.base.NavBindingFragment
-import life.chenshi.keepaccounts.module.common.base.onBackPressed
 import life.chenshi.keepaccounts.module.common.constant.BUSINESS
 import life.chenshi.keepaccounts.module.common.constant.CATEGORY
 import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.arguments
 import life.chenshi.keepaccounts.module.common.utils.isNull
+import life.chenshi.keepaccounts.module.common.utils.onBackPressed
 
 class AllCategoryFragment : NavBindingFragment<CategoryFragmentAllCategoryBinding>() {
 

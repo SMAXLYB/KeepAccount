@@ -20,14 +20,13 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.base.BaseAdapter
 import life.chenshi.keepaccounts.module.common.base.NavBindingFragment
-import life.chenshi.keepaccounts.module.common.base.onBackPressed
 import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecyclerviewItemBinding
-import life.chenshi.keepaccounts.module.common.service.ICategoryService
+import life.chenshi.keepaccounts.module.common.service.ICategoryRouterService
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
 import life.chenshi.keepaccounts.module.record.R
@@ -102,7 +101,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 return@setOnItemClickListener
             }
             if (category.id == -1) {
-                ARouter.getInstance().navigation(ICategoryService::class.java)
+                ARouter.getInstance().navigation(ICategoryRouterService::class.java)
                     .navTo(requireContext()) {
                         putString(BUSINESS, this@EditRecordFragment.javaClass.name)
                     }

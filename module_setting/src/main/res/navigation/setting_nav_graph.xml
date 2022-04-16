@@ -47,7 +47,7 @@
 
     <activity
         android:id="@+id/bookActivity"
-        android:name="life.chenshi.keepaccounts.module.setting.ui.book.BookActivity"
+        android:name="life.chenshi.keepaccounts.module.book.ui.BookActivity"
         android:label="BookActivity"
         tools:layout="@layout/setting_activity_book" />
     <!--<activity-->

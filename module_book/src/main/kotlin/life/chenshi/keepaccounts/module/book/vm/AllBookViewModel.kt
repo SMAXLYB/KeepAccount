@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.module.setting.vm
+package life.chenshi.keepaccounts.module.book.vm
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
@@ -7,7 +7,7 @@ import life.chenshi.keepaccounts.module.common.database.AppDatabase
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 
-class BookViewModel : ViewModel() {
+class AllBookViewModel : ViewModel() {
     companion object{
         private const val TAG = "BookViewModel"
     }

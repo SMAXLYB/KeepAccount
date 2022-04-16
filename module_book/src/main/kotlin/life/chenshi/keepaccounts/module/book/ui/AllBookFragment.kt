@@ -1,4 +1,4 @@
-package life.chenshi.keepaccounts.module.setting.ui.book
+package life.chenshi.keepaccounts.module.book.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,28 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import life.chenshi.keepaccounts.module.book.R
+import life.chenshi.keepaccounts.module.book.adapter.AllBookAdapter
+import life.chenshi.keepaccounts.module.book.databinding.BookFragmentAllBookBinding
+import life.chenshi.keepaccounts.module.book.ui.dialog.NewBookFragment
+import life.chenshi.keepaccounts.module.book.vm.AllBookViewModel
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.inVisible
+import life.chenshi.keepaccounts.module.common.utils.onBackPressed
 import life.chenshi.keepaccounts.module.common.utils.visible
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
-import life.chenshi.keepaccounts.module.setting.R
-import life.chenshi.keepaccounts.module.setting.adapter.BookAdapter
-import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentBookBinding
-import life.chenshi.keepaccounts.module.setting.vm.BookViewModel
 
-class BookFragment : Fragment() {
+class AllBookFragment : Fragment() {
 
     companion object {
         private const val TAG = "BookFragment"
     }
 
-    private lateinit var mBinding: SettingFragmentBookBinding
-    private val mBookViewModel by activityViewModels<BookViewModel>()
-    private var mAdapter: BookAdapter? = null
+    private lateinit var mBinding: BookFragmentAllBookBinding
+    private val mBookViewModel by viewModels<AllBookViewModel>()
+    private var mAdapter: AllBookAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +37,7 @@ class BookFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.setting_fragment_book, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.book_fragment_all_book, container, false)
         return mBinding.root
     }
 
@@ -47,11 +49,14 @@ class BookFragment : Fragment() {
     }
 
     private fun initView() {
-        mAdapter = BookAdapter(listOf(Book(-1, "", "")))
+        mAdapter = AllBookAdapter(listOf(Book(-1, "", "")))
         mBinding.gvBooks.adapter = mAdapter
     }
 
     private fun initListener() {
+        mBinding.bar.setLeftClickListener {
+            onBackPressed()
+        }
         // 单击选择,只会触发本地id
         mBinding.gvBooks.setOnItemClickListener { _, _, _, id ->
             if (id == -1L) {
@@ -105,8 +110,8 @@ class BookFragment : Fragment() {
                 mBinding.gpBookEmpty.inVisible()
             }
 
-            mBookViewModel.currentBookId.apply {
-                mBookViewModel.getCurrentBookPositionInListById(value!!).let { position ->
+            mBookViewModel.currentBookId.value?.apply {
+                mBookViewModel.getCurrentBookPositionInListById(this).let { position ->
                     mAdapter?.setItemSelected(position)
                 }
             }
