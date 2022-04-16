@@ -26,35 +26,14 @@ dependencies {
     implementation(project(":module_common"))
 
     /**-------------------第三方库依赖--------------------**/
-    // 基本库
-    implementation(Libs.kotlin)
-    implementation(Libs.material)
-    implementation(Libs.constraintLayout)
 
-
-    implementation(Libs.lifecycle_ext)
-
-    implementation(Libs.navigation_ui)
-    implementation(Libs.navigation_fragment)
-    implementation(Libs.lifecycle)
-    implementation(Libs.lifecycle_livedata)
-    implementation(Libs.room_runtime)
-    implementation(Libs.room)
-    kapt(Libs.room_compiler)
-
-    implementation("com.google.android.material:material:1.4.0")
-    implementation(Libs.coroutines)
     implementation(Libs.swipeRefreshLayout)
     implementation(Libs.coil)
 
-    // 时间选择
-    implementation("com.github.loperSeven:DateTimePicker:0.4.1")
-    // 图表
-    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
     // 内存泄漏
     debugImplementation(Libs.leakCanary)
-    // liveDataBus
-    implementation("com.jeremyliao:live-event-bus-x:1.7.3")
+
+    // compose
     implementation(Libs.compose_ui)
     implementation(Libs.compose_tools)
     implementation(Libs.compose_foundation)
@@ -64,7 +43,6 @@ dependencies {
     implementation(Libs.compose_livedata)
     implementation(Libs.compose_activity)
     implementation(Libs.compose_viewModel)
-
 
     // hilt
     implementation(Libs.hilt)

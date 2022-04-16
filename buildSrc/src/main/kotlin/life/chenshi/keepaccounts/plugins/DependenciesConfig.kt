@@ -16,6 +16,8 @@ internal fun Project.applyDependenciesBlock() {
         add("implementation", Libs.arouter)
         add("kapt", Libs.arouter_compiler)
         add("kapt", Libs.auto_service_annotations)
+        add("testImplementation", Libs.junit)
+        // add("androidTestImplementation", Libs.junit)
 
         // common模块不依赖其他业务模块, 只依赖library
         if (project.name.contains("common")) {
