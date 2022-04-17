@@ -175,7 +175,7 @@ internal fun LibraryExtension.applyConfig(project: Project) {
             manifest.srcFile("src/main/AndroidManifest.xml")
             kotlin {
                 /* 升级后exclude失效了, kotlin资源统一放在包名下*/
-                srcDir("src/main/kotlin/life/chenshi/keepaccounts/")
+                srcDir("src/main/kotlin/life.chenshi.keepaccounts/")
                 // exclude("src/main/kotlin/run_as_app/**")
             }
         }
