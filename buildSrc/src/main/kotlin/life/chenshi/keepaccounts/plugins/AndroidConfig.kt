@@ -142,8 +142,8 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
     // }
 
     lint {
-        isAbortOnError = false
-        isCheckReleaseBuilds = false
+        abortOnError = false
+        checkReleaseBuilds = false
     }
 
     compileOptions {
@@ -174,7 +174,9 @@ internal fun LibraryExtension.applyConfig(project: Project) {
         getByName("main") {
             manifest.srcFile("src/main/AndroidManifest.xml")
             kotlin {
-                exclude("src/main/kotlin/run_as_app/**")
+                /* 升级后exclude失效了, kotlin资源统一放在包名下*/
+                srcDir("src/main/kotlin/life/chenshi/keepaccounts/")
+                // exclude("src/main/kotlin/run_as_app/**")
             }
         }
     }
@@ -232,8 +234,8 @@ internal fun LibraryExtension.applyConfig(project: Project) {
     // }
 
     lint {
-        isAbortOnError = false
-        isCheckReleaseBuilds = false
+        abortOnError = false
+        checkReleaseBuilds = false
     }
 
     compileOptions {

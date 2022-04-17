@@ -46,7 +46,7 @@ class MainActivity : BaseActivity() {
         val navGraph = mNavController.navInflater.inflate(R.navigation.setting_nav_main)
         mainArgs.startDestination?.let { path ->
             getStartDestination(path).takeIf { it != 0 }?.let {
-                navGraph.startDestination = it
+                navGraph.setStartDestination(it)
             }
         }
         mNavController.setGraph(navGraph, intent.extras)

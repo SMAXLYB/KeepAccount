@@ -31,7 +31,7 @@ abstract class NavHostActivity : BaseActivity() {
         val navGraph = navController.navInflater.inflate(setNavGraphId())
         intent.extras?.getString(START_DESTINATION)?.let { path ->
             getStartDestination(path).takeIf { it != 0 }?.let {
-                navGraph.startDestination = it
+                navGraph.setStartDestination(it)
             }
         }
         navController.setGraph(navGraph, intent.extras)

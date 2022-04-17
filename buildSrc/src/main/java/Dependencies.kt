@@ -10,12 +10,13 @@ object Sdk {
  * 版本号统一管理
  */
 object Version {
-    const val kotlin = "1.5.31"
-    const val lifecycle = "2.4.0"
+    const val gradle_tools = "7.1.3"
+    const val kotlin = "1.6.10"
+    const val lifecycle = "2.4.1"
     const val room = "2.4.2"
-    const val navigation = "2.3.5"
+    const val navigation = "2.4.2"
     const val gson = "2.9.0"
-    const val compose = "1.0.4"
+    const val compose = "1.1.1"
     const val leakCanary = "2.8.1"
     const val coroutines = "1.5.2"
     const val coil = "1.4.0"
@@ -28,7 +29,7 @@ object Version {
     const val arouter = "1.5.2"
     const val recyclerview = "1.2.1"
     const val constraintLayout = "2.1.3"
-    const val fragment_ktx = "1.3.6"
+    const val fragment_ktx = "1.4.1"
     const val lifecycle_ext = "2.2.0"
     const val material = "1.5.0"
     const val datastore = "1.0.0"
