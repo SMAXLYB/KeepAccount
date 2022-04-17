@@ -1,5 +1,6 @@
 package life.chenshi.keepaccounts.module.setting.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_USE_TIME
 import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
 import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_THEME
 import life.chenshi.keepaccounts.module.common.constant.navTo
 import life.chenshi.keepaccounts.module.common.service.IBookRouterService
 import life.chenshi.keepaccounts.module.common.service.ICategoryRouterService
+import life.chenshi.keepaccounts.module.common.utils.DateUtil
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.module.common.utils.nightMode
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
@@ -41,6 +44,7 @@ class UserProfileFragment : Fragment() {
         initListener()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
         StatusBarUtil.init(requireActivity())
             .addStatusBatHeightTo(mBinding.clContainer)
@@ -57,6 +61,12 @@ class UserProfileFragment : Fragment() {
         //
         // mBinding.settingUserName.text = mUserProfileViewModel.getGreetContent()
         //
+        mBinding.tvDaysNum.text =
+            "${
+                DateUtil.getDaysBetween(
+                    1000 * KVStoreHelper.read<Long>(APP_FIRST_USE_TIME), System.currentTimeMillis()
+                ) + 1
+            }"
         mBinding.tvNightMode.text = when (context?.nightMode()) {
             true -> {
                 mBinding.ivNightMode.setImageDrawable(

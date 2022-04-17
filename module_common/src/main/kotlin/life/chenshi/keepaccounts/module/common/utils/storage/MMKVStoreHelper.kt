@@ -3,7 +3,8 @@ package life.chenshi.keepaccounts.module.common.utils.storage
 import com.tencent.mmkv.MMKV
 
 class MMKVStoreHelper : IKeyValueStoreHelper {
-    private val mmkv = MMKV.mmkvWithID("settings")
+    // 不分业务, 统一存储
+    private val mmkv = MMKV.mmkvWithID("keepaccounts")
 
     override fun <T : Any> read(key: String, defaultValueIfNull: T): T {
         val value = when (defaultValueIfNull) {

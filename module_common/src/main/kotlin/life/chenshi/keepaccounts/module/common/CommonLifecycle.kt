@@ -7,10 +7,8 @@ import com.google.auto.service.AutoService
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_LOADED
+import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_USE_TIME
 import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
 import life.chenshi.keepaccounts.module.common.crash.GlobalCrashHandler
 import life.chenshi.keepaccounts.module.common.lifecycle.ApplicationLifecycle
@@ -48,14 +46,9 @@ class CommonLifecycle : ApplicationLifecycle {
     }
 
     private fun setFirstLoadedState() {
-        mCoroutineScope.launch {
-            DataStoreUtil.readFromDataStore(APP_FIRST_LOADED, true)
-                .take(1)
-                .collect { b ->
-                    takeIf { b }?.run {
-                        DataStoreUtil.writeToDataStore(APP_FIRST_LOADED, false)
-                    }
-                }
+        takeIf { KVStoreHelper.read(APP_FIRST_LOADED, true) }?.run {
+            KVStoreHelper.write(APP_FIRST_LOADED, false)
+            KVStoreHelper.write(APP_FIRST_USE_TIME, System.currentTimeMillis().div(1000))
         }
     }
 

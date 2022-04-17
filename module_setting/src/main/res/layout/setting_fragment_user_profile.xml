@@ -74,7 +74,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="365"
                     android:textColor="?colorOnSurface"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toStartOf="@id/tv_deals_num"

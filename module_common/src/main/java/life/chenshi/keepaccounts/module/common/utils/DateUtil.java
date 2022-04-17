@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class DateUtil {
     @SuppressLint("SimpleDateFormat")
@@ -24,6 +25,7 @@ public class DateUtil {
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat YEAR_MONTH_DAY_HOUR_MIN_FORMAT = new SimpleDateFormat("yyyy/MM/dd - HH:mm");
 
+    public static final long MILLIS_IN_DAY = 1000 * 60 * 60 * 24;
 
     /**
      * 时间字符串转化为 Date 对象
@@ -244,5 +246,14 @@ public class DateUtil {
         calendar.set(Calendar.SECOND, maxSecond);
         calendar.set(Calendar.MILLISECOND, maxMillisecond);
         return calendar.getTime();
+    }
+
+    /**
+     * 参数位数为13位
+     */
+    public static long getDaysBetween(long date1, long date2) {
+        date1 -= date1 % MILLIS_IN_DAY;
+        date2 -= date2 % MILLIS_IN_DAY;
+        return Math.abs(TimeUnit.DAYS.convert(date1 - date2, TimeUnit.MILLISECONDS));
     }
 }
