@@ -53,9 +53,12 @@ KeepAccounts目前是一款个人练手项目，功能以记账为主。主开�
 
   [Telegram](https://github.com/DrKLO/Telegram)
 
-- [AndroidBaseFrameMVVM](https://github.com/Quyunshuo/AndroidBaseFrameMVVM)
-
+  [AndroidBaseFrameMVVM](https://github.com/Quyunshuo/AndroidBaseFrameMVVM)
+  
   在组件化中application生命周期分发的处理上，参考了此库的的方法，使用SPI来暴露服务，用autoService自动完成一些模版工作，比起手动扫描然后收集来的方便的多，感谢作者提供了一个非常好的思路。
+
+  [JetPack](https://developer.android.com/jetpack)
+
 ### 三、代码提交类型
 - [feat]增加新功能
 - [fix]修复bug

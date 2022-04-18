@@ -48,19 +48,7 @@ class UserProfileFragment : Fragment() {
     private fun initView() {
         StatusBarUtil.init(requireActivity())
             .addStatusBatHeightTo(mBinding.clContainer)
-        // mBinding.tvSettingCurrentBook.apply {
-        //     mUserProfileViewModel.hasDefaultBook({
-        //         lifecycleScope.launch {
-        //             val book = mUserProfileViewModel.getBookNameById(it)
-        //             mBinding.tvSettingCurrentBook.text = book.name
-        //         }
-        //     }, {
-        //         mBinding.tvSettingCurrentBook.text = ""
-        //     })
-        // }
-        //
-        // mBinding.settingUserName.text = mUserProfileViewModel.getGreetContent()
-        //
+
         mBinding.tvDaysNum.text =
             "${
                 DateUtil.getDaysBetween(
@@ -108,16 +96,5 @@ class UserProfileFragment : Fragment() {
         mBinding.allSetting.rlSetting.setOnClickListener {
             findNavController().navigate(R.id.setting_action_userprofilefragment_to_mainactivity)
         }
-        // mBinding.llSettingItemCurrentBook.setOnClickListener(
-        //     Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_bookActivity)
-        // )
-        //
-        // mBinding.llSettingItemCategory.setOnClickListener(
-        //     Navigation.createNavigateOnClickListener(R.id.action_settingFragment_to_categoryActivity)
-        // )
-        //
-        // mBinding.llSettingItemMoreSetting.setOnClickListener(
-        //     Navigation.createNavigateOnClickListener(R.id.setting_action_settingfragment_to_mainactivity)
-        // )
     }
 }
