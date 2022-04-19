@@ -27,6 +27,7 @@ open class BaseApplication : Application(), ViewModelStoreOwner,
     companion object {
         // 全局application
         @SuppressLint("StaticFieldLeak")
+        @Deprecated("使用hilt来获取全局context")
         lateinit var application: BaseApplication
     }
 
