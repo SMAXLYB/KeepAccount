@@ -97,7 +97,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="365"
                     android:textColor="?colorOnSurface"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +134,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-
                     android:text="账本数目"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/tv_books_num"
