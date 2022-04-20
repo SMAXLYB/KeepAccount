@@ -18,4 +18,7 @@ internal fun Project.applyPluginsBlock(runAsApp: Boolean) {
             "com.android.library"
         }
     )
+    if (project.name.contains("app") || project.name.contains("module")) {
+        this.apply(plugin = "dagger.hilt.android.plugin")
+    }
 }

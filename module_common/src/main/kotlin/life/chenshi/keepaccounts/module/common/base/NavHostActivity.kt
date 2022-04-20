@@ -28,6 +28,7 @@ abstract class NavHostActivity : BaseActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(setHostFragmentId()) as NavHostFragment
         val navController = navHostFragment.navController
+        navController.graph.setStartDestination(0)
         val navGraph = navController.navInflater.inflate(setNavGraphId())
         intent.extras?.getString(START_DESTINATION)?.let { path ->
             getStartDestination(path).takeIf { it != 0 }?.let {

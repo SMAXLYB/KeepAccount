@@ -14,7 +14,7 @@ object Version {
     const val kotlin = "1.6.10"
     const val lifecycle = "2.4.1"
     const val room = "2.4.2"
-    const val navigation = "2.4.2"
+    const val navigation = "2.4.1"
     const val gson = "2.9.0"
     const val compose = "1.1.1"
     const val leakCanary = "2.8.1"

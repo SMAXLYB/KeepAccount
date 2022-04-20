@@ -24,12 +24,13 @@ internal fun Project.applyAndroidBlock(runAsApp: Boolean) {
         extensions.getByType<LibraryExtension>().applyConfig(this)
     }
 
-    extensions.configure<KaptExtension>("kapt") {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
+    if(this.name.contains("module") || this.name.contains("app")){
+        extensions.configure<KaptExtension>("kapt") {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.name)
+            }
         }
     }
-
 }
 
 internal fun BaseAppModuleExtension.applyConfig(project: Project) {

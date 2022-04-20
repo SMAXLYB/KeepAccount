@@ -1,7 +1,6 @@
 plugins {
     id("app-config-plugin")
     id("androidx.navigation.safeargs.kotlin")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -44,7 +43,4 @@ dependencies {
     implementation(Libs.compose_activity)
     implementation(Libs.compose_viewModel)
 
-    // hilt
-    implementation(Libs.hilt)
-    kapt(Libs.hilt_compiler)
 }
