@@ -61,7 +61,7 @@ class AllBookFragment : Fragment() {
         mBinding.gvBooks.setOnItemClickListener { _, _, _, id ->
             if (id == -1L) {
                 // 新增, 触发数据库
-                NewBookFragment().showNow(requireActivity().supportFragmentManager, "ADD_BOOK")
+                NewBookFragment().showNow(childFragmentManager, "ADD_BOOK")
                 // CustomDialog.Builder(requireActivity())
                 //     .build()
             } else {
