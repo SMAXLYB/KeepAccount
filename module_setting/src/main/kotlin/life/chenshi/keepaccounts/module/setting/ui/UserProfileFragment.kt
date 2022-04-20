@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_USE_TIME
 import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
 import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_THEME
@@ -19,12 +21,14 @@ import life.chenshi.keepaccounts.module.common.service.IBookRouterService
 import life.chenshi.keepaccounts.module.common.service.ICategoryRouterService
 import life.chenshi.keepaccounts.module.common.utils.DateUtil
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
+import life.chenshi.keepaccounts.module.common.utils.launchAndRepeatWithViewLifecycle
 import life.chenshi.keepaccounts.module.common.utils.nightMode
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.setting.R
 import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentUserProfileBinding
 import life.chenshi.keepaccounts.module.setting.vm.UserProfileViewModel
 
+@AndroidEntryPoint
 class UserProfileFragment : Fragment() {
     private lateinit var mBinding: SettingFragmentUserProfileBinding
     private val mUserProfileViewModel by viewModels<UserProfileViewModel>()
@@ -41,7 +45,16 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initObserver()
         initListener()
+    }
+
+    private fun initObserver() {
+        launchAndRepeatWithViewLifecycle {
+            mUserProfileViewModel.totalNumOfBook.collect {
+                mBinding.tvBooksNum.text = "$it"
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -49,12 +62,12 @@ class UserProfileFragment : Fragment() {
         StatusBarUtil.init(requireActivity())
             .addStatusBatHeightTo(mBinding.clContainer)
 
-        mBinding.tvDaysNum.text =
-            "${
-                DateUtil.getDaysBetween(
-                    1000 * KVStoreHelper.read<Long>(APP_FIRST_USE_TIME), System.currentTimeMillis()
-                ) + 1
-            }"
+        var useDays = DateUtil.getDaysBetween(KVStoreHelper.read(APP_FIRST_USE_TIME), System.currentTimeMillis())
+        if (useDays == 0L) {
+            useDays = 1
+        }
+
+        mBinding.tvDaysNum.text = useDays.toString()
         mBinding.tvNightMode.text = when (context?.nightMode()) {
             true -> {
                 mBinding.ivNightMode.setImageDrawable(
@@ -69,6 +82,15 @@ class UserProfileFragment : Fragment() {
                 "夜间"
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getTotalNumOfBook()
+    }
+
+    private fun getTotalNumOfBook() {
+        mUserProfileViewModel.getTotalNumOfBook()
     }
 
     private fun initListener() {

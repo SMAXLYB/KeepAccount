@@ -48,7 +48,7 @@ class CommonLifecycle : ApplicationLifecycle {
     private fun setFirstLoadedState() {
         takeIf { KVStoreHelper.read(APP_FIRST_LOADED, true) }?.run {
             KVStoreHelper.write(APP_FIRST_LOADED, false)
-            KVStoreHelper.write(APP_FIRST_USE_TIME, System.currentTimeMillis().div(1000))
+            KVStoreHelper.write(APP_FIRST_USE_TIME, System.currentTimeMillis())
         }
     }
 

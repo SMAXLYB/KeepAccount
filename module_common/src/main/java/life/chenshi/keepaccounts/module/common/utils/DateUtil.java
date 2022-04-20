@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class DateUtil {
     @SuppressLint("SimpleDateFormat")
@@ -251,9 +250,19 @@ public class DateUtil {
     /**
      * 参数位数为13位
      */
-    public static long getDaysBetween(long date1, long date2) {
-        date1 -= date1 % MILLIS_IN_DAY;
-        date2 -= date2 % MILLIS_IN_DAY;
-        return Math.abs(TimeUnit.DAYS.convert(date1 - date2, TimeUnit.MILLISECONDS));
+    public static long getDaysBetween(long a, long b) {
+
+        Date date1 = new Date(a);
+        Date date2 = new Date(b);
+
+        String d1 = date2String(date1, YEAR_MONTH_DAY_FORMAT);
+        String d2 = date2String(date2, YEAR_MONTH_DAY_FORMAT);
+
+        date1 = string2Date(d1, YEAR_MONTH_DAY_FORMAT);
+        date2 = string2Date(d2, YEAR_MONTH_DAY_FORMAT);
+
+        long diff = Math.abs(date1.getTime() - date2.getTime());
+
+        return diff / MILLIS_IN_DAY;
     }
 }
