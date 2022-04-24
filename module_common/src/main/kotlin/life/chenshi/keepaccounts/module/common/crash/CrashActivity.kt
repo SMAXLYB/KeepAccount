@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Bundle
 import android.os.Process
 import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
@@ -33,7 +34,7 @@ class CrashActivity : BaseActivity() {
         return false
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         intent.getStringExtra("exception_info")?.let {
             exceptionInfo = it
         }

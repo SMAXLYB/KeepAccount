@@ -32,6 +32,9 @@ class MainActivity : NavHostActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.record_activity_main)
     }
 
+    override fun initView() {
+    }
+
     override fun configureDefaultStatusBar(): Boolean {
         StatusBarUtil.init(this)
             .setTransparent()

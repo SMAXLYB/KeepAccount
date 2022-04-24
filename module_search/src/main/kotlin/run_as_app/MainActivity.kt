@@ -10,7 +10,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.search_activity_main)
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
     }
 
     override fun initListener() {

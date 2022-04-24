@@ -1,5 +1,6 @@
 package life.chenshi.keepaccounts.ui
 
+import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -29,7 +30,7 @@ class MainActivity : BaseActivity() {
         return false
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         mBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_main)
         // 初始化controller，绑定navMenu
         mNavController =

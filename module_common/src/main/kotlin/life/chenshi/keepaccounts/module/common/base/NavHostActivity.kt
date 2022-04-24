@@ -1,6 +1,6 @@
 package life.chenshi.keepaccounts.module.common.base
 
-import androidx.annotation.CallSuper
+import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.NavigationRes
 import androidx.navigation.fragment.NavHostFragment
@@ -18,10 +18,13 @@ abstract class NavHostActivity : BaseActivity() {
 
     protected abstract fun setContentView()
 
-    @CallSuper
-    override fun initView() {
+    protected abstract fun initView()
+
+    @Deprecated("使用无参方法initView")
+    override fun initView(savedInstanceState: Bundle?) {
         setContentView()
         initStartDestination()
+        initView()
     }
 
     private fun initStartDestination() {

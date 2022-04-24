@@ -35,6 +35,10 @@ class MainActivity : NavHostActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.category_activity_main)
     }
 
+    override fun initView() {
+
+    }
+
     override fun initListener() {
     }
 

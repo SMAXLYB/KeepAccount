@@ -27,14 +27,14 @@ abstract class BaseActivity : AppCompatActivity() {
                 .setColorByValue(backgroundColor)
                 .setDarkMode(nightMode())
         }
-        initView()
+        initView(savedInstanceState)
         initListener()
         initObserver()
     }
 
     protected open fun configureDefaultStatusBar() = true
 
-    protected abstract fun initView()
+    protected abstract fun initView(savedInstanceState: Bundle?)
 
     protected abstract fun initListener()
 

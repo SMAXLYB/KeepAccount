@@ -2,6 +2,7 @@
 package life.chenshi.keepaccounts.ui
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
@@ -50,7 +51,7 @@ class SplashActivity : BaseActivity() {
         return false
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         if (Random.nextFloat() > 0.5) {
             navigationToHome()
             return

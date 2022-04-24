@@ -1,12 +1,15 @@
 package life.chenshi.keepaccounts.module.setting.ui
 
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.navArgs
-import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
+import life.chenshi.keepaccounts.module.common.base.NavHostActivity
 import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_ALL_SETTING
+import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_ASSETS
 import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_THEME
+import life.chenshi.keepaccounts.module.common.utils.startActivity
 import life.chenshi.keepaccounts.module.common.view.CustomActionBar
 import life.chenshi.keepaccounts.module.setting.R
 import life.chenshi.keepaccounts.module.setting.vm.AllSettingViewModel
@@ -14,17 +17,23 @@ import life.chenshi.keepaccounts.module.setting.vm.AllSettingViewModel
 /**
  * Setting模块的宿主Activity
  */
-class MainActivity : BaseActivity() {
+@AndroidEntryPoint
+class MainActivity : NavHostActivity() {
 
-    private val mainArgs by navArgs<MainActivityArgs>()
+    companion object {
+        @JvmStatic
+        fun start(context: Context, data: Bundle) {
+            context.startActivity<MainActivity> {
+                putExtras(data)
+            }
+        }
+    }
+
     private val mViewModel by viewModels<AllSettingViewModel>()
     private lateinit var mBar: CustomActionBar
-    private lateinit var mNavController: NavController
 
     override fun initView() {
-        setContentView(R.layout.setting_activity_main)
         mBar = findViewById(R.id.bar)
-        initStartDestination()
     }
 
     override fun initListener() {
@@ -37,26 +46,33 @@ class MainActivity : BaseActivity() {
         mViewModel.title.observe(this) {
             mBar.setCenterTitle(it)
         }
-    }
 
-    private fun initStartDestination() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.setting_nav_host_fragment_container) as NavHostFragment
-        mNavController = navHostFragment.navController
-        val navGraph = mNavController.navInflater.inflate(R.navigation.setting_nav_main)
-        mainArgs.startDestination?.let { path ->
-            getStartDestination(path).takeIf { it != 0 }?.let {
-                navGraph.setStartDestination(it)
+        mViewModel.rightIconAction.observe(this) { p ->
+            p?.let {
+                mBar.setRightIcon(it.first)
+                mBar.setRightIconClickListener { _ ->
+                    Log.d(TAG, "initObserver: ")
+                    it.second.invoke()
+                }
+            } ?: kotlin.run {
+                mBar.hideRightIcon()
             }
         }
-        mNavController.setGraph(navGraph, intent.extras)
     }
 
-    private fun getStartDestination(path: String): Int {
+    override fun setHostFragmentId() = R.id.setting_nav_host_fragment_container
+    override fun setNavGraphId() = R.navigation.setting_nav_main
+
+    override fun getStartDestination(path: String): Int {
         return when (path) {
             PATH_SETTING_ALL_SETTING -> R.id.allSettingFragment
             PATH_SETTING_THEME -> R.id.themeSettingFragment
+            PATH_SETTING_ASSETS -> R.id.assetsAccountFragment
             else -> 0
         }
+    }
+
+    override fun setContentView() {
+        setContentView(R.layout.setting_activity_main)
     }
 }
