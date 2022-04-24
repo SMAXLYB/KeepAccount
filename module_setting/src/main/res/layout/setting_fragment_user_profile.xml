@@ -291,10 +291,56 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/common_ripple_medium_bg_surface"
-                app:layout_constraintDimensionRatio="2:0.6"
+                android:padding="10dp"
+                app:layout_constraintDimensionRatio="2:0.5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cl_part_3">
+
+                <ImageView
+                    android:id="@+id/iv_content_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:src="@drawable/setting_icon_warn"
+                    app:layout_constraintBottom_toTopOf="@id/tv_content_1"
+                    app:layout_constraintEnd_toStartOf="@id/iv_content_2"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_content_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:src="@drawable/setting_icon_calendar"
+                    app:layout_constraintBottom_toTopOf="@id/tv_content_2"
+                    app:layout_constraintEnd_toStartOf="@id/iv_content_3"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/iv_content_1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_content_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:src="@drawable/setting_icon_async"
+                    app:layout_constraintBottom_toTopOf="@id/tv_content_3"
+                    app:layout_constraintEnd_toStartOf="@id/iv_content_4"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/iv_content_2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_content_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:padding="1dp"
+                    android:src="@drawable/setting_icon_rubbish"
+                    app:layout_constraintBottom_toTopOf="@id/tv_content_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/iv_content_3"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_content_1"
@@ -302,12 +348,10 @@
                     android:layout_height="wrap_content"
                     android:text="记账提醒"
                     android:textColor="?colorOnSurface"
-
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_content_2"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="@id/iv_content_1"
+                    app:layout_constraintStart_toStartOf="@id/iv_content_1"
+                    app:layout_constraintTop_toBottomOf="@id/iv_content_1" />
 
                 <TextView
                     android:id="@+id/tv_content_2"
@@ -317,10 +361,9 @@
 
                     android:textColor="?colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_content_3"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/tv_content_1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="@id/iv_content_2"
+                    app:layout_constraintStart_toStartOf="@id/iv_content_2"
+                    app:layout_constraintTop_toBottomOf="@id/iv_content_2" />
 
                 <TextView
                     android:id="@+id/tv_content_3"
@@ -330,10 +373,9 @@
 
                     android:textColor="?colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_content_4"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/tv_content_2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="@id/iv_content_3"
+                    app:layout_constraintStart_toStartOf="@id/iv_content_3"
+                    app:layout_constraintTop_toBottomOf="@id/iv_content_3" />
 
                 <TextView
                     android:id="@+id/tv_content_4"
@@ -342,11 +384,9 @@
                     android:text="回收站"
                     android:textColor="?colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/tv_content_3"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="@id/iv_content_4"
+                    app:layout_constraintStart_toStartOf="@id/iv_content_4"
+                    app:layout_constraintTop_toBottomOf="@id/iv_content_4" />
                 <!--    记账提醒-->
                 <!--    周期记账-->
                 <!--    同步备份-->
@@ -365,7 +405,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cl_part_6">
 
                 <include
-                    android:id="@+id/setting_privacy"
+                    android:id="@+id/setting_help"
                     layout="@layout/setting_item_setting_next"
                     app:name='@{"使用帮助"}' />
 
@@ -375,7 +415,7 @@
                     app:name='@{"投诉反馈"}' />
 
                 <include
-                    android:id="@+id/setting_update"
+                    android:id="@+id/setting_about"
                     layout="@layout/setting_item_setting_next"
                     app:name='@{"关于我们"}' />
 

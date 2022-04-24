@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/iv_item_category_delete"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:padding="1dp"
             android:visibility="invisible"
             tools:visibility="visible"

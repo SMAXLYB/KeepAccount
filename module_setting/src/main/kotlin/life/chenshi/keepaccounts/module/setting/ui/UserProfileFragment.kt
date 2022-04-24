@@ -20,10 +20,7 @@ import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_THEME
 import life.chenshi.keepaccounts.module.common.constant.navTo
 import life.chenshi.keepaccounts.module.common.service.IBookRouterService
 import life.chenshi.keepaccounts.module.common.service.ICategoryRouterService
-import life.chenshi.keepaccounts.module.common.utils.DateUtil
-import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
-import life.chenshi.keepaccounts.module.common.utils.launchAndRepeatWithViewLifecycle
-import life.chenshi.keepaccounts.module.common.utils.nightMode
+import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.setting.R
 import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentUserProfileBinding
@@ -91,6 +88,30 @@ class UserProfileFragment : Fragment() {
                 "夜间"
             }
         }
+        mBinding.settingHelp.ivIcon.setVisibleWithDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.setting_icon_help
+            )
+        )
+        mBinding.settingFeedback.ivIcon.setVisibleWithDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.setting_icon_feedback
+            )
+        )
+        mBinding.settingAbout.ivIcon.setVisibleWithDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.setting_icon_about
+            )
+        )
+        mBinding.allSetting.ivIcon.setVisibleWithDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.setting_icon_setting
+            )
+        )
     }
 
     override fun onResume() {

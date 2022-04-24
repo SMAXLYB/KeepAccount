@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/iv_item_sub_category_delete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:visibility="invisible"
             tools:visibility="visible"
             android:padding="1dp"
@@ -28,8 +28,8 @@
 
         <ImageView
             android:id="@+id/iv_item_sub_category_selected"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:padding="1dp"
             android:visibility="invisible"
             tools:visibility="visible"
