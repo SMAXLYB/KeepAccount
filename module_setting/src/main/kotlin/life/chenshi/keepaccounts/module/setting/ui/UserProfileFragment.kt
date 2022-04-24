@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_USE_TIME
 import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
 import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_THEME
@@ -51,9 +52,17 @@ class UserProfileFragment : Fragment() {
 
     private fun initObserver() {
         launchAndRepeatWithViewLifecycle {
-            mUserProfileViewModel.totalNumOfBook.collect {
-                mBinding.tvBooksNum.text = "$it"
+            launch {
+                mUserProfileViewModel.totalNumOfBook.collect {
+                    mBinding.tvBooksNum.text = "$it"
+                }
             }
+            launch {
+                mUserProfileViewModel.totalNumOfRecord.collect {
+                    mBinding.tvRecordsNum.text = "$it"
+                }
+            }
+
         }
     }
 
@@ -62,7 +71,7 @@ class UserProfileFragment : Fragment() {
         StatusBarUtil.init(requireActivity())
             .addStatusBatHeightTo(mBinding.clContainer)
 
-        var useDays = DateUtil.getDaysBetween(KVStoreHelper.read(APP_FIRST_USE_TIME), System.currentTimeMillis())
+        var useDays = DateUtil.getDaysBetween(KVStoreHelper.read(APP_FIRST_USE_TIME), System.currentTimeMillis()) + 1
         if (useDays == 0L) {
             useDays = 1
         }
@@ -86,11 +95,11 @@ class UserProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getTotalNumOfBook()
+        getTotalNum()
     }
 
-    private fun getTotalNumOfBook() {
-        mUserProfileViewModel.getTotalNumOfBook()
+    private fun getTotalNum() {
+        mUserProfileViewModel.getTotalNum()
     }
 
     private fun initListener() {

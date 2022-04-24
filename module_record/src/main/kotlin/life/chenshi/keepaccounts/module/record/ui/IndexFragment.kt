@@ -138,11 +138,7 @@ class IndexFragment : Fragment() {
             recentRecordsLiveData.observe(viewLifecycleOwner) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     val list = convert2RecordListGroupByDay(it)
-                    if (list.isNotEmpty()) {
-                        // hideEmptyHintView()
-                    } else {
-                        // showEmptyHintView()
-                    }
+                    mBinding.gpEmptyHint.setVisibility(list.isEmpty())
                     mAdapter?.setData(list)
                 }
             }

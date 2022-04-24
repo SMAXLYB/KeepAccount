@@ -42,17 +42,17 @@ class DatabaseModule {
     }
 
     @Provides
-    fun getBookDao(appDatabase: AppDatabase): BookDao {
+    fun provideBookDao(appDatabase: AppDatabase): BookDao {
         return appDatabase.getBookDao()
     }
 
     @Provides
-    fun getMajorCategoryDao(appDatabase: AppDatabase): MajorCategoryDao {
+    fun provideMajorCategoryDao(appDatabase: AppDatabase): MajorCategoryDao {
         return appDatabase.getMajorCategoryDao()
     }
 
     @Provides
-    fun getMinorCategoryDao(appDatabase: AppDatabase): MinorCategoryDao {
+    fun provideMinorCategoryDao(appDatabase: AppDatabase): MinorCategoryDao {
         return appDatabase.getMinorCategoryDao()
     }
 }

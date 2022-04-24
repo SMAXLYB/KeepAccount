@@ -19,7 +19,7 @@ interface RecordDao {
     suspend fun insertRecord(record: Record)
 
     @Transaction
-    suspend fun insertRecordAndUpdateUseRate(record: Record){
+    suspend fun insertRecordAndUpdateUseRate(record: Record) {
         insertRecord(record)
         updateUseRate(record.minorCategoryId)
     }
@@ -52,7 +52,7 @@ interface RecordDao {
      */
     @Transaction
     @Query("SELECT * FROM $TB_RECORDS WHERE time ORDER BY time DESC LIMIT 30")
-    fun getRecentRecords():LiveData<List<RecordWithCategoryBean>>
+    fun getRecentRecords(): LiveData<List<RecordWithCategoryBean>>
 
     /**
      * 按日期范围查询金额总和 分组为支出/收入
@@ -99,4 +99,10 @@ interface RecordDao {
     @Transaction
     @Query("select * from $TB_RECORDS where book_id = :bookId and remark like '%'|| :keyword || '%' order by time desc")
     fun getRecordByKeyword(keyword: String, bookId: Int): LiveData<List<RecordWithCategoryBean>>
+
+    /**
+     * 获取所有记录
+     */
+    @Query("SELECT COUNT(*) FROM $TB_RECORDS")
+    suspend fun getTotalNumOfRecord(): Int
 }

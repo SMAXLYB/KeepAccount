@@ -354,6 +354,35 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_sort_by"
                     tools:listitem="@layout/item_budget" />
 
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/gp_empty_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="iv_empty_hint, tv_empty_hint" />
+
+                <TextView
+                    android:id="@+id/tv_empty_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="这里是空的, 快去记一笔吧~"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_empty_hint" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_empty_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/record_index_empty_record"
+                    app:layout_constraintBottom_toBottomOf="@id/rv_budget"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/rv_budget"
+                    app:layout_constraintVertical_bias="0.15" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

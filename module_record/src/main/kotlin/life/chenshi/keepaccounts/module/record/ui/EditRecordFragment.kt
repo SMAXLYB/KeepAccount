@@ -338,6 +338,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                     binding.clKeyboard.post {
                         val diff = 50.dp2px()
                         if (binding.clKeyboard.top - binding.voucher.bottom < diff) {
+                            // td--状态栏计算有问题
                             binding.bar.gone()
                         } else {
                             binding.bar.hideRightIcon()
@@ -354,7 +355,6 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         }
 
         // 监听类型选中
-        // td--抽到常量里去
         LiveEventBus.get(CATEGORY, AbstractCategory::class.java)
             .observe(this) { abstractCategory ->
                 // 先更新集合

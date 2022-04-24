@@ -76,16 +76,15 @@
                     android:gravity="center"
                     android:textColor="?colorOnSurface"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toStartOf="@id/tv_deals_num"
+                    app:layout_constraintEnd_toStartOf="@id/tv_records_num"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_deals_num"
+                    android:id="@+id/tv_records_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="365"
                     android:textColor="?colorOnSurface"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toStartOf="@id/tv_books_num"
@@ -100,7 +99,7 @@
                     android:textColor="?colorOnSurface"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_deals_num"
+                    app:layout_constraintStart_toEndOf="@id/tv_records_num"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -124,9 +123,9 @@
 
                     android:text="交易笔数"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/tv_deals_num"
-                    app:layout_constraintStart_toStartOf="@id/tv_deals_num"
-                    app:layout_constraintTop_toBottomOf="@id/tv_deals_num" />
+                    app:layout_constraintEnd_toEndOf="@id/tv_records_num"
+                    app:layout_constraintStart_toStartOf="@id/tv_records_num"
+                    app:layout_constraintTop_toBottomOf="@id/tv_records_num" />
 
                 <TextView
                     android:id="@+id/tv_books"
