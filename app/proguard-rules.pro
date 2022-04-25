@@ -79,6 +79,9 @@
 }
 
 # 保留Serializable序列化的类不被混淆
+# Explicitly preserve all serialization members. The Serializable interface
+# is only a marker interface, so it wouldn't save them.
+-keep public class * implements java.io.Serializable {*;}
 -keepclassmembers class * implements java.io.Serializable {
     static final long serialVersionUID;
     private static final java.io.ObjectStreamField[] serialPersistentFields;
