@@ -63,8 +63,12 @@ fun View.setNoDoubleClickListener(
 data class NoDoubleClickHelper(
     var interval: Int = 500,
     var share: Boolean = false,
-    var listener: ((View) -> Unit)? = null
-)
+    internal var listener: ((View) -> Unit)? = null
+) {
+    fun listener(block: (View) -> Unit) {
+        this.listener = block
+    }
+}
 
 fun TextView.setVisibilityWithText(text: String) {
     visibility = if (text.isNotBlank()) {

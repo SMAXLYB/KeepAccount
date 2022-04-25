@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:src="@drawable/record_credit_card_hide"
+                        android:src="@drawable/common_icon_hide"
                         app:layout_constraintBottom_toBottomOf="@id/card_id"
                         app:layout_constraintStart_toEndOf="@id/card_id"
                         app:layout_constraintTop_toTopOf="@id/card_id" />

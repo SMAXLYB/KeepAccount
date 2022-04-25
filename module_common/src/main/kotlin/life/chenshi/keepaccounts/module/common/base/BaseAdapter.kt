@@ -11,6 +11,7 @@ abstract class BaseAdapter<T, V : ViewDataBinding>(private var data: List<T>) :
     RecyclerView.Adapter<BaseAdapter<T, V>.Holder>() {
 
     private var listener: ((V, T, Int) -> Unit)? = null
+    private var longClickListener: ((V, T, Int) -> Boolean)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = DataBindingUtil.inflate<V>(
@@ -34,11 +35,15 @@ abstract class BaseAdapter<T, V : ViewDataBinding>(private var data: List<T>) :
         this.listener = listener
     }
 
+    fun setOnItemLongClickListener(longClickListener: (V, T, Int) -> Boolean) {
+        this.longClickListener = longClickListener
+    }
+
     fun getData(): List<T> {
         return data
     }
 
-    fun setData(data:List<T>){
+    fun setData(data: List<T>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -51,6 +56,9 @@ abstract class BaseAdapter<T, V : ViewDataBinding>(private var data: List<T>) :
         init {
             binding.root.setOnClickListener {
                 listener?.invoke(binding, data[bindingAdapterPosition], bindingAdapterPosition)
+            }
+            binding.root.setOnLongClickListener {
+                longClickListener?.invoke(binding, data[bindingAdapterPosition], bindingAdapterPosition) ?: false
             }
         }
     }

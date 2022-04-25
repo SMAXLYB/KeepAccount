@@ -6,14 +6,7 @@
 
         <activity
             android:name=".ui.MainActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.moresetting.MoreSettingActivity"
-            android:exported="false" />
-
-        <activity
-            android:name="life.chenshi.keepaccounts.module.book.ui.BookActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
     </application>
 </manifest>

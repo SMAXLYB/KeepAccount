@@ -77,18 +77,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:backgroundTint="?colorSurface"
+            android:backgroundTint="?colorPrimary"
             android:text="取 消"
-            android:textColor="?colorPrimary"
+            android:textColor="?colorOnPrimary"
             app:cornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_dialog_confirm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_container"
             app:layout_constraintWidth_percent="0.3"
-            app:rippleColor="@color/common_list_view_pressed_gray"
-            app:strokeColor="?colorPrimary"
-            app:strokeWidth="1dp" />
+            app:rippleColor="@color/common_list_view_pressed_gray" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_dialog_confirm"
@@ -96,16 +94,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:backgroundTint="?colorPrimary"
+            android:backgroundTint="?colorSurface"
             android:text="确 定"
-            android:textColor="?colorOnPrimary"
+            android:textColor="?colorPrimary"
             app:cornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_dialog_cancel"
             app:layout_constraintTop_toBottomOf="@id/view_container"
             app:layout_constraintWidth_percent="0.3"
-            app:rippleColor="@color/common_global_background_gray" />
+            app:rippleColor="@color/common_global_background_gray"
+            app:strokeColor="?colorPrimary"
+            app:strokeWidth="1dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,18 +13,13 @@ import life.chenshi.keepaccounts.module.common.base.BaseApplication
 import life.chenshi.keepaccounts.module.common.constant.TB_BOOKS
 import life.chenshi.keepaccounts.module.common.constant.TB_MAJOR_CATEGORIES
 import life.chenshi.keepaccounts.module.common.constant.TB_MINOR_CATEGORIES
-import life.chenshi.keepaccounts.module.common.database.dao.BookDao
-import life.chenshi.keepaccounts.module.common.database.dao.MajorCategoryDao
-import life.chenshi.keepaccounts.module.common.database.dao.MinorCategoryDao
-import life.chenshi.keepaccounts.module.common.database.dao.RecordDao
-import life.chenshi.keepaccounts.module.common.database.entity.Book
-import life.chenshi.keepaccounts.module.common.database.entity.MajorCategory
-import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
-import life.chenshi.keepaccounts.module.common.database.entity.Record
+import life.chenshi.keepaccounts.module.common.database.dao.*
+import life.chenshi.keepaccounts.module.common.database.entity.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-@Database(entities = [Record::class, Book::class, MajorCategory::class, MinorCategory::class], version = 1)
+@Database(entities = [Record::class, Book::class, MajorCategory::class, MinorCategory::class, AssetsAccount::class],
+version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -204,4 +199,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getMajorCategoryDao(): MajorCategoryDao
 
     abstract fun getMinorCategoryDao(): MinorCategoryDao
+
+    abstract fun getAssetsAccountDao(): AssetsAccountDao
 }

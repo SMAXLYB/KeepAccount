@@ -16,7 +16,7 @@
             android:id="@+id/tv_item_category"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:src="@drawable/category_item_add"
+            android:src="@drawable/common_icon_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

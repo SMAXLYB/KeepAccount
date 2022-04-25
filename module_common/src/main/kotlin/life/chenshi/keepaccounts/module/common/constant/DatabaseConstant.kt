@@ -5,6 +5,7 @@ const val TB_MAJOR_CATEGORIES = "tb_major_categories"
 const val TB_MINOR_CATEGORIES = "tb_minor_categories"
 const val TB_BOOKS = "tb_books"
 const val TB_RECORDS = "tb_records"
+const val TB_ASSETS_ACCOUNT = "tb_assets_account"
 
 // 数据组状态
 const val STATE_DELETE = -1

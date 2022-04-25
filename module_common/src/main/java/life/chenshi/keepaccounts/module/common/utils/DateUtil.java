@@ -18,6 +18,8 @@ public class DateUtil {
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat MONTH_DAY_FORMAT = new SimpleDateFormat("MM-dd");
     @SuppressLint("SimpleDateFormat")
+    public static final DateFormat MONTH_DAY_FORMAT_2 = new SimpleDateFormat("MM/dd");
+    @SuppressLint("SimpleDateFormat")
     public static final DateFormat HOUR_MINUTE = new SimpleDateFormat("HH:mm");
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat YEAR_MONTH_DAY_FORMAT = new SimpleDateFormat("yyyy年MM月dd日");

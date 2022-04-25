@@ -20,8 +20,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.adapter.IndexRecordAdapter
+import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_ASSETS
+import life.chenshi.keepaccounts.module.common.constant.Path
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
+import life.chenshi.keepaccounts.module.common.constant.navTo
 import life.chenshi.keepaccounts.module.common.database.entity.Record
+import life.chenshi.keepaccounts.module.common.service.ISettingRouterService
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.dp2px
@@ -94,6 +98,10 @@ class IndexFragment : Fragment() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
             }
         })
+
+        mBinding.card.setOnClickListener {
+            context?.navTo<ISettingRouterService>(Path(PATH_SETTING_ASSETS))
+        }
 
         // 新建记录
         mBinding.clNewRecord.setOnClickListener {

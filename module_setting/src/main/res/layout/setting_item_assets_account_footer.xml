@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/common_ripple_medium_bg_surface"
+        android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_add_assets_account"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/common_icon_add"
+            app:layout_constraintBottom_toBottomOf="@id/tv_add_assets_account"
+            app:layout_constraintEnd_toStartOf="@id/tv_add_assets_account"
+            app:layout_constraintTop_toTopOf="@id/tv_add_assets_account" />
+
+        <TextView
+            android:id="@+id/tv_add_assets_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加一个账户"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

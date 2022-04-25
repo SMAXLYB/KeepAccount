@@ -191,7 +191,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
             CardDatePickerDialog.builder(requireContext())
                 .setBackGroundModel(CardDatePickerDialog.STACK)
-                .setThemeColor(requireContext().getColorFromRes(R.color.colorPrimary))
+                .setThemeColor(requireContext().getColorFromAttr(R.attr.colorPrimary))
                 .setDefaultTime(mNewRecordViewModel.currentDateTime.value!!)
                 .showBackNow(false)
                 .setDisplayType(

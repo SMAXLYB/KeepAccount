@@ -27,8 +27,10 @@ value class Path(val path: String)
 const val RECORD_EDIT = "/record/edit_record"
 
 // Setting模块
+const val ROUTE_SETTING = "/setting/route"
 const val PATH_SETTING_ALL_SETTING = "/setting/all_setting"
 const val PATH_SETTING_THEME = "/setting/theme"
+const val PATH_SETTING_ASSETS = "/setting/assets"
 
 // Search模块
 const val SEARCH_MAIN_ACTIVITY = "/search/main_activity"

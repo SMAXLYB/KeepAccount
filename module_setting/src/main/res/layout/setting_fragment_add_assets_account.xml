@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="life.chenshi.keepaccounts.module.common.utils.DateUtil" />
+
+        <variable
+            name="viewModel"
+            type="life.chenshi.keepaccounts.module.setting.vm.AddAssetsAccountViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <!--卡片-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_ripple_large_bg_blue_gradient"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/setting_icon_alipay_2"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/siv_assets_logo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/common_white"
+                    android:padding="2dp"
+                    android:src="@drawable/setting_icon_alipay"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/CommonRoundedCornerImageStyle"
+                    app:strokeColor="@color/common_white"
+                    app:strokeWidth="2dp" />
+
+                <TextView
+                    android:id="@+id/tv_assets_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:lines="1"
+                    android:text="@{viewModel.assetName}"
+                    android:textColor="@color/common_white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/siv_assets_logo"
+                    app:layout_constraintEnd_toStartOf="@id/iv_assets_hide"
+                    app:layout_constraintStart_toEndOf="@id/siv_assets_logo"
+                    app:layout_constraintTop_toTopOf="@id/siv_assets_logo"
+                    tools:text="中国银行中国银行中国银行中国银行中国银行中国银行中国银行中国银行" />
+
+
+                <life.chenshi.keepaccounts.module.common.view.SansFontTextView
+                    android:id="@+id/tv_assets_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:letterSpacing="0.2"
+                    android:text="@{viewModel.assetBalance}"
+                    android:textColor="@color/common_white"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/siv_assets_logo" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_assets_hide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_icon_hide"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_assets_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_assets_name" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="siv_assets_logo, tv_assets_balance" />
+
+                <TextView
+                    android:id="@+id/tv_assets_expire_date_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="日期"
+                    android:textColor="@color/common_white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_assets_expire_date"
+                    app:layout_constraintEnd_toEndOf="@id/tv_assets_expire_date"
+                    app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+
+                <life.chenshi.keepaccounts.module.common.view.SansFontTextView
+                    android:id="@+id/tv_assets_expire_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.11"
+                    android:textColor="@color/common_white"
+                    android:textSize="16sp"
+                    app:format="@{DateUtil.MONTH_DAY_FORMAT_2}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:timestamp="@{viewModel.assetExpireDate}"
+                    tools:text="22/11" />
+
+                <TextView
+                    android:id="@+id/tv_assets_number_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="账号"
+                    android:textColor="@color/common_white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_assets_number"
+                    app:layout_constraintStart_toStartOf="@id/tv_assets_number"
+                    app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+
+                <life.chenshi.keepaccounts.module.common.view.SansFontTextView
+                    android:id="@+id/tv_assets_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.1"
+                    android:text="@{viewModel.assetNumber}"
+                    android:textColor="@color/common_white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/siv_assets_logo"
+                    tools:text="123456789@qq.com" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="8dp"
+                android:text="名称"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/common_corner_all_medium_bg_white_border_primary"
+                android:hint="必填, 名称不可重复"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLength="15"
+                android:padding="12dp"
+                android:text="@={viewModel.assetName}"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="8dp"
+                android:text="账号"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_name" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/common_corner_all_medium_bg_white_border_primary"
+                android:hint="选填,卡号/手机号/邮箱/用户名..."
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:letterSpacing="0.1"
+                android:lines="1"
+                android:maxLength="20"
+                android:padding="12dp"
+                android:text="@={viewModel.assetNumber}"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_number" />
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="8dp"
+                android:text="余额"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_number" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/common_corner_all_medium_bg_white_border_primary"
+                android:hint="负数请添加负号"
+                android:text="@={viewModel.assetBalance}"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLength="11"
+                android:padding="12dp"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_date"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_balance" />
+
+            <TextView
+                android:id="@+id/tv_date_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="8dp"
+                android:text="日期"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:layout_constraintBottom_toTopOf="@id/tv_date"
+                app:layout_constraintStart_toStartOf="@id/tv_date" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/common_ripple_medium_bg_surface"
+                android:hint="请选择日期"
+                android:lines="1"
+                android:maxLength="20"
+                android:padding="12dp"
+                android:textColor="?colorOnSurface"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp"
+                app:format="@{DateUtil.YEAR_MONTH_DAY_FORMAT}"
+                app:layout_constraintBottom_toBottomOf="@id/et_balance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/et_balance"
+                app:layout_constraintTop_toTopOf="@id/et_balance"
+                app:timestamp="@{viewModel.assetExpireDate}" />
+
+            <TextView
+                android:id="@+id/tv_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="8dp"
+                android:text="备注"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_balance" />
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_remark"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/common_corner_all_medium_bg_white_border_primary"
+                android:gravity="start|top"
+                android:hint="选填, 50字内"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:maxLength="50"
+                android:padding="12dp"
+                android:text="@={viewModel.assetRemark}"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_remark" />
+
+            <TextView
+                android:id="@+id/tv_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="8dp"
+                android:text="设置"
+                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_remark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/common_corner_all_medium_white_bg"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_setting">
+
+                <include
+                    android:id="@+id/setting_used_default"
+                    layout="@layout/setting_item_setting_switch"
+                    app:name='@{"记账时使用本账户作为默认账户"}' />
+
+                <include
+                    android:id="@+id/setting_include_in_all_assets"
+                    layout="@layout/setting_item_setting_switch"
+                    app:name='@{"是否计入总资产"}' />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

@@ -20,4 +20,26 @@
         android:name="life.chenshi.keepaccounts.module.setting.ui.ThemeSettingFragment"
         android:label="ThemeSettingFragment"
         tools:layout="@layout/setting_fragment_theme_setting" />
+
+    <fragment
+        android:id="@+id/assetsAccountFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.AssetsAccountFragment"
+        android:label="AssetsAccountFragment"
+        tools:layout="@layout/setting_fragment_assets_account">
+        <action
+            android:id="@+id/setting_action_assetsaccountfragment_to_addassetsaccountfragment"
+            app:destination="@id/addAssetsAccountFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addAssetsAccountFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.AddAssetsAccountFragment"
+        android:label="AddAssetsAccountFragment"
+        tools:layout="@layout/setting_fragment_add_assets_account">
+        <argument
+            android:name="assetsAccount"
+            android:defaultValue="@null"
+            app:argType="life.chenshi.keepaccounts.module.common.database.entity.AssetsAccount"
+            app:nullable="true" />
+    </fragment>
 </navigation>

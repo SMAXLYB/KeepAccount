@@ -79,9 +79,12 @@
                 android:id="@+id/tv_asset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/common_corner_all_small_gray_bg"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:text="不计入资产"
                 android:textColor="?colorOnSurface"
-                app:layout_constraintBottom_toBottomOf="@id/slash"
+                app:layout_constraintBaseline_toBaselineOf="@id/slash"
                 app:layout_constraintStart_toEndOf="@id/slash" />
 
             <TextView
@@ -266,7 +269,6 @@
                 android:layout_weight="1"
                 android:background="@drawable/common_corner_all_small_gray_bg"
                 android:gravity="start|top"
-
                 android:hint="无备注"
                 android:lines="2"
                 android:maxLength="100"

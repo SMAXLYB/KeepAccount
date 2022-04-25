@@ -8,3 +8,6 @@ android {
         dataBinding = true
     }
 }
+dependencies {
+    implementation(Libs.dateTimePicker)
+}

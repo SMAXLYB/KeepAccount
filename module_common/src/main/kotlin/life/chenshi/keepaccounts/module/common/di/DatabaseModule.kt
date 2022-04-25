@@ -7,10 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import life.chenshi.keepaccounts.module.common.database.AppDatabase
-import life.chenshi.keepaccounts.module.common.database.dao.BookDao
-import life.chenshi.keepaccounts.module.common.database.dao.MajorCategoryDao
-import life.chenshi.keepaccounts.module.common.database.dao.MinorCategoryDao
-import life.chenshi.keepaccounts.module.common.database.dao.RecordDao
+import life.chenshi.keepaccounts.module.common.database.dao.*
 import javax.inject.Singleton
 
 /*
@@ -54,5 +51,10 @@ class DatabaseModule {
     @Provides
     fun provideMinorCategoryDao(appDatabase: AppDatabase): MinorCategoryDao {
         return appDatabase.getMinorCategoryDao()
+    }
+
+    @Provides
+    fun provideAssetsAccountDao(appDatabase: AppDatabase): AssetsAccountDao {
+        return appDatabase.getAssetsAccountDao()
     }
 }

@@ -158,46 +158,42 @@ class CustomActionBar @JvmOverloads constructor(
      * 设置监听
      */
     fun setLeftClickListener(listener: (View) -> Unit) {
-        mBinding.tvLeft.setOnClickListener {
-            listener.invoke(it)
+        mBinding.tvLeft.setNoDoubleClickListener {
+            listener { listener.invoke(it) }
         }
-        mBinding.ivLeft.setOnClickListener {
-            listener.invoke(it)
+        mBinding.ivLeft.setNoDoubleClickListener {
+            listener { listener.invoke(it) }
         }
     }
 
     fun setCenterClickListener(listener: (View) -> Unit) {
-        mBinding.tvCenter.setOnClickListener {
-            listener.invoke(it)
-
+        mBinding.tvCenter.setNoDoubleClickListener {
+            listener { listener.invoke(it) }
         }
 
-        mBinding.ivCenter.setOnClickListener {
-            listener.invoke(it)
-
+        mBinding.ivCenter.setNoDoubleClickListener {
+            listener { listener.invoke(it) }
         }
     }
 
     fun setRightClickListener(listener: (View) -> Unit) {
-        mBinding.tvRight.setOnClickListener {
-            listener.invoke(it)
-
+        mBinding.tvRight.setNoDoubleClickListener {
+            listener { listener.invoke(it) }
         }
-        mBinding.ivRight.setOnClickListener {
-            listener.invoke(it)
-
+        mBinding.ivRight.setNoDoubleClickListener {
+            listener { listener.invoke(it) }
         }
     }
 
-    fun setRightTitleClickListener(listener: (View) -> Unit){
-        mBinding.tvRight.setOnClickListener {
-            listener.invoke(it)
+    fun setRightTitleClickListener(listener: (View) -> Unit) {
+        mBinding.tvRight.setNoDoubleClickListener {
+            listener { listener.invoke(it) }
         }
     }
+
     fun setRightIconClickListener(listener: (View) -> Unit) {
-        mBinding.ivRight.setOnClickListener {
-            listener.invoke(it)
-
+        mBinding.ivRight.setNoDoubleClickListener {
+            listener { listener.invoke(it) }
         }
     }
 }

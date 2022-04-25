@@ -1,9 +1,8 @@
 package life.chenshi.keepaccounts.module.common.database.entity
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.room.*
 import life.chenshi.keepaccounts.module.common.constant.TB_RECORDS
+import java.io.Serializable
 import java.math.BigDecimal
 import java.util.*
 
@@ -53,53 +52,19 @@ data class Record constructor(
     // 账本id
     @ColumnInfo(name = "book_id")
     var bookId: Int,
-) : Parcelable {
+    @ColumnInfo(name = "assets_account_id")
+    var AssetsAccountId: Int? = null
+) : Serializable {
 
-    // 构造函数
-    constructor(source: Parcel) : this(
-        source.readInt(),
-        BigDecimal(source.readString()),
-        source.readString(),
-        Date(source.readLong()),
-        source.readInt(),
-        source.readInt(),
-        source.readInt(),
-        source.readInt()
-    )
-
-    // 序列化
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeInt(id!!)
-        dest.writeString(money.toString())
-        dest.writeString(remark)
-        dest.writeLong(time.time)
-        dest.writeInt(majorCategoryId)
-        dest.writeInt(minorCategoryId)
-        dest.writeInt(recordType)
-        dest.writeInt(bookId)
-    }
-
-    // 描述信息
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    // 反序列化
-    companion object CREATOR : Parcelable.Creator<Record> {
-        override fun createFromParcel(parcel: Parcel): Record {
-            return Record(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Record?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-    override fun toString(): String {
-        return "Record(bookId=${bookId}, id=$id, money=$money, remark=$remark, time=$time, majorCategoryId=$majorCategoryId, minorCategoryId=${minorCategoryId}, recordType=$recordType)"
-    }
-
-    fun setAllData(money: BigDecimal, remark: String?, date: Date, majorCategoryId: Int, minorCategoryId: Int, recordType: Int, bookId: Int) {
+    fun setAllData(
+        money: BigDecimal,
+        remark: String?,
+        date: Date,
+        majorCategoryId: Int,
+        minorCategoryId: Int,
+        recordType: Int,
+        bookId: Int
+    ) {
         this.money = money
         this.remark = remark
         this.time = date
