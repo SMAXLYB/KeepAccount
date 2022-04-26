@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SettingItemView">
+        <attr name="setting_mode" format="enum">
+            <enum name="onlyText" value="0" />
+            <enum name="onlyArrow" value="1" />
+            <enum name="textWithArrow" value="2" />
+            <enum name="switcher" value="3" />
+        </attr>
+        <attr name="setting_title" format="string" />
+        <attr name="setting_description" format="string" />
+        <attr name="setting_content" format="string" />
+    </declare-styleable>
+</resources>

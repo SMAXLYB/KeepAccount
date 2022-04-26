@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="life.chenshi.keepaccounts.module.setting.vm.AddAssetsAccountViewModel" />
+            type="life.chenshi.keepaccounts.module.setting.vm.EditAssetsAccountViewModel" />
 
     </data>
 
@@ -240,12 +240,12 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/common_corner_all_medium_bg_white_border_primary"
                 android:hint="负数请添加负号"
-                android:text="@={viewModel.assetBalance}"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1"
                 android:maxLength="11"
                 android:padding="12dp"
+                android:text="@={viewModel.assetBalance}"
                 android:textCursorDrawable="@null"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_date"
@@ -336,15 +336,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_setting">
 
-                <include
-                    android:id="@+id/setting_used_default"
-                    layout="@layout/setting_item_setting_switch"
-                    app:name='@{"记账时使用本账户作为默认账户"}' />
+                <life.chenshi.keepaccounts.module.setting.view.SettingItemView
+                    android:id="@+id/setting_as_default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:checked="@={viewModel.usedDefault}"
+                    app:setting_mode="switcher"
+                    app:setting_title="记账时使用本账户作为默认账户" />
 
-                <include
-                    android:id="@+id/setting_include_in_all_assets"
-                    layout="@layout/setting_item_setting_switch"
-                    app:name='@{"是否计入总资产"}' />
+                <life.chenshi.keepaccounts.module.setting.view.SettingItemView
+                    android:id="@+id/setting_include_in_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:checked="@={viewModel.includedInAll}"
+                    app:setting_mode="switcher"
+                    app:setting_title="是否计入总资" />
 
             </LinearLayout>
 

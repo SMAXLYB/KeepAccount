@@ -15,7 +15,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class AddAssetsAccountViewModel @Inject constructor(private val repo: AssetsAccountRepo) : BaseViewModel() {
+class EditAssetsAccountViewModel @Inject constructor(private val repo: AssetsAccountRepo) : BaseViewModel() {
 
     val assetsAccount = MutableLiveData<AssetsAccount>()
 

@@ -17,18 +17,18 @@ import life.chenshi.keepaccounts.module.common.utils.getColorFromAttr
 import life.chenshi.keepaccounts.module.common.utils.navController
 import life.chenshi.keepaccounts.module.common.utils.setNoDoubleClickListener
 import life.chenshi.keepaccounts.module.setting.R
-import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentAddAssetsAccountBinding
-import life.chenshi.keepaccounts.module.setting.vm.AddAssetsAccountViewModel
+import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentEditAssetsAccountBinding
 import life.chenshi.keepaccounts.module.setting.vm.AllSettingViewModel
+import life.chenshi.keepaccounts.module.setting.vm.EditAssetsAccountViewModel
 
 @AndroidEntryPoint
-class AddAssetsAccountFragment : NavBindingFragment<SettingFragmentAddAssetsAccountBinding>() {
+class EditAssetsAccountFragment : NavBindingFragment<SettingFragmentEditAssetsAccountBinding>() {
 
-    private val mAssetsViewModel: AddAssetsAccountViewModel by viewModels()
+    private val mAssetsViewModel: EditAssetsAccountViewModel by viewModels()
     private val mSettingViewModel: AllSettingViewModel by activityViewModels()
-    private val args by navArgs<AddAssetsAccountFragmentArgs>()
+    private val args by navArgs<EditAssetsAccountFragmentArgs>()
 
-    override fun setLayoutId() = R.layout.setting_fragment_add_assets_account
+    override fun setLayoutId() = R.layout.setting_fragment_edit_assets_account
 
     override fun initView() {
         binding.viewModel = mAssetsViewModel
@@ -58,12 +58,16 @@ class AddAssetsAccountFragment : NavBindingFragment<SettingFragmentAddAssetsAcco
                 ToastUtil.showSuccess("保存成功")
                 navController?.navigateUp()
             }.onFailure {
-                if (it is SQLiteConstraintException) {
-                    ToastUtil.showFail("账户名称重复, 换一个吧~")
-                } else if (it is NumberFormatException) {
-                    ToastUtil.showFail("金额不符合规范, 请检查")
-                } else {
-                    ToastUtil.showFail("添加失败, 发生未知错误")
+                when (it) {
+                    is SQLiteConstraintException -> {
+                        ToastUtil.showFail("账户名称重复, 换一个吧~")
+                    }
+                    is NumberFormatException -> {
+                        ToastUtil.showFail("金额不符合规范, 请检查")
+                    }
+                    else -> {
+                        ToastUtil.showFail("添加失败, 发生未知错误")
+                    }
                 }
             }
         }
@@ -92,6 +96,7 @@ class AddAssetsAccountFragment : NavBindingFragment<SettingFragmentAddAssetsAcco
                 assetRemark.set(it.remark)
                 assetExpireDate.set(it.expireTime.time)
                 assetBalance.set(it.balance.toPlainString())
+                includedInAll.set(it.includedInAllAsset)
             }
         }
     }

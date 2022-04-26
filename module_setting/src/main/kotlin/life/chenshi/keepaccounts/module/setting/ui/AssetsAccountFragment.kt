@@ -51,7 +51,7 @@ class AssetsAccountFragment : NavBindingFragment<SettingFragmentAssetsAccountBin
 
     override fun initListener() {
         mAdapter.setOnItemClickListener { _, item, _ ->
-            val direction = AssetsAccountFragmentDirections.settingActionAssetsaccountfragmentToAddassetsaccountfragment(item)
+            val direction = AssetsAccountFragmentDirections.settingActionAssetsaccountfragmentToEditassetsaccountfragment(item)
             navController?.navigate(direction)
         }
 
@@ -69,7 +69,7 @@ class AssetsAccountFragment : NavBindingFragment<SettingFragmentAssetsAccountBin
 
 
         mFooterAdapter.setOnItemClickListener { _, _, _ ->
-            navController?.navigate(R.id.setting_action_assetsaccountfragment_to_addassetsaccountfragment)
+            navController?.navigate(R.id.setting_action_assetsaccountfragment_to_editassetsaccountfragment)
         }
     }
 }

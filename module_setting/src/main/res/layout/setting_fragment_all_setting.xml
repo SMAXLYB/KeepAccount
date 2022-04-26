@@ -34,18 +34,22 @@
                 android:background="@drawable/common_corner_all_medium_white_bg"
                 android:orientation="vertical">
 
-                <include
+                <life.chenshi.keepaccounts.module.setting.view.SettingItemView
                     android:id="@+id/setting_exit"
-                    layout="@layout/setting_item_setting_switch"
-                    app:description='@{"打开后, 连续按2次返回键才可退出应用"}'
-                    app:name='@{"退出应用二次确认"}' />
-
-
-                <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_description="打开后, 连续按2次返回键才可退出应用"
+                    app:setting_mode="switcher"
+                    app:setting_title="退出应用二次确认" />
+                
+                <life.chenshi.keepaccounts.module.setting.view.SettingItemView
                     android:id="@+id/setting_delete"
-                    layout="@layout/setting_item_setting_switch"
-                    app:description='@{"打开后, 删除操作会进行弹窗确认, 建议打开, 避免误触操作"}'
-                    app:name='@{"删除操作二次确认"}' />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_description="打开后, 删除操作会进行弹窗确认, 建议打开, 避免误触操作"
+                    app:setting_mode="switcher"
+                    app:setting_title="删除操作二次确认" />
+
             </LinearLayout>
 
             <TextView
@@ -67,26 +71,33 @@
                 android:background="@drawable/common_corner_all_medium_white_bg"
                 android:orientation="vertical">
 
-                <include
+                <life.chenshi.keepaccounts.module.setting.view.SettingItemView
                     android:id="@+id/setting_agreement"
-                    layout="@layout/setting_item_setting_next"
-                    app:name='@{"用户协议"}' />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_mode="onlyArrow"
+                    app:setting_title="用户协议" />
 
-                <include
+                <life.chenshi.keepaccounts.module.setting.view.SettingItemView
                     android:id="@+id/setting_privacy"
-                    layout="@layout/setting_item_setting_next"
-                    app:name='@{"隐私政策"}' />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_mode="onlyArrow"
+                    app:setting_title="隐私政策" />
 
+                <life.chenshi.keepaccounts.module.setting.view.SettingItemView
+                    android:id="@+id/setting_item_setting_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_mode="onlyArrow"
+                    app:setting_title="版本更新" />
 
-                <include
-                    android:id="@+id/setting_update"
-                    layout="@layout/setting_item_setting_next"
-                    app:name='@{"版本更新"}' />
-
-                <include
+                <life.chenshi.keepaccounts.module.setting.view.SettingItemView
                     android:id="@+id/setting_opensource"
-                    layout="@layout/setting_item_setting_next"
-                    app:name='@{"开源技术"}' />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_mode="onlyArrow"
+                    app:setting_title="开源技术" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

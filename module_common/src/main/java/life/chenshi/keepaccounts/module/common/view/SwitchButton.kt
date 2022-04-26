@@ -14,6 +14,9 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.Checkable
 import androidx.core.animation.addListener
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.google.android.material.color.MaterialColors
 import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.utils.dp2px
@@ -220,7 +223,7 @@ class SwitchButton @JvmOverloads constructor(
     }
 
     /**
-     * 重置为选中状态
+     * 重置为选中状态, 此时不会立即重绘, 适合第一次初始化的时候用
      */
     fun resetToChecked() {
         if (mChecked) {
@@ -232,7 +235,7 @@ class SwitchButton @JvmOverloads constructor(
     }
 
     /**
-     * 重置为非选中状态
+     * 重置为非选中状态, 此时不会立即重绘, 适合第一次初始化的时候用
      */
     fun resetToUnchecked() {
         if (!mChecked) {
@@ -243,11 +246,55 @@ class SwitchButton @JvmOverloads constructor(
         mChecked = !mChecked
     }
 
+    /**
+     * 此时不会立即重绘, 适合第一次初始化的时候用
+     */
     fun reset(checked: Boolean) {
         if (checked) {
             resetToChecked()
         } else {
             resetToUnchecked()
+        }
+    }
+}
+
+// 要么用InverseBindingMethods, 要么用InverseBindingAdapter, 反正要告诉dataBinding怎么调get方法
+// @InverseBindingMethods(InverseBindingMethod(type = SwitchButton::class, attribute = "checked"))
+object SwitchButtonBindingAdapter {
+
+    /**
+     * 双向绑定, 防止循环
+     */
+    @JvmStatic
+    @BindingAdapter("checked")
+    fun setChecked(switcher: SwitchButton, checked: Boolean) {
+        if (switcher.isChecked != checked) {
+            switcher.isChecked = checked
+        }
+    }
+
+    /**
+     * 这里可以根据情况改变返回值
+     */
+    @JvmStatic
+    @InverseBindingAdapter(attribute = "checked")
+    fun isChecked(switcher: SwitchButton): Boolean {
+        return switcher.isChecked
+    }
+
+    /**
+     * 设置监听, 告诉view在什么时候触发dataBinding的数据应该更新的回调
+     */
+    @JvmStatic
+    @BindingAdapter("onCheckedChanged", "checkedAttrChanged", requireAll = false)
+    fun setListeners(
+        switcher: SwitchButton,
+        onCheckedChangedListener: CheckChangedListener?,
+        attrChangedListener: InverseBindingListener?
+    ) {
+        switcher.setOnCheckChangedListener {
+            onCheckedChangedListener?.invoke(it)
+            attrChangedListener?.onChange()
         }
     }
 }

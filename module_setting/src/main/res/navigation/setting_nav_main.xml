@@ -27,15 +27,15 @@
         android:label="AssetsAccountFragment"
         tools:layout="@layout/setting_fragment_assets_account">
         <action
-            android:id="@+id/setting_action_assetsaccountfragment_to_addassetsaccountfragment"
-            app:destination="@id/addAssetsAccountFragment" />
+            android:id="@+id/setting_action_assetsaccountfragment_to_editassetsaccountfragment"
+            app:destination="@id/editAssetsAccountFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/addAssetsAccountFragment"
-        android:name="life.chenshi.keepaccounts.module.setting.ui.AddAssetsAccountFragment"
+        android:id="@+id/editAssetsAccountFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.EditAssetsAccountFragment"
         android:label="AddAssetsAccountFragment"
-        tools:layout="@layout/setting_fragment_add_assets_account">
+        tools:layout="@layout/setting_fragment_edit_assets_account">
         <argument
             android:name="assetsAccount"
             android:defaultValue="@null"
