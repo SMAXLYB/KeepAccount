@@ -59,4 +59,8 @@ class MMKVStoreHelper : IKeyValueStoreHelper {
             }
         }
     }
+
+    override fun remove(key: String) {
+        mmkv.removeValueForKey(key)
+    }
 }

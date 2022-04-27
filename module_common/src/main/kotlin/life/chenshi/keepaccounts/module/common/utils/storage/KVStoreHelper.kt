@@ -40,4 +40,8 @@ object KVStoreHelper : IKeyValueStoreHelper {
     override fun <T : Any> write(key: String, value: T) {
         delegate.write(key, value)
     }
+
+    override fun remove(key: String) {
+        delegate.remove(key)
+    }
 }
