@@ -33,7 +33,7 @@
             android:padding="1dp"
             android:visibility="invisible"
             tools:visibility="visible"
-            android:src="@drawable/category_item_category_selected"
+            android:src="@drawable/common_icon_selected"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

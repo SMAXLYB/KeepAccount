@@ -4,6 +4,7 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -14,8 +15,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.base.BaseAdapter
@@ -27,22 +30,25 @@ import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecyclerviewItemBinding
 import life.chenshi.keepaccounts.module.common.service.ICategoryRouterService
+import life.chenshi.keepaccounts.module.common.service.ISettingRouterService
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
+import life.chenshi.keepaccounts.module.common.view.RvItemDivider
 import life.chenshi.keepaccounts.module.record.R
 import life.chenshi.keepaccounts.module.record.adapter.CommonCategoryAdapter
 import life.chenshi.keepaccounts.module.record.databinding.RecordFragmentEditRecordBinding
+import life.chenshi.keepaccounts.module.record.vm.EditRecordViewModel
 import life.chenshi.keepaccounts.module.record.vm.IndexViewModel
-import life.chenshi.keepaccounts.module.record.vm.NewRecordViewModel
 import java.math.BigDecimal
 import java.util.*
 
 /**
  * 新建、查看、修改记录
  */
+@AndroidEntryPoint
 class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>() {
     private val mRecordArgs by navArgs<EditRecordFragmentArgs>()
-    private val mNewRecordViewModel by viewModels<NewRecordViewModel>()
+    private val mEditRecordViewModel by viewModels<EditRecordViewModel>()
     private val mIndexViewModel by viewModels<IndexViewModel>()
     private val mCommonCategoryAdapter by lazy { CommonCategoryAdapter(emptyList()) }
 
@@ -60,18 +66,18 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // record更新
         mRecordArgs.record?.let {
-            mNewRecordViewModel.record = it
-            mNewRecordViewModel.detailMode.value = true
+            mEditRecordViewModel.record = it
+            mEditRecordViewModel.detailMode.value = true
         }
 
         // 默认账本
-        mNewRecordViewModel.hasDefaultBook({
+        mEditRecordViewModel.hasDefaultBook({
             lifecycleScope.launch {
-                val book = mNewRecordViewModel.getBookById(it)
-                mNewRecordViewModel.currentBook.value = book
+                val book = mEditRecordViewModel.getBookById(it)
+                mEditRecordViewModel.currentBook.value = book
             }
         }, {
-            mNewRecordViewModel.currentBook.value = null
+            mEditRecordViewModel.currentBook.value = null
         })
 
         // 分类
@@ -84,11 +90,11 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
     override fun initListener() {
         binding.bar.setLeftClickListener { onBackPressed() }
         binding.bar.setRightClickListener {
-            mNewRecordViewModel.confirmBeforeDelete {
+            mEditRecordViewModel.confirmBeforeDelete {
                 if (it) {
-                    showDeleteDialog(mNewRecordViewModel.record!!)
+                    showDeleteDialog(mEditRecordViewModel.record!!)
                 } else {
-                    mIndexViewModel.deleteRecord(mNewRecordViewModel.record!!)
+                    mIndexViewModel.deleteRecord(mEditRecordViewModel.record!!)
                     ToastUtil.showSuccess("删除成功")
                     onBackPressed()
                 }
@@ -97,7 +103,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // 分类点击事件
         mCommonCategoryAdapter.setOnItemClickListener { _, category, _ ->
-            if (mNewRecordViewModel.detailMode.value!!) {
+            if (mEditRecordViewModel.detailMode.value!!) {
                 return@setOnItemClickListener
             }
             if (category.id == -1) {
@@ -106,7 +112,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                         putString(BUSINESS, this@EditRecordFragment.javaClass.name)
                     }
             } else {
-                mNewRecordViewModel.currentAbstractCategory.value = category
+                mEditRecordViewModel.currentAbstractCategory.value = category
             }
         }
 
@@ -122,6 +128,31 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                  }
              )
          }*/
+
+        // 资产账户
+        binding.tvAsset.setNoDoubleClickListener {
+            listener {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    mEditRecordViewModel.assetAccounts
+                        .take(1)
+                        .flowOn(Dispatchers.IO)
+                        .collect {
+                            if (it.isEmpty()) {
+                                ToastUtil.showShort("您还没有账户, 快去创建一个吧")
+                                context?.navTo<ISettingRouterService>(Path(PATH_SETTING_ASSETS))
+                                return@collect
+                            }
+                            showBottomSheetDialog(
+                                data = it,
+                                bindView = { binding, item ->
+                                    binding.tvContent.text = item.name
+                                },
+                                listener = { binding, item, position -> }
+                            )
+                        }
+                }
+            }
+        }
 
         // 金额
         binding.tvMoney.filters = arrayOf(object : InputFilter {
@@ -159,40 +190,46 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         })
 
         // 账本
-        binding.tvBook.setOnClickListener {
-            if (mNewRecordViewModel.detailMode.value!!) {
-                return@setOnClickListener
-            }
-            lifecycleScope.launch(Dispatchers.IO) {
-                mNewRecordViewModel.books
-                    .take(1)
-                    .collect {
-                        // 前置条件,至少有一个账本
-                        if (it.isEmpty()) {
-                            ToastUtil.showShort(resources.getString(R.string.record_no_book_tip))
-                            return@collect
-                        }
-                        // 弹窗显示
-                        lifecycleScope.launch(Dispatchers.Main) {
+        binding.tvBook.setNoDoubleClickListener {
+            listener {
+                if (mEditRecordViewModel.detailMode.value!!) {
+                    return@listener
+                }
+                viewLifecycleOwner.lifecycleScope.launch {
+                    mEditRecordViewModel.books
+                        .take(1)
+                        .flowOn(Dispatchers.IO)
+                        .collect {
+                            // 前置条件,至少有一个账本
+                            if (it.isEmpty()) {
+                                ToastUtil.showShort(resources.getString(R.string.record_no_book_tip))
+                                return@collect
+                            }
+                            // 弹窗显示
                             showBottomSheetDialog(
                                 it,
-                                { binding, itemData -> binding.tvContent.text = itemData.name },
-                                { _, itemData, _ -> mNewRecordViewModel.currentBook.value = itemData }
+                                bindView = { binding, itemData ->
+                                    binding.tvContent.text = itemData.name
+                                    if (mEditRecordViewModel.currentBook.value?.id == itemData.id) {
+                                        binding.ivSelected.visible()
+                                    }
+                                },
+                                listener = { _, itemData, _ -> mEditRecordViewModel.currentBook.value = itemData }
                             )
                         }
-                    }
+                }
             }
         }
 
         // 日期
         binding.tvDatetime.setOnClickListener {
-            if (mNewRecordViewModel.detailMode.value!!) {
+            if (mEditRecordViewModel.detailMode.value!!) {
                 return@setOnClickListener
             }
             CardDatePickerDialog.builder(requireContext())
                 .setBackGroundModel(CardDatePickerDialog.STACK)
                 .setThemeColor(requireContext().getColorFromAttr(R.attr.colorPrimary))
-                .setDefaultTime(mNewRecordViewModel.currentDateTime.value!!)
+                .setDefaultTime(mEditRecordViewModel.currentDateTime.value!!)
                 .showBackNow(false)
                 .setDisplayType(
                     DateTimeConfig.YEAR,
@@ -203,7 +240,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 )
                 .setLabelText("年", "月", "日", "时", "分")
                 .setOnChoose {
-                    mNewRecordViewModel.currentDateTime.value = it
+                    mEditRecordViewModel.currentDateTime.value = it
                 }
                 .build()
                 .show()
@@ -219,7 +256,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         // 编辑按钮
         binding.mbtnEdit.setOnClickListener {
             // 取消详情模式
-            mNewRecordViewModel.detailMode.value = false
+            mEditRecordViewModel.detailMode.value = false
         }
 
         listOf(
@@ -269,7 +306,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
     }
 
     override fun initObserver() {
-        mNewRecordViewModel.run {
+        mEditRecordViewModel.run {
             // 收支类型
             currentRecordType.observe(this@EditRecordFragment) {
                 binding.tvRecordType.text = if (it == RECORD_TYPE_INCOME) {
@@ -343,7 +380,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                         } else {
                             binding.bar.hideRightIcon()
                             binding.bar.visible()
-                            if (!mNewRecordViewModel.record.isNull()) {
+                            if (!mEditRecordViewModel.record.isNull()) {
                                 binding.bar.setCenterTitle("编辑账单")
                             }
                         }
@@ -358,9 +395,9 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         LiveEventBus.get(CATEGORY, AbstractCategory::class.java)
             .observe(this) { abstractCategory ->
                 // 先更新集合
-                mNewRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory)
+                mEditRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory)
                 // 后更新选中
-                mNewRecordViewModel.currentAbstractCategory.value = abstractCategory
+                mEditRecordViewModel.currentAbstractCategory.value = abstractCategory
             }
     }
 
@@ -376,27 +413,27 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 // 金额
                 binding.tvMoney.text = String.format(it.money.toString())
                 // 时间
-                mNewRecordViewModel.currentDateTime.value = it.time.time
+                mEditRecordViewModel.currentDateTime.value = it.time.time
                 // 备注
                 binding.etRemark.setText(it.remark)
                 binding.etRemark.isEnabled = false
                 // 账本
-                mNewRecordViewModel.currentBook.value = mNewRecordViewModel.getBookById(it.bookId)
+                mEditRecordViewModel.currentBook.value = mEditRecordViewModel.getBookById(it.bookId)
                 // 类型 如果有子类,优先使用子类,否则使用主类
                 val abstractCategory = if (it.minorCategoryId != 0) {
                     // 有可能子类被删除了
-                    mNewRecordViewModel.getMinorCategoryById(it.minorCategoryId)
+                    mEditRecordViewModel.getMinorCategoryById(it.minorCategoryId)
                 } else {
                     // 有可能主类被删除了
-                    mNewRecordViewModel.getMajorCategoryById(it.majorCategoryId)
+                    mEditRecordViewModel.getMajorCategoryById(it.majorCategoryId)
                 }
                 // 如果被删除了,使用记录的状态
                 if (abstractCategory.isNull()) {
-                    mNewRecordViewModel.currentRecordType.value = it.recordType
+                    mEditRecordViewModel.currentRecordType.value = it.recordType
                 } else {
                     // 有TOP6可能并不包含,需要手动添加
-                    mNewRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory!!)
-                    mNewRecordViewModel.currentAbstractCategory.value = abstractCategory
+                    mEditRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory!!)
+                    mEditRecordViewModel.currentAbstractCategory.value = abstractCategory
                 }
             }
         }
@@ -410,25 +447,27 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         bindView: (CommonBottomSheetRecyclerviewItemBinding, T) -> Unit,
         listener: (CommonBottomSheetRecyclerviewItemBinding, T, Int) -> Unit,
     ) {
-        val dialog = BottomSheetDialog(requireContext(), R.style.CommonBottomSheetDialog).apply {
+        BottomSheetDialog(requireContext()).apply {
             val binding = CommonBottomSheetRecyclerviewBinding.inflate(layoutInflater).apply {
                 rvContent.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                rvContent.adapter =
-                    object : BaseAdapter<T, CommonBottomSheetRecyclerviewItemBinding>(data) {
-                        override fun setResLayoutId() =
-                            R.layout.common_bottom_sheet_recyclerview_item
+                rvContent.adapter = object : BaseAdapter<T, CommonBottomSheetRecyclerviewItemBinding>(data) {
+                    override fun setResLayoutId() =
+                        R.layout.common_bottom_sheet_recyclerview_item
 
-                        override fun onBindViewHolder(
-                            binding: CommonBottomSheetRecyclerviewItemBinding, itemData: T,
-                        ) {
-                            bindView.invoke(binding, itemData)
-                        }
-                    }.apply {
-                        setOnItemClickListener { binding, itemData, i ->
-                            listener.invoke(binding, itemData, i)
-                            dismiss()
-                        }
+                    override fun onBindViewHolder(
+                        binding: CommonBottomSheetRecyclerviewItemBinding, itemData: T,
+                    ) {
+                        bindView.invoke(binding, itemData)
                     }
+                }.apply {
+                    setOnItemClickListener { binding, itemData, i ->
+                        listener.invoke(binding, itemData, i)
+                        dismiss()
+                    }
+                }
+                val divider =
+                    RvItemDivider(AppCompatResources.getDrawable(context, R.drawable.common_rv_item_divider)!!)
+                rvContent.addItemDecoration(divider)
             }
             setContentView(binding.root)
             show()
@@ -444,7 +483,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         }
 
         // 更新 或者 新建
-        mNewRecordViewModel.record?.apply { updateRecord(this) } ?: insertRecord()
+        mEditRecordViewModel.record?.apply { updateRecord(this) } ?: insertRecord()
         onBackPressed()
     }
 
@@ -458,9 +497,9 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // 更新完一次后要置空
         // 更新 或者 新建
-        mNewRecordViewModel.record?.apply {
+        mEditRecordViewModel.record?.apply {
             updateRecord(this)
-            mNewRecordViewModel.record = null
+            mEditRecordViewModel.record = null
             binding.bar.setCenterTitle("添加账单")
         } ?: insertRecord()
 
@@ -480,7 +519,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
      * 新建记录
      */
     private fun insertRecord() {
-        mNewRecordViewModel.insertRecord(convertDataToRecord())
+        mEditRecordViewModel.insertRecord(convertDataToRecord())
         ToastUtil.showSuccess("添加成功")
     }
 
@@ -489,7 +528,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
      * @param record Record
      */
     private fun updateRecord(record: Record) {
-        mNewRecordViewModel.updateRecord(convertDataToRecord(record))
+        mEditRecordViewModel.updateRecord(convertDataToRecord(record))
         ToastUtil.showSuccess("更新成功")
     }
 
@@ -500,11 +539,11 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
     private fun convertDataToRecord(record: Record? = null): Record {
         val money = BigDecimalUtil.yuan2FenBD(binding.tvMoney.text.toString())
         val remark = binding.etRemark.text.toString()
-        val date = Date(mNewRecordViewModel.currentDateTime.value!!)
-        val recordType = mNewRecordViewModel.currentRecordType.value!!
-        val bookId = mNewRecordViewModel.currentBook.value!!.id!!
+        val date = Date(mEditRecordViewModel.currentDateTime.value!!)
+        val recordType = mEditRecordViewModel.currentRecordType.value!!
+        val bookId = mEditRecordViewModel.currentBook.value!!.id!!
 
-        mNewRecordViewModel.currentAbstractCategory.value!!.apply {
+        mEditRecordViewModel.currentAbstractCategory.value!!.apply {
             var minorCategoryId = 0
             val majorCategoryId = if (this.categoryType == CATEGORY_TYPE_MAJOR) {
                 this.id!!
@@ -538,13 +577,13 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             return false
         }
 
-        val book = mNewRecordViewModel.currentBook.value
+        val book = mEditRecordViewModel.currentBook.value
         if (book == null) {
             ToastUtil.showShort("请选择账本")
             return false
         }
 
-        if (mNewRecordViewModel.currentAbstractCategory.value.isNull()) {
+        if (mEditRecordViewModel.currentAbstractCategory.value.isNull()) {
             ToastUtil.showShort("请选择类型")
             return false
         }

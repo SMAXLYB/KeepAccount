@@ -3,6 +3,7 @@ package life.chenshi.keepaccounts.module.record.vm
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
@@ -13,13 +14,16 @@ import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
 import life.chenshi.keepaccounts.module.common.database.AppDatabase
+import life.chenshi.keepaccounts.module.common.database.dao.AssetsAccountDao
 import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
+import javax.inject.Inject
 
-class NewRecordViewModel : ViewModel() {
+@HiltViewModel
+class EditRecordViewModel @Inject constructor() : ViewModel() {
 
     //　record更新 控制数据
     var record: Record? = null
@@ -32,10 +36,13 @@ class NewRecordViewModel : ViewModel() {
     private val mMinorCategoryDao by lazy { AppDatabase.getDatabase().getMinorCategoryDao() }
     private val mMajorCategoryDao by lazy { AppDatabase.getDatabase().getMajorCategoryDao() }
 
+    @Inject
+    lateinit var mAssetAccountDao: AssetsAccountDao
+
     // 当前所有选中的配置
     val currentBook = MutableLiveData<Book>()
-    val currentRecordType = MutableLiveData<Int>(RECORD_TYPE_OUTCOME)
-    val currentDateTime = MutableLiveData<Long>(System.currentTimeMillis())
+    val currentRecordType = MutableLiveData(RECORD_TYPE_OUTCOME)
+    val currentDateTime = MutableLiveData(System.currentTimeMillis())
     val currentAbstractCategory = MutableLiveData<AbstractCategory>()
 
     // 常用类别
@@ -43,6 +50,7 @@ class NewRecordViewModel : ViewModel() {
 
     // 所有账本
     val books = mBookDao.getAllBooks()
+    val assetAccounts by lazy { mAssetAccountDao.getAllAssetsAccount() }
 
     init {
         viewModelScope.launch {

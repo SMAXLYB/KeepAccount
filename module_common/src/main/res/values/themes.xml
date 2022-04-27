@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--标准activity-->
     <style name="CommonTheme.KeepAccounts" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- bottom sheet dialog-->
+        <item name="bottomSheetDialogTheme">@style/CommonBottomSheetDialog</item>
         <!-- 主色调 -->
         <item name="colorPrimary">@color/common_blue_500</item>
         <!-- 主色调的深色、浅色 -->

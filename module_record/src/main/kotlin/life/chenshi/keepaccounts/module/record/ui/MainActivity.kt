@@ -2,6 +2,7 @@ package life.chenshi.keepaccounts.module.record.ui
 
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import life.chenshi.keepaccounts.module.common.base.NavHostActivity
 import life.chenshi.keepaccounts.module.common.constant.RECORD_EDIT
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
@@ -12,6 +13,7 @@ import life.chenshi.keepaccounts.module.record.databinding.RecordActivityMainBin
 /**
  * Record模块的宿主Activity
  */
+@AndroidEntryPoint
 class MainActivity : NavHostActivity() {
 
     private val mainArgs by navArgs<MainActivityArgs>()

@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
 import life.chenshi.keepaccounts.module.common.R
 import life.chenshi.keepaccounts.module.common.base.BaseApplication
 
@@ -32,7 +32,7 @@ object ToastUtil {
         val context = BaseApplication.application
         val toastView = LayoutInflater.from(context).inflate(R.layout.common_layout_toast, null)
         toastView.findViewById<ImageView>(R.id.iv_toast_icon)
-            .setImageDrawable(ContextCompat.getDrawable(context, type.src))
+            .setImageDrawable(AppCompatResources.getDrawable(context, type.src))
         val message =
             toastView.findViewById<TextView>(R.id.tv_toast_message)
         message.text = text

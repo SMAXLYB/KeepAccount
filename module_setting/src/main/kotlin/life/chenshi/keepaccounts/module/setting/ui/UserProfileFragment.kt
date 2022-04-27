@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate.*
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -77,37 +77,37 @@ class UserProfileFragment : Fragment() {
         mBinding.tvNightMode.text = when (context?.nightMode()) {
             true -> {
                 mBinding.ivNightMode.setImageDrawable(
-                    ContextCompat.getDrawable(requireContext(), R.drawable.setting_icon_day)
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.setting_icon_day)
                 )
                 "日间"
             }
             else -> {
                 mBinding.ivNightMode.setImageDrawable(
-                    ContextCompat.getDrawable(requireContext(), R.drawable.setting_icon_night)
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.setting_icon_night)
                 )
                 "夜间"
             }
         }
         mBinding.settingHelp.ivIcon.setVisibleWithDrawable(
-            ContextCompat.getDrawable(
+            AppCompatResources.getDrawable(
                 requireContext(),
                 R.drawable.setting_icon_help
             )
         )
         mBinding.settingFeedback.ivIcon.setVisibleWithDrawable(
-            ContextCompat.getDrawable(
+            AppCompatResources.getDrawable(
                 requireContext(),
                 R.drawable.setting_icon_feedback
             )
         )
         mBinding.settingAbout.ivIcon.setVisibleWithDrawable(
-            ContextCompat.getDrawable(
+            AppCompatResources.getDrawable(
                 requireContext(),
                 R.drawable.setting_icon_about
             )
         )
         mBinding.allSetting.ivIcon.setVisibleWithDrawable(
-            ContextCompat.getDrawable(
+            AppCompatResources.getDrawable(
                 requireContext(),
                 R.drawable.setting_icon_setting
             )
