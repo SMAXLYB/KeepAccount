@@ -12,10 +12,12 @@ import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.base.NavBindingFragment
+import life.chenshi.keepaccounts.module.common.constant.CURRENT_ASSET_ACCOUNT_ID
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.getColorFromAttr
 import life.chenshi.keepaccounts.module.common.utils.navController
 import life.chenshi.keepaccounts.module.common.utils.setNoDoubleClickListener
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.setting.R
 import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentEditAssetsAccountBinding
 import life.chenshi.keepaccounts.module.setting.vm.AllSettingViewModel
@@ -97,6 +99,7 @@ class EditAssetsAccountFragment : NavBindingFragment<SettingFragmentEditAssetsAc
                 assetExpireDate.set(it.expireTime.time)
                 assetBalance.set(it.balance.toPlainString())
                 includedInAll.set(it.includedInAllAsset)
+                usedDefault.set(KVStoreHelper.read(CURRENT_ASSET_ACCOUNT_ID, -1L) == it.id)
             }
         }
     }

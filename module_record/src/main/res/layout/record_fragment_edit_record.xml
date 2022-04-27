@@ -59,7 +59,6 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/slash"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.592" />
@@ -72,19 +71,24 @@
                 android:text="/"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_record_type"
-                app:layout_constraintEnd_toStartOf="@id/tv_asset"
                 app:layout_constraintStart_toEndOf="@id/tv_record_type" />
 
             <TextView
                 android:id="@+id/tv_asset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constrainedWidth="true"
                 android:background="@drawable/common_corner_all_small_gray_bg"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                android:layout_marginEnd="10dp"
+                android:lines="1"
+                android:ellipsize="end"
+                app:layout_constraintHorizontal_bias="0"
                 android:text="不计入资产"
                 android:textColor="?colorOnSurface"
                 app:layout_constraintBaseline_toBaselineOf="@id/slash"
+                app:layout_constraintEnd_toStartOf="@id/tv_money"
                 app:layout_constraintStart_toEndOf="@id/slash" />
 
             <TextView
@@ -172,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_corner_all_small_gray_bg"
                 android:padding="5dp"
-                android:text="默认账本"
+                android:text="未选择账本"
                 android:textColor="?colorOnBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_book_title" />

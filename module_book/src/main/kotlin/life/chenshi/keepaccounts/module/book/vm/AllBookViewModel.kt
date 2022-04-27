@@ -2,7 +2,7 @@ package life.chenshi.keepaccounts.module.book.vm
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.module.common.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.module.common.constant.CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.module.common.database.AppDatabase
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
@@ -48,7 +48,7 @@ class AllBookViewModel : ViewModel() {
      */
     fun setCurrentBookId(id: Int) {
         viewModelScope.launch {
-            DataStoreUtil.writeToDataStore(DB_CURRENT_BOOK_ID, id)
+            DataStoreUtil.writeToDataStore(CURRENT_BOOK_ID, id)
         }
     }
 
@@ -58,7 +58,7 @@ class AllBookViewModel : ViewModel() {
     private fun getCurrentBookId() {
         viewModelScope.launch {
             currentBookId =
-                DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1).asLiveData()
+                DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1).asLiveData()
         }
     }
 

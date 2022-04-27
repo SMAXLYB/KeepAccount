@@ -10,6 +10,7 @@ import java.util.*
  * 收支记录实体, 外键包含账本, 主类型;
  * 当账本被删除,当下所有记录被删除;
  * 当主类型被伪删除,当下记录不会删除,当主类被真的删除,当下所有记录会被删除
+ * 当账户被删除时, 置null
  */
 @Entity(
     tableName = TB_RECORDS,
@@ -17,7 +18,8 @@ import java.util.*
         Index(value = ["id"]),
         Index(value = ["time"]),
         Index(value = ["major_category_id"]),
-        Index(value = ["book_id"])],
+        Index(value = ["book_id"]),
+        Index(value = ["assets_account_id"])],
     foreignKeys = [ForeignKey(
         entity = Book::class,
         parentColumns = ["id"],
@@ -28,6 +30,11 @@ import java.util.*
         parentColumns = ["id"],
         childColumns = ["major_category_id"],
         onDelete = ForeignKey.CASCADE
+    ), ForeignKey(
+        entity = AssetsAccount::class,
+        parentColumns = ["id"],
+        childColumns = ["assets_account_id"],
+        onDelete = ForeignKey.SET_NULL
     )]
 )
 data class Record constructor(
@@ -53,17 +60,18 @@ data class Record constructor(
     @ColumnInfo(name = "book_id")
     var bookId: Int,
     @ColumnInfo(name = "assets_account_id")
-    var AssetsAccountId: Int? = null
+    var assetsAccountId: Long? = null
 ) : Serializable {
 
-    fun setAllData(
+    fun setDataFrom(
         money: BigDecimal,
         remark: String?,
         date: Date,
         majorCategoryId: Int,
         minorCategoryId: Int,
         recordType: Int,
-        bookId: Int
+        bookId: Int,
+        assetsAccountId: Long? = null
     ) {
         this.money = money
         this.remark = remark
@@ -72,6 +80,7 @@ data class Record constructor(
         this.minorCategoryId = minorCategoryId
         this.recordType = recordType
         this.bookId = bookId
+        this.assetsAccountId = assetsAccountId
     }
 }
 

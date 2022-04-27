@@ -17,7 +17,7 @@ import java.util.*
 )
 data class AssetsAccount constructor(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    val id: Long? = null,
     // 账户名称
     val name: String,
     // 余额

@@ -9,7 +9,7 @@ import life.chenshi.keepaccounts.module.common.database.entity.AssetsAccount
 interface AssetsAccountDao {
 
     @Insert
-    suspend fun insertAssetsAccount(assetsAccount: AssetsAccount)
+    suspend fun insertAssetsAccount(assetsAccount: AssetsAccount): Long
 
     @Query("SELECT * FROM $TB_ASSETS_ACCOUNT")
     fun getAllAssetsAccount(): Flow<List<AssetsAccount>>
@@ -18,5 +18,8 @@ interface AssetsAccountDao {
     suspend fun deleteAssetsAccountBy(assetsAccount: AssetsAccount)
 
     @Update
-    suspend fun updateAssetsAccount(assetsAccount: AssetsAccount)
+    suspend fun updateAssetsAccount(assetsAccount: AssetsAccount): Int
+
+    @Query("SELECT * FROM $TB_ASSETS_ACCOUNT WHERE id = :id")
+    suspend fun getAssetsAccountById(id: Long): AssetsAccount?
 }

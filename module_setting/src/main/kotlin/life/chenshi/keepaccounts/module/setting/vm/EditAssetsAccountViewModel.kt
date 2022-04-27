@@ -8,8 +8,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.base.BaseViewModel
+import life.chenshi.keepaccounts.module.common.constant.CURRENT_ASSET_ACCOUNT_ID
 import life.chenshi.keepaccounts.module.common.database.entity.AssetsAccount
 import life.chenshi.keepaccounts.module.common.utils.BigDecimalUtil
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.setting.repo.AssetsAccountRepo
 import java.util.*
 import javax.inject.Inject
@@ -37,10 +39,21 @@ class EditAssetsAccountViewModel @Inject constructor(private val repo: AssetsAcc
             includedInAll.get(),
             Date(assetExpireDate.get())
         )
-        if (assets.id == null) {
+        assetsAccount.value?.createTime?.let {
+            assets.createTime = it
+        }
+        val id = if (assets.id == null) {
             repo.insertAssetsAccount(assets)
         } else {
             repo.updateAssetsAccount(assets)
+            requireNotNull(assets.id) { "更新操作必须有id" }
+        }
+        if (usedDefault.get()) {
+            KVStoreHelper.write(CURRENT_ASSET_ACCOUNT_ID, id)
+        } else {
+            if (KVStoreHelper.read(CURRENT_ASSET_ACCOUNT_ID, -1L) == id) {
+                KVStoreHelper.remove(CURRENT_ASSET_ACCOUNT_ID)
+            }
         }
     }
 

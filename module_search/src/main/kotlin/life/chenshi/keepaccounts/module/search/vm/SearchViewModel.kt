@@ -29,7 +29,7 @@ class SearchViewModel : ViewModel() {
     private var mTempRecordLiveData: LiveData<List<RecordWithCategoryBean>>? = null
 
     private val currentBookId =
-        DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
+        DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
 
     fun getRecordByKeyword(keyword: String) {
         if (mTempRecordLiveData != null) {

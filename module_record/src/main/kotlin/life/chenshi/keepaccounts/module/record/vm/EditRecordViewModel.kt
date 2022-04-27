@@ -9,21 +9,22 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import life.chenshi.keepaccounts.module.common.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.module.common.constant.CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
 import life.chenshi.keepaccounts.module.common.database.AppDatabase
-import life.chenshi.keepaccounts.module.common.database.dao.AssetsAccountDao
 import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
+import life.chenshi.keepaccounts.module.common.database.entity.AssetsAccount
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
+import life.chenshi.keepaccounts.module.record.repo.EditRecordRepo
 import javax.inject.Inject
 
 @HiltViewModel
-class EditRecordViewModel @Inject constructor() : ViewModel() {
+class EditRecordViewModel @Inject constructor(private val repo: EditRecordRepo) : ViewModel() {
 
     //　record更新 控制数据
     var record: Record? = null
@@ -31,16 +32,13 @@ class EditRecordViewModel @Inject constructor() : ViewModel() {
     // 当前是否为查看详情模式 控制界面
     val detailMode = MutableLiveData<Boolean>(false)
 
-    private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }
     private val mRecordDao by lazy { AppDatabase.getDatabase().getRecordDao() }
     private val mMinorCategoryDao by lazy { AppDatabase.getDatabase().getMinorCategoryDao() }
     private val mMajorCategoryDao by lazy { AppDatabase.getDatabase().getMajorCategoryDao() }
 
-    @Inject
-    lateinit var mAssetAccountDao: AssetsAccountDao
-
     // 当前所有选中的配置
     val currentBook = MutableLiveData<Book>()
+    val currentAssetsAccount = MutableLiveData<AssetsAccount>()
     val currentRecordType = MutableLiveData(RECORD_TYPE_OUTCOME)
     val currentDateTime = MutableLiveData(System.currentTimeMillis())
     val currentAbstractCategory = MutableLiveData<AbstractCategory>()
@@ -49,8 +47,8 @@ class EditRecordViewModel @Inject constructor() : ViewModel() {
     val commonMinorCategory = MutableLiveData<MutableList<AbstractCategory>>()
 
     // 所有账本
-    val books = mBookDao.getAllBooks()
-    val assetAccounts by lazy { mAssetAccountDao.getAllAssetsAccount() }
+    val books by lazy { repo.getAllBooks() }
+    val assetAccounts by lazy { repo.getAllAssetsAccount() }
 
     init {
         viewModelScope.launch {
@@ -92,7 +90,7 @@ class EditRecordViewModel @Inject constructor() : ViewModel() {
     fun hasDefaultBook(doIfHas: (Int) -> Unit, doIfNot: (() -> Unit)?) {
         viewModelScope.launch {
             var currentBookId = -1
-            DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
+            DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
                 .take(1)
                 .collect {
                     currentBookId = it
@@ -110,7 +108,7 @@ class EditRecordViewModel @Inject constructor() : ViewModel() {
      * @param id Int
      * @return Book
      */
-    suspend fun getBookById(id: Int) = mBookDao.getBookById(id)
+    suspend fun getBookById(id: Int) = repo.getBookById(id)
 
     /**
      * 根据id查找主类
@@ -154,6 +152,12 @@ class EditRecordViewModel @Inject constructor() : ViewModel() {
     fun confirmBeforeDelete(callback: (Boolean) -> Unit) {
         KVStoreHelper.read(SWITCHER_CONFIRM_BEFORE_DELETE, true).apply {
             callback.invoke(this)
+        }
+    }
+
+    fun getAssetsAccountById(id: Long) {
+        viewModelScope.launch {
+            currentAssetsAccount.value = repo.getAssetsAccountById(id)
         }
     }
 }

@@ -10,11 +10,11 @@ import javax.inject.Singleton
 class AssetsAccountRepo @Inject constructor(private val assetsAccountDao: AssetsAccountDao) {
     fun getAllAssetsAccounts() = assetsAccountDao.getAllAssetsAccount()
 
-    suspend fun insertAssetsAccount(assetsAccount: AssetsAccount) {
+    suspend fun insertAssetsAccount(assetsAccount: AssetsAccount): Long {
         val now = Date()
         assetsAccount.modifyTime = now
         assetsAccount.createTime = now
-        assetsAccountDao.insertAssetsAccount(assetsAccount)
+        return assetsAccountDao.insertAssetsAccount(assetsAccount)
     }
 
     suspend fun deleteAssetsAccount(assetsAccount: AssetsAccount) {
@@ -22,8 +22,8 @@ class AssetsAccountRepo @Inject constructor(private val assetsAccountDao: Assets
         assetsAccountDao.deleteAssetsAccountBy(assetsAccount)
     }
 
-    suspend fun updateAssetsAccount(assetsAccount: AssetsAccount) {
+    suspend fun updateAssetsAccount(assetsAccount: AssetsAccount): Int {
         assetsAccount.modifyTime = Date()
-        assetsAccountDao.updateAssetsAccount(assetsAccount)
+        return assetsAccountDao.updateAssetsAccount(assetsAccount)
     }
 }

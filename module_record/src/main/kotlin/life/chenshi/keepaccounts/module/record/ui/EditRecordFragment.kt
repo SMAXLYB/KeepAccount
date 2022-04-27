@@ -4,7 +4,6 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -32,8 +31,8 @@ import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecy
 import life.chenshi.keepaccounts.module.common.service.ICategoryRouterService
 import life.chenshi.keepaccounts.module.common.service.ISettingRouterService
 import life.chenshi.keepaccounts.module.common.utils.*
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
-import life.chenshi.keepaccounts.module.common.view.RvItemDivider
 import life.chenshi.keepaccounts.module.record.R
 import life.chenshi.keepaccounts.module.record.adapter.CommonCategoryAdapter
 import life.chenshi.keepaccounts.module.record.databinding.RecordFragmentEditRecordBinding
@@ -68,23 +67,29 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         mRecordArgs.record?.let {
             mEditRecordViewModel.record = it
             mEditRecordViewModel.detailMode.value = true
-        }
+            // 如果有账单, 先查账本里面的, 账本没有就不查了
+            mEditRecordViewModel.getAssetsAccountById(it.assetsAccountId ?: -1L)
+        } ?: kotlin.run {
+            // 默认账本
+            mEditRecordViewModel.hasDefaultBook({
+                lifecycleScope.launch {
+                    val book = mEditRecordViewModel.getBookById(it)
+                    mEditRecordViewModel.currentBook.value = book
+                }
+            }, {
+                mEditRecordViewModel.currentBook.value = null
+            })
 
-        // 默认账本
-        mEditRecordViewModel.hasDefaultBook({
-            lifecycleScope.launch {
-                val book = mEditRecordViewModel.getBookById(it)
-                mEditRecordViewModel.currentBook.value = book
-            }
-        }, {
-            mEditRecordViewModel.currentBook.value = null
-        })
+            // 如果没有账本, 直接查默认
+            mEditRecordViewModel.getAssetsAccountById(KVStoreHelper.read(CURRENT_ASSET_ACCOUNT_ID, -1))
+        }
 
         // 分类
         binding.rvCategory.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = mCommonCategoryAdapter
         }
+
     }
 
     override fun initListener() {
@@ -145,9 +150,14 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                             showBottomSheetDialog(
                                 data = it,
                                 bindView = { binding, item ->
+                                    if (mEditRecordViewModel.currentAssetsAccount.value?.id == item.id) {
+                                        binding.ivSelected.visible()
+                                    }
                                     binding.tvContent.text = item.name
                                 },
-                                listener = { binding, item, position -> }
+                                listener = { _, item, _ ->
+                                    mEditRecordViewModel.currentAssetsAccount.value = item
+                                }
                             )
                         }
                 }
@@ -191,6 +201,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // 账本
         binding.tvBook.setNoDoubleClickListener {
+            interval = 1000
             listener {
                 if (mEditRecordViewModel.detailMode.value!!) {
                     return@listener
@@ -308,7 +319,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
     override fun initObserver() {
         mEditRecordViewModel.run {
             // 收支类型
-            currentRecordType.observe(this@EditRecordFragment) {
+            currentRecordType.observe(viewLifecycleOwner) {
                 binding.tvRecordType.text = if (it == RECORD_TYPE_INCOME) {
                     binding.tvMoney.setTextColor(requireContext().getColorFromRes(R.color.common_income))
                     "收入"
@@ -320,18 +331,23 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
 
             // 账本
-            currentBook.observe(this@EditRecordFragment) {
+            currentBook.observe(viewLifecycleOwner) {
                 binding.tvBook.text = it?.name ?: "未选择账本"
             }
 
+            // 账户
+            currentAssetsAccount.observe(viewLifecycleOwner) {
+                binding.tvAsset.text = it?.name ?: "不计入资产"
+            }
+
             // 时间
-            currentDateTime.observe(this@EditRecordFragment) {
+            currentDateTime.observe(viewLifecycleOwner) {
                 binding.tvDatetime.text =
                     DateUtil.date2String(Date(it), DateUtil.YEAR_MONTH_DAY_HOUR_MIN_FORMAT)
             }
 
             // 常用类型
-            commonMinorCategory.observe(this@EditRecordFragment) {
+            commonMinorCategory.observe(viewLifecycleOwner) {
                 mCommonCategoryAdapter.setData(
                     it + MinorCategory(
                         -1,
@@ -343,7 +359,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
 
             // 当前选中类型
-            currentAbstractCategory.observe(this@EditRecordFragment) {
+            currentAbstractCategory.observe(viewLifecycleOwner) {
                 // 如果有必要, 更新收支类型
                 if (currentRecordType.value != it.recordType) {
                     currentRecordType.apply {
@@ -360,7 +376,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
 
             // record更新
-            detailMode.observe(this@EditRecordFragment) {
+            detailMode.observe(viewLifecycleOwner) {
                 if (it) {
                     // 如果是查看详情模式
                     setUpViewWhenDetail()
@@ -465,9 +481,6 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                         dismiss()
                     }
                 }
-                val divider =
-                    RvItemDivider(AppCompatResources.getDrawable(context, R.drawable.common_rv_item_divider)!!)
-                rvContent.addItemDecoration(divider)
             }
             setContentView(binding.root)
             show()
@@ -542,6 +555,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         val date = Date(mEditRecordViewModel.currentDateTime.value!!)
         val recordType = mEditRecordViewModel.currentRecordType.value!!
         val bookId = mEditRecordViewModel.currentBook.value!!.id!!
+        val assetsId = mEditRecordViewModel.currentAssetsAccount.value?.id
 
         mEditRecordViewModel.currentAbstractCategory.value!!.apply {
             var minorCategoryId = 0
@@ -554,11 +568,11 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
             // 更新赋值
             record?.run {
-                setAllData(money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId)
+                setDataFrom(money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId, assetsId)
                 return this
             }
             //新建赋值
-            return Record(null, money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId)
+            return Record(null, money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId, assetsId)
         }
     }
 
