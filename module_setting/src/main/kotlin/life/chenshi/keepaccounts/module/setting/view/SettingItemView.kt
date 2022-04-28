@@ -8,6 +8,7 @@ import androidx.core.content.res.use
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import life.chenshi.keepaccounts.module.common.utils.setVisibilityWithText
 import life.chenshi.keepaccounts.module.common.utils.visible
 import life.chenshi.keepaccounts.module.common.view.CheckChangedListener
 import life.chenshi.keepaccounts.module.setting.R
@@ -47,7 +48,7 @@ class SettingItemView @JvmOverloads constructor(
         }
 
         mBinding.tvSettingTitle.text = mTitle ?: "默认标题"
-        mBinding.tvSettingDescription.text = mDescription ?: ""
+        mBinding.tvSettingDescription.setVisibilityWithText(mDescription ?: "", true)
         mBinding.tvSettingContent.text = mContent ?: ""
 
         when (mode) {

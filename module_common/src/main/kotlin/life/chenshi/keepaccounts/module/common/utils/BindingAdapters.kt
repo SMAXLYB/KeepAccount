@@ -19,6 +19,11 @@ fun bindTextWithVisibility(view: TextView, text: CharSequence?) {
     }
 }
 
+@BindingAdapter("nullableText", "defaultText", requireAll = true)
+fun bindDefaultTextIfNullOrEmpty(view: TextView, nullableText: CharSequence?, defaultText:CharSequence) {
+    view.text = nullableText.takeUnless { it.isNullOrEmpty() } ?: defaultText
+}
+
 /**
  * 按照给定的格式来格式化时间戳, 然后展示在textView上
  */

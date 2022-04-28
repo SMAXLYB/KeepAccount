@@ -70,10 +70,12 @@ data class NoDoubleClickHelper(
     }
 }
 
-fun TextView.setVisibilityWithText(text: String) {
+fun TextView.setVisibilityWithText(text: String, isGone: Boolean = false) {
     visibility = if (text.isNotBlank()) {
         setText(text)
         View.VISIBLE
+    } else if (isGone) {
+        View.GONE
     } else {
         View.INVISIBLE
     }

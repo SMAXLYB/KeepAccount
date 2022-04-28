@@ -136,7 +136,11 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // 资产账户
         binding.tvAsset.setNoDoubleClickListener {
+            interval = 1000
             listener {
+                if (mEditRecordViewModel.detailMode.value!!) {
+                    return@listener
+                }
                 viewLifecycleOwner.lifecycleScope.launch {
                     mEditRecordViewModel.assetAccounts
                         .take(1)

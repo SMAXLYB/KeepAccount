@@ -152,11 +152,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.1"
-                    android:text="@{viewModel.assetNumber}"
                     android:textColor="@color/common_white"
                     android:textSize="16sp"
+                    app:defaultText='@{"/"}'
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/siv_assets_logo"
+                    app:nullableText="@{viewModel.assetNumber}"
                     tools:text="123456789@qq.com" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
