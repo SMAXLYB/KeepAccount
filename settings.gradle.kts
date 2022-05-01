@@ -7,6 +7,7 @@ include(
     ":module_record",
     ":module_analysis",
     ":module_book",
-    "module_category"
+    "module_category",
+    "module_audio"
 )
 rootProject.name = "KeepAccounts"
