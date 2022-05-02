@@ -24,12 +24,13 @@ internal fun Project.applyAndroidBlock(runAsApp: Boolean) {
         extensions.getByType<LibraryExtension>().applyConfig(this)
     }
 
-    extensions.configure<KaptExtension>("kapt") {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
+    if(this.name.contains("module") || this.name.contains("app")){
+        extensions.configure<KaptExtension>("kapt") {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.name)
+            }
         }
     }
-
 }
 
 internal fun BaseAppModuleExtension.applyConfig(project: Project) {
@@ -142,8 +143,8 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
     // }
 
     lint {
-        isAbortOnError = false
-        isCheckReleaseBuilds = false
+        abortOnError = false
+        checkReleaseBuilds = false
     }
 
     compileOptions {
@@ -174,7 +175,9 @@ internal fun LibraryExtension.applyConfig(project: Project) {
         getByName("main") {
             manifest.srcFile("src/main/AndroidManifest.xml")
             kotlin {
-                exclude("src/main/kotlin/run_as_app/**")
+                /* 升级后exclude失效了, kotlin资源统一放在包名下*/
+                srcDir("src/main/kotlin/life.chenshi.keepaccounts/")
+                // exclude("src/main/kotlin/run_as_app/**")
             }
         }
     }
@@ -212,7 +215,7 @@ internal fun LibraryExtension.applyConfig(project: Project) {
             // buildConfig动态配置
             // buildConfigField "String","INDEX_URL",""http://chenshi.life""
             // 资源动态配置
-            resValue("string", "app_name", "Keep-Accounts")
+            resValue("string", "app_name", project.appName)
         }
 
         // 同理测试环境
@@ -223,7 +226,7 @@ internal fun LibraryExtension.applyConfig(project: Project) {
             // buildConfig动态配置
             // buildConfigField "String","INDEX_URL",""http://chenshi.life""
             // 资源动态配置
-            resValue("string", "app_name", "Keep-Accounts测试版")
+            resValue("string", "app_name", "${project.appName}_开发版")
         }
     }
     // manifest文件变量占位
@@ -232,8 +235,8 @@ internal fun LibraryExtension.applyConfig(project: Project) {
     // }
 
     lint {
-        isAbortOnError = false
-        isCheckReleaseBuilds = false
+        abortOnError = false
+        checkReleaseBuilds = false
     }
 
     compileOptions {

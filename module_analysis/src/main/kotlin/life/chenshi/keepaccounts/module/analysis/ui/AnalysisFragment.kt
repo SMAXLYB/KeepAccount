@@ -182,6 +182,8 @@ class AnalysisFragment : Fragment() {
         mBinding.analyzeDate.setOnClickListener {
             activity?.let { activity ->
                 CardDatePickerDialog.builder(activity)
+                    .setBackGroundModel(CardDatePickerDialog.STACK)
+                    .setThemeColor(requireContext().getColorFromAttr(R.attr.colorPrimary))
                     .setMaxTime(System.currentTimeMillis())
                     .showBackNow(false)
                     .setDisplayType(
@@ -190,7 +192,6 @@ class AnalysisFragment : Fragment() {
                             DateTimeConfig.MONTH
                         )
                     )
-                    .setThemeColor(Color.parseColor("#03A9F4"))
                     .setLabelText(year = "年", month = "月")
                     .setOnChoose { millisecond ->
                         mAnalyzeViewModel.queryDateLiveData.value = millisecond
@@ -241,6 +242,7 @@ class AnalysisFragment : Fragment() {
 
             // 当前按年查看还是按月查看
             currentTypeLiveData.observe(viewLifecycleOwner) {
+                it
                 val date = Date(mAnalyzeViewModel.queryDateLiveData.value!!)
 
                 if (it == TYPE_YEAR) {

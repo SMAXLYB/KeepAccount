@@ -21,15 +21,15 @@ class Converters {
         return date?.time?.div(1000)
     }
 
-    // 取出
+    // 取出，精确到后2位， 相当于除了100
     @TypeConverter
-    fun fromInt(value: Long?): BigDecimal? {
+    fun fromLong(value: Long?): BigDecimal? {
         return value?.let { BigDecimal(it).movePointLeft(2) }
     }
 
-    // 存入 sqlite3不支持BigDecimal, 需要手动转换
+    // 存入 sqlite3不支持BigDecimal, 需要手动转换, 为了方便sum计算, 存的类型是long
     @TypeConverter
-    fun bigDecimalToInt(bigDecimal: BigDecimal?): Long? {
-        return bigDecimal?.toLong()
+    fun bigDecimalToLong(bigDecimal: BigDecimal?): Long? {
+        return bigDecimal?.multiply(BigDecimal(100))?.toLong()
     }
 }

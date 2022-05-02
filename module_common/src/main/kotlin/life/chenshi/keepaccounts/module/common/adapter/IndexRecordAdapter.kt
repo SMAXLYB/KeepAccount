@@ -1,6 +1,5 @@
 package life.chenshi.keepaccounts.module.common.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -12,6 +11,7 @@ import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.databinding.CommonItemBudgetDetailBinding
 import life.chenshi.keepaccounts.module.common.databinding.ItemBudgetBinding
 import life.chenshi.keepaccounts.module.common.utils.DateUtil
+import life.chenshi.keepaccounts.module.common.utils.getColorFromRes
 
 class IndexRecordAdapter(private var recordListGroupByDay: List<List<RecordWithCategoryBean>>) :
     RecyclerView.Adapter<IndexRecordAdapter.IndexRecordViewHolder>() {
@@ -52,17 +52,16 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<RecordWithC
                     it.record.time,
                     DateUtil.HOUR_MINUTE
                 )
-                if (it.record.recordType == RECORD_TYPE_OUTCOME) {
-                    // 金额
-                    with(itemBudgetDetailMoney) {
-                        text = "-${it.record.money}"
-                        setTextColor(Color.parseColor("#E91E63"))
-                    }
-                } else {
-                    with(itemBudgetDetailMoney) {
+                with(itemBudgetDetailMoney) {
+                    val color = if (it.record.recordType == RECORD_TYPE_OUTCOME) {
+                        // 金额
+                        text = "${it.record.money}"
+                        context.getColorFromRes(R.color.common_outcome)
+                    } else {
                         text = "+${it.record.money}"
-                        setTextColor(Color.parseColor("#8bc34a"))
+                        context.getColorFromRes(R.color.common_income)
                     }
+                    setTextColor(color)
                 }
                 mLongClickListener?.let { _ ->
                     root.setOnClickListener { _ ->

@@ -1,9 +1,11 @@
 package life.chenshi.keepaccounts.ui
 
+import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.databinding.AppActivityMainBinding
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
@@ -11,6 +13,7 @@ import life.chenshi.keepaccounts.module.common.constant.SWITCHER_EXIT_APP
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
     private lateinit var mNavController: NavController
     private lateinit var mBinding: AppActivityMainBinding
@@ -27,7 +30,7 @@ class MainActivity : BaseActivity() {
         return false
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         mBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_main)
         // 初始化controller，绑定navMenu
         mNavController =

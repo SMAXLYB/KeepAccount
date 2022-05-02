@@ -16,7 +16,7 @@ import life.chenshi.keepaccounts.module.common.utils.setVisibility
 
 typealias Listener = (DialogFragment, ViewDataBinding?) -> Unit
 
-class CustomDialog constructor() : DialogFragment() {
+class CustomDialog private constructor() : DialogFragment() {
 
     private var params = Params()
 

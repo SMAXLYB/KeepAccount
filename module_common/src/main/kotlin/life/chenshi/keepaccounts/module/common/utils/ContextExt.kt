@@ -48,9 +48,6 @@ fun Context.vibrate() {
 }
 
 fun Context.nightMode(): Boolean {
-    return when (this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-        Configuration.UI_MODE_NIGHT_YES -> true
-        Configuration.UI_MODE_NIGHT_NO -> false
-        else -> false
-    }
+    val mode = this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+    return mode == Configuration.UI_MODE_NIGHT_YES
 }

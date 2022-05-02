@@ -22,10 +22,10 @@ class AllSettingFragment : NavBindingFragment<SettingFragmentAllSettingBinding>(
 
     override fun initView() {
         with(KVStoreHelper.read(SWITCHER_EXIT_APP, true)) {
-            binding.settingExit.switcher.reset(this)
+            binding.settingExit.setSwitchChecked(this)
         }
         with(KVStoreHelper.read(SWITCHER_CONFIRM_BEFORE_DELETE, true)) {
-            binding.settingDelete.switcher.reset(this)
+            binding.settingDelete.setSwitchChecked(this)
         }
     }
 
@@ -42,10 +42,10 @@ class AllSettingFragment : NavBindingFragment<SettingFragmentAllSettingBinding>(
         //     val directions = AllSettingFragmentDirections.settingActionAllsettingfragmentToThemesettingfragment()
         //     navController.navigate(directions, extras)
         // }
-        binding.settingExit.switcher.setOnCheckChangedListener {
+        binding.settingExit.setOnSwitchCheckedChangedListener {
             KVStoreHelper.write(SWITCHER_EXIT_APP, it)
         }
-        binding.settingDelete.switcher.setOnCheckChangedListener {
+        binding.settingDelete.setOnSwitchCheckedChangedListener {
             KVStoreHelper.write(SWITCHER_CONFIRM_BEFORE_DELETE, it)
         }
     }

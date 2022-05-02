@@ -6,4 +6,5 @@ package life.chenshi.keepaccounts.module.common.utils.storage
 interface IKeyValueStoreHelper {
     fun <T : Any> read(key: String, defaultValueIfNull: T): T
     fun <T : Any> write(key: String, value: T)
+    fun remove(key: String)
 }

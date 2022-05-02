@@ -8,5 +8,5 @@ android {
     }
 }
 dependencies {
-    implementation(Libs.dateTimePicker)
+    implementation(Libs.mPAndroidChart)
 }

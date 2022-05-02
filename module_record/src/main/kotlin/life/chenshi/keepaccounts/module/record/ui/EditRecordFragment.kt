@@ -4,48 +4,50 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.view.View
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.base.BaseAdapter
 import life.chenshi.keepaccounts.module.common.base.NavBindingFragment
-import life.chenshi.keepaccounts.module.common.base.onBackPressed
-import life.chenshi.keepaccounts.module.common.constant.CATEGORY_TYPE_MAJOR
-import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_INCOME
-import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
+import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecyclerviewBinding
 import life.chenshi.keepaccounts.module.common.databinding.CommonBottomSheetRecyclerviewItemBinding
+import life.chenshi.keepaccounts.module.common.service.ICategoryRouterService
+import life.chenshi.keepaccounts.module.common.service.ISettingRouterService
 import life.chenshi.keepaccounts.module.common.utils.*
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
 import life.chenshi.keepaccounts.module.record.R
 import life.chenshi.keepaccounts.module.record.adapter.CommonCategoryAdapter
 import life.chenshi.keepaccounts.module.record.databinding.RecordFragmentEditRecordBinding
+import life.chenshi.keepaccounts.module.record.vm.EditRecordViewModel
 import life.chenshi.keepaccounts.module.record.vm.IndexViewModel
-import life.chenshi.keepaccounts.module.record.vm.NewRecordViewModel
 import java.math.BigDecimal
 import java.util.*
 
 /**
  * 新建、查看、修改记录
  */
+@AndroidEntryPoint
 class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>() {
     private val mRecordArgs by navArgs<EditRecordFragmentArgs>()
-    private val mNewRecordViewModel by viewModels<NewRecordViewModel>()
+    private val mEditRecordViewModel by viewModels<EditRecordViewModel>()
     private val mIndexViewModel by viewModels<IndexViewModel>()
     private val mCommonCategoryAdapter by lazy { CommonCategoryAdapter(emptyList()) }
 
@@ -63,35 +65,41 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // record更新
         mRecordArgs.record?.let {
-            mNewRecordViewModel.record = it
-            mNewRecordViewModel.detailMode.value = true
-        }
+            mEditRecordViewModel.record = it
+            mEditRecordViewModel.detailMode.value = true
+            // 如果有账单, 先查账本里面的, 账本没有就不查了
+            mEditRecordViewModel.getAssetsAccountById(it.assetsAccountId ?: -1L)
+        } ?: kotlin.run {
+            // 默认账本
+            mEditRecordViewModel.hasDefaultBook({
+                lifecycleScope.launch {
+                    val book = mEditRecordViewModel.getBookById(it)
+                    mEditRecordViewModel.currentBook.value = book
+                }
+            }, {
+                mEditRecordViewModel.currentBook.value = null
+            })
 
-        // 默认账本
-        mNewRecordViewModel.hasDefaultBook({
-            lifecycleScope.launch {
-                val book = mNewRecordViewModel.getBookById(it)
-                mNewRecordViewModel.currentBook.value = book
-            }
-        }, {
-            mNewRecordViewModel.currentBook.value = null
-        })
+            // 如果没有账本, 直接查默认
+            mEditRecordViewModel.getAssetsAccountById(KVStoreHelper.read(CURRENT_ASSET_ACCOUNT_ID, -1))
+        }
 
         // 分类
         binding.rvCategory.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = mCommonCategoryAdapter
         }
+
     }
 
     override fun initListener() {
         binding.bar.setLeftClickListener { onBackPressed() }
         binding.bar.setRightClickListener {
-            mNewRecordViewModel.confirmBeforeDelete {
+            mEditRecordViewModel.confirmBeforeDelete {
                 if (it) {
-                    showDeleteDialog(mNewRecordViewModel.record!!)
+                    showDeleteDialog(mEditRecordViewModel.record!!)
                 } else {
-                    mIndexViewModel.deleteRecord(mNewRecordViewModel.record!!)
+                    mIndexViewModel.deleteRecord(mEditRecordViewModel.record!!)
                     ToastUtil.showSuccess("删除成功")
                     onBackPressed()
                 }
@@ -100,17 +108,16 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // 分类点击事件
         mCommonCategoryAdapter.setOnItemClickListener { _, category, _ ->
-            if (mNewRecordViewModel.detailMode.value!!) {
+            if (mEditRecordViewModel.detailMode.value!!) {
                 return@setOnItemClickListener
             }
             if (category.id == -1) {
-                val request = NavDeepLinkRequest.Builder
-                    .fromUri("keepAccounts://categoryActivity".toUri())
-                    .build()
-                // Navigation.findNavController(this, R.id.rootView).navigate(request)
-                // Navigation.findNavController(binding.root).navigate(request)
+                ARouter.getInstance().navigation(ICategoryRouterService::class.java)
+                    .navTo(requireContext()) {
+                        putString(BUSINESS, this@EditRecordFragment.javaClass.name)
+                    }
             } else {
-                mNewRecordViewModel.currentAbstractCategory.value = category
+                mEditRecordViewModel.currentAbstractCategory.value = category
             }
         }
 
@@ -126,6 +133,40 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                  }
              )
          }*/
+
+        // 资产账户
+        binding.tvAsset.setNoDoubleClickListener {
+            interval = 1000
+            listener {
+                if (mEditRecordViewModel.detailMode.value!!) {
+                    return@listener
+                }
+                viewLifecycleOwner.lifecycleScope.launch {
+                    mEditRecordViewModel.assetAccounts
+                        .take(1)
+                        .flowOn(Dispatchers.IO)
+                        .collect {
+                            if (it.isEmpty()) {
+                                ToastUtil.showShort("您还没有账户, 快去创建一个吧")
+                                context?.navTo<ISettingRouterService>(Path(PATH_SETTING_ASSETS))
+                                return@collect
+                            }
+                            showBottomSheetDialog(
+                                data = it,
+                                bindView = { binding, item ->
+                                    if (mEditRecordViewModel.currentAssetsAccount.value?.id == item.id) {
+                                        binding.ivSelected.visible()
+                                    }
+                                    binding.tvContent.text = item.name
+                                },
+                                listener = { _, item, _ ->
+                                    mEditRecordViewModel.currentAssetsAccount.value = item
+                                }
+                            )
+                        }
+                }
+            }
+        }
 
         // 金额
         binding.tvMoney.filters = arrayOf(object : InputFilter {
@@ -163,40 +204,47 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         })
 
         // 账本
-        binding.tvBook.setOnClickListener {
-            if (mNewRecordViewModel.detailMode.value!!) {
-                return@setOnClickListener
-            }
-            lifecycleScope.launch(Dispatchers.IO) {
-                mNewRecordViewModel.books
-                    .take(1)
-                    .collect {
-                        // 前置条件,至少有一个账本
-                        if (it.isEmpty()) {
-                            ToastUtil.showShort(resources.getString(R.string.record_no_book_tip))
-                            return@collect
-                        }
-                        // 弹窗显示
-                        lifecycleScope.launch(Dispatchers.Main) {
+        binding.tvBook.setNoDoubleClickListener {
+            interval = 1000
+            listener {
+                if (mEditRecordViewModel.detailMode.value!!) {
+                    return@listener
+                }
+                viewLifecycleOwner.lifecycleScope.launch {
+                    mEditRecordViewModel.books
+                        .take(1)
+                        .flowOn(Dispatchers.IO)
+                        .collect {
+                            // 前置条件,至少有一个账本
+                            if (it.isEmpty()) {
+                                ToastUtil.showShort(resources.getString(R.string.record_no_book_tip))
+                                return@collect
+                            }
+                            // 弹窗显示
                             showBottomSheetDialog(
                                 it,
-                                { binding, itemData -> binding.tvContent.text = itemData.name },
-                                { _, itemData, _ -> mNewRecordViewModel.currentBook.value = itemData }
+                                bindView = { binding, itemData ->
+                                    binding.tvContent.text = itemData.name
+                                    if (mEditRecordViewModel.currentBook.value?.id == itemData.id) {
+                                        binding.ivSelected.visible()
+                                    }
+                                },
+                                listener = { _, itemData, _ -> mEditRecordViewModel.currentBook.value = itemData }
                             )
                         }
-                    }
+                }
             }
         }
 
         // 日期
         binding.tvDatetime.setOnClickListener {
-            if (mNewRecordViewModel.detailMode.value!!) {
+            if (mEditRecordViewModel.detailMode.value!!) {
                 return@setOnClickListener
             }
             CardDatePickerDialog.builder(requireContext())
                 .setBackGroundModel(CardDatePickerDialog.STACK)
-                .setThemeColor(requireContext().getColorFromRes(R.color.colorPrimary))
-                .setDefaultTime(mNewRecordViewModel.currentDateTime.value!!)
+                .setThemeColor(requireContext().getColorFromAttr(R.attr.colorPrimary))
+                .setDefaultTime(mEditRecordViewModel.currentDateTime.value!!)
                 .showBackNow(false)
                 .setDisplayType(
                     DateTimeConfig.YEAR,
@@ -207,7 +255,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 )
                 .setLabelText("年", "月", "日", "时", "分")
                 .setOnChoose {
-                    mNewRecordViewModel.currentDateTime.value = it
+                    mEditRecordViewModel.currentDateTime.value = it
                 }
                 .build()
                 .show()
@@ -223,7 +271,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         // 编辑按钮
         binding.mbtnEdit.setOnClickListener {
             // 取消详情模式
-            mNewRecordViewModel.detailMode.value = false
+            mEditRecordViewModel.detailMode.value = false
         }
 
         listOf(
@@ -273,9 +321,9 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
     }
 
     override fun initObserver() {
-        mNewRecordViewModel.run {
+        mEditRecordViewModel.run {
             // 收支类型
-            currentRecordType.observe(this@EditRecordFragment) {
+            currentRecordType.observe(viewLifecycleOwner) {
                 binding.tvRecordType.text = if (it == RECORD_TYPE_INCOME) {
                     binding.tvMoney.setTextColor(requireContext().getColorFromRes(R.color.common_income))
                     "收入"
@@ -287,18 +335,23 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
 
             // 账本
-            currentBook.observe(this@EditRecordFragment) {
+            currentBook.observe(viewLifecycleOwner) {
                 binding.tvBook.text = it?.name ?: "未选择账本"
             }
 
+            // 账户
+            currentAssetsAccount.observe(viewLifecycleOwner) {
+                binding.tvAsset.text = it?.name ?: "不计入资产"
+            }
+
             // 时间
-            currentDateTime.observe(this@EditRecordFragment) {
+            currentDateTime.observe(viewLifecycleOwner) {
                 binding.tvDatetime.text =
                     DateUtil.date2String(Date(it), DateUtil.YEAR_MONTH_DAY_HOUR_MIN_FORMAT)
             }
 
             // 常用类型
-            commonMinorCategory.observe(this@EditRecordFragment) {
+            commonMinorCategory.observe(viewLifecycleOwner) {
                 mCommonCategoryAdapter.setData(
                     it + MinorCategory(
                         -1,
@@ -310,7 +363,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
 
             // 当前选中类型
-            currentAbstractCategory.observe(this@EditRecordFragment) {
+            currentAbstractCategory.observe(viewLifecycleOwner) {
                 // 如果有必要, 更新收支类型
                 if (currentRecordType.value != it.recordType) {
                     currentRecordType.apply {
@@ -327,7 +380,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
 
             // record更新
-            detailMode.observe(this@EditRecordFragment) {
+            detailMode.observe(viewLifecycleOwner) {
                 if (it) {
                     // 如果是查看详情模式
                     setUpViewWhenDetail()
@@ -342,11 +395,12 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                     binding.clKeyboard.post {
                         val diff = 50.dp2px()
                         if (binding.clKeyboard.top - binding.voucher.bottom < diff) {
+                            // td--状态栏计算有问题
                             binding.bar.gone()
                         } else {
                             binding.bar.hideRightIcon()
                             binding.bar.visible()
-                            if (!mNewRecordViewModel.record.isNull()) {
+                            if (!mEditRecordViewModel.record.isNull()) {
                                 binding.bar.setCenterTitle("编辑账单")
                             }
                         }
@@ -358,13 +412,12 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         }
 
         // 监听类型选中
-        // td--抽到常量里去
-        LiveEventBus.get("category", AbstractCategory::class.java)
+        LiveEventBus.get(CATEGORY, AbstractCategory::class.java)
             .observe(this) { abstractCategory ->
                 // 先更新集合
-                mNewRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory)
+                mEditRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory)
                 // 后更新选中
-                mNewRecordViewModel.currentAbstractCategory.value = abstractCategory
+                mEditRecordViewModel.currentAbstractCategory.value = abstractCategory
             }
     }
 
@@ -380,27 +433,27 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 // 金额
                 binding.tvMoney.text = String.format(it.money.toString())
                 // 时间
-                mNewRecordViewModel.currentDateTime.value = it.time.time
+                mEditRecordViewModel.currentDateTime.value = it.time.time
                 // 备注
                 binding.etRemark.setText(it.remark)
                 binding.etRemark.isEnabled = false
                 // 账本
-                mNewRecordViewModel.currentBook.value = mNewRecordViewModel.getBookById(it.bookId)
+                mEditRecordViewModel.currentBook.value = mEditRecordViewModel.getBookById(it.bookId)
                 // 类型 如果有子类,优先使用子类,否则使用主类
                 val abstractCategory = if (it.minorCategoryId != 0) {
                     // 有可能子类被删除了
-                    mNewRecordViewModel.getMinorCategoryById(it.minorCategoryId)
+                    mEditRecordViewModel.getMinorCategoryById(it.minorCategoryId)
                 } else {
                     // 有可能主类被删除了
-                    mNewRecordViewModel.getMajorCategoryById(it.majorCategoryId)
+                    mEditRecordViewModel.getMajorCategoryById(it.majorCategoryId)
                 }
                 // 如果被删除了,使用记录的状态
                 if (abstractCategory.isNull()) {
-                    mNewRecordViewModel.currentRecordType.value = it.recordType
+                    mEditRecordViewModel.currentRecordType.value = it.recordType
                 } else {
                     // 有TOP6可能并不包含,需要手动添加
-                    mNewRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory!!)
-                    mNewRecordViewModel.currentAbstractCategory.value = abstractCategory
+                    mEditRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory!!)
+                    mEditRecordViewModel.currentAbstractCategory.value = abstractCategory
                 }
             }
         }
@@ -414,25 +467,24 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         bindView: (CommonBottomSheetRecyclerviewItemBinding, T) -> Unit,
         listener: (CommonBottomSheetRecyclerviewItemBinding, T, Int) -> Unit,
     ) {
-        val dialog = BottomSheetDialog(requireContext(), R.style.CommonBottomSheetDialog).apply {
+        BottomSheetDialog(requireContext()).apply {
             val binding = CommonBottomSheetRecyclerviewBinding.inflate(layoutInflater).apply {
                 rvContent.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                rvContent.adapter =
-                    object : BaseAdapter<T, CommonBottomSheetRecyclerviewItemBinding>(data) {
-                        override fun setResLayoutId() =
-                            R.layout.common_bottom_sheet_recyclerview_item
+                rvContent.adapter = object : BaseAdapter<T, CommonBottomSheetRecyclerviewItemBinding>(data) {
+                    override fun setResLayoutId() =
+                        R.layout.common_bottom_sheet_recyclerview_item
 
-                        override fun onBindViewHolder(
-                            binding: CommonBottomSheetRecyclerviewItemBinding, itemData: T,
-                        ) {
-                            bindView.invoke(binding, itemData)
-                        }
-                    }.apply {
-                        setOnItemClickListener { binding, itemData, i ->
-                            listener.invoke(binding, itemData, i)
-                            dismiss()
-                        }
+                    override fun onBindViewHolder(
+                        binding: CommonBottomSheetRecyclerviewItemBinding, itemData: T,
+                    ) {
+                        bindView.invoke(binding, itemData)
                     }
+                }.apply {
+                    setOnItemClickListener { binding, itemData, i ->
+                        listener.invoke(binding, itemData, i)
+                        dismiss()
+                    }
+                }
             }
             setContentView(binding.root)
             show()
@@ -448,7 +500,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         }
 
         // 更新 或者 新建
-        mNewRecordViewModel.record?.apply { updateRecord(this) } ?: insertRecord()
+        mEditRecordViewModel.record?.apply { updateRecord(this) } ?: insertRecord()
         onBackPressed()
     }
 
@@ -462,9 +514,9 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // 更新完一次后要置空
         // 更新 或者 新建
-        mNewRecordViewModel.record?.apply {
+        mEditRecordViewModel.record?.apply {
             updateRecord(this)
-            mNewRecordViewModel.record = null
+            mEditRecordViewModel.record = null
             binding.bar.setCenterTitle("添加账单")
         } ?: insertRecord()
 
@@ -484,7 +536,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
      * 新建记录
      */
     private fun insertRecord() {
-        mNewRecordViewModel.insertRecord(convertDataToRecord())
+        mEditRecordViewModel.insertRecord(convertDataToRecord())
         ToastUtil.showSuccess("添加成功")
     }
 
@@ -493,7 +545,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
      * @param record Record
      */
     private fun updateRecord(record: Record) {
-        mNewRecordViewModel.updateRecord(convertDataToRecord(record))
+        mEditRecordViewModel.updateRecord(convertDataToRecord(record))
         ToastUtil.showSuccess("更新成功")
     }
 
@@ -502,13 +554,20 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
      * @param record Record?
      */
     private fun convertDataToRecord(record: Record? = null): Record {
-        val money = BigDecimalUtil.yuan2FenBD(binding.tvMoney.text.toString())
+        val recordType = mEditRecordViewModel.currentRecordType.value!!
+        // val money = BigDecimalUtil.yuan2FenBD(binding.tvMoney.text.toString())
+        val moneyText = if (recordType == RECORD_TYPE_OUTCOME) {
+            "-${binding.tvMoney.text}"
+        } else {
+            "+${binding.tvMoney.text}"
+        }
+        val money = BigDecimalUtil.fromString(moneyText)
         val remark = binding.etRemark.text.toString()
-        val date = Date(mNewRecordViewModel.currentDateTime.value!!)
-        val recordType = mNewRecordViewModel.currentRecordType.value!!
-        val bookId = mNewRecordViewModel.currentBook.value!!.id!!
+        val date = Date(mEditRecordViewModel.currentDateTime.value!!)
+        val bookId = mEditRecordViewModel.currentBook.value!!.id!!
+        val assetsId = mEditRecordViewModel.currentAssetsAccount.value?.id
 
-        mNewRecordViewModel.currentAbstractCategory.value!!.apply {
+        mEditRecordViewModel.currentAbstractCategory.value!!.apply {
             var minorCategoryId = 0
             val majorCategoryId = if (this.categoryType == CATEGORY_TYPE_MAJOR) {
                 this.id!!
@@ -519,11 +578,11 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             }
             // 更新赋值
             record?.run {
-                setAllData(money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId)
+                setDataFrom(money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId, assetsId)
                 return this
             }
             //新建赋值
-            return Record(null, money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId)
+            return Record(null, money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId, assetsId)
         }
     }
 
@@ -536,19 +595,19 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             ToastUtil.showShort("请输入金额")
             return false
         }
-        val money: BigDecimal = BigDecimalUtil.yuan2FenBD(moneyText.toString())
+        val money: BigDecimal = BigDecimalUtil.fromString(moneyText.toString())
         if (money.compareTo(BigDecimal.ZERO) == 0) {
             ToastUtil.showShort("金额不能为0")
             return false
         }
 
-        val book = mNewRecordViewModel.currentBook.value
+        val book = mEditRecordViewModel.currentBook.value
         if (book == null) {
             ToastUtil.showShort("请选择账本")
             return false
         }
 
-        if (mNewRecordViewModel.currentAbstractCategory.value.isNull()) {
+        if (mEditRecordViewModel.currentAbstractCategory.value.isNull()) {
             ToastUtil.showShort("请选择类型")
             return false
         }

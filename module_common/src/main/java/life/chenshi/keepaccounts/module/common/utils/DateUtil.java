@@ -18,12 +18,15 @@ public class DateUtil {
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat MONTH_DAY_FORMAT = new SimpleDateFormat("MM-dd");
     @SuppressLint("SimpleDateFormat")
+    public static final DateFormat MONTH_DAY_FORMAT_2 = new SimpleDateFormat("MM/dd");
+    @SuppressLint("SimpleDateFormat")
     public static final DateFormat HOUR_MINUTE = new SimpleDateFormat("HH:mm");
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat YEAR_MONTH_DAY_FORMAT = new SimpleDateFormat("yyyy年MM月dd日");
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat YEAR_MONTH_DAY_HOUR_MIN_FORMAT = new SimpleDateFormat("yyyy/MM/dd - HH:mm");
 
+    public static final long MILLIS_IN_DAY = 1000 * 60 * 60 * 24;
 
     /**
      * 时间字符串转化为 Date 对象
@@ -244,5 +247,24 @@ public class DateUtil {
         calendar.set(Calendar.SECOND, maxSecond);
         calendar.set(Calendar.MILLISECOND, maxMillisecond);
         return calendar.getTime();
+    }
+
+    /**
+     * 参数位数为13位
+     */
+    public static long getDaysBetween(long a, long b) {
+
+        Date date1 = new Date(a);
+        Date date2 = new Date(b);
+
+        String d1 = date2String(date1, YEAR_MONTH_DAY_FORMAT);
+        String d2 = date2String(date2, YEAR_MONTH_DAY_FORMAT);
+
+        date1 = string2Date(d1, YEAR_MONTH_DAY_FORMAT);
+        date2 = string2Date(d2, YEAR_MONTH_DAY_FORMAT);
+
+        long diff = Math.abs(date1.getTime() - date2.getTime());
+
+        return diff / MILLIS_IN_DAY;
     }
 }

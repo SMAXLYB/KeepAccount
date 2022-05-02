@@ -6,7 +6,7 @@ import life.chenshi.keepaccounts.module.common.database.entity.Book
 
 @Dao
 interface BookDao {
-    // 增 suspend修饰-->后台执行 liveData返回-->后台执行
+    // 增 suspend修饰-->后台执行 liveData返回-->后台执行 flow-->具备变化感知能力, 只会感知表中内容
     @Insert
     suspend fun insertBook(book: Book)
 

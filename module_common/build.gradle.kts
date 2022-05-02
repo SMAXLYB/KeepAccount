@@ -38,7 +38,7 @@ dependencies {
     api(Libs.navigation_ui)
     api(Libs.navigation_fragment)
     api(Libs.liveEventBus)
-
+    api(Libs.dateTimePicker)
     implementation(project(":gson_extra"))
     api(Libs.room_runtime)
     implementation(Libs.room)

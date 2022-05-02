@@ -23,6 +23,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_content"
             android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"
             android:layout_height="wrap_content"
             tools:listitem="@layout/common_bottom_sheet_recyclerview_item" />
     </LinearLayout>

@@ -7,14 +7,14 @@
         <item name="android:background">@drawable/common_corner_top_large_white_bg</item>
     </style>
 
-    <style name="CommonBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="CommonBottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <!--底部弹出条的样式（相当于背景）-->
         <item name="bottomSheetStyle">@style/CommonBottomSheet</item>
         <!--状态栏颜色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!--导航条颜色-->
-        <item name="android:navigationBarColor">@color/common_white</item>
+        <item name="android:navigationBarColor">?colorSurface</item>
     </style>
 
     <!--   ================Divider================== -->
@@ -25,8 +25,16 @@
         <item name="android:layout_marginEnd">15dp</item>
     </style>
 
+
+    <!--   ================圆角图片================== -->
+    <style name="CommonRoundedCornerImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="CommonWindowAnimationTransition">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
+
 </resources>

@@ -2,61 +2,37 @@ package life.chenshi.keepaccounts.module.setting.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import life.chenshi.keepaccounts.module.common.constant.DB_CURRENT_BOOK_ID
-import life.chenshi.keepaccounts.module.common.database.AppDatabase
-import life.chenshi.keepaccounts.module.common.database.entity.Book
-import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
-import java.util.*
+import life.chenshi.keepaccounts.module.setting.repo.UserProfileRepo
+import javax.inject.Inject
 
-class UserProfileViewModel : ViewModel() {
-    private val mBookDao by lazy { AppDatabase.getDatabase().getBookDao() }
+@HiltViewModel
+class UserProfileViewModel @Inject constructor(private val repo: UserProfileRepo) : ViewModel() {
 
-    fun hasDefaultBook(doIfHas: (Int) -> Unit, doIfNot: (() -> Unit)? = null) {
+    private val _totalNumOfBook = MutableStateFlow(0)
+    val totalNumOfBook: StateFlow<Int>
+        get() = _totalNumOfBook
+
+    private val _totalNumOfRecord = MutableStateFlow(0)
+    val totalNumOfRecord: StateFlow<Int>
+        get() = _totalNumOfRecord
+
+    fun getTotalNum() {
         viewModelScope.launch {
-            var currentBookId = -1
-            DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
-                .collect {
-                    currentBookId = it
-                    if (currentBookId == -1) {
-                        doIfNot?.invoke()
-                        return@collect
-                    }
-                    doIfHas(currentBookId)
-                }
-        }
-    }
+            val bookNum = async {
+                repo.getTotalNumOfBook()
+            }
 
-    suspend fun getBookNameById(id: Int): Book =
-        mBookDao.getBookById(id)
+            val recordNum = async {
+                repo.getTotalNumOfRecord()
+            }
 
-    fun getGreetContent(): String {
-        return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-            in 1 until 6 -> {
-                "凌晨了，起的真早呀"
-            }
-            in 6 until 10 -> {
-                "早上好，记得吃早餐呦"
-            }
-            in 10 until 12 -> {
-                "上午好，开启工作新一天"
-            }
-            in 12 until 13 -> {
-                "中午好，吃完饭午休一下吧"
-            }
-            in 13 until 17 -> {
-                "下午好，喝杯咖啡吧"
-            }
-            in 17 until 18 -> {
-                "傍晚，下班回家啦"
-            }
-            in 18 until 23 -> {
-                "晚上好，放松一下吧"
-            }
-            else -> {
-                "午夜了，注意休息哦"
-            }
+            _totalNumOfBook.emit(bookNum.await())
+            _totalNumOfRecord.emit(recordNum.await())
         }
     }
 }

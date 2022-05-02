@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,18 +12,31 @@
     <RelativeLayout
         android:id="@+id/rl_setting"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:background="@drawable/common_ripple_medium_bg_surface"
-        android:transitionName="@{name}"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:transitionName="@{name}">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:padding="2dp"
+            android:visibility="gone"
+            tools:src="@drawable/setting_icon_help" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/iv_icon"
             android:text="@{name}"
-            android:textColor="?colorOnSurface" />
+            android:textColor="?colorOnSurface"
+            tools:text="测试"
+            tools:textColor="@color/common_black" />
 
         <ImageView
             android:layout_width="12dp"

@@ -1,5 +1,6 @@
 package life.chenshi.keepaccounts.module.search.ui
 
+import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -27,7 +28,7 @@ class SearchActivity : BaseActivity() {
         private const val TAG = "SearchActivity"
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         mBinding.rvSearchRecords.layoutManager = LinearLayoutManager(this)
         mAdapter = IndexRecordAdapter(emptyList())
         mBinding.rvSearchRecords.adapter = mAdapter
@@ -80,7 +81,7 @@ class SearchActivity : BaseActivity() {
         // 类型筛选
         mBinding.tvSearchFilterType.setNoDoubleClickListener {
             share = true
-            listener = {
+            listener {
                 val view =
                     layoutInflater.inflate(R.layout.search_bottom_sheet_type, null) as ConstraintLayout
                 val bottomSheetDialog = BottomSheetDialog(this@SearchActivity, R.style.CommonBottomSheetDialog)
@@ -118,7 +119,7 @@ class SearchActivity : BaseActivity() {
         // 排序
         mBinding.tvSearchFilterOrder.setNoDoubleClickListener{
             share = true
-            listener = {
+            listener {
                 val view =
                     layoutInflater.inflate(R.layout.search_bottom_sheet_order, null) as ConstraintLayout
                 val bottomSheetDialog = BottomSheetDialog(this@SearchActivity, R.style.CommonBottomSheetDialog)

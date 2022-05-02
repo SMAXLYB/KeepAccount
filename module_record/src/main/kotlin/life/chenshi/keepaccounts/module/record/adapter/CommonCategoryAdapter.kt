@@ -6,20 +6,24 @@ import life.chenshi.keepaccounts.module.common.utils.getColorFromAttr
 import life.chenshi.keepaccounts.module.record.R
 import life.chenshi.keepaccounts.module.record.databinding.RecordItemNewRecordCategoryBinding
 
-class CommonCategoryAdapter(data: List<AbstractCategory>) : BaseAdapter<AbstractCategory, RecordItemNewRecordCategoryBinding>(data) {
+class CommonCategoryAdapter(data: List<AbstractCategory>) :
+    BaseAdapter<AbstractCategory, RecordItemNewRecordCategoryBinding>(data) {
     private var mCurrentCategory: AbstractCategory? = null
 
     override fun onBindViewHolder(binding: RecordItemNewRecordCategoryBinding, itemData: AbstractCategory) {
+        val context = binding.root.context
         binding.tvCategory.text = itemData.name
         // 如果不是最后一个,可以设置文字
         if (itemData.id != -1) {
             binding.tivCategory.setText(itemData.name)
         }
-        binding.tivCategory.setBackgroundColor(binding.root.context.getColorFromAttr(R.attr.colorPrimaryVariant))
+        binding.tivCategory.setBackgroundColor(context.getColorFromAttr(R.attr.colorSurface))
+        binding.tivCategory.setTextColor(context.getColorFromAttr(R.attr.colorOnBackground))
         // 如果被选中
         mCurrentCategory?.let {
             if (itemData == it) {
-                binding.tivCategory.setBackgroundColor(binding.root.context.getColorFromAttr(R.attr.colorPrimary))
+                binding.tivCategory.setBackgroundColor(context.getColorFromAttr(R.attr.colorPrimaryVariant))
+                binding.tivCategory.setTextColor(context.getColorFromAttr(R.attr.colorOnPrimary))
             }
         }
     }

@@ -11,7 +11,7 @@ import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
 
-
+@Deprecated("使用ShapeableImageView")
 class CircleImageView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

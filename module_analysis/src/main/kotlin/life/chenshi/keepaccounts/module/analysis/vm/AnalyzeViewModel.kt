@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.analysis.ui.AnalysisFragment
-import life.chenshi.keepaccounts.module.common.constant.DB_CURRENT_BOOK_ID
+import life.chenshi.keepaccounts.module.common.constant.CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_INCOME
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.module.common.database.AppDatabase
@@ -35,7 +35,7 @@ class AnalyzeViewModel : ViewModel() {
     // 走势图显示类型
     val tendencyIncomeSelectedLiveData by lazy { MutableLiveData<Boolean>(true) }
     val tendencyOutcomeSelectedLiveData by lazy { MutableLiveData<Boolean>(false) }
-    private val currentBookId = DataStoreUtil.readFromDataStore(DB_CURRENT_BOOK_ID, -1)
+    private val currentBookId = DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
 
     // 走势图收支数据
     val tendencyIncomeRecordsLiveData by lazy {
