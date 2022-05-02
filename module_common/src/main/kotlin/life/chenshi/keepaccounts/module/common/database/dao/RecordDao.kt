@@ -26,11 +26,6 @@ interface RecordDao {
         updateUseRate(record.minorCategoryId)
         record.assetsAccountId?.let {
             getAssetsAccountById(it)?.apply {
-                // if (record.recordType == RECORD_TYPE_OUTCOME) {
-                //     this.balance = this.balance.subtract(record.money)
-                // } else {
-                //     this.balance = this.balance.add(record.money)
-                // }
                 this.balance = this.balance.add(record.money)
                 updateAssetsAccount(this)
             }
