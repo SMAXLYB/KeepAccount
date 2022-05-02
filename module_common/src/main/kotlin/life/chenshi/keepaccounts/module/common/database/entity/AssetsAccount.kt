@@ -21,7 +21,7 @@ data class AssetsAccount constructor(
     // 账户名称
     val name: String,
     // 余额
-    val balance: BigDecimal,
+    var balance: BigDecimal,
     // 备注
     val remark: String? = null,
     // 账号/卡号

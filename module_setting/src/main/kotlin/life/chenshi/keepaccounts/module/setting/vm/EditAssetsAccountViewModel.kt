@@ -33,7 +33,7 @@ class EditAssetsAccountViewModel @Inject constructor(private val repo: AssetsAcc
         val assets = AssetsAccount(
             assetsAccount.value?.id,
             assetName.get() ?: "",
-            BigDecimalUtil.yuan2FenBD(assetBalance.get()),
+            BigDecimalUtil.fromString(assetBalance.get()),
             assetRemark.get(),
             assetNumber.get(),
             includedInAll.get(),

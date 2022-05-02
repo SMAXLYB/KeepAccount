@@ -25,12 +25,12 @@ public class BigDecimalUtil {
     /**
      * 元转换为分
      */
-    public static BigDecimal yuan2FenBD(String strYuan) {
+    public static BigDecimal fromString(String strYuan) {
         BigDecimal result;
         if (!TextUtils.isEmpty(strYuan)) {
-            result = new BigDecimal(strYuan).multiply(new BigDecimal(100));
+            result = new BigDecimal(strYuan);
         } else {
-            result = new BigDecimal(0);
+            result = new BigDecimal("0.00");
         }
         return result;
     }

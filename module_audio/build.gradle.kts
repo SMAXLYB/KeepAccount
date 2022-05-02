@@ -1,5 +1,5 @@
 plugins {
-    id("app-config-plugin")
+    id("lib-config-plugin")
     id("androidx.navigation.safeargs.kotlin")
 }
 

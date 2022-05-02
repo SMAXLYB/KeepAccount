@@ -2,6 +2,7 @@ package life.chenshi.keepaccounts.module.common.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import life.chenshi.keepaccounts.module.common.constant.TB_ASSETS_ACCOUNT
 import life.chenshi.keepaccounts.module.common.constant.TB_MAJOR_CATEGORIES
 import life.chenshi.keepaccounts.module.common.constant.TB_MINOR_CATEGORIES
 import life.chenshi.keepaccounts.module.common.constant.TB_RECORDS
@@ -9,6 +10,7 @@ import life.chenshi.keepaccounts.module.common.database.bean.RecordWithCategoryB
 import life.chenshi.keepaccounts.module.common.database.bean.SumMoneyByDateBean
 import life.chenshi.keepaccounts.module.common.database.bean.SumMoneyGroupByDateBean
 import life.chenshi.keepaccounts.module.common.database.bean.SumMoneyGroupByMajorCategoryBean
+import life.chenshi.keepaccounts.module.common.database.entity.AssetsAccount
 import life.chenshi.keepaccounts.module.common.database.entity.Record
 import java.util.*
 
@@ -22,13 +24,30 @@ interface RecordDao {
     suspend fun insertRecordAndUpdateUseRate(record: Record) {
         insertRecord(record)
         updateUseRate(record.minorCategoryId)
+        record.assetsAccountId?.let {
+            getAssetsAccountById(it)?.apply {
+                // if (record.recordType == RECORD_TYPE_OUTCOME) {
+                //     this.balance = this.balance.subtract(record.money)
+                // } else {
+                //     this.balance = this.balance.add(record.money)
+                // }
+                this.balance = this.balance.add(record.money)
+                updateAssetsAccount(this)
+            }
+        }
     }
+
+    @Query("SELECT * FROM $TB_ASSETS_ACCOUNT WHERE id = :id")
+    suspend fun getAssetsAccountById(id: Long): AssetsAccount?
 
     /**
      * 更新频次
      */
     @Query("UPDATE $TB_MINOR_CATEGORIES SET use_rate = use_rate + 1 WHERE id = :id")
     suspend fun updateUseRate(id: Int)
+
+    @Update
+    suspend fun updateAssetsAccount(assetsAccount: AssetsAccount): Int
 
     // 删
     @Delete

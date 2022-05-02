@@ -554,10 +554,16 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
      * @param record Record?
      */
     private fun convertDataToRecord(record: Record? = null): Record {
-        val money = BigDecimalUtil.yuan2FenBD(binding.tvMoney.text.toString())
+        val recordType = mEditRecordViewModel.currentRecordType.value!!
+        // val money = BigDecimalUtil.yuan2FenBD(binding.tvMoney.text.toString())
+        val moneyText = if (recordType == RECORD_TYPE_OUTCOME) {
+            "-${binding.tvMoney.text}"
+        } else {
+            "+${binding.tvMoney.text}"
+        }
+        val money = BigDecimalUtil.fromString(moneyText)
         val remark = binding.etRemark.text.toString()
         val date = Date(mEditRecordViewModel.currentDateTime.value!!)
-        val recordType = mEditRecordViewModel.currentRecordType.value!!
         val bookId = mEditRecordViewModel.currentBook.value!!.id!!
         val assetsId = mEditRecordViewModel.currentAssetsAccount.value?.id
 
@@ -589,7 +595,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
             ToastUtil.showShort("请输入金额")
             return false
         }
-        val money: BigDecimal = BigDecimalUtil.yuan2FenBD(moneyText.toString())
+        val money: BigDecimal = BigDecimalUtil.fromString(moneyText.toString())
         if (money.compareTo(BigDecimal.ZERO) == 0) {
             ToastUtil.showShort("金额不能为0")
             return false

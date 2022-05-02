@@ -55,7 +55,7 @@ class IndexRecordAdapter(private var recordListGroupByDay: List<List<RecordWithC
                 with(itemBudgetDetailMoney) {
                     val color = if (it.record.recordType == RECORD_TYPE_OUTCOME) {
                         // 金额
-                        text = "-${it.record.money}"
+                        text = "${it.record.money}"
                         context.getColorFromRes(R.color.common_outcome)
                     } else {
                         text = "+${it.record.money}"
