@@ -41,7 +41,7 @@
                     app:setting_description="打开后, 连续按2次返回键才可退出应用"
                     app:setting_mode="switcher"
                     app:setting_title="退出应用二次确认" />
-                
+
                 <life.chenshi.keepaccounts.module.setting.view.SettingItemView
                     android:id="@+id/setting_delete"
                     android:layout_width="match_parent"
@@ -50,6 +50,42 @@
                     app:setting_mode="switcher"
                     app:setting_title="删除操作二次确认" />
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="其他设置"
+                    app:drawableStartCompat="@drawable/setting_item_setting_hint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/common_corner_all_medium_white_bg"
+                    android:orientation="vertical">
+
+                    <life.chenshi.keepaccounts.module.setting.view.SettingItemView
+                        android:id="@+id/setting_close_ad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:setting_description="关闭后打开App不再显示广告页"
+                        app:setting_mode="switcher"
+                        app:setting_title="关闭广告" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <TextView

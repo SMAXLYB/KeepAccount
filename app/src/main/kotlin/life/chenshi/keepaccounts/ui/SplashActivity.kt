@@ -1,4 +1,3 @@
-
 package life.chenshi.keepaccounts.ui
 
 import android.annotation.SuppressLint
@@ -37,10 +36,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import life.chenshi.keepaccounts.R
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CLOSE_AD
 import life.chenshi.keepaccounts.module.common.utils.StatusBarUtil
 import life.chenshi.keepaccounts.module.common.utils.startActivity
+import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.vm.SplashViewModel
-import kotlin.random.Random
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity() {
@@ -52,7 +52,7 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        if (Random.nextFloat() > 0.5) {
+        if (KVStoreHelper.read(SWITCHER_CLOSE_AD, false)) {
             navigationToHome()
             return
         }
