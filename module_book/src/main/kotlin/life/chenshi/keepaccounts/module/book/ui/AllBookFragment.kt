@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.book.R
 import life.chenshi.keepaccounts.module.book.adapter.AllBookAdapter
@@ -21,6 +22,7 @@ import life.chenshi.keepaccounts.module.common.utils.onBackPressed
 import life.chenshi.keepaccounts.module.common.utils.visible
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
 
+@AndroidEntryPoint
 class AllBookFragment : Fragment() {
 
     companion object {

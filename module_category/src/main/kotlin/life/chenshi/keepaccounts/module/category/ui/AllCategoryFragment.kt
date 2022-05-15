@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jeremyliao.liveeventbus.LiveEventBus
+import dagger.hilt.android.AndroidEntryPoint
 import life.chenshi.keepaccounts.module.category.R
 import life.chenshi.keepaccounts.module.category.databinding.CategoryFragmentAllCategoryBinding
 import life.chenshi.keepaccounts.module.category.vm.AllCategoryViewModel
@@ -18,6 +19,7 @@ import life.chenshi.keepaccounts.module.common.utils.arguments
 import life.chenshi.keepaccounts.module.common.utils.isNull
 import life.chenshi.keepaccounts.module.common.utils.onBackPressed
 
+@AndroidEntryPoint
 class AllCategoryFragment : NavBindingFragment<CategoryFragmentAllCategoryBinding>() {
 
     override fun setLayoutId() = R.layout.category_fragment_all_category

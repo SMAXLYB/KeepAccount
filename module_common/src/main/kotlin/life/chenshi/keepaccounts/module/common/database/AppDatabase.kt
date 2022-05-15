@@ -61,62 +61,62 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
         }
 
-        @Deprecated("从hilt获取从而保持单例")
-        @Volatile
-        private var INSTANCE: AppDatabase? = null
+        // @Deprecated("从hilt获取从而保持单例")
+        // @Volatile
+        // private var INSTANCE: AppDatabase? = null
 
-        @Deprecated("从hilt获取从而保持单例")
-        fun getDatabase(): AppDatabase {
-            if (INSTANCE == null) {
-                synchronized(this) {
-                    if (INSTANCE == null) {
-                        INSTANCE = Room.databaseBuilder(
-                            BaseApplication.application,
-                            AppDatabase::class.java,
-                            DATABASE_NAME
-                        )
-                            // .addMigrations(MIGRATION_1_TO_2)
-                            .addCallback(object : Callback() {
-                                override fun onCreate(db: SupportSQLiteDatabase) {
-                                    // 第一次打开应用时预填充数据
-                                    // 开启事务
-                                    db.beginTransaction()
-                                    try {
-                                        // 默认账本ls
-                                        val bookSql = "insert into $TB_BOOKS (id,name,description) values(?,?,?)"
-                                        db.execSQL(bookSql, arrayOf("1", "日常账本", "记录日常开支"))
-                                        // 默认分类
-                                        val majorSql =
-                                            "insert into $TB_MAJOR_CATEGORIES (id,name,record_type) values(?,?,?)"
-                                        val minorSql =
-                                            "insert into $TB_MINOR_CATEGORIES (id,name,record_type,major_category_id) values(?,?,?,?)"
-                                        getDefaultMajorCategories().forEach {
-                                            db.execSQL(
-                                                majorSql,
-                                                arrayOf(it.id, it.name, it.recordType)
-                                            )
-                                        }
-                                        getDefaultMinorCategories().forEach {
-                                            db.execSQL(
-                                                minorSql,
-                                                arrayOf(it.id, it.name, it.recordType, it.majorCategoryId)
-                                            )
-                                        }
-                                        // 提交事务
-                                        db.setTransactionSuccessful()
-                                    } finally {
-                                        // 关闭事务
-                                        db.endTransaction()
-                                    }
-                                }
-                            })
-                            .build()
-                    }
-                }
-            }
-
-            return INSTANCE as AppDatabase
-        }
+        // @Deprecated("从hilt获取从而保持单例")
+        // fun getDatabase(): AppDatabase {
+        //     if (INSTANCE == null) {
+        //         synchronized(this) {
+        //             if (INSTANCE == null) {
+        //                 INSTANCE = Room.databaseBuilder(
+        //                     BaseApplication.application,
+        //                     AppDatabase::class.java,
+        //                     DATABASE_NAME
+        //                 )
+        //                     // .addMigrations(MIGRATION_1_TO_2)
+        //                     .addCallback(object : Callback() {
+        //                         override fun onCreate(db: SupportSQLiteDatabase) {
+        //                             // 第一次打开应用时预填充数据
+        //                             // 开启事务
+        //                             db.beginTransaction()
+        //                             try {
+        //                                 // 默认账本ls
+        //                                 val bookSql = "insert into $TB_BOOKS (id,name,description) values(?,?,?)"
+        //                                 db.execSQL(bookSql, arrayOf("1", "日常账本", "记录日常开支"))
+        //                                 // 默认分类
+        //                                 val majorSql =
+        //                                     "insert into $TB_MAJOR_CATEGORIES (id,name,record_type) values(?,?,?)"
+        //                                 val minorSql =
+        //                                     "insert into $TB_MINOR_CATEGORIES (id,name,record_type,major_category_id) values(?,?,?,?)"
+        //                                 getDefaultMajorCategories().forEach {
+        //                                     db.execSQL(
+        //                                         majorSql,
+        //                                         arrayOf(it.id, it.name, it.recordType)
+        //                                     )
+        //                                 }
+        //                                 getDefaultMinorCategories().forEach {
+        //                                     db.execSQL(
+        //                                         minorSql,
+        //                                         arrayOf(it.id, it.name, it.recordType, it.majorCategoryId)
+        //                                     )
+        //                                 }
+        //                                 // 提交事务
+        //                                 db.setTransactionSuccessful()
+        //                             } finally {
+        //                                 // 关闭事务
+        //                                 db.endTransaction()
+        //                             }
+        //                         }
+        //                     })
+        //                     .build()
+        //             }
+        //         }
+        //     }
+        //
+        //     return INSTANCE as AppDatabase
+        // }
 
 
         fun getDefaultMajorCategories(): List<MajorCategory> {

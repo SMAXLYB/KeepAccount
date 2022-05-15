@@ -72,7 +72,7 @@ interface MinorCategoryDao {
      * 根据主类和状态获取所有子类
      */
     @Query("SELECT * FROM $TB_MINOR_CATEGORIES WHERE major_category_id = :majorCategoryId AND state = :state")
-    fun getALLMinorCategoryBy(majorCategoryId: Int, state: Int): Flow<List<MinorCategory>>
+    fun getAllMinorCategoryBy(majorCategoryId: Int, state: Int): Flow<List<MinorCategory>>
 
     /**
      * 根据主类和名称精确查找子类

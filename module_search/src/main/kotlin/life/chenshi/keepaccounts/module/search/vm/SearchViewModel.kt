@@ -1,19 +1,24 @@
 package life.chenshi.keepaccounts.module.search.vm
 
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.constant.*
-import life.chenshi.keepaccounts.module.common.database.AppDatabase
 import life.chenshi.keepaccounts.module.common.database.bean.RecordWithCategoryBean
+import life.chenshi.keepaccounts.module.common.database.dao.RecordDao
 import life.chenshi.keepaccounts.module.common.utils.DateUtil
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
+import life.chenshi.keepaccounts.module.search.repo.SearchRepo
 import java.util.*
+import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor(private val repo: SearchRepo) : ViewModel() {
 
-    private val mRecordDao by lazy { AppDatabase.getDatabase().getRecordDao() }
+    @Inject
+    lateinit var mRecordDao: RecordDao
 
     // 默认查看全部类型
     val filterType by lazy { MutableLiveData<Int>(SHOW_TYPE_ALL) }
@@ -39,7 +44,7 @@ class SearchViewModel : ViewModel() {
         viewModelScope.launch {
             currentBookId.take(1)
                 .collect { id ->
-                    mTempRecordLiveData = mRecordDao.getRecordByKeyword(keyword, id)
+                    mTempRecordLiveData = repo.getRecordByKeyword(keyword, id)
                     recordsByKeywordLiveData.addSource(mTempRecordLiveData!!) {
                         recordsByKeywordLiveData.value = it
                     }

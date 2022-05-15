@@ -3,11 +3,13 @@ package life.chenshi.keepaccounts.module.category.ui
 import android.content.Context
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import dagger.hilt.android.AndroidEntryPoint
 import life.chenshi.keepaccounts.module.category.R
 import life.chenshi.keepaccounts.module.category.databinding.CategoryActivityMainBinding
 import life.chenshi.keepaccounts.module.common.base.NavHostActivity
 import life.chenshi.keepaccounts.module.common.utils.startActivity
 
+@AndroidEntryPoint
 class MainActivity : NavHostActivity() {
 
     private lateinit var mBinding: CategoryActivityMainBinding

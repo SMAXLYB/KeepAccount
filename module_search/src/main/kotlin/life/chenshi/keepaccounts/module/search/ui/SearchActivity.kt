@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
 import life.chenshi.keepaccounts.module.common.adapter.IndexRecordAdapter
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
 import life.chenshi.keepaccounts.module.common.constant.*
@@ -18,6 +19,7 @@ import life.chenshi.keepaccounts.module.search.R
 import life.chenshi.keepaccounts.module.search.databinding.SearchActivitySearchBinding
 import life.chenshi.keepaccounts.module.search.vm.SearchViewModel
 
+@AndroidEntryPoint
 class SearchActivity : BaseActivity() {
 
     private val mBinding by bindingContentView<SearchActivitySearchBinding>(R.layout.search_activity_search)

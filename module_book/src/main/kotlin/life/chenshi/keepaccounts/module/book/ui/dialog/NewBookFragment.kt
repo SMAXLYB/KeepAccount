@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.book.databinding.BookDialogNewBookBinding
 import life.chenshi.keepaccounts.module.book.vm.AllBookViewModel
 import life.chenshi.keepaccounts.module.common.database.entity.Book
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 
+@AndroidEntryPoint
 class NewBookFragment : DialogFragment() {
     companion object {
         private const val TAG = "NewBookFragment"

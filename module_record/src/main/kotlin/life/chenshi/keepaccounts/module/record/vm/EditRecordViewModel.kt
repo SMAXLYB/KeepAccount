@@ -13,7 +13,6 @@ import life.chenshi.keepaccounts.module.common.constant.CURRENT_BOOK_ID
 import life.chenshi.keepaccounts.module.common.constant.RECORD_TYPE_OUTCOME
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
-import life.chenshi.keepaccounts.module.common.database.AppDatabase
 import life.chenshi.keepaccounts.module.common.database.entity.AbstractCategory
 import life.chenshi.keepaccounts.module.common.database.entity.AssetsAccount
 import life.chenshi.keepaccounts.module.common.database.entity.Book
@@ -32,10 +31,6 @@ class EditRecordViewModel @Inject constructor(private val repo: EditRecordRepo) 
     // 当前是否为查看详情模式 控制界面
     val detailMode = MutableLiveData<Boolean>(false)
 
-    private val mRecordDao by lazy { AppDatabase.getDatabase().getRecordDao() }
-    private val mMinorCategoryDao by lazy { AppDatabase.getDatabase().getMinorCategoryDao() }
-    private val mMajorCategoryDao by lazy { AppDatabase.getDatabase().getMajorCategoryDao() }
-
     // 当前所有选中的配置
     val currentBook = MutableLiveData<Book>()
     val currentAssetsAccount = MutableLiveData<AssetsAccount>()
@@ -53,7 +48,7 @@ class EditRecordViewModel @Inject constructor(private val repo: EditRecordRepo) 
     init {
         viewModelScope.launch {
             // 只监听一次,后续不管是否删除,都继续使用
-            mMinorCategoryDao.getTop6MinorCategoryBy(STATE_NORMAL)
+            repo.getTop6MinorCategoryBy(STATE_NORMAL)
                 .take(1)
                 .collect {
                     val list = mutableListOf<AbstractCategory>()
@@ -69,7 +64,7 @@ class EditRecordViewModel @Inject constructor(private val repo: EditRecordRepo) 
      */
     fun insertRecord(record: Record) {
         viewModelScope.launch {
-            mRecordDao.insertRecordAndUpdateUseRate(record)
+            repo.insertRecordAndUpdateUseRate(record)
         }
     }
 
@@ -79,7 +74,7 @@ class EditRecordViewModel @Inject constructor(private val repo: EditRecordRepo) 
      */
     fun updateRecord(record: Record) {
         viewModelScope.launch {
-            mRecordDao.updateRecord(record)
+            repo.updateRecord(record)
         }
     }
 
@@ -115,7 +110,7 @@ class EditRecordViewModel @Inject constructor(private val repo: EditRecordRepo) 
      * @param majorCategoryId Int
      */
     suspend fun getMajorCategoryById(majorCategoryId: Int) =
-        mMajorCategoryDao.getMajorCategoryBy(STATE_NORMAL, majorCategoryId)
+        repo.getMajorCategoryBy(STATE_NORMAL, majorCategoryId)
 
     /**
      * 根据id查找子类
@@ -123,7 +118,7 @@ class EditRecordViewModel @Inject constructor(private val repo: EditRecordRepo) 
      * @return MinorCategory
      */
     suspend fun getMinorCategoryById(minorCategoryId: Int) =
-        mMinorCategoryDao.getMinorCategoryBy(STATE_NORMAL, minorCategoryId)
+        repo.getMinorCategoryBy(STATE_NORMAL, minorCategoryId)
 
     /**
      * 如果常用类型不存在指定类型,则增加

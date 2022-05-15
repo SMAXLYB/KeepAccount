@@ -5,26 +5,26 @@ import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import life.chenshi.keepaccounts.module.category.databinding.CategoryLayoutAddCategoryBinding
 import life.chenshi.keepaccounts.module.category.databinding.CategoryLayoutAddSubCategoryBinding
+import life.chenshi.keepaccounts.module.category.repo.CategoryRepo
 import life.chenshi.keepaccounts.module.common.constant.STATE_DELETE
 import life.chenshi.keepaccounts.module.common.constant.STATE_NORMAL
 import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
-import life.chenshi.keepaccounts.module.common.database.AppDatabase
 import life.chenshi.keepaccounts.module.common.database.entity.MajorCategory
 import life.chenshi.keepaccounts.module.common.database.entity.MinorCategory
 import life.chenshi.keepaccounts.module.common.utils.ToastUtil
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.common.view.CustomDialog
+import javax.inject.Inject
 
-class AllCategoryViewModel : ViewModel() {
+@HiltViewModel
+class AllCategoryViewModel @Inject constructor(private val repo: CategoryRepo) : ViewModel() {
     companion object {
         private const val TAG = "CategoryViewModel"
     }
-
-    private val majorCategoryDao = AppDatabase.getDatabase().getMajorCategoryDao()
-    private val minorCategoryDao = AppDatabase.getDatabase().getMinorCategoryDao()
 
     // 当前选中主类
     val currentMajorCategory = MutableLiveData<MajorCategory?>()
@@ -55,15 +55,15 @@ class AllCategoryViewModel : ViewModel() {
         getAllMajorCategory()
     }
 
-    suspend fun insertCategory(majorCategory: MajorCategory) = withContext(Dispatchers.IO) {
-        val existCategory = majorCategoryDao.getMajorCategoryBy(majorCategory.name)
+    private suspend fun insertCategory(majorCategory: MajorCategory) = withContext(Dispatchers.IO) {
+        val existCategory = repo.getMajorCategoryBy(majorCategory.name)
         // 如果已经存在并且为-1,重新标记0, 否则走正常流程
         existCategory?.takeIf { it.state == STATE_DELETE }?.run {
             this.state = STATE_NORMAL
-            majorCategoryDao.updateMajorCategory(this)
+            repo.updateMajorCategory(this)
             return@withContext
         }
-        majorCategoryDao.insertMajorCategory(majorCategory)
+        repo.insertMajorCategory(majorCategory)
     }
 
     /**
@@ -74,7 +74,7 @@ class AllCategoryViewModel : ViewModel() {
         withContext(Dispatchers.IO) {
             awaitAll(
                 async {
-                    majorCategoryDao.deleteMajorCategory(majorCategory.id!!)
+                    repo.deleteMajorCategory(majorCategory.id!!)
                     // 如果删除了选中, 将当选选中清空
                     currentMajorCategory.value?.let {
                         if (it.id == majorCategory.id) {
@@ -84,7 +84,7 @@ class AllCategoryViewModel : ViewModel() {
                 },
                 async {
                     // 连带删除当下所有子类
-                    minorCategoryDao.deleteAllMinorCategoryBy(majorCategory.id!!)
+                    repo.deleteAllMinorCategoryBy(majorCategory.id!!)
                     // 如果包含选中子类,还要置空
                     currentMinorCategory.value?.takeIf {
                         it.majorCategoryId == majorCategory.id
@@ -103,7 +103,7 @@ class AllCategoryViewModel : ViewModel() {
     @SuppressLint("NullSafeMutableLiveData")
     fun deleteMinorCategory(minorCategory: MinorCategory) {
         viewModelScope.launch {
-            minorCategoryDao.deleteMinorCategoryBy(minorCategory.id!!)
+            repo.deleteMinorCategoryBy(minorCategory.id!!)
         }
         // 如果删除了选中, 将选中清空
         currentMinorCategory.value?.takeIf { it.id == minorCategory.id }?.run {
@@ -117,18 +117,18 @@ class AllCategoryViewModel : ViewModel() {
      */
     private suspend fun insertMinorCategory(minorCategory: MinorCategory) = withContext(Dispatchers.IO) {
         val existSubCategory =
-            minorCategoryDao.getMinorCategoryBy(minorCategory.majorCategoryId, minorCategory.name)
+            repo.getMinorCategoryBy(minorCategory.majorCategoryId, minorCategory.name)
         existSubCategory?.takeIf { it.state == STATE_DELETE }?.run {
             this.state = STATE_NORMAL
-            minorCategoryDao.updateMinorCategory(this)
+            repo.updateMinorCategory(this)
             return@withContext
         }
-        minorCategoryDao.insertMinorCategory(minorCategory)
+        repo.insertMinorCategory(minorCategory)
     }
 
 
     private fun getAllMajorCategory() {
-        majorCategories = majorCategoryDao.getAllMajorCategoryBy(STATE_NORMAL).asLiveData()
+        majorCategories = repo.getAllMajorCategoryBy(STATE_NORMAL).asLiveData()
     }
 
     /**
@@ -141,7 +141,7 @@ class AllCategoryViewModel : ViewModel() {
                 minorCategories.removeSource(tempMinorCategories!!)
             }
             tempMinorCategories =
-                minorCategoryDao.getALLMinorCategoryBy(majorCategoryId, STATE_NORMAL).asLiveData()
+                repo.getAllMinorCategoryBy(majorCategoryId, STATE_NORMAL).asLiveData()
             minorCategories.addSource(tempMinorCategories!!) {
                 minorCategories.value = it
             }
