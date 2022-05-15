@@ -96,7 +96,7 @@ class AacEncoder : IEncoder {
          * 11025 = 10
          * 8000  = 11
          */
-        val freqIdx = 4
+        val freqIdx = 11
         val profile = 2
         val chanCfg = config?.channelCount ?: 2
 

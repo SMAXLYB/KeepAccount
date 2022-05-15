@@ -33,7 +33,7 @@ class MainActivity : BaseActivity() {
         private const val SOURCE = MediaRecorder.AudioSource.MIC
 
         /** 采样率: 44.1Hz, 这里改了ADST头部也要跟着改 */
-        private const val SAMPLE = 44100
+        private const val SAMPLE = 8000
 
         /** 声道: 单声道 */
         private const val CHANNEL = AudioFormat.CHANNEL_IN_MONO
@@ -53,7 +53,7 @@ class MainActivity : BaseActivity() {
         private val BUFFER_SIZE = 2 * AudioRecord.getMinBufferSize(SAMPLE, CHANNEL, AUDIO_FORMAT)
 
         /** 码率 = 采样率*位深*声道数*压缩比例 */
-        private val BIT_RATE = SAMPLE * AUDIO_FORMAT * CHANNEL_COUNT * 0.5f
+        private val BIT_RATE = SAMPLE * AUDIO_FORMAT * CHANNEL_COUNT * 1f
     }
 
     private val mBinding by bindingContentView<AudioActivityMainBinding>(R.layout.audio_activity_main)

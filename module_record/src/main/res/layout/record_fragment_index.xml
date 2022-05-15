@@ -29,7 +29,7 @@
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="@string/app_name"
-                android:textColor="?colorOnBackground"
+                android:textColor="?colorOnSurface"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:underline_color="?colorPrimary"
@@ -67,121 +67,181 @@
 
 
                 <!--银行卡-->
+                <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--    android:id="@+id/card"-->
+                <!--    android:layout_width="0dp"-->
+                <!--    android:layout_height="0dp"-->
+                <!--    android:layout_marginTop="10dp"-->
+                <!--    android:layout_marginStart="20dp"-->
+                <!--    android:layout_marginEnd="20dp"-->
+                <!--    android:background="@drawable/common_corner_all_large_blue_gradient"-->
+                <!--    app:layout_constraintDimensionRatio="h,4:2.4"-->
+                <!--    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--    app:layout_constraintStart_toStartOf="parent"-->
+                <!--    app:layout_constraintTop_toTopOf="parent">-->
+
+                <!--    <ImageView-->
+                <!--        android:layout_width="55dp"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:src="@drawable/record_index_credit_card"-->
+                <!--        app:layout_constraintStart_toStartOf="@id/card_id"-->
+                <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+                <!--    <TextView-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:includeFontPadding="false"-->
+                <!--        android:text="VISA"-->
+                <!--        android:textColor="#30FFFFFF"-->
+                <!--        android:textSize="60sp"-->
+                <!--        android:textStyle="bold|italic"-->
+                <!--        app:layout_constraintEnd_toEndOf="parent"-->
+                <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+                <!--    <ImageView-->
+                <!--        android:layout_width="100dp"-->
+                <!--        android:layout_height="100dp"-->
+                <!--        android:layout_margin="10dp"-->
+                <!--        android:src="@drawable/common_corner_all_50dp_transparent"-->
+                <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+                <!--    <ImageView-->
+                <!--        android:layout_width="80dp"-->
+                <!--        android:layout_height="80dp"-->
+                <!--        android:layout_marginStart="60dp"-->
+                <!--        android:layout_marginBottom="40dp"-->
+                <!--        android:src="@drawable/common_corner_all_50dp_transparent"-->
+                <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+                <!--    <ImageView-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:layout_marginStart="5dp"-->
+                <!--        android:src="@drawable/common_icon_hide"-->
+                <!--        app:layout_constraintBottom_toBottomOf="@id/card_id"-->
+                <!--        app:layout_constraintStart_toEndOf="@id/card_id"-->
+                <!--        app:layout_constraintTop_toTopOf="@id/card_id" />-->
+
+                <!--    <life.chenshi.keepaccounts.module.common.view.SansFontTextView-->
+                <!--        android:id="@+id/card_id"-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:layout_marginStart="20dp"-->
+                <!--        android:text="6217  ****  ****  ****  999"-->
+                <!--        android:textColor="@color/common_white"-->
+                <!--        android:textSize="22sp"-->
+                <!--        android:textStyle="bold"-->
+                <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--        app:layout_constraintStart_toStartOf="parent"-->
+                <!--        app:layout_constraintTop_toTopOf="parent"-->
+                <!--        app:layout_constraintVertical_bias="0.5" />-->
+
+
+                <!--    <TextView-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:text="balance"-->
+                <!--        android:textAllCaps="true"-->
+                <!--        android:textColor="@color/common_white"-->
+                <!--        android:textSize="12sp"-->
+                <!--        app:layout_constraintBottom_toTopOf="@id/card_money"-->
+                <!--        app:layout_constraintStart_toStartOf="@id/card_id" />-->
+
+                <!--    <TextView-->
+                <!--        android:id="@+id/card_money"-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:layout_marginBottom="10dp"-->
+                <!--        android:text="￥200,000,000.00"-->
+                <!--        android:textColor="@color/common_white"-->
+                <!--        android:textSize="16sp"-->
+                <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--        app:layout_constraintStart_toStartOf="@id/card_id" />-->
+
+
+                <!--    <TextView-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:text="expires"-->
+                <!--        android:textAllCaps="true"-->
+                <!--        android:textColor="@color/common_white"-->
+                <!--        android:textSize="12sp"-->
+                <!--        app:layout_constraintBottom_toTopOf="@id/card_expires"-->
+                <!--        app:layout_constraintEnd_toEndOf="@id/card_expires" />-->
+
+                <!--    <TextView-->
+                <!--        android:id="@+id/card_expires"-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:layout_marginEnd="20dp"-->
+                <!--        android:layout_marginBottom="10dp"-->
+                <!--        android:text="12/12"-->
+                <!--        android:textColor="@color/common_white"-->
+                <!--        android:textSize="16sp"-->
+                <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/card"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/common_corner_all_large_blue_gradient"
+                    android:background="@drawable/common_ripple_large_bg_surface"
                     app:layout_constraintDimensionRatio="h,4:2.4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:layout_width="55dp"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/record_index_credit_card"
-                        app:layout_constraintStart_toStartOf="@id/card_id"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lc_assets_changes"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_default="percent"
+                        app:layout_constraintHeight_percent="0.7"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintWidth_default="percent" />
 
                     <TextView
+                        android:id="@+id/tv_net_assets"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="VISA"
-                        android:textColor="#30FFFFFF"
-                        android:textSize="60sp"
-                        android:textStyle="bold|italic"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/common_corner_all_50dp_transparent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginStart="60dp"
-                        android:layout_marginBottom="40dp"
-                        android:src="@drawable/common_corner_all_50dp_transparent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:src="@drawable/common_icon_hide"
-                        app:layout_constraintBottom_toBottomOf="@id/card_id"
-                        app:layout_constraintStart_toEndOf="@id/card_id"
-                        app:layout_constraintTop_toTopOf="@id/card_id" />
+                        android:layout_marginBottom="5dp"
+                        android:text="总资产"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/stv_net_assets"
+                        app:layout_constraintStart_toStartOf="@id/stv_net_assets" />
 
                     <life.chenshi.keepaccounts.module.common.view.SansFontTextView
-                        android:id="@+id/card_id"
+                        android:id="@+id/stv_net_assets"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="6217  ****  ****  ****  999"
-                        android:textColor="@color/common_white"
-                        android:textSize="22sp"
+                        android:letterSpacing="0.05"
+                        android:text="99,999,999.99"
+                        android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.5" />
+                        app:layout_constraintVertical_bias="0.25" />
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="balance"
-                        android:textAllCaps="true"
-                        android:textColor="@color/common_white"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toTopOf="@id/card_money"
-                        app:layout_constraintStart_toStartOf="@id/card_id" />
-
-                    <TextView
-                        android:id="@+id/card_money"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="￥200,000,000.00"
-                        android:textColor="@color/common_white"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/card_id" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="expires"
-                        android:textAllCaps="true"
-                        android:textColor="@color/common_white"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toTopOf="@id/card_expires"
-                        app:layout_constraintEnd_toEndOf="@id/card_expires" />
-
-                    <TextView
-                        android:id="@+id/card_expires"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/CommonRoundedCornerImageStyle"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="12/12"
-                        android:textColor="@color/common_white"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        android:src="@drawable/record_icon_more"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_net_assets" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -204,20 +264,22 @@
                             android:id="@+id/cl_new_record"
                             style="@style/Record_IndexShortcuts_ConstraintLayout">
 
-                            <life.chenshi.keepaccounts.module.common.view.CircleImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
                                 android:layout_margin="10dp"
+                                android:background="?colorPrimary"
                                 android:src="@drawable/record_index_icon_new_record"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:shapeAppearanceOverlay="@style/CommonRoundedCornerImageStyle" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:text="立即记一笔"
-                                android:textColor="@color/common_white"
+                                android:textColor="?colorOnSurface"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent" />
@@ -227,21 +289,22 @@
                             android:id="@+id/cl_budget"
                             style="@style/Record_IndexShortcuts_ConstraintLayout">
 
-                            <life.chenshi.keepaccounts.module.common.view.CircleImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
                                 android:layout_margin="10dp"
-
+                                android:background="?colorPrimary"
                                 android:src="@drawable/record_index_icon_budget"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:shapeAppearanceOverlay="@style/CommonRoundedCornerImageStyle" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:text="设置每月预算"
-                                android:textColor="@color/common_white"
+                                android:textColor="?colorOnSurface"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent" />
@@ -251,21 +314,22 @@
                             android:id="@+id/cl_search"
                             style="@style/Record_IndexShortcuts_ConstraintLayout">
 
-                            <life.chenshi.keepaccounts.module.common.view.CircleImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
                                 android:layout_margin="10dp"
-
+                                android:background="?colorPrimary"
                                 android:src="@drawable/record_index_icon_search"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:shapeAppearanceOverlay="@style/CommonRoundedCornerImageStyle" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:text="快速搜索账单"
-                                android:textColor="@color/common_white"
+                                android:textColor="?colorOnSurface"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent" />

@@ -19,8 +19,11 @@ package life.chenshi.keepaccounts.module.common.utils;
 import android.text.TextUtils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class BigDecimalUtil {
+
+    private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("###,##0.00");
 
     /**
      * 元转换为分
@@ -33,5 +36,9 @@ public class BigDecimalUtil {
             result = new BigDecimal("0.00");
         }
         return result;
+    }
+
+    public static String formatSeparator(BigDecimal money) {
+        return MONEY_FORMAT.format(money);
     }
 }

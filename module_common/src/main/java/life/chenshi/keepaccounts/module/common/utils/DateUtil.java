@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -198,6 +199,11 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(millisecond);
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+    public static int getDayInThisMonth() {
+        LocalDate localDate = LocalDate.now();
+        return localDate.getDayOfMonth();
     }
 
     /**
