@@ -431,7 +431,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 // 编辑按钮
                 binding.mbtnEdit.visible()
                 // 金额
-                binding.tvMoney.text = String.format(it.money.toString())
+                binding.tvMoney.text = it.money.toPlainString().removePrefix("-")
                 // 时间
                 mEditRecordViewModel.currentDateTime.value = it.time.time
                 // 备注
@@ -500,7 +500,7 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         }
 
         // 更新 或者 新建
-        mEditRecordViewModel.record?.apply { updateRecord(this) } ?: insertRecord()
+        mEditRecordViewModel.record?.let { updateRecord() } ?: insertRecord()
         onBackPressed()
     }
 
@@ -514,8 +514,8 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
         // 更新完一次后要置空
         // 更新 或者 新建
-        mEditRecordViewModel.record?.apply {
-            updateRecord(this)
+        mEditRecordViewModel.record?.let {
+            updateRecord()
             mEditRecordViewModel.record = null
             binding.bar.setCenterTitle("添加账单")
         } ?: insertRecord()
@@ -542,10 +542,12 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
 
     /**
      * 更新记录
-     * @param record Record
+     * @param oldRecord Record
      */
-    private fun updateRecord(record: Record) {
-        mEditRecordViewModel.updateRecord(convertDataToRecord(record))
+    private fun updateRecord() {
+        mEditRecordViewModel.updateRecord(
+            convertDataToRecord(mEditRecordViewModel.record), mEditRecordViewModel.record!!
+        )
         ToastUtil.showSuccess("更新成功")
     }
 
@@ -555,7 +557,6 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
      */
     private fun convertDataToRecord(record: Record? = null): Record {
         val recordType = mEditRecordViewModel.currentRecordType.value!!
-        // val money = BigDecimalUtil.yuan2FenBD(binding.tvMoney.text.toString())
         val moneyText = if (recordType == RECORD_TYPE_OUTCOME) {
             "-${binding.tvMoney.text}"
         } else {
@@ -576,13 +577,9 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
                 minorCategoryId = this.id!!
                 this.majorCategoryId
             }
-            // 更新赋值
-            record?.run {
-                setDataFrom(money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId, assetsId)
-                return this
-            }
-            //新建赋值
-            return Record(null, money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId, assetsId)
+            return Record(
+                record?.id, money, remark, date, majorCategoryId, minorCategoryId, recordType, bookId, assetsId
+            )
         }
     }
 

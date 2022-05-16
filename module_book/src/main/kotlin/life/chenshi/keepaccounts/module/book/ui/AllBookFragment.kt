@@ -64,8 +64,6 @@ class AllBookFragment : Fragment() {
             if (id == -1L) {
                 // 新增, 触发数据库
                 NewBookFragment().showNow(childFragmentManager, "ADD_BOOK")
-                // CustomDialog.Builder(requireActivity())
-                //     .build()
             } else {
                 mBookViewModel.apply {
                     setCurrentBookId(id.toInt())

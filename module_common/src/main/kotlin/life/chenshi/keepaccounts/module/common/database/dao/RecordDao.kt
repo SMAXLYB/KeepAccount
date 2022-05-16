@@ -42,9 +42,33 @@ interface RecordDao {
     @Update
     suspend fun updateAssetsAccount(assetsAccount: AssetsAccount): Int
 
+    @Transaction
+    suspend fun deleteRecordAndUpdateBalance(record: Record) {
+        record.assetsAccountId?.let {
+            getAssetsAccountById(it)?.apply {
+                this.balance = this.balance.subtract(record.money)
+                updateAssetsAccount(this)
+            }
+        }
+        deleteRecord(record)
+    }
+
     // 删
     @Delete
     suspend fun deleteRecord(record: Record)
+
+    @Transaction
+    suspend fun updateRecordAndBalance(newRecord: Record, oldRecord: Record) {
+        // 有可能变了金额, 也有可能变了资产, 也有可能都变了
+        newRecord.assetsAccountId?.let {
+            getAssetsAccountById(it)?.apply {
+                this.balance = this.balance.subtract(oldRecord.money)
+                this.balance = this.balance.add(newRecord.money)
+                updateAssetsAccount(this)
+            }
+        }
+        updateRecord(newRecord)
+    }
 
     // 改
     @Update

@@ -24,7 +24,7 @@ class IndexRepo @Inject constructor(
 
     fun getRecentRecords() = recordDao.getRecentRecords()
 
-    suspend fun deleteRecord(record: Record) = recordDao.deleteRecord(record)
+    suspend fun deleteRecordAndUpdateBalance(record: Record) = recordDao.deleteRecordAndUpdateBalance(record)
 
     suspend fun getNumOfBooks() = bookDao.getNumOfBooks()
 }

@@ -70,11 +70,11 @@ class EditRecordViewModel @Inject constructor(private val repo: EditRecordRepo) 
 
     /**
      * 更新记录
-     * @param record Record
+     * @param newRecord Record
      */
-    fun updateRecord(record: Record) {
+    fun updateRecord(newRecord: Record, oldRecord: Record) {
         viewModelScope.launch {
-            repo.updateRecord(record)
+            repo.updateRecordAndBalance(newRecord, oldRecord)
         }
     }
 

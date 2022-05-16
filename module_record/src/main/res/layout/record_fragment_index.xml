@@ -225,7 +225,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:letterSpacing="0.05"
-                        android:text="99,999,999.99"
+                        tools:text="99,999,999.99"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"

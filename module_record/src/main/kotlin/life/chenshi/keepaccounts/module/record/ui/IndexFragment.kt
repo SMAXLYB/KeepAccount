@@ -97,8 +97,8 @@ class IndexFragment : Fragment() {
             legend.isEnabled = false
         }
 
-        // mBinding.lcAssetsChanges.xAxis.isEnabled = false
-        // mBinding.lcAssetsChanges.axisLeft.isEnabled = false
+        mBinding.lcAssetsChanges.xAxis.isEnabled = false
+        mBinding.lcAssetsChanges.axisLeft.isEnabled = false
         mBinding.lcAssetsChanges.axisRight.isEnabled = false
     }
 
@@ -222,11 +222,11 @@ class IndexFragment : Fragment() {
                         )
                         val netAssetsDaily = daily.associateBy({ it.getDate() }, { it.getNetAssets() })
 
-                        var negative = false // 假设全是正数
+                        var negative = true // 假设全是负数, 全负数才需要反转
                         val size = emptyEntities.size - 1
                         for (i in size downTo 0) {
-                            if (balance.compareTo(BigDecimal("0.00")) == -1) {
-                                negative = true
+                            if (balance.compareTo(BigDecimal("0.00")) != -1) {
+                                negative = false
                             }
                             emptyEntities[i].y = balance.toFloat()
                             balance = balance.subtract(netAssetsDaily[i + 1] ?: BigDecimal("0.00"))

@@ -53,7 +53,7 @@ class IndexViewModel @Inject constructor(private val indexRepo: IndexRepo) : Vie
     suspend fun convert2RecordListGroupByDay(originList: List<RecordWithCategoryBean>): List<List<RecordWithCategoryBean>> =
         withContext(Dispatchers.Default) {
             // 首次使用应用时数据库无数据
-            if (originList.isNullOrEmpty()) {
+            if (originList.isEmpty()) {
                 return@withContext Collections.emptyList()
             }
             var listAfterFilter = originList
@@ -109,7 +109,7 @@ class IndexViewModel @Inject constructor(private val indexRepo: IndexRepo) : Vie
      */
     fun deleteRecord(record: Record) {
         viewModelScope.launch {
-            indexRepo.deleteRecord(record)
+            indexRepo.deleteRecordAndUpdateBalance(record)
         }
     }
 

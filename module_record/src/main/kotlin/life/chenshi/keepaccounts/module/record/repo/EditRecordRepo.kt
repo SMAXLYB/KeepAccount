@@ -23,7 +23,8 @@ class EditRecordRepo @Inject constructor(
 
     suspend fun insertRecordAndUpdateUseRate(record: Record) = recordDao.insertRecordAndUpdateUseRate(record)
 
-    suspend fun updateRecord(record: Record) = recordDao.updateRecord(record)
+    suspend fun updateRecordAndBalance(newRecord: Record, oldRecord: Record) =
+        recordDao.updateRecordAndBalance(newRecord, oldRecord)
 
     suspend fun getMinorCategoryBy(state: Int, minorCategoryId: Int) =
         minorCategoryDao.getMinorCategoryBy(state, minorCategoryId)
