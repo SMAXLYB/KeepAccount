@@ -8,3 +8,7 @@ android {
         dataBinding = true
     }
 }
+
+dependencies {
+    implementation(Libs.flexLayout)
+}

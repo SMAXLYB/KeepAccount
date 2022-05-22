@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/assetsAccountFragment"
-        android:name="life.chenshi.keepaccounts.module.setting.ui.AssetsAccountFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.assets.AssetsAccountFragment"
         android:label="AssetsAccountFragment"
         tools:layout="@layout/setting_fragment_assets_account">
         <action
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/editAssetsAccountFragment"
-        android:name="life.chenshi.keepaccounts.module.setting.ui.EditAssetsAccountFragment"
+        android:name="life.chenshi.keepaccounts.module.setting.ui.assets.EditAssetsAccountFragment"
         android:label="AddAssetsAccountFragment"
         tools:layout="@layout/setting_fragment_edit_assets_account">
         <argument

@@ -11,7 +11,9 @@ import life.chenshi.keepaccounts.module.common.base.BaseViewModel
 import life.chenshi.keepaccounts.module.common.constant.CURRENT_ASSET_ACCOUNT_ID
 import life.chenshi.keepaccounts.module.common.database.entity.AssetsAccount
 import life.chenshi.keepaccounts.module.common.utils.BigDecimalUtil
+import life.chenshi.keepaccounts.module.common.utils.ifNullOrBlank
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
+import life.chenshi.keepaccounts.module.setting.bean.assets.IAssetIcon
 import life.chenshi.keepaccounts.module.setting.repo.AssetsAccountRepo
 import java.util.*
 import javax.inject.Inject
@@ -20,7 +22,7 @@ import javax.inject.Inject
 class EditAssetsAccountViewModel @Inject constructor(private val repo: AssetsAccountRepo) : BaseViewModel() {
 
     val assetsAccount = MutableLiveData<AssetsAccount>()
-
+    val assetType = ObservableField<IAssetIcon>()
     val assetName = ObservableField<String>()
     val assetNumber = ObservableField<String>()
     val assetRemark = ObservableField<String>()
@@ -35,9 +37,10 @@ class EditAssetsAccountViewModel @Inject constructor(private val repo: AssetsAcc
             assetName.get() ?: "",
             BigDecimalUtil.fromString(assetBalance.get()),
             assetRemark.get(),
-            assetNumber.get(),
+            assetNumber.get().ifNullOrBlank { null },
             includedInAll.get(),
-            Date(assetExpireDate.get())
+            Date(assetExpireDate.get()),
+            assetType.get()?.name ?: ""
         )
         assetsAccount.value?.createTime?.let {
             assets.createTime = it

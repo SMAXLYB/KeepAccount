@@ -31,4 +31,5 @@ data class AssetsAccount constructor(
     val includedInAllAsset: Boolean,
     @ColumnInfo(name = "expire_time")
     val expireTime: Date,
+    val type: String
 ) : BaseEntity()

@@ -43,4 +43,5 @@ dependencies {
     api(Libs.room_runtime)
     implementation(Libs.room)
     kapt(Libs.room_compiler)
+    api(Libs.coil)
 }

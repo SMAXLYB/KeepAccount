@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
@@ -16,6 +17,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.core.graphics.ColorUtils
 import life.chenshi.keepaccounts.module.common.R
 
 /*------------------属性-------------------------*/
@@ -89,7 +91,8 @@ fun ImageView.setVisibleWithDrawable(drawable: Drawable? = null) {
 fun View.setShapeWithRippleBackground(
     cornerSize: Float,
     @ColorInt backgroundColor: Int,
-    @ColorInt rippleColor: Int
+    @ColorInt rippleColor: Int,
+    isGradient: Boolean = false
 ) {
     val stateList = arrayOf(
         intArrayOf(android.R.attr.state_pressed),
@@ -117,10 +120,25 @@ fun View.setShapeWithRippleBackground(
     // maskDrawable.paint.style = Paint.Style.FILL
 
     // 内容
-    val contentDrawable = ShapeDrawable()
-    contentDrawable.shape = roundRectShape
-    contentDrawable.paint.color = backgroundColor
-    contentDrawable.paint.style = Paint.Style.FILL
+    val contentDrawable = if (isGradient) {
+        GradientDrawable(
+            GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(
+                backgroundColor,
+                ColorUtils.setAlphaComponent(backgroundColor, 180)
+            )
+        ).apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = cornerSize
+        }
+    } else {
+        ShapeDrawable().apply {
+            shape = roundRectShape
+            paint.color = backgroundColor
+            paint.style = Paint.Style.FILL
+        }
+    }
+
+
 
     this.background = RippleDrawable(colorStateList, contentDrawable, null)
 }

@@ -1,7 +1,10 @@
-package life.chenshi.keepaccounts.module.setting.ui
+package life.chenshi.keepaccounts.module.setting.ui.assets
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -11,10 +14,14 @@ import life.chenshi.keepaccounts.module.common.utils.navController
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.setting.R
 import life.chenshi.keepaccounts.module.setting.adapter.AssetsAccountAdapter
+import life.chenshi.keepaccounts.module.setting.adapter.AssetsAccountAdapter.Companion.TRANSITION_NAME_BACKGROUND
+import life.chenshi.keepaccounts.module.setting.adapter.AssetsAccountAdapter.Companion.TRANSITION_NAME_LOGO
+import life.chenshi.keepaccounts.module.setting.adapter.AssetsAccountAdapter.Companion.TRANSITION_NAME_TITLE
 import life.chenshi.keepaccounts.module.setting.adapter.AssetsAccountFooterAdapter
 import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentAssetsAccountBinding
 import life.chenshi.keepaccounts.module.setting.vm.AllSettingViewModel
 import life.chenshi.keepaccounts.module.setting.vm.AssetsAccountViewModel
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,10 +56,22 @@ class AssetsAccountFragment : NavBindingFragment<SettingFragmentAssetsAccountBin
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition(100L, TimeUnit.MILLISECONDS)
+    }
+
     override fun initListener() {
-        mAdapter.setOnItemClickListener { _, item, _ ->
-            val direction = AssetsAccountFragmentDirections.settingActionAssetsaccountfragmentToEditassetsaccountfragment(item)
-            navController?.navigate(direction)
+        mAdapter.setOnItemClickListener { binding, item, _ ->
+            val direction =
+                AssetsAccountFragmentDirections.settingActionAssetsaccountfragmentToEditassetsaccountfragment(item)
+            navController?.navigate(
+                direction, FragmentNavigatorExtras(
+                    binding.card to TRANSITION_NAME_BACKGROUND,
+                    binding.sivAssetsLogo to TRANSITION_NAME_LOGO,
+                    binding.tvAssetsName to TRANSITION_NAME_TITLE
+                )
+            )
         }
 
         mAdapter.setOnItemLongClickListener { _, assetsAccount, _ ->

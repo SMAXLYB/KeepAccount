@@ -27,7 +27,6 @@ dependencies {
     /**-------------------第三方库依赖--------------------**/
 
     implementation(Libs.swipeRefreshLayout)
-    implementation(Libs.coil)
 
     // 内存泄漏
     debugImplementation(Libs.leakCanary)

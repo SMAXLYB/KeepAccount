@@ -41,6 +41,7 @@ object Version {
     const val bus = "1.7.3"
     const val chart = "3.1.0"
     const val dateTimePicker = "0.5.7"
+    const val flexLayout = "3.0.0"
 }
 
 /**
@@ -50,6 +51,7 @@ object Libs {
     // base
     const val core_ktx = "androidx.core:core-ktx:${Version.core_ktx}"
     const val appcompat = "androidx.appcompat:appcompat:${Version.appcompat}"
+
     // const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
     const val recyclerview = "androidx.recyclerview:recyclerview:${Version.recyclerview}"
     const val coil = "io.coil-kt:coil:${Version.coil}"
@@ -129,5 +131,8 @@ object Libs {
 
     // DateTimePicker
     const val dateTimePicker = "com.github.loperSeven:DateTimePicker:${Version.dateTimePicker}"
+
+    // flexLayout
+    const val flexLayout = "com.google.android.flexbox:flexbox:${Version.flexLayout}"
 }
 

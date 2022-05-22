@@ -1,25 +1,34 @@
-package life.chenshi.keepaccounts.module.setting.ui
+package life.chenshi.keepaccounts.module.setting.ui.assets
 
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.transition.ChangeBounds
+import androidx.transition.Transition
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.base.NavBindingFragment
+import life.chenshi.keepaccounts.module.common.constant.ASSET_ICON
 import life.chenshi.keepaccounts.module.common.constant.CURRENT_ASSET_ACCOUNT_ID
-import life.chenshi.keepaccounts.module.common.utils.ToastUtil
-import life.chenshi.keepaccounts.module.common.utils.getColorFromAttr
-import life.chenshi.keepaccounts.module.common.utils.navController
-import life.chenshi.keepaccounts.module.common.utils.setNoDoubleClickListener
+import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
 import life.chenshi.keepaccounts.module.setting.R
+import life.chenshi.keepaccounts.module.setting.adapter.AssetsAccountAdapter.Companion.TRANSITION_NAME_BACKGROUND
+import life.chenshi.keepaccounts.module.setting.adapter.AssetsAccountAdapter.Companion.TRANSITION_NAME_LOGO
+import life.chenshi.keepaccounts.module.setting.adapter.AssetsAccountAdapter.Companion.TRANSITION_NAME_TITLE
+import life.chenshi.keepaccounts.module.setting.bean.assets.IAssetIcon
 import life.chenshi.keepaccounts.module.setting.databinding.SettingFragmentEditAssetsAccountBinding
+import life.chenshi.keepaccounts.module.setting.util.AssetIconManager
 import life.chenshi.keepaccounts.module.setting.vm.AllSettingViewModel
 import life.chenshi.keepaccounts.module.setting.vm.EditAssetsAccountViewModel
 
@@ -38,6 +47,33 @@ class EditAssetsAccountFragment : NavBindingFragment<SettingFragmentEditAssetsAc
         args.assetsAccount?.let {
             mAssetsViewModel.assetsAccount.value = it
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        sharedElementEnterTransition = createSharedElementTransition(200L)
+        sharedElementReturnTransition = createSharedElementTransition(200L)
+    }
+
+    private fun createSharedElementTransition(time: Long): Transition {
+        return transitionTogether {
+            duration = time
+            interpolator = FAST_OUT_SLOW_IN
+            this += ChangeBounds()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 延迟播放动画, 等数据加载好
+        // postponeEnterTransition(100L, TimeUnit.MILLISECONDS)
+
+        ViewCompat.setTransitionName(binding.card, TRANSITION_NAME_BACKGROUND)
+        ViewCompat.setTransitionName(binding.sivAssetsLogo, TRANSITION_NAME_LOGO)
+        ViewCompat.setTransitionName(binding.tvAssetsName, TRANSITION_NAME_TITLE)
+
     }
 
     override fun onResume() {
@@ -81,6 +117,12 @@ class EditAssetsAccountFragment : NavBindingFragment<SettingFragmentEditAssetsAc
             ToastUtil.showShort("资产名称不能为空")
             return false
         }
+
+        if (mAssetsViewModel.assetType.get().isNull()) {
+            ToastUtil.showShort("请选择资产类型")
+            return false
+        }
+
         return true
     }
 
@@ -99,12 +141,21 @@ class EditAssetsAccountFragment : NavBindingFragment<SettingFragmentEditAssetsAc
                 assetExpireDate.set(it.expireTime.time)
                 assetBalance.set(it.balance.toPlainString())
                 includedInAll.set(it.includedInAllAsset)
+                assetType.set(AssetIconManager.get(it.type))
                 usedDefault.set(KVStoreHelper.read(CURRENT_ASSET_ACCOUNT_ID, -1L) == it.id)
             }
+        }
+        LiveEventBus.get(ASSET_ICON, IAssetIcon::class.java).observe(viewLifecycleOwner) {
+            mAssetsViewModel.assetType.set(it)
         }
     }
 
     override fun initListener() {
+        binding.sivAssetsLogo.setNoDoubleClickListener {
+            listener {
+                SelectAssetIconDialogFragment().show(childFragmentManager, this::class.simpleName)
+            }
+        }
         binding.tvDate.setNoDoubleClickListener {
             listener {
                 CardDatePickerDialog.builder(requireContext())

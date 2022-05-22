@@ -412,13 +412,12 @@ class EditRecordFragment : NavBindingFragment<RecordFragmentEditRecordBinding>()
         }
 
         // 监听类型选中
-        LiveEventBus.get(CATEGORY, AbstractCategory::class.java)
-            .observe(this) { abstractCategory ->
-                // 先更新集合
-                mEditRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory)
-                // 后更新选中
-                mEditRecordViewModel.currentAbstractCategory.value = abstractCategory
-            }
+        LiveEventBus.get(CATEGORY, AbstractCategory::class.java).observe(viewLifecycleOwner) { abstractCategory ->
+            // 先更新集合
+            mEditRecordViewModel.insertIfNotExistInCommonCategory(abstractCategory)
+            // 后更新选中
+            mEditRecordViewModel.currentAbstractCategory.value = abstractCategory
+        }
     }
 
     /**
