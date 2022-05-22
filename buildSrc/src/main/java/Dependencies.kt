@@ -2,8 +2,8 @@ object Sdk {
     const val compile_sdk_version = 31
     const val mini_sdk_version = 21
     const val target_sdk_version = 31
-    const val version_code = 3
-    const val version_name = "alpha-0.0.3"
+    const val version_code = 4
+    const val version_name = "alpha-0.0.4"
 }
 
 /**
