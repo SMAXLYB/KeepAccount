@@ -110,7 +110,7 @@ private fun SplashActivityScreen(
     val counterState by viewModel.counter.collectAsState()
     Box(
         Modifier
-            .background(color = colorResource(id = R.color.common_blue_500))
+            .background(color = colorResource(id = R.color.common_white))
             .fillMaxWidth()
             .fillMaxHeight(),
         Alignment.Center
@@ -118,7 +118,7 @@ private fun SplashActivityScreen(
         Button(
             onClick = onClick,
             elevation = null,
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black.copy(alpha = 0.15f)),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black.copy(alpha = 0.25f)),
             modifier = Modifier
                 .padding(horizontal = 20.dp, vertical = 36.dp)
                 .align(Alignment.TopEnd)
