@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.FrameLayout
 import android.widget.PopupWindow
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -30,11 +31,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import life.chenshi.keepaccounts.library.view.guide.GuideView
 import life.chenshi.keepaccounts.module.common.adapter.IndexRecordAdapter
-import life.chenshi.keepaccounts.module.common.constant.PATH_SETTING_ASSETS
-import life.chenshi.keepaccounts.module.common.constant.Path
-import life.chenshi.keepaccounts.module.common.constant.SWITCHER_CONFIRM_BEFORE_DELETE
-import life.chenshi.keepaccounts.module.common.constant.navTo
+import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.database.entity.Record
 import life.chenshi.keepaccounts.module.common.service.ISettingRouterService
 import life.chenshi.keepaccounts.module.common.utils.*
@@ -83,6 +82,32 @@ class IndexFragment : Fragment() {
             val height =
                 mBinding.rootView.bottom - mBinding.hsv.bottom - StatusBarUtil.getStatusBarHeight() - 50.dp2px()/*Tab栏高度*/
             behavior?.peekHeight = height
+            if (KVStoreHelper.read(APP_SHOW_USER_GUIDE, true)) {
+                GuideView(requireContext())
+                    .setRootView(requireActivity().window.decorView as FrameLayout)
+                    .addGuideParameter {
+                        setHighlight {
+                            view = mBinding.clNewRecord
+                            paddingHorizontal = 10f
+                            paddingVertical = 10f
+                        }
+                        setTip {
+                            viewId = R.layout.record_layout_guide_new_record
+                        }
+                    }
+                    .addGuideParameter {
+                        setHighlight {
+                            view = mBinding.card
+                            paddingHorizontal = 10f
+                            paddingVertical = 10f
+                        }
+                        setTip {
+                            viewId = R.layout.record_layout_guide_assets
+                        }
+                    }
+                    .show()
+                KVStoreHelper.write(APP_SHOW_USER_GUIDE, false)
+            }
         }
         mBinding.rvBudget.layoutManager = LinearLayoutManager(activity)
         mAdapter = IndexRecordAdapter(emptyList())

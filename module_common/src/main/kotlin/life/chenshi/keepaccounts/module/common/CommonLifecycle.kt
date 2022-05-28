@@ -7,7 +7,6 @@ import com.google.auto.service.AutoService
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_LOADED
 import life.chenshi.keepaccounts.module.common.constant.APP_FIRST_USE_TIME
 import life.chenshi.keepaccounts.module.common.constant.DAY_NIGHT_MODE
 import life.chenshi.keepaccounts.module.common.crash.GlobalCrashHandler
@@ -46,8 +45,7 @@ class CommonLifecycle : ApplicationLifecycle {
     }
 
     private fun setFirstLoadedState() {
-        takeIf { KVStoreHelper.read(APP_FIRST_LOADED, true) }?.run {
-            KVStoreHelper.write(APP_FIRST_LOADED, false)
+        KVStoreHelper.read(APP_FIRST_USE_TIME, 0).takeIf { it == 0 }?.let {
             KVStoreHelper.write(APP_FIRST_USE_TIME, System.currentTimeMillis())
         }
     }

@@ -3,7 +3,7 @@ package life.chenshi.keepaccounts.module.common.constant
 /**
  * 应用加载常量
  */
-const val APP_FIRST_LOADED = "first_loaded"
+const val APP_SHOW_USER_GUIDE = "show_user_guide"
 const val APP_FIRST_USE_TIME = "first_use_time"
 
 /**

@@ -2,6 +2,7 @@ package life.chenshi.keepaccounts.module.search.ui
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,6 +12,8 @@ import androidx.lifecycle.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import life.chenshi.keepaccounts.library.view.guide.Constraint
+import life.chenshi.keepaccounts.library.view.guide.GuideView
 import life.chenshi.keepaccounts.module.common.adapter.IndexRecordAdapter
 import life.chenshi.keepaccounts.module.common.base.BaseActivity
 import life.chenshi.keepaccounts.module.common.constant.*
@@ -119,7 +122,7 @@ class SearchActivity : BaseActivity() {
         mBinding.tvSearchFilterMoney.setOnClickListener {}
 
         // 排序
-        mBinding.tvSearchFilterOrder.setNoDoubleClickListener{
+        mBinding.tvSearchFilterOrder.setNoDoubleClickListener {
             share = true
             listener {
                 val view =
@@ -226,5 +229,23 @@ class SearchActivity : BaseActivity() {
             ToastUtil.showShort("请输入有效关键字")
             stopRefreshing()
         }
+    }
+
+    fun test() {
+        GuideView(this)
+            .setRootView(this.window.decorView as FrameLayout)
+            .setInterceptBackPressed(true)
+            .addGuideParameter {
+                setHighlight {
+                    paddingVertical = 0f
+                    paddingHorizontal = 0f
+                }
+                setTip {
+                    constraints {
+                        Constraint.TopToTopOfHighlight(34f) + Constraint.BottomToBottomOfHighlight(12f)
+                    }
+                }
+            }
+            .show()
     }
 }

@@ -23,7 +23,6 @@ dependencies {
     // viewModel
     api(Libs.lifecycle_viewModel)
     api(Libs.fragment_ktx)
-    api(Libs.core_ktx)
     api(Libs.appcompat)
     api(Libs.constraintLayout)
     api(Libs.recyclerview)

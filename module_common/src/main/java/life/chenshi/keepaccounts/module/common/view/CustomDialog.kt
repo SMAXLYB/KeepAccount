@@ -163,7 +163,7 @@ class CustomDialog private constructor() : DialogFragment() {
             return dialog
         }
 
-        fun doAfterShow(work: (ViewDataBinding?) -> Unit) : Builder {
+        fun doAfterShow(work: (ViewDataBinding?) -> Unit): Builder {
             params.doAfterShow = work
             return this
         }
