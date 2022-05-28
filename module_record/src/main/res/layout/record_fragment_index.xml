@@ -165,30 +165,30 @@
                                 app:layout_constraintStart_toStartOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cl_budget"
-                            style="@style/Record_IndexShortcuts_ConstraintLayout">
+                        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                        <!--    android:id="@+id/cl_budget"-->
+                        <!--    style="@style/Record_IndexShortcuts_ConstraintLayout">-->
 
-                            <com.google.android.material.imageview.ShapeableImageView
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_margin="10dp"
-                                android:background="?colorPrimary"
-                                android:src="@drawable/record_index_icon_budget"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:shapeAppearanceOverlay="@style/CommonRoundedCornerImageStyle" />
+                        <!--    <com.google.android.material.imageview.ShapeableImageView-->
+                        <!--        android:layout_width="45dp"-->
+                        <!--        android:layout_height="45dp"-->
+                        <!--        android:layout_margin="10dp"-->
+                        <!--        android:background="?colorPrimary"-->
+                        <!--        android:src="@drawable/record_index_icon_budget"-->
+                        <!--        app:layout_constraintStart_toStartOf="parent"-->
+                        <!--        app:layout_constraintTop_toTopOf="parent"-->
+                        <!--        app:shapeAppearanceOverlay="@style/CommonRoundedCornerImageStyle" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                android:text="设置每月预算"
-                                android:textColor="?colorOnSurface"
-                                android:textSize="16sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <!--    <TextView-->
+                        <!--        android:layout_width="wrap_content"-->
+                        <!--        android:layout_height="wrap_content"-->
+                        <!--        android:layout_margin="10dp"-->
+                        <!--        android:text="设置每月预算"-->
+                        <!--        android:textColor="?colorOnSurface"-->
+                        <!--        android:textSize="16sp"-->
+                        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--        app:layout_constraintStart_toStartOf="parent" />-->
+                        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/cl_search"
