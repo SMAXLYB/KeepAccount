@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/CommonLaunchTheme">
         <activity
-            android:name="life.chenshi.keepaccounts.module.record.ui.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

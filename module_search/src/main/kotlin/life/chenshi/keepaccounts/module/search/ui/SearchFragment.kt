@@ -1,46 +1,62 @@
 package life.chenshi.keepaccounts.module.search.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import life.chenshi.keepaccounts.module.common.adapter.IndexRecordAdapter
-import life.chenshi.keepaccounts.module.common.base.BaseActivity
+import life.chenshi.keepaccounts.module.common.base.BaseFragment
 import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.search.R
-import life.chenshi.keepaccounts.module.search.databinding.SearchActivitySearchBinding
+import life.chenshi.keepaccounts.module.search.databinding.SearchFragmentSearchBinding
 import life.chenshi.keepaccounts.module.search.vm.SearchViewModel
 
 @AndroidEntryPoint
-class SearchActivity : BaseActivity() {
+class SearchFragment : BaseFragment() {
 
-    private val mBinding by bindingContentView<SearchActivitySearchBinding>(R.layout.search_activity_search)
+    private lateinit var mBinding: SearchFragmentSearchBinding
     private val mSearchViewModel by viewModels<SearchViewModel>()
     private var mAdapter: IndexRecordAdapter? = null
 
     companion object {
-        private const val TAG = "SearchActivity"
+        private const val TAG = "SearchFragment"
     }
 
-    override fun initView(savedInstanceState: Bundle?) {
-        mBinding.rvSearchRecords.layoutManager = LinearLayoutManager(this)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.search_fragment_search, container, false)
+        return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initObserver()
+        initListener()
+    }
+
+    private fun initView() {
+        mBinding.rvSearchRecords.layoutManager = LinearLayoutManager(requireContext())
         mAdapter = IndexRecordAdapter(emptyList())
         mBinding.rvSearchRecords.adapter = mAdapter
     }
 
-    override fun initListener() {
+    private fun initListener() {
 
         // 返回键
         mBinding.ivSearchBack.setOnClickListener {
-            finish()
+            onBackPressed()
         }
 
         // 关键字变化
@@ -86,7 +102,7 @@ class SearchActivity : BaseActivity() {
             listener {
                 val view =
                     layoutInflater.inflate(R.layout.search_bottom_sheet_type, null) as ConstraintLayout
-                val bottomSheetDialog = BottomSheetDialog(this@SearchActivity, R.style.CommonBottomSheetDialog)
+                val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.CommonBottomSheetDialog)
                     .apply {
                         setContentView(view)
                         setCancelable(true)
@@ -124,7 +140,7 @@ class SearchActivity : BaseActivity() {
             listener {
                 val view =
                     layoutInflater.inflate(R.layout.search_bottom_sheet_order, null) as ConstraintLayout
-                val bottomSheetDialog = BottomSheetDialog(this@SearchActivity, R.style.CommonBottomSheetDialog)
+                val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.CommonBottomSheetDialog)
                     .apply {
                         setContentView(view)
                         setCancelable(true)
@@ -163,16 +179,16 @@ class SearchActivity : BaseActivity() {
         }
     }
 
-    override fun initObserver() {
+    private fun initObserver() {
         mSearchViewModel.apply {
             // 类型变化
-            filterType.observe(this@SearchActivity) {
+            filterType.observe(viewLifecycleOwner) {
                 recordsByKeywordLiveData.apply {
                     value = value ?: emptyList()
                 }
             }
 
-            filterOrder.observe(this@SearchActivity) {
+            filterOrder.observe(viewLifecycleOwner) {
                 recordsByKeywordLiveData.apply {
                     value = value ?: emptyList()
                 }
@@ -182,7 +198,7 @@ class SearchActivity : BaseActivity() {
             recordsByKeywordLiveData.map {
                 mBinding.srlSearchRefresh.isRefreshing = true
                 convert2RecordListGroupByDay(it)
-            }.observe(this@SearchActivity) {
+            }.observe(viewLifecycleOwner) {
                 if (it.isEmpty()) {
                     showEmptyHintView()
                 } else {

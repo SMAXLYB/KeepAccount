@@ -66,6 +66,9 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // 声明多维度 对flavor进行分组, 从哪些维度区分apk, 可以从是否收费/上架市场/运行环境等等作为维度
         flavorDimensions.add("environment")
+
+
+        vectorDrawables.useSupportLibrary = true
     }
 
 
@@ -169,6 +172,8 @@ internal fun LibraryExtension.applyConfig(project: Project) {
         consumerProguardFiles("consumer-rules.pro")
         // 声明多维度 对flavor进行分组, 从哪些维度区分apk, 可以从是否收费/上架市场/运行环境等等作为维度
         flavorDimensions.add("environment")
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     sourceSets {

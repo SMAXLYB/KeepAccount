@@ -3,13 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_nav_main"
-    app:startDestination="@id/searchActivity">
+    app:startDestination="@id/searchFragment">
 
-    <activity
-        android:id="@+id/searchActivity"
-        android:name="life.chenshi.keepaccounts.module.search.ui.SearchActivity"
-        android:label="SearchActivity"
-        tools:layout="@layout/search_activity_search">
-        <deepLink app:uri="keepAccounts://searchActivity" />
-    </activity>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="life.chenshi.keepaccounts.module.search.ui.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>
