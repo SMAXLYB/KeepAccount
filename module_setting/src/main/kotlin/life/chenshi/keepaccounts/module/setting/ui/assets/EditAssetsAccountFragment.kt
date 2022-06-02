@@ -54,30 +54,32 @@ class EditAssetsAccountFragment : NavBindingFragment<SettingFragmentEditAssetsAc
         args.assetsAccount?.let {
             mAssetsViewModel.assetsAccount.value = it
         } ?: kotlin.run {
-            GuideView(requireActivity())
-                .setRootView(requireActivity().window.decorView as FrameLayout)
-                .addGuideParameter {
-                    setHighlight {
-                        viewId = R.id.siv_assets_logo
-                        paddingVertical = 4f
-                        paddingHorizontal = 4f
-                        shape = CircleShape(6f)
-                    }
-                    setTip {
-                        view = TextView(requireActivity()).apply {
-                            text = "点击这里切换图标"
-                            setTextColor(Color.WHITE)
-                            setTextSize(
-                                TypedValue.COMPLEX_UNIT_PX,
-                                requireContext().resources.getDimension(R.dimen.common_text_title)
-                            )
+            binding.sivAssetsLogo.post {
+                GuideView(requireActivity())
+                    .setRootView(requireActivity().window.decorView as FrameLayout)
+                    .addGuideParameter {
+                        setHighlight {
+                            viewId = R.id.siv_assets_logo
+                            paddingVertical = 4f
+                            paddingHorizontal = 4f
+                            shape = CircleShape(6f)
                         }
-                        constraints {
-                            Constraint.StartToEndOfHighlight(20f) + Constraint.BottomToBottomOfHighlight(20f)
+                        setTip {
+                            view = TextView(requireActivity()).apply {
+                                text = "点击这里切换图标"
+                                setTextColor(Color.WHITE)
+                                setTextSize(
+                                    TypedValue.COMPLEX_UNIT_PX,
+                                    requireContext().resources.getDimension(R.dimen.common_text_title)
+                                )
+                            }
+                            constraints {
+                                Constraint.StartToEndOfHighlight(20f) + Constraint.BottomToBottomOfHighlight(20f)
+                            }
                         }
                     }
-                }
-                .show()
+                    .show()
+            }
         }
     }
 

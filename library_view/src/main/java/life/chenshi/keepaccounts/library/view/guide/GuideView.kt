@@ -37,6 +37,10 @@ class GuideView @JvmOverloads constructor(
 
     init {
         setWillNotDraw(false)
+        //three line below enable maskContainer focusable and got focused
+        isFocusable = true
+        isFocusableInTouchMode = true
+        requestFocus()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -146,6 +150,9 @@ class GuideView @JvmOverloads constructor(
     }
 
     private fun dismiss() {
+        isFocusable = false
+        isFocusableInTouchMode = false
+        clearFocus()
         rootViewToAttach?.removeView(this)
         this.removeAllViews()
     }
