@@ -30,7 +30,7 @@ class GuideParameter {
     private var horPaddingToHighlightView = 0f
     private var verPaddingToHighlightView = 0f
 
-    internal val highlightShape = HighlightShape(30f, 30f, 5f)
+    internal var highlightShape: HighlightShape = RectShape(30f, 30f, 5f)
 
     // 引导文案默认和在highlight下方
     private var constraints = listOf(
@@ -46,6 +46,9 @@ class GuideParameter {
         this.highlightView = parameter.view
         this.horPaddingToHighlightView = parameter.paddingHorizontal
         this.verPaddingToHighlightView = parameter.paddingVertical
+        parameter.shape?.let {
+            this.highlightShape = it
+        }
     }
 
     fun setTip(tipParameter: TipParameter.() -> Unit) {
@@ -162,6 +165,8 @@ class GuideParameter {
 
         var paddingVertical = 0f
         var paddingHorizontal = 0f
+
+        var shape: HighlightShape? = null
     }
 
     class TipParameter() {

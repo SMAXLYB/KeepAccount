@@ -7,7 +7,7 @@ import android.graphics.*
  * @param ry y轴曲率半径
  * @param blurRadius 模糊半径
  */
-class HighlightShape(private val rx: Float = 0f, private val ry: Float = 0f, private val blurRadius: Float = 0f) {
+abstract class HighlightShape(private val blurRadius: Float) {
 
     private var paint: Paint = Paint().apply {
         isAntiAlias = true
@@ -23,10 +23,7 @@ class HighlightShape(private val rx: Float = 0f, private val ry: Float = 0f, pri
         }
     }
 
-    fun setRect(rect: RectF) {
-        path.reset()
-        path.addRoundRect(rect, rx, ry, Path.Direction.CW)
-    }
+    abstract fun setRect(rect: RectF)
 
     fun draw(canvas: Canvas) {
         if (path.isEmpty.not()) {

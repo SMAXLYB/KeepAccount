@@ -1,9 +1,13 @@
 package life.chenshi.keepaccounts.module.setting.ui.assets
 
 import android.database.sqlite.SQLiteConstraintException
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
@@ -17,6 +21,9 @@ import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import life.chenshi.keepaccounts.library.view.guide.CircleShape
+import life.chenshi.keepaccounts.library.view.guide.Constraint
+import life.chenshi.keepaccounts.library.view.guide.GuideView
 import life.chenshi.keepaccounts.module.common.base.NavBindingFragment
 import life.chenshi.keepaccounts.module.common.constant.ASSET_ICON
 import life.chenshi.keepaccounts.module.common.constant.CURRENT_ASSET_ACCOUNT_ID
@@ -46,6 +53,31 @@ class EditAssetsAccountFragment : NavBindingFragment<SettingFragmentEditAssetsAc
         binding.lifecycleOwner = viewLifecycleOwner
         args.assetsAccount?.let {
             mAssetsViewModel.assetsAccount.value = it
+        } ?: kotlin.run {
+            GuideView(requireActivity())
+                .setRootView(requireActivity().window.decorView as FrameLayout)
+                .addGuideParameter {
+                    setHighlight {
+                        viewId = R.id.siv_assets_logo
+                        paddingVertical = 4f
+                        paddingHorizontal = 4f
+                        shape = CircleShape(6f)
+                    }
+                    setTip {
+                        view = TextView(requireActivity()).apply {
+                            text = "点击这里切换图标"
+                            setTextColor(Color.WHITE)
+                            setTextSize(
+                                TypedValue.COMPLEX_UNIT_PX,
+                                requireContext().resources.getDimension(R.dimen.common_text_title)
+                            )
+                        }
+                        constraints {
+                            Constraint.StartToEndOfHighlight(20f) + Constraint.BottomToBottomOfHighlight(20f)
+                        }
+                    }
+                }
+                .show()
         }
     }
 

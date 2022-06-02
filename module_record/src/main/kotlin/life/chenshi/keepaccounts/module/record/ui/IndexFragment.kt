@@ -122,8 +122,8 @@ class IndexFragment : Fragment() {
             legend.isEnabled = false
         }
 
-        mBinding.lcAssetsChanges.xAxis.isEnabled = false
-        mBinding.lcAssetsChanges.axisLeft.isEnabled = false
+        mBinding.lcAssetsChanges.xAxis.isEnabled = true
+        mBinding.lcAssetsChanges.axisLeft.isEnabled = true
         mBinding.lcAssetsChanges.axisRight.isEnabled = false
     }
 
