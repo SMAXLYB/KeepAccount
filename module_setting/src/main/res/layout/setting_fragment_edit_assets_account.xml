@@ -169,7 +169,7 @@
                 android:layout_marginTop="20dp"
                 android:drawablePadding="8dp"
                 android:text="名称"
-                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:drawableStartCompat="@drawable/common_title_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/card" />
 
@@ -199,7 +199,7 @@
                 android:layout_marginTop="10dp"
                 android:drawablePadding="8dp"
                 android:text="账号"
-                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:drawableStartCompat="@drawable/common_title_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_name" />
 
@@ -230,7 +230,7 @@
                 android:layout_marginTop="10dp"
                 android:drawablePadding="8dp"
                 android:text="余额"
-                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:drawableStartCompat="@drawable/common_title_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_number" />
 
@@ -261,7 +261,7 @@
                 android:layout_marginBottom="10dp"
                 android:drawablePadding="8dp"
                 android:text="日期"
-                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:drawableStartCompat="@drawable/common_title_hint"
                 app:layout_constraintBottom_toTopOf="@id/tv_date"
                 app:layout_constraintStart_toStartOf="@id/tv_date" />
 
@@ -293,7 +293,7 @@
                 android:layout_marginTop="10dp"
                 android:drawablePadding="8dp"
                 android:text="备注"
-                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:drawableStartCompat="@drawable/common_title_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_balance" />
 
@@ -324,7 +324,7 @@
                 android:layout_marginTop="10dp"
                 android:drawablePadding="8dp"
                 android:text="设置"
-                app:drawableStartCompat="@drawable/setting_item_setting_hint"
+                app:drawableStartCompat="@drawable/common_title_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_remark" />
 

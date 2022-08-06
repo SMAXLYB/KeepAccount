@@ -202,8 +202,11 @@ public class DateUtil {
     }
 
     public static int getDayInThisMonth() {
-        LocalDate localDate = LocalDate.now();
-        return localDate.getDayOfMonth();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DATE, 1);
+        calendar.roll(Calendar.DATE, -1);
+        int days = calendar.get(Calendar.DATE);
+        return days;
     }
 
     /**

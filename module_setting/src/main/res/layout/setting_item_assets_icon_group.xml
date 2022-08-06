@@ -21,7 +21,7 @@
             android:gravity="start"
             android:textColor="?colorOnSurface"
             android:textSize="@dimen/common_text_subtitle"
-            app:drawableStartCompat="@drawable/setting_item_setting_hint"
+            app:drawableStartCompat="@drawable/common_title_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

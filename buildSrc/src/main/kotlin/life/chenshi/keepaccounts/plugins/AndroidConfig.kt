@@ -36,7 +36,6 @@ internal fun Project.applyAndroidBlock(runAsApp: Boolean) {
 internal fun BaseAppModuleExtension.applyConfig(project: Project) {
     resourcePrefix = project.resourcePrefix
 
-    compileSdk = Sdk.compile_sdk_version
 
     sourceSets {
         getByName("main") {
@@ -63,6 +62,9 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
         targetSdk = Sdk.target_sdk_version
         versionCode = Sdk.version_code
         versionName = Sdk.version_name
+        compileSdk = Sdk.compile_sdk_version
+        buildToolsVersion = Sdk.build_tools_version
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // 声明多维度 对flavor进行分组, 从哪些维度区分apk, 可以从是否收费/上架市场/运行环境等等作为维度
         flavorDimensions.add("environment")
@@ -146,8 +148,10 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
     // }
 
     lint {
-        abortOnError = false
-        checkReleaseBuilds = false
+        // abortOnError = false
+        // checkReleaseBuilds = false
+        isAbortOnError = false
+        isCheckReleaseBuilds = false
     }
 
     compileOptions {
@@ -163,11 +167,11 @@ internal fun BaseAppModuleExtension.applyConfig(project: Project) {
 internal fun LibraryExtension.applyConfig(project: Project) {
     resourcePrefix = project.resourcePrefix
 
-    compileSdk = Sdk.compile_sdk_version
-
     defaultConfig {
         minSdk = Sdk.mini_sdk_version
         targetSdk = Sdk.target_sdk_version
+        compileSdk = Sdk.compile_sdk_version
+        buildToolsVersion = Sdk.build_tools_version
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         // 声明多维度 对flavor进行分组, 从哪些维度区分apk, 可以从是否收费/上架市场/运行环境等等作为维度
@@ -181,8 +185,8 @@ internal fun LibraryExtension.applyConfig(project: Project) {
             manifest.srcFile("src/main/AndroidManifest.xml")
             kotlin {
                 /* 升级后exclude失效了, kotlin资源统一放在包名下*/
-                srcDir("src/main/kotlin/life.chenshi.keepaccounts/")
-                // exclude("src/main/kotlin/run_as_app/**")
+                // srcDir("src/main/kotlin/life.chenshi.keepaccounts/")
+                exclude("src/main/kotlin/run_as_app/**")
             }
         }
     }
@@ -240,8 +244,10 @@ internal fun LibraryExtension.applyConfig(project: Project) {
     // }
 
     lint {
-        abortOnError = false
-        checkReleaseBuilds = false
+        // abortOnError = false
+        // checkReleaseBuilds = false
+        isAbortOnError = false
+        isCheckReleaseBuilds = false
     }
 
     compileOptions {

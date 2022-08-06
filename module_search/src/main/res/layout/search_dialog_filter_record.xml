@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="50dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/common_corner_all_small_deep_gray_bg" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- 排序 -->
+                    <TextView
+                        android:id="@+id/tv_search_sort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:drawablePadding="8dp"
+                        android:text="结果排序"
+                        android:textColor="?colorOnSurface"
+                        app:drawableStartCompat="@drawable/common_title_hint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/btg_search_sort_by_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toStartOf="@id/btg_search_sort_by_time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_sort"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_search_sort_by_money_desc"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@drawable/search_btn_selector_bg_surface_checked_primary"
+                            android:letterSpacing="0"
+                            android:padding="0dp"
+                            android:text="金额降序" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_search_sort_by_money_asc"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@drawable/search_btn_selector_bg_surface_checked_primary"
+                            android:letterSpacing="0"
+                            android:padding="0dp"
+                            android:text="金额升序" />
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/btg_search_sort_by_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btg_search_sort_by_money"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_sort"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_search_sort_by_time_desc"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@drawable/search_btn_selector_bg_surface_checked_primary"
+                            android:letterSpacing="0"
+                            android:padding="0dp"
+                            android:text="时间降序" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_search_sort_by_time_asc"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@drawable/search_btn_selector_bg_surface_checked_primary"
+                            android:letterSpacing="0"
+                            android:padding="0dp"
+                            android:text="时间升序" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <!-- 时间范围 -->
+                    <TextView
+                        android:id="@+id/tv_search_time_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="8dp"
+                        android:text="时间范围"
+                        android:textColor="?colorOnSurface"
+                        app:drawableStartCompat="@drawable/common_title_hint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btg_search_sort_by_time" />
+
+                    <TextView
+                        android:id="@+id/tv_search_time_start"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/common_ripple_medium_bg_surface"
+                        android:hint="请选择开始日期"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:padding="12dp"
+                        android:textColor="?colorOnSurface"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@id/tv_search_time_end"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_time_range" />
+
+                    <TextView
+                        android:id="@+id/tv_search_time_end"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/common_ripple_medium_bg_surface"
+                        android:hint="请选择结束日期"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:padding="12dp"
+                        android:textColor="?colorOnSurface"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_search_time_start"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_time_range" />
+
+                    <!-- 金额范围 -->
+                    <TextView
+                        android:id="@+id/tv_search_money_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="8dp"
+                        android:text="金额范围"
+                        android:textColor="?colorOnSurface"
+                        app:drawableStartCompat="@drawable/common_title_hint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_time_start" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_search_money_start"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/common_corner_all_medium_bg_white_border_primary"
+                        android:hint="请输入最低金额"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLength="11"
+                        android:padding="12dp"
+                        android:textCursorDrawable="@null"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@id/et_search_money_end"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_money_range" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_search_money_end"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/common_corner_all_medium_bg_white_border_primary"
+                        android:hint="请输入最高金额"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLength="11"
+                        android:padding="12dp"
+                        android:textCursorDrawable="@null"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/et_search_money_start"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_money_range" />
+
+                    <com.google.android.material.slider.RangeSlider
+                        android:id="@+id/slider_search_money_range"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stepSize="50"
+                        android:valueFrom="0"
+                        android:valueTo="1000"
+                        app:labelBehavior="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/et_search_money_start"
+                        app:thumbElevation="@null"
+                        app:thumbRadius="8dp"
+                        app:trackHeight="3dp"
+                        app:values="@array/search_initial_money_range_values" />
+
+                    <!-- 账户 -->
+                    <TextView
+                        android:id="@+id/tv_search_asset_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="8dp"
+                        android:text="账户范围"
+                        android:textColor="?colorOnSurface"
+                        app:drawableStartCompat="@drawable/common_title_hint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/slider_search_money_range" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cg_search_by_asset_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_asset_account">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_1"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账户1" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_2"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账账户2账户2户2" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_7"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账户2" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_8"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账账户2账户2账户2账户2账户2账户2户2" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <!-- 账本 -->
+                    <TextView
+                        android:id="@+id/tv_search_book"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="8dp"
+                        android:text="账本范围"
+                        android:textColor="?colorOnSurface"
+                        app:drawableStartCompat="@drawable/common_title_hint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cg_search_by_asset_account" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cg_search_by_book"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_book">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_3"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账本1" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_4"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账本账本账本账本账本账本账本账本2" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_5"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账本3" />
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <!-- 类型 -->
+                    <TextView
+                        android:id="@+id/tv_search_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="8dp"
+                        android:text="包含分类"
+                        android:textColor="?colorOnSurface"
+                        app:drawableStartCompat="@drawable/common_title_hint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cg_search_by_book" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cg_search_by_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_category">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_9"
+                            style="@style/Search.Widget.Chip.Entry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="false"
+                            android:text="账本1" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_10"
+                            style="@style/Search.Widget.Chip.Entry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账本账本账本账本账本账本账本账本2" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_11"
+                            style="@style/Search.Widget.Chip.Entry"
+                            android:layout_width="wrap_content"
+                            android:checkable="false"
+                            android:checked="true"
+                            android:layout_height="wrap_content"
+                            android:text="账本3" />
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <!-- 关键词关联开关 -->
+                    <TextView
+                        android:id="@+id/tv_search_associate_to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="8dp"
+                        android:text="关键词关联"
+                        android:textColor="?colorOnSurface"
+                        app:drawableStartCompat="@drawable/common_title_hint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cg_search_by_category" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cg_search_associate_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_associate_to">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_12"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="日期" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_22"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="分类" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_71"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="备注" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_18"
+                            style="@style/Search.Widget.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="金额" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <include
+                        android:id="@+id/divider"
+                        layout="@layout/common_item_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cg_search_associate_to" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/tv_search_cancel"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:backgroundTint="?colorSurface"
+                        android:text="取消"
+                        android:textColor="?colorOnBackground"
+                        app:cornerRadius="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider"
+                        app:rippleColor="@color/common_global_background_gray"
+                        app:strokeColor="?colorPrimary"
+                        app:strokeWidth="1dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/tv_search_reset"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:backgroundTint="?colorSurface"
+                        android:text="重置"
+                        android:textColor="?colorOnBackground"
+                        app:cornerRadius="20dp"
+                        app:layout_constraintEnd_toStartOf="@id/tv_search_confirm"
+                        app:layout_constraintTop_toBottomOf="@id/divider"
+                        app:rippleColor="@color/common_global_background_gray"
+                        app:strokeColor="?colorPrimary"
+                        app:strokeWidth="1dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/tv_search_confirm"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="确定"
+                        android:textColor="@color/common_white"
+                        app:cornerRadius="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</layout>

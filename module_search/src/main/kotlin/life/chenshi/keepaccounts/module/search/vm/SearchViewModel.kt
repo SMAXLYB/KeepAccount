@@ -2,12 +2,12 @@ package life.chenshi.keepaccounts.module.search.vm
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.database.bean.RecordWithCategoryBean
-import life.chenshi.keepaccounts.module.common.database.dao.RecordDao
+import life.chenshi.keepaccounts.module.common.database.entity.AssetsAccount
 import life.chenshi.keepaccounts.module.common.utils.DateUtil
 import life.chenshi.keepaccounts.module.common.utils.storage.DataStoreUtil
 import life.chenshi.keepaccounts.module.search.repo.SearchRepo
@@ -17,14 +17,15 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val repo: SearchRepo) : ViewModel() {
 
-    @Inject
-    lateinit var mRecordDao: RecordDao
+    var keyword: String? = null
+    val sortOptions = arrayListOf<SortOption>()
+    var startTime = MutableLiveData(0L)
+    var endTime = MutableLiveData(0L)
+
+    val allAssetsAccount = MutableLiveData<List<AssetsAccount>>()
 
     // 默认查看全部类型
     val filterType by lazy { MutableLiveData<Int>(SHOW_TYPE_ALL) }
-
-    // 默认不限时间
-    val filterTime by lazy { MutableLiveData<Long>(0) }
 
     // 默认不限金额
     val filterOrder by lazy { MutableLiveData<Int>(SORT_BY_DATE_DESC) }
@@ -35,6 +36,28 @@ class SearchViewModel @Inject constructor(private val repo: SearchRepo) : ViewMo
 
     private val currentBookId =
         DataStoreUtil.readFromDataStore(CURRENT_BOOK_ID, -1)
+
+
+    fun searchRecord() {
+
+    }
+
+    fun getAllAssetsAccountAndBook() {
+        viewModelScope.launch {
+            val assetsAccountsRequest = async {
+                repo.getAllAssetsAccount()
+            }
+            val bookRequest = async {
+                repo.getAllBook()
+            }
+            val assetsAccounts = assetsAccountsRequest.await()
+            val books = bookRequest.await()
+
+            assetsAccounts.collect {
+
+            }
+        }
+    }
 
     fun getRecordByKeyword(keyword: String) {
         if (mTempRecordLiveData != null) {

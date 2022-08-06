@@ -2,6 +2,7 @@ package life.chenshi.keepaccounts.module.common.constant
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 import life.chenshi.keepaccounts.module.common.base.IBaseRouterService
 
@@ -34,6 +35,7 @@ const val PATH_SETTING_ASSETS = "/setting/assets"
 
 // Search模块
 const val SEARCH_MAIN_ACTIVITY = "/search/main_activity"
+const val ROUTE_SEARCH="/search/route"
 
 // Category模块
 const val ROUTE_CATEGORY = "/category/route"

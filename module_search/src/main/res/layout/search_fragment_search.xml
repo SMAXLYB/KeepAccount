@@ -26,9 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/search_box_bg"
                 android:padding="5dp">
 
@@ -52,8 +50,8 @@
                     android:hint="请输入关键字"
                     android:imeOptions="actionSearch"
                     android:lines="1"
-                    android:textColorHint="?colorOnBackground"
                     android:singleLine="true"
+                    android:textColorHint="?colorOnBackground"
                     android:textSize="14sp" />
 
                 <ImageView
@@ -70,7 +68,7 @@
                     tools:visibility="visible" />
 
                 <ImageView
-                    android:id="@+id/iv_search_search"
+                    android:id="@+id/iv_search_filter"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/common_ripple_30dp"
@@ -81,67 +79,14 @@
                     android:src="@drawable/search_icon_filter" />
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:id="@+id/tv_search_filter_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="3dp"
-                    android:text="不限时间"
-                    app:drawableEndCompat="@drawable/common_arrow_down_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_search_filter_type"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_search_filter_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="3dp"
-                    android:text="全部收支"
-                    app:drawableEndCompat="@drawable/common_arrow_down_gray"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_search_filter_money"
-                    app:layout_constraintStart_toEndOf="@id/tv_search_filter_date"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_search_filter_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="3dp"
-                    android:text="不限金额"
-                    app:drawableEndCompat="@drawable/common_arrow_down_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tv_search_filter_order"
-                    app:layout_constraintStart_toEndOf="@id/tv_search_filter_type"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_search_filter_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="3dp"
-                    android:text="时间倒序"
-                    app:drawableEndCompat="@drawable/common_arrow_down_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_search_filter_money"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <!--内容-->
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:layout_marginTop="5dp"
             android:id="@+id/srl_search_refresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -172,10 +117,10 @@
                     android:id="@+id/rv_search_records"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:overScrollMode="never"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:scrollbars="none"
-                    android:overScrollMode="never"
                     tools:listitem="@layout/item_budget" />
             </RelativeLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

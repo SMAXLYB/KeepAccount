@@ -20,6 +20,13 @@ const val SORT_BY_MONEY_ASC = 2;
  */
 const val SORT_BY_MONEY_DESC = 3;
 
+sealed class SortOption {
+    object SortByTimeAsc : SortOption()
+    object SortByTimeDesc : SortOption()
+    object SortByMoneyAsc : SortOption()
+    object SortByMoneyDesc : SortOption()
+}
+
 /**
  * 查看全部
  */

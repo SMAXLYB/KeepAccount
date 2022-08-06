@@ -1,5 +1,6 @@
 object Sdk {
     const val compile_sdk_version = 31
+    const val build_tools_version = "31.0.0"
     const val mini_sdk_version = 21
     const val target_sdk_version = 31
     const val version_code = 3
@@ -10,8 +11,8 @@ object Sdk {
  * 版本号统一管理
  */
 object Version {
-    const val gradle_tools = "7.1.3"
-    const val kotlin = "1.6.10"
+    const val gradle_tools = "7.0.0"
+    const val kotlin = "1.6.21"
     const val lifecycle = "2.4.1"
     const val room = "2.4.2"
     const val navigation = "2.4.2"
@@ -19,7 +20,7 @@ object Version {
     const val compose = "1.1.1"
     const val leakCanary = "2.9.1"
     const val coroutines = "1.5.2"
-    const val coil = "1.4.0"
+    const val coil = "2.1.0"
     const val swipeRefreshLayout = "1.1.0"
     const val core_ktx = "1.8.0"
     const val appcompat = "1.4.2"
@@ -31,7 +32,7 @@ object Version {
     const val constraintLayout = "2.1.4"
     const val fragment_ktx = "1.4.1"
     const val lifecycle_ext = "2.2.0"
-    const val material = "1.5.0"
+    const val material = "1.6.1"
     const val datastore = "1.0.0"
     const val autoService = "1.0.1"
     const val startup = "1.1.0"
@@ -40,7 +41,7 @@ object Version {
     const val mmkv = "1.2.13"
     const val bus = "1.7.3"
     const val chart = "3.1.0"
-    const val dateTimePicker = "0.5.7"
+    const val dateTimePicker = "0.5.8"
     const val flexLayout = "3.0.0"
 }
 

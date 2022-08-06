@@ -58,8 +58,6 @@ class GuideView @JvmOverloads constructor(
         currentParameter?.highlightShape?.draw(canvas)
 
         canvas.restore()
-
-        currentParameter = null
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

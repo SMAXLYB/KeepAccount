@@ -187,7 +187,7 @@ class EditAssetsAccountFragment : NavBindingFragment<SettingFragmentEditAssetsAc
     override fun initListener() {
         binding.sivAssetsLogo.setNoDoubleClickListener {
             listener {
-                SelectAssetIconDialogFragment().show(childFragmentManager, this::class.simpleName)
+                SelectAssetIconDialogFragment.newInstance().show(childFragmentManager, this::class.simpleName)
             }
         }
         binding.tvDate.setNoDoubleClickListener {

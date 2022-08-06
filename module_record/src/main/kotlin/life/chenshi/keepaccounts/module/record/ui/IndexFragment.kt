@@ -13,12 +13,10 @@ import android.widget.PopupWindow
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.ColorUtils
-import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.YAxis
@@ -27,7 +25,6 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -35,6 +32,7 @@ import life.chenshi.keepaccounts.library.view.guide.GuideView
 import life.chenshi.keepaccounts.module.common.adapter.IndexRecordAdapter
 import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.database.entity.Record
+import life.chenshi.keepaccounts.module.common.service.ISearchRouterService
 import life.chenshi.keepaccounts.module.common.service.ISettingRouterService
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.common.utils.storage.KVStoreHelper
@@ -122,8 +120,8 @@ class IndexFragment : Fragment() {
             legend.isEnabled = false
         }
 
-        mBinding.lcAssetsChanges.xAxis.isEnabled = true
-        mBinding.lcAssetsChanges.axisLeft.isEnabled = true
+        mBinding.lcAssetsChanges.xAxis.isEnabled = false
+        mBinding.lcAssetsChanges.axisLeft.isEnabled = false
         mBinding.lcAssetsChanges.axisRight.isEnabled = false
     }
 
@@ -163,18 +161,11 @@ class IndexFragment : Fragment() {
 
         // 搜索
         mBinding.clSearch.setOnClickListener {
-            // td--使用arouter
-            val request = NavDeepLinkRequest.Builder
-                .fromUri("keepAccounts://searchActivity".toUri())
-                .build()
-            findNavController().navigate(request)
+            context?.navTo<ISearchRouterService>()
         }
 
         mBinding.ivSearch.setOnClickListener {
-            val request = NavDeepLinkRequest.Builder
-                .fromUri("keepAccounts://searchActivity".toUri())
-                .build()
-            findNavController().navigate(request)
+            context?.navTo<ISearchRouterService>()
         }
 
         // 查看类型
@@ -353,57 +344,3 @@ class IndexFragment : Fragment() {
         mAdapter = null
     }
 }
-/*
- @SuppressLint("SetTextI18n")
- private fun initObserver() {
-
-     // 查询时间选择监听
-     mIndexViewModel.queryDateLiveData.observe(viewLifecycleOwner) {
-         val calendar = Calendar.getInstance().apply { timeInMillis = it }
-         val year = calendar.get(Calendar.YEAR)
-         val month = calendar.get(Calendar.MONTH) + 1
-         mBinding.indexTime.text = "${year}年${month}月"
-         val monthStart = DateUtil.getMonthStart(it)
-         val monthEnd = DateUtil.getMonthEnd(it)
-         mIndexViewModel.getRecordByDateRange(
-             monthStart, monthEnd
-         )
-         mIndexViewModel.getSumMoneyByDateRange(monthStart, monthEnd)
-             .observe(viewLifecycleOwner) { SumMoneyBeanList ->
-                 // 防止只有收入/支出的时候,另外一个没有变化
-                 mBinding.indexOutcomeInMonth.text = "-0.00"
-                 mBinding.indexIncomeInMonth.text = "+0.00"
-                 SumMoneyBeanList.forEach { bean ->
-                     if (bean.recordType == SHOW_TYPE_OUTCOME) {
-                         mBinding.indexOutcomeInMonth.text = "-${bean.sumMoney}"
-                     } else {
-                         mBinding.indexIncomeInMonth.text = "+${bean.sumMoney}"
-                     }
-                 }
-             }
-     }
-
- private fun showTimePickerDialog() {
-     activity?.let { activity ->
-         CardDatePickerDialog.builder(activity)
-             .showBackNow(false)
-             .setDisplayType(
-                 mutableListOf(
-                     DateTimeConfig.YEAR,//显示年
-                     DateTimeConfig.MONTH,//显示月
-                 )
-             )
-             .setBackGroundModel(CardDatePickerDialog.STACK)
-             .setThemeColor(Color.parseColor("#03A9F4"))
-             .setLabelText(year = "年", month = "月")
-             .setOnChoose { millisecond ->
-                 mBinding.srlIndexRefresh.isRefreshing = true
-                 mIndexViewModel.queryDateLiveData.value = millisecond
-             }
-             .build()
-             .show()
-     }
- }
-
-
- */

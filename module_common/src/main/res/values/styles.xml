@@ -17,6 +17,14 @@
         <item name="android:navigationBarColor">?colorSurface</item>
     </style>
 
+    <style name="CommonBottomSheetDialog.Day" parent="CommonBottomSheetDialog">
+        <item name="android:colorBackground">@color/common_gray_100</item>
+    </style>
+
+    <style name="CommonBottomSheetDialog.Night" parent="CommonBottomSheetDialog">
+        <item name="android:colorBackground">@color/common_gray_900</item>
+    </style>
+
     <!--   ================Divider================== -->
     <style name="CommonIncludeDivider">
         <item name="android:layout_width">match_parent</item>

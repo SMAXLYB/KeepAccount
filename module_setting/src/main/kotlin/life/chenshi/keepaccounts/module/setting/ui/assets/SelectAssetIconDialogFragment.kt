@@ -17,6 +17,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SelectAssetIconDialogFragment : BottomSheetDialogFragment() {
 
+    companion object {
+        fun newInstance(): SelectAssetIconDialogFragment {
+            val args = Bundle()
+            val fragment = SelectAssetIconDialogFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     @Inject
     internal lateinit var mAdapter: AssetIconGroupAdapter
 

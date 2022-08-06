@@ -5,21 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.map
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import life.chenshi.keepaccounts.module.common.adapter.IndexRecordAdapter
 import life.chenshi.keepaccounts.module.common.base.BaseFragment
-import life.chenshi.keepaccounts.module.common.constant.*
 import life.chenshi.keepaccounts.module.common.utils.*
 import life.chenshi.keepaccounts.module.search.R
+import life.chenshi.keepaccounts.module.search.adapter.FilterRecordDialogFragment
 import life.chenshi.keepaccounts.module.search.databinding.SearchFragmentSearchBinding
 import life.chenshi.keepaccounts.module.search.vm.SearchViewModel
 
@@ -62,6 +58,7 @@ class SearchFragment : BaseFragment() {
         // 关键字变化
         mBinding.etSearchKeyword.addTextChangedListener(
             afterTextChanged = {
+                mSearchViewModel.keyword = it.toString()
                 if (it.toString().isNotEmpty()) {
                     mBinding.imSearchClear.visible()
                 } else {
@@ -86,18 +83,13 @@ class SearchFragment : BaseFragment() {
             false
         }
 
-        // 搜索
-        mBinding.ivSearchSearch.setOnClickListener {
-            searchingWithKeyword()
-        }
-
-        // 日期筛选
-        mBinding.tvSearchFilterDate.setOnClickListener {
-
+        // 筛选
+        mBinding.ivSearchFilter.setOnClickListener {
+            FilterRecordDialogFragment.newInstance().show(childFragmentManager, this::class.simpleName)
         }
 
         // 类型筛选
-        mBinding.tvSearchFilterType.setNoDoubleClickListener {
+        /*mBinding.tvSearchFilterType.setNoDoubleClickListener {
             share = true
             listener {
                 val view =
@@ -130,9 +122,6 @@ class SearchFragment : BaseFragment() {
                 }
             }
         }
-
-        // 金额筛选
-        mBinding.tvSearchFilterMoney.setOnClickListener {}
 
         // 排序
         mBinding.tvSearchFilterOrder.setNoDoubleClickListener {
@@ -171,7 +160,7 @@ class SearchFragment : BaseFragment() {
                     }
                 }
             }
-        }
+        }*/
 
         // 下拉刷新
         mBinding.srlSearchRefresh.setOnRefreshListener {
@@ -235,12 +224,6 @@ class SearchFragment : BaseFragment() {
         if (mBinding.etSearchKeyword.hasFocus()) {
             mBinding.etSearchKeyword.clearFocus()
         }
-        val keyword = mBinding.etSearchKeyword.text
-        if (!keyword.isNullOrBlank()) {
-            mSearchViewModel.getRecordByKeyword(keyword.toString())
-        } else {
-            ToastUtil.showShort("请输入有效关键字")
-            stopRefreshing()
-        }
+        mSearchViewModel.searchRecord()
     }
 }
