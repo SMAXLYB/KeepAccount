@@ -1,5 +1,5 @@
 # 简介
-KeepAccounts目前是一款个人练手项目，功能以记账为主。主开发语言是kotlin，采用MVVM Jetpack架构。
+KeepAccounts目前是一款功能以记账为主，主开发语言是kotlin，采用MVVM Jetpack架构的开源Android项目。
 ### 一、工程结构
 - buildSrc
 
